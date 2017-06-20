@@ -2,6 +2,7 @@ package application;
 
 import java.io.IOException;
 
+import application.database.JDBCConnection;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,8 +19,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("AddressApp");
-
+        this.primaryStage.setTitle("Logiserv Studio");
+        JDBCConnection.getInstanceConnection();
         initRootLayout();
 
         showPersonOverview();
