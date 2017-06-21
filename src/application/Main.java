@@ -1,9 +1,11 @@
 package application;
 
 import java.io.IOException;
-
+import application.model.info.*;
 import application.database.JDBCConnection;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -15,7 +17,21 @@ public class Main extends Application {
 	
 	private Stage primaryStage;
     private BorderPane rootLayout;
+    private ObservableList<Empleado> empleadoData = FXCollections.observableArrayList();
 
+    
+    public Main(){
+    	empleadoData.add(new Empleado("Fernando", "Zafe"));
+    	empleadoData.add(new Empleado("Alvaro", "Juarez"));
+    }
+    /**
+     * Returns Empleado Data
+     * @return
+     */
+    public ObservableList<Empleado> getEmpleadoData(){
+    	return empleadoData;
+    }
+    
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
