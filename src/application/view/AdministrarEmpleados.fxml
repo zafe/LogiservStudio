@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.AdministrarEmpleadosController">
    <children>
       <Pane prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -17,10 +16,10 @@
                   <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Label text="Empleados" />
-                        <TableView pickOnBounds="false" prefHeight="233.0" prefWidth="600.0">
+                        <TableView fx:id="empleadoTable" pickOnBounds="false" prefHeight="233.0" prefWidth="600.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="Nombre" />
-                            <TableColumn prefWidth="75.0" text="Apellido" />
+                            <TableColumn fx:id="nombreColumn" prefWidth="75.0" text="Nombre" />
+                            <TableColumn fx:id="apellidoColumn" prefWidth="75.0" text="Apellido" />
                               <TableColumn prefWidth="75.0" text="Domicilio" />
                               <TableColumn prefWidth="90.0" text="Nacimiento" />
                               <TableColumn prefWidth="75.0" text="Hijos" />

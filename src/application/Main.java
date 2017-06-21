@@ -1,5 +1,6 @@
 package application;
 
+import application.view.*;
 import java.io.IOException;
 import application.model.info.*;
 import application.database.JDBCConnection;
@@ -18,7 +19,6 @@ public class Main extends Application {
 	private Stage primaryStage;
     private BorderPane rootLayout;
     private ObservableList<Empleado> empleadoData = FXCollections.observableArrayList();
-
     
     public Main(){
     	empleadoData.add(new Empleado("Fernando", "Zafe"));
@@ -65,14 +65,19 @@ public class Main extends Application {
      * Shows the person overview inside the root layout.
      */
     public void showPersonOverview() {
-        try {
+    	try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/Principal.fxml"));
+            loader.setLocation(Main.class.getResource("view/AdministrarEmpleados.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
 
             // Set person overview into the center of root layout.
             rootLayout.setCenter(personOverview);
+
+            // Give the controller access to the main app.
+            AdministrarEmpleadosController controller = loader.getController();
+            controller.setMainApp(this);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
