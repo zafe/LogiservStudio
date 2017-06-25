@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import application.model.info.Empleado;
 
@@ -13,6 +14,8 @@ public class EmpleadoEditDialogController {
 	private TextField nombreField;
 	@FXML
 	private TextField apellidoField;
+	@FXML
+	private Button aceptarButton;
 
 	private Stage dialogStage;
 	private Empleado empleado;
@@ -41,6 +44,7 @@ public class EmpleadoEditDialogController {
 	public boolean isOkClicked(){
 		return okClicked;
 	}
+	
 
 	@FXML
 	private void handleOk() {
@@ -56,7 +60,10 @@ public class EmpleadoEditDialogController {
 	private void handleCancel() {
 		dialogStage.close();
 	}
-
+	
+	
+	
+	
 	private boolean isInputValid() {
 		String errorMessage = "";
 

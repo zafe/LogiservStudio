@@ -1,6 +1,7 @@
 package application;
 
 import application.view.*;
+import application.repository.info.*;
 import java.io.IOException;
 import application.model.info.*;
 import application.database.JDBCConnection;
@@ -30,7 +31,7 @@ public class Main extends Application {
      * @return
      */
     public ObservableList<Empleado> getEmpleadoData(){
-    	return empleadoData;
+    	return EmpleadoRepository.buscarEmpleados();
     }
     
     @Override
@@ -50,7 +51,7 @@ public class Main extends Application {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/Raiz.fxml"));
+            loader.setLocation(Main.class.getResource("view/Principal.fxml"));
             rootLayout = (BorderPane) loader.load();
 
             // Show the scene containing the root layout.
