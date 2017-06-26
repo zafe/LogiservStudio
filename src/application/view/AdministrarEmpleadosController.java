@@ -1,13 +1,22 @@
 package application.view;
 
-import org.controlsfx.dialog.Dialogs;
+import java.io.IOException;
+
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import application.Main;
 import application.model.info.Empleado;
+import application.repository.info.EmpleadoRepository;
 
 public class AdministrarEmpleadosController {
 
@@ -17,11 +26,12 @@ public class AdministrarEmpleadosController {
 	private TableColumn<Empleado, String> nombreColumn;
 	@FXML
 	private TableColumn<Empleado, String> apellidoColumn;
-
-	private Main main;
-
-	public AdministrarEmpleadosController(){
-
+	private Stage owner;
+	private ObservableList<Empleado> empleadoData = FXCollections.observableArrayList();
+	
+	public void buscarEmpleados(){
+		this.empleadoData = EmpleadoRepository.buscarEmpleados();
+		empleadoTable.setItems(empleadoData);
 	}
 
 
@@ -49,20 +59,40 @@ public class AdministrarEmpleadosController {
 			alert.showAndWait();
 		}
 	}
-
-
-	/**
-	 * Is called by the main application to give a reference back to itself.
-	 * 
-	 * @param mainApp
-	 */
-	public void setMainApp(Main mainApp) {
-		this.main = mainApp;
-
-		// Add observable list data to the table
-		empleadoTable.setItems(mainApp.getEmpleadoData());
+	
+	public void setOwner(Stage owner){
+		this.owner = owner;
+		
 	}
+	public boolean showEmpleadoEditDialog(Empleado empleado) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/EditarEmpleadoDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
 
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Editar Empleado");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(owner);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the person into the controller.
+            EmpleadoEditDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setPerson(empleado);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+ 
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 	/**
 	 * Called when the user clicks the new button. Opens a dialog to edit
 	 * details for a new person.
@@ -70,9 +100,9 @@ public class AdministrarEmpleadosController {
 	@FXML
 	private void handleNewEmpleado() {
 		Empleado tempEmpleado = new Empleado();
-		boolean okClicked = main.showEmpleadoEditDialog(tempEmpleado);
+		boolean okClicked = this.showEmpleadoEditDialog(tempEmpleado);
 		if (okClicked) {
-			main.getEmpleadoData().add(tempEmpleado);
+			empleadoData.add(tempEmpleado);
 		}
 	}
 
@@ -84,7 +114,7 @@ public class AdministrarEmpleadosController {
 	private void handleEditPerson() {
 		Empleado selectedEmpleado = empleadoTable.getSelectionModel().getSelectedItem();
 		if (selectedEmpleado != null) {
-			main.showEmpleadoEditDialog(selectedEmpleado);
+			this.showEmpleadoEditDialog(selectedEmpleado);
 		} else {
 			// Nothing selected.
 			Alert alert = new Alert(AlertType.WARNING);
