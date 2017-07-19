@@ -46,5 +46,31 @@ public class EmpleadoRepository {
 		return empleados;
 		
 	}
+	
+	
+	public static Empleado buscarEmpleadoById(Integer id){
+		
+		Empleado empleado = new Empleado();
+		Statement statement = null;
+		ResultSet resultSet = null;
+		
+		try {
+			statement = JDBCConnection.getInstanceConnection().createStatement();
+			System.out.println("EL ID DEL EMPLEADO ES " + id);
+			resultSet = statement.executeQuery("select * from EMPLEADO where idEmpleado="+id);
+			
+			if(resultSet.next())
+			{
+			empleado.setNombre(resultSet.getString("Nombre"));
+			empleado.setApellido(resultSet.getString("Apellido"));
+			}
+			
+	}catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+		return empleado;
+		}
 
 }

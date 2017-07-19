@@ -42,6 +42,27 @@ public class PrincipalController {
             e.printStackTrace();
         }
     }
+    
+    @FXML
+  	private void showUsuarioOverview() {
+      	try {
+              // Load person overview.
+              FXMLLoader loaderusuario = new FXMLLoader();
+              loaderusuario.setLocation(Main.class.getResource("view/AdministrarUsuarios.fxml"));
+              AnchorPane usuarioOverview = (AnchorPane) loaderusuario.load();
+
+              // Set person overview into the center of root layout.
+              rootLayout.setCenter(usuarioOverview);
+
+              // Give the controller access to the main app.
+              AdministrarUsuariosController usercontroller = loaderusuario.getController();
+              usercontroller.setOwner(primaryStage);
+              usercontroller.buscarUsuarios();
+
+          } catch (IOException e) {
+              e.printStackTrace();
+          }
+      }
 	
 
 }
