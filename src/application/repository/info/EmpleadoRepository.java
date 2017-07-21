@@ -30,7 +30,10 @@ public class EmpleadoRepository {
 			System.out.println("Empleado " + empleado.getNombre() + " " + empleado.getApellido());
 			empleados.add(empleado);
 			}
-			
+			/*
+			 * TODO
+			 * BORRAR ESTA CADENA DE STRINGS
+			 */
 			System.out.println(empleados.get(0).getNombre());
 			System.out.println(empleados.get(1).getNombre());
 			System.out.println(empleados.get(2).getNombre());

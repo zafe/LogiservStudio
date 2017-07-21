@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 import application.Main;
-import application.model.info.Empleado;
 import application.model.info.Usuario;
 import application.repository.info.UsuarioRepository;
 
@@ -25,11 +24,13 @@ public class AdministrarUsuariosController {
 	@FXML
 	private TableView<Usuario> usuarioTable;
 	@FXML
-	private TableColumn<Usuario, String> nombreColumn;
+	private TableColumn<Usuario, String> usuarioColumn;
 	@FXML
 	private TableColumn<Usuario, String> passwordColumn;
 	@FXML
-	private TableColumn<Usuario, Empleado> empleadoColumn;
+	private TableColumn<Usuario, String> nombreColumn;
+	@FXML
+	private TableColumn<Usuario, String> apellidoColumn;
 	
 	private ObservableList<Usuario> usuarioData = FXCollections.observableArrayList();
 	
@@ -42,9 +43,10 @@ public class AdministrarUsuariosController {
 	
 	@FXML
 	private void initialize(){
-		nombreColumn.setCellValueFactory(cellData -> cellData.getValue().nombre_usuarioProperty());
+		usuarioColumn.setCellValueFactory(cellData -> cellData.getValue().nombre_usuarioProperty());
 		passwordColumn.setCellValueFactory(cellData -> cellData.getValue().passwordProperty());
-		empleadoColumn.setCellValueFactory(cellData -> cellData.getValue().empleadoProperty());
+		nombreColumn.setCellValueFactory(cellData -> cellData.getValue().empleadoProperty().getValue().nombreProperty());
+		apellidoColumn.setCellValueFactory(cellData -> cellData.getValue().empleadoProperty().getValue().apellidoProperty());
 		}
 	
 	@FXML

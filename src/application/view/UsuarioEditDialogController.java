@@ -1,12 +1,19 @@
 package application.view;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import application.model.info.Usuario;
+import application.repository.info.EmpleadoRepository;
+import application.model.info.Empleado;
 
 public class UsuarioEditDialogController {
 
@@ -15,14 +22,29 @@ public class UsuarioEditDialogController {
 	@FXML
 	private TextField passwordField;
 	@FXML
+	private TableView<Empleado> empleadoTable;
+	@FXML
+	private TableColumn<Empleado, String> nombreColumn;
+	@FXML
+	private TableColumn<Empleado, String> apellidoColumn;
+	@FXML
+	private TableColumn<Empleado, String> cuitColumn;
+	@FXML
 	private Button aceptarButton;
 
+	private ObservableList<Empleado> empleadoList = EmpleadoRepository.buscarEmpleados();
 	private Stage dialogStage;
 	private Usuario usuario;
 	private boolean okClicked = false;
 
 	@FXML
-	private	void initialize(){}
+	private	void initialize(){
+		empleadoTable.setItems(empleadoList);
+		nombreColumn.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
+		apellidoColumn.setCellValueFactory(cellData -> cellData.getValue().apellidoProperty());
+		//TODO cuitColumn.setCellValueFactory(cellData -> cellData.getValue().);
+		
+		}
 
 	/**
 	 * Sets the stage of this dialog.
@@ -38,9 +60,11 @@ public class UsuarioEditDialogController {
 
 		usuarioField.setText(usuario.getNombre_usuario());
 		passwordField.setText(usuario.getPassword());
+		
 
 	}
-
+	
+	
 	public boolean isOkClicked(){
 		return okClicked;
 	}
