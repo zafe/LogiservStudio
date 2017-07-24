@@ -21,7 +21,31 @@ public class PrincipalController {
 	public void setPrimaryStage(Stage primary){
 		this.primaryStage = primary;
 	}
+//---------------MODULO COMPRA------------------------//
 	
+	@FXML
+	private void showComprasOverview() {
+    	try {
+            // Load person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/CompraCompras.fxml"));
+            AnchorPane personOverview = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(personOverview);
+
+            // Give the controller access to the main app.
+            CompraComprasController controller = loader.getController();
+            controller.setOwner(primaryStage);
+            //TODO CAMBIAR ESTO controller.buscarEmpleados();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+	
+	
+//---------------MODULO ADMINISTRAR-------------------//
     @FXML
 	private void showPersonOverview() {
     	try {
@@ -63,6 +87,8 @@ public class PrincipalController {
               e.printStackTrace();
           }
       }
+    
+    
 	
 
 }

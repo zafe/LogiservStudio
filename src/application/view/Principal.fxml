@@ -52,7 +52,7 @@
                            <children>
                               <VBox prefHeight="433.0" prefWidth="217.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="210.0" text="Compras" />
+                                    <Button mnemonicParsing="false" onAction="#showComprasOverview" prefHeight="27.0" prefWidth="210.0" text="Compras" />
                                     <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="204.0" text="Proveedores" />
                                  </children>
                               </VBox>
