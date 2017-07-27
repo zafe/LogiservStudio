@@ -1,18 +1,22 @@
 package application.model.info;
 
 import application.repository.info.EmpleadoRepository;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Usuario {
 	
+	private final IntegerProperty idUsuario;
 	private final StringProperty nombre_usuario;
 	private final StringProperty password;
 	private final ObjectProperty<Empleado> empleado;
 	
-	public Usuario(String nombre, String password, Integer empleadoId){
+	public Usuario(Integer id, String nombre, String password, Integer empleadoId){
+		this.idUsuario = new SimpleIntegerProperty(id);
 		this.nombre_usuario = new SimpleStringProperty(nombre);
 		this.password = new SimpleStringProperty(password);
 		this.empleado = new SimpleObjectProperty<Empleado>(EmpleadoRepository.buscarEmpleadoById(empleadoId));
@@ -20,7 +24,7 @@ public class Usuario {
 	}
 
 	public Usuario(){
-		this(null, null, null);
+		this(null, null, null, null);
 	}
 	
 	public String getNombre_usuario(){
@@ -56,5 +60,22 @@ public class Usuario {
 	public ObjectProperty<Empleado> empleadoProperty() {
 		return empleado;
 	}
+
+	public final IntegerProperty idUsuarioProperty() {
+		return this.idUsuario;
+	}
+	
+
+	public final int getIdUsuario() {
+		return this.idUsuarioProperty().get();
+	}
+	
+
+	public final void setIdUsuario(final int idUsuario) {
+		this.idUsuarioProperty().set(idUsuario);
+	}
+	
+	
+	
 	
 }

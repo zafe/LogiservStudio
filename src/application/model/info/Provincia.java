@@ -1,18 +1,22 @@
 package application.model.info;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Provincia {
 
+private final IntegerProperty idProvincia;
 private final StringProperty nombre;
 	
-	public Provincia(String nombre){
+	public Provincia(Integer id, String nombre){
+		this.idProvincia = new SimpleIntegerProperty(id);
 		this.nombre = new SimpleStringProperty(nombre);
 	}
 	
 	public Provincia(){
-		this(null);
+		this(null, null);
 	}
 
 	public final StringProperty nombreProperty() {
@@ -28,5 +32,20 @@ private final StringProperty nombre;
 	public final void setNombre(final String nombre) {
 		this.nombreProperty().set(nombre);
 	}
+
+	public final IntegerProperty idProvinciaProperty() {
+		return this.idProvincia;
+	}
+	
+
+	public final int getIdProvincia() {
+		return this.idProvinciaProperty().get();
+	}
+	
+
+	public final void setIdProvincia(final int idProvincia) {
+		this.idProvinciaProperty().set(idProvincia);
+	}
+	
 	
 }

@@ -1,10 +1,13 @@
 package application.model.compra;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Proveedor {
 
+	private final IntegerProperty idProveedor;
 	private final StringProperty nombre;
 	private final StringProperty cuit;
 	private final StringProperty calle;
@@ -12,17 +15,18 @@ public class Proveedor {
 	private final StringProperty localidad;
 	
 	Proveedor(){
-		this(null, null, null, null, null);
+		this(null, null, null, null, null, null);
 	}
 	
-	Proveedor(String nombre, String cuit, String calle, String numero, String localidad){
+	Proveedor(Integer id, String nombre, String cuit, String calle, String numero, String localidad){
+		this.idProveedor = new SimpleIntegerProperty(id);
 		this.nombre = new SimpleStringProperty(nombre);
 		this.cuit = new SimpleStringProperty(cuit);
 		this.calle = new SimpleStringProperty(calle);
 		this.numero = new SimpleStringProperty(numero);
 		this.localidad = new SimpleStringProperty(localidad);
 	}
-
+	
 	public final StringProperty nombreProperty() {
 		return this.nombre;
 	}
@@ -96,6 +100,21 @@ public class Proveedor {
 	public final void setLocalidad(final String localidad) {
 		this.localidadProperty().set(localidad);
 	}
+
+	public final IntegerProperty idProveedorProperty() {
+		return this.idProveedor;
+	}
+	
+
+	public final int getIdProveedor() {
+		return this.idProveedorProperty().get();
+	}
+	
+
+	public final void setIdProveedor(final int idProveedor) {
+		this.idProveedorProperty().set(idProveedor);
+	}
+	
 	
 	
 	
