@@ -14,22 +14,49 @@ public class DetalleCompra {
 	private FloatProperty precioUnitario;
 	private StringProperty articulo_marca;
 	private StringProperty articulo_modelo;
-	
+	private IntegerProperty articuloID;
+	private IntegerProperty facturaCompraArticuloId;
+
+
+	public int getIdDetalleCompra() {
+		return idDetalleCompra.get();
+	}
+
+	public IntegerProperty idDetalleCompraProperty() {
+		return idDetalleCompra;
+	}
+
+	public void setIdDetalleCompra(int idDetalleCompra) {
+		this.idDetalleCompra.set(idDetalleCompra);
+	}
+
+	public int getFacturaCompraArticuloId() {
+		return facturaCompraArticuloId.get();
+	}
+
+	public IntegerProperty facturaCompraArticuloIdProperty() {
+		return facturaCompraArticuloId;
+	}
+
+	public void setFacturaCompraArticuloId(int facturaCompraArticuloId) {
+		this.facturaCompraArticuloId.set(facturaCompraArticuloId);
+	}
+
 	public DetalleCompra(Integer id, Integer cantidad, Float precio, 
-			String articulo_marca, String articulo_modelo){
+			Integer articuloId, String articulo_marca, String articulo_modelo, Integer facturaCompraArticuloId){
 		
 		this.idDetalleCompra = new SimpleIntegerProperty(id);
 		this.cantidad = new SimpleIntegerProperty(cantidad);
 		this.precioUnitario = new SimpleFloatProperty(precio);
+		this.articuloID = new SimpleIntegerProperty(articuloId);
 		this.articulo_marca = new SimpleStringProperty(articulo_marca);
 		this.articulo_modelo = new SimpleStringProperty(articulo_modelo);
-	}
-	
-	
-	public DetalleCompra(){
-		this(null, null, null, null, null);
+		this.facturaCompraArticuloId = new SimpleIntegerProperty(facturaCompraArticuloId);
 	}
 
+	public DetalleCompra() {
+		this(null,null,null,null,null,null,null);
+	}
 
 	public final IntegerProperty idProperty() {
 		return this.idDetalleCompra;
@@ -118,7 +145,17 @@ public class DetalleCompra {
 	public final void setArticulo_modelo(final String articulo_modelo) {
 		this.articulo_modeloProperty().set(articulo_modelo);
 	}
-	
-	
-	
+
+
+	public int getArticuloID() {
+		return articuloID.get();
+	}
+
+	public IntegerProperty articuloIDProperty() {
+		return articuloID;
+	}
+
+	public void setArticuloID(int articuloID) {
+		this.articuloID.set(articuloID);
+	}
 }

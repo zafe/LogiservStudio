@@ -24,7 +24,7 @@ public class CompraCategoriaArticulosController {
 
     @FXML
     private void initialize(){
-        idCategoriaTableColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty());
+        /*idCategoriaTableColumn.setCellValueFactory(cellData -> cellData.getValue().idCategoriaArticuloProperty());*/
         nombreCategoriaTableColumn.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
 
     }
