@@ -7,16 +7,18 @@ import javafx.beans.property.StringProperty;
 
 public class Articulo {
 
+	private final IntegerProperty idArticulo;
 	private final StringProperty marca;
 	private final StringProperty modelo;
 	private final StringProperty descripcion;
 	private final IntegerProperty categoria;
 	
 	public Articulo(){
-		this(null, null, null, null);
+		this(null, null, null, null, null);
 	}
 	
-	public Articulo(String marca, String modelo, String descripcion, Integer categoria){
+	public Articulo(Integer id, String marca, String modelo, String descripcion, Integer categoria){
+		this.idArticulo = new SimpleIntegerProperty(id);
 		this.marca = new SimpleStringProperty(marca);
 		this.modelo = new SimpleStringProperty(modelo);
 		this.descripcion = new SimpleStringProperty(descripcion);
@@ -81,7 +83,20 @@ public class Articulo {
 	public final void setCategoria(final int categoria) {
 		this.categoriaProperty().set(categoria);
 	}
+
+	public final IntegerProperty idArticuloProperty() {
+		return this.idArticulo;
+	}
 	
+
+	public final int getIdArticulo() {
+		return this.idArticuloProperty().get();
+	}
+	
+
+	public final void setIdArticulo(final int idArticulo) {
+		this.idArticuloProperty().set(idArticulo);
+	}
 	
 	
 
