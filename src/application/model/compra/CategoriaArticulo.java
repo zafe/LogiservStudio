@@ -9,6 +9,7 @@ public class CategoriaArticulo {
 
 	private final IntegerProperty idCategoriaArticulo;
 	private final StringProperty nombre;
+
 	
 	public CategoriaArticulo(Integer id, String nombre){
 		this.idCategoriaArticulo = new SimpleIntegerProperty(id);
@@ -17,18 +18,17 @@ public class CategoriaArticulo {
 	
 	public CategoriaArticulo(){
 		this(null, null);
+
 	}
 
+
+	//Getters - Setters
 	public final StringProperty nombreProperty() {
 		return this.nombre;
 	}
-	
-
 	public final String getNombre() {
 		return this.nombreProperty().get();
 	}
-	
-
 	public final void setNombre(final String nombre) {
 		this.nombreProperty().set(nombre);
 	}
@@ -46,9 +46,5 @@ public class CategoriaArticulo {
 	public final void setIdCategoriaArticulo(final int idCategoriaArticulo) {
 		this.idCategoriaArticuloProperty().set(idCategoriaArticulo);
 	}
-	
-	
-	
-	
 	
 }
