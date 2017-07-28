@@ -25,6 +25,7 @@ public class EmpleadoRepository {
 			
 			while(resultSet.next()){
 			Empleado empleado = new Empleado();
+			empleado.setIdEmpleado(resultSet.getInt("idEmpleado"));
 			empleado.setNombre(resultSet.getString("Nombre"));
 			empleado.setApellido(resultSet.getString("Apellido"));
 			System.out.println("Empleado " + empleado.getNombre() + " " + empleado.getApellido());

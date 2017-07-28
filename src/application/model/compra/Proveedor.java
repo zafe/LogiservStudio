@@ -15,7 +15,7 @@ public class Proveedor {
 	private final StringProperty localidad;
 	
 
-	Proveedor(){
+	public Proveedor(){
 		this(0, null, null, null, null, null);
 	}
 	

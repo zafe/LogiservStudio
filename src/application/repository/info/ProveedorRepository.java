@@ -26,6 +26,7 @@ public class ProveedorRepository {
 //            preparedStatement.setString(5,proveedor.getTipoEmpresa());
             preparedStatement.executeUpdate();
             preparedStatement.close();
+            //TODO CREO QUE LA DB CONNECTION NO DEBERIA CERRARSE PORQUE SI SE CIERRA NO PUEDE SER USADA MAS
             connection.close();
             String cuerpoMsj = "Proveedor  " + proveedor.getNombre() + " agregado correctamente.\n";
             Alerta.alertaInfo("Proveedores",cuerpoMsj);
