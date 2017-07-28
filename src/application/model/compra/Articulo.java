@@ -14,7 +14,7 @@ public class Articulo {
 	private final IntegerProperty categoria;
 	
 	public Articulo(){
-		this(null, null, null, null, null);
+		this(0, null, null, null, 0);
 	}
 	
 	public Articulo(Integer id, String marca, String modelo, String descripcion, Integer categoria){

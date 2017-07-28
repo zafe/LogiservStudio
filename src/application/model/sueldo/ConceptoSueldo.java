@@ -77,4 +77,8 @@ public class ConceptoSueldo {
         this.tipoConcepto = new SimpleStringProperty(tipoConcepto);
         this.tipoCantidad = new SimpleStringProperty(tipoCantidad);
     }
+    
+    public ConceptoSueldo(){
+    	this(0, null, 0f, null, null);
+    }
 }

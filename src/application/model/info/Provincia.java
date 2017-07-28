@@ -16,7 +16,7 @@ private final StringProperty nombre;
 	}
 	
 	public Provincia(){
-		this(null, null);
+		this(0, null);
 	}
 
 	public final StringProperty nombreProperty() {

@@ -65,6 +65,6 @@ public class DetalleLiquidacionEmpleado {
     }
 
     public DetalleLiquidacionEmpleado() {
-        this(null,null,null,null);
+        this(0,0.0,null,0.0);
     }
 }

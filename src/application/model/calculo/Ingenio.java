@@ -64,7 +64,7 @@ public class Ingenio {
     }
 
     public Ingenio() {
-        this(null,null,null,null);
+        this(0,0.0,0.0,null);
     }
 
 }

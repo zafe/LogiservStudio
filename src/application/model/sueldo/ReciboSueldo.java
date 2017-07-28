@@ -93,6 +93,6 @@
         }
 
         public ReciboSueldo() {
-            this(null,null,null,null,null,null);
+            this(0,null,0.0,null,null,null);
         }
     }

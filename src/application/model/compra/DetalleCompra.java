@@ -55,7 +55,7 @@ public class DetalleCompra {
 	}
 
 	public DetalleCompra() {
-		this(null,null,null,null,null,null,null);
+		this(0,0,0f,0,null,null,0);
 	}
 
 	public final IntegerProperty idProperty() {

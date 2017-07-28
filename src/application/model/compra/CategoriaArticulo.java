@@ -17,7 +17,7 @@ public class CategoriaArticulo {
 	}
 	
 	public CategoriaArticulo(){
-		this(null, null);
+		this(0, null);
 
 	}
 

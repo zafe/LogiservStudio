@@ -151,7 +151,7 @@ public class Viaje {
     }
 
     public Viaje() {
-        this(null,null,null,null,null,
+        this(0,null,null,0.0,0.0,
                 null,null,null,null,null);
     }
 }

@@ -24,9 +24,11 @@ public class UsuarioRepository {
 			
 			while(resultSet.next()){
 			Usuario usuario = new Usuario();
+			usuario.setIdUsuario(resultSet.getInt("idUsuario"));
 			usuario.setNombre_usuario(resultSet.getString("NombreUsuario"));
 			usuario.setPassword(resultSet.getString("Password"));
 			usuario.setEmpleado(resultSet.getInt("idUsuario"));
+			System.out.println("USUARIO ID!!!!! ->" + usuario.getIdUsuario());
 			usuarios.add(usuario);
 			}
 			

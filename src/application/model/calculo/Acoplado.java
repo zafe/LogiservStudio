@@ -53,6 +53,6 @@ public class Acoplado {
     }
 
     public Acoplado() {
-        this(null,null,null);
+        this(0,null,null);
     }
 }

@@ -63,6 +63,6 @@ public class OrigenDestino {
         this.nombreIngenio = new SimpleStringProperty(nombreIngenio);
     }
     public OrigenDestino(){
-        this(null,null,null,null);
+        this(0,0f,null,null);
     }
 }

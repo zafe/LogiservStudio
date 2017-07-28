@@ -64,6 +64,6 @@ public class Finca {
     }
 
     public Finca() {
-        this(null,null,null,null);
+        this(0,0.0,0.0,null);
     }
 }

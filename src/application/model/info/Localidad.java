@@ -18,7 +18,7 @@ private final StringProperty provincia;
 	}
 	
 	public Localidad(){
-		this(null, null, null);
+		this(0, null, null);
 	}
 
 	public final StringProperty nombreProperty() {

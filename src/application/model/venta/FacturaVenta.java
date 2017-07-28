@@ -96,6 +96,6 @@ public class FacturaVenta {
     }
 
     public FacturaVenta() {
-        this(null,null,null,null,null,null);
+        this(0,null,null,null,null,null);
     }
 }

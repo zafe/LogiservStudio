@@ -22,7 +22,7 @@ public class Domicilio {
 	}
 	
 	public Domicilio(){
-		this(null, null, null, null, null);
+		this(0, null, null, null, null);
 	}
 
 	public final StringProperty nombre_provinciaProperty() {

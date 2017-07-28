@@ -67,6 +67,6 @@ public class Camion {
     }
 
     public Camion() {
-        this(null,null,null,null);
+        this(0,null,null,null);
     }
 }

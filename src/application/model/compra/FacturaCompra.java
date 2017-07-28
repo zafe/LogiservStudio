@@ -22,7 +22,7 @@ public class FacturaCompra {
 	}
 	
 	public FacturaCompra(){
-		this(null, null, null, null);
+		this(0, null, 0.0, null);
 	}
 
 	public final IntegerProperty idFacturaCompraProperty() {

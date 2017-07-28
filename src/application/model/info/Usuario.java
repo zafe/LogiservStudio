@@ -24,7 +24,7 @@ public class Usuario {
 	}
 
 	public Usuario(){
-		this(null, null, null, null);
+		this(0, null, null, null);
 	}
 	
 	public String getNombre_usuario(){

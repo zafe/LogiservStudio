@@ -16,7 +16,7 @@ public class CategoriaEmpleado {
 	}
 	
 	public CategoriaEmpleado(){
-		this(null, null);
+		this(0, null);
 	}
 
 	public final StringProperty nombreProperty() {
