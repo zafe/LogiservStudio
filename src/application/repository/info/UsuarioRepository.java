@@ -28,7 +28,7 @@ public class UsuarioRepository {
 			usuario.setIdUsuario(resultSet.getInt("idUsuario"));
 			usuario.setNombre_usuario(resultSet.getString("NombreUsuario"));
 			usuario.setPassword(resultSet.getString("Password"));
-			usuario.setEmpleado(resultSet.getInt("idUsuario"));
+			usuario.setEmpleado(resultSet.getInt("Empleado_idEmpleado"));
 			System.out.println("USUARIO ID!!!!! ->" + usuario.getIdUsuario());
 			usuarios.add(usuario);
 			}
