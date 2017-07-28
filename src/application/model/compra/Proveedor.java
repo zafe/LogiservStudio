@@ -14,11 +14,11 @@ public class Proveedor {
 	private final StringProperty numero;
 	private final StringProperty localidad;
 	
-	Proveedor(){
+	public Proveedor(){
 		this(null, null, null, null, null, null);
 	}
 	
-	Proveedor(Integer id, String nombre, String cuit, String calle, String numero, String localidad){
+	public Proveedor(Integer id, String nombre, String cuit, String calle, String numero, String localidad){
 		this.idProveedor = new SimpleIntegerProperty(id);
 		this.nombre = new SimpleStringProperty(nombre);
 		this.cuit = new SimpleStringProperty(cuit);
