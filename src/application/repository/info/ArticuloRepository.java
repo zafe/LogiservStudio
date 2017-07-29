@@ -40,7 +40,8 @@ public class ArticuloRepository {
             connection = JDBCConnection.getInstanceConnection();
             preparedStatement= connection.prepareStatement("" +
                     "UPDATE ARTICULO " +
-                        "SET Marca=?, Modelo=?, Descripcion=?, categoria_articulo_idCategoriaArticulo=?" +
+                        "SET Marca=?, Modelo=?, Descripcion=?, " +
+                    "categoria_articulo_idCategoriaArticulo=?" +
                     "WHERE idArticulo=?");
             preparedStatement.setString(1,articulo.getMarca());
             preparedStatement.setString(2,articulo.getModelo());
@@ -50,7 +51,7 @@ public class ArticuloRepository {
             preparedStatement.close();
             connection.close();
             String headerMsj="Actualización: artículo actualizado";
-            String cuerpoMsj = "Artículo: " + articulo.getDescripcion() + "modificado correctamente.";
+            String cuerpoMsj = "Artículo: " + articulo.getDescripcion() + " modificado correctamente.";
             Alerta.alertaInfo("Artículos", headerMsj, cuerpoMsj);
         } catch (SQLException e) {
             e.printStackTrace();
