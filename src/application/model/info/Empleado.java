@@ -12,11 +12,12 @@ import javafx.beans.property.StringProperty;
 
 public class Empleado {
 	
+	private final IntegerProperty idEmpleado;
 	private final StringProperty nombre;
 	private final StringProperty apellido;
 	
 	public Empleado(){
-		this(null, null);
+		this(0, null, null);
 	}
 	
 	/**
@@ -25,7 +26,8 @@ public class Empleado {
 	 * @param apellido
 	 */
 	
-	public Empleado(String name, String surname) {
+	public Empleado(Integer id, String name, String surname) {
+		this.idEmpleado = new SimpleIntegerProperty(id);
 		this.nombre = new SimpleStringProperty(name);
 		this.apellido = new SimpleStringProperty(surname);
 	}
@@ -54,11 +56,20 @@ public class Empleado {
 		return apellido;
 	}
 
+	public final IntegerProperty idEmpleadoProperty() {
+		return this.idEmpleado;
+	}
 	
 
+	public final int getIdEmpleado() {
+		return this.idEmpleadoProperty().get();
+	}
 	
-	
-	
+
+	public final void setIdEmpleado(final int idEmpleado) {
+		this.idEmpleadoProperty().set(idEmpleado);
+	}
+		
 	
 
 }

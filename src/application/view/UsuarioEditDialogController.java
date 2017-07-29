@@ -13,6 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import application.model.info.Usuario;
 import application.repository.info.EmpleadoRepository;
+import application.repository.info.UsuarioRepository;
 import application.model.info.Empleado;
 
 public class UsuarioEditDialogController {
@@ -72,11 +73,20 @@ public class UsuarioEditDialogController {
 
 	@FXML
 	private void handleOk() {
-		if (isInputValid()) {
+		Empleado empleado = empleadoTable.getSelectionModel().getSelectedItem();
+		if (isInputValid() && empleado != null ) {
 			usuario.setNombre_usuario(usuarioField.getText());
 			usuario.setPassword(passwordField.getText());
+			UsuarioRepository.create(usuario.getNombre_usuario(), usuario.getPassword(), empleado.getIdEmpleado());
 			okClicked = true;
 			dialogStage.close();
+		}else {
+			// Nothing selected.
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Verifique los datos");
+		alert.setHeaderText(null);
+		alert.setContentText("Alguno de los datos ingresados es incorrecto o no selecciono un empleado");
+		alert.showAndWait();
 		}
 	}
 

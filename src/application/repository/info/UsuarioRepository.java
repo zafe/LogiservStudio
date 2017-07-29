@@ -3,6 +3,7 @@ package application.repository.info;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -27,7 +28,7 @@ public class UsuarioRepository {
 			usuario.setIdUsuario(resultSet.getInt("idUsuario"));
 			usuario.setNombre_usuario(resultSet.getString("NombreUsuario"));
 			usuario.setPassword(resultSet.getString("Password"));
-			usuario.setEmpleado(resultSet.getInt("idUsuario"));
+			usuario.setEmpleado(resultSet.getInt("Empleado_idEmpleado"));
 			System.out.println("USUARIO ID!!!!! ->" + usuario.getIdUsuario());
 			usuarios.add(usuario);
 			}
@@ -42,6 +43,25 @@ public class UsuarioRepository {
 		}
 		
 		return usuarios;
+		
+	}
+	
+	public static void create(String nombre, String password, int idEmpleado){
+		PreparedStatement preparedstatement;
+		
+		try {
+			preparedstatement = JDBCConnection.getInstanceConnection().prepareStatement("INSERT INTO USUARIO (NombreUsuario, Password, Empleado_idEmpleado) VALUES (?,?,?)");
+			preparedstatement.setString(1, nombre);
+			preparedstatement.setString(2, password);
+			preparedstatement.setInt(3, idEmpleado);		
+			preparedstatement.executeUpdate();
+			preparedstatement.close();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	

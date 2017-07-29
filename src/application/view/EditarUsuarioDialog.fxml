@@ -25,7 +25,7 @@
             <Label prefHeight="17.0" prefWidth="78.0" text="Empleado" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Button defaultButton="true" layoutX="467.0" layoutY="412.0" mnemonicParsing="false" onAction="#handleOk" text="Aceptar" />
+      <Button fx:id="aceptarButton" defaultButton="true" layoutX="467.0" layoutY="412.0" mnemonicParsing="false" onAction="#handleOk" text="Aceptar" />
       <Button layoutX="386.0" layoutY="412.0" mnemonicParsing="false" onAction="#handleCancel" text="Cancelar" />
       <TableView fx:id="empleadoTable" layoutX="186.0" layoutY="162.0" prefHeight="200.0" prefWidth="314.0">
         <columns>
