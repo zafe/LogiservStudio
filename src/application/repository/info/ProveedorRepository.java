@@ -26,7 +26,6 @@ public class ProveedorRepository {
 //            preparedStatement.setString(5,proveedor.getTipoEmpresa());
             preparedStatement.executeUpdate();
             preparedStatement.close();
-            //TODO CREO QUE LA DB CONNECTION NO DEBERIA CERRARSE PORQUE SI SE CIERRA NO PUEDE SER USADA MAS
             connection.close();
             String cuerpoMsj = "Proveedor  " + proveedor.getNombre() + " agregado correctamente.\n";
             Alerta.alertaInfo("Proveedores",cuerpoMsj);
@@ -58,7 +57,7 @@ public class ProveedorRepository {
     }
     public void delete(Proveedor proveedor){
         try {
-            connection=JDBCConnection.getInstanceConnection();
+            connection= JDBCConnection.getInstanceConnection();
             preparedStatement=connection.prepareStatement("DELETE FROM EMPRESA WHERE idEmpresa=?");
             preparedStatement.setInt(1,proveedor.getIdProveedor());
             preparedStatement.executeUpdate();
@@ -95,7 +94,7 @@ public class ProveedorRepository {
     }
     public void search(Proveedor proveedor){
         try {
-            connection=JDBCConnection.getInstanceConnection();
+            connection= JDBCConnection.getInstanceConnection();
             preparedStatement=connection.prepareStatement("SELECT * FROM EMPRESA where idEmpresa=?");
             preparedStatement.setInt(1,proveedor.getIdProveedor());
             preparedStatement.executeUpdate();

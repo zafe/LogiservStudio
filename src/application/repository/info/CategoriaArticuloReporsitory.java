@@ -35,7 +35,7 @@ public class CategoriaArticuloReporsitory {
 
     public void update(CategoriaArticulo categoriaArticulo) {
         try{
-            connection=JDBCConnection.getInstanceConnection();
+            connection= JDBCConnection.getInstanceConnection();
             preparedStatement=connection.prepareStatement("UPDATE CATEGORIA_ARTICULO SET NombreCategoria=? " +
                     " where idCategoriaArticulo=?");
             preparedStatement.setString(1, categoriaArticulo.getNombre());
@@ -52,7 +52,7 @@ public class CategoriaArticuloReporsitory {
 
     public void delete(CategoriaArticulo categoriaArticulo) {
         try{
-            connection=JDBCConnection.getInstanceConnection();
+            connection= JDBCConnection.getInstanceConnection();
             preparedStatement= connection.prepareStatement("DELETE FROM CATEGORIA_ARTICULO WHERE idCategoriaArticulo=?");
             preparedStatement.setInt(1,categoriaArticulo.getIdCategoriaArticulo());
             preparedStatement.executeUpdate();
@@ -67,7 +67,7 @@ public class CategoriaArticuloReporsitory {
     public ObservableList<CategoriaArticulo> viewAll() {
         ObservableList<CategoriaArticulo> list = FXCollections.observableArrayList();
         try {
-            connection=JDBCConnection.getInstanceConnection();
+            connection= JDBCConnection.getInstanceConnection();
             preparedStatement = connection.prepareStatement("SELECT * FROM CATEGORIA_ARTICULO");
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){

@@ -1,6 +1,5 @@
 package application.repository.info;
 
-import application.comunes.Alerta;
 import application.database.JDBCConnection;
 import application.model.compra.DetalleCompra;
 import javafx.collections.FXCollections;
@@ -38,7 +37,7 @@ public class DetalleCompraRepository {
     }
     public void update(DetalleCompra detalleCompra){
         try {
-            connection=JDBCConnection.getInstanceConnection();
+            connection= JDBCConnection.getInstanceConnection();
             preparedStatement = connection.prepareStatement("" +
                     "UPDATE COMPRA_ARTICULO" +
                     "   SET cantidad=?, precioUnitario=?, articulo_idArticulo=?," +
@@ -70,7 +69,7 @@ public class DetalleCompraRepository {
     public ObservableList<DetalleCompra> view(){
         ObservableList<DetalleCompra> list = FXCollections.observableArrayList();
         try {
-            connection=JDBCConnection.getInstanceConnection();
+            connection= JDBCConnection.getInstanceConnection();
             preparedStatement=connection.prepareStatement("SELECT * FROM COMPRA_ARTICULO");
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){

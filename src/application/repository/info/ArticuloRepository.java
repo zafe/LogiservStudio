@@ -59,7 +59,7 @@ public class ArticuloRepository {
     }
     public void delete(Articulo articulo){
         try {
-            connection=JDBCConnection.getInstanceConnection();
+            connection= JDBCConnection.getInstanceConnection();
             preparedStatement = connection.prepareStatement(
                     "DELETE FROM ARTICULO WHERE idArticulo=?");
             preparedStatement.setInt(1, articulo.getIdArticulo());
@@ -75,7 +75,7 @@ public class ArticuloRepository {
     public ObservableList<Articulo> viewAll(){
         ObservableList<Articulo> list = FXCollections.observableArrayList();
         try {
-            connection=JDBCConnection.getInstanceConnection();
+            connection= JDBCConnection.getInstanceConnection();
             preparedStatement=connection.prepareStatement("SELECT * FROM ARTICULO");
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
@@ -99,7 +99,7 @@ public class ArticuloRepository {
 
     public void search(Articulo articulo){
         try {
-            connection=JDBCConnection.getInstanceConnection();
+            connection= JDBCConnection.getInstanceConnection();
             preparedStatement=connection.prepareStatement("SELECT * FROM ARTICULO where idArticulo=?");
             preparedStatement.setInt(1,articulo.getIdArticulo());
             preparedStatement.executeUpdate();

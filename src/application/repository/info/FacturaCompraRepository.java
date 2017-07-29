@@ -2,7 +2,6 @@ package application.repository.info;
 
 import application.comunes.Alerta;
 import application.database.JDBCConnection;
-import application.model.compra.DetalleCompra;
 import application.model.compra.FacturaCompra;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
