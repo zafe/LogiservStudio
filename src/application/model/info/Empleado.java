@@ -22,8 +22,8 @@ public class Empleado {
 	
 	/**
 	 *
-	 * @param nombre
-	 * @param apellido
+	 * @param name
+	 * @param surname
 	 */
 	
 	public Empleado(Integer id, String name, String surname) {

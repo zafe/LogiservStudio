@@ -41,11 +41,13 @@ public class DetalleCompraRepository {
             preparedStatement = connection.prepareStatement("" +
                     "UPDATE COMPRA_ARTICULO" +
                     "   SET cantidad=?, precioUnitario=?, articulo_idArticulo=?," +
-                    " facturaCompraArticulo_idFacturaCompraArticulo=?");
+                    " facturaCompraArticulo_idFacturaCompraArticulo=?" +
+                    "   WHERE idCompraArticulo=?");
             preparedStatement.setInt(1,detalleCompra.getCantidad());
             preparedStatement.setDouble(2,detalleCompra.getPrecioUnitario());
             preparedStatement.setInt(3,detalleCompra.getArticuloID());
             preparedStatement.setInt(4,detalleCompra.getFacturaCompraArticuloId());
+            preparedStatement.setInt(5, detalleCompra.getId());
             preparedStatement.executeUpdate();
             preparedStatement.close();
             connection.close();
