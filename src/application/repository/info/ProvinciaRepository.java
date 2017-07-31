@@ -2,9 +2,8 @@
 
 	import application.comunes.Alerta;
 	import application.database.JDBCConnection;
-	import application.model.info.Localidad;
-import application.model.info.Provincia;
-import javafx.collections.FXCollections;
+	import application.model.info.Viaje;
+	import javafx.collections.FXCollections;
 	import javafx.collections.ObservableList;
 
 	import java.sql.Connection;
@@ -17,7 +16,7 @@ import javafx.collections.FXCollections;
 	    PreparedStatement preparedStatement;
 	    ResultSet resultSet;
 	    
-	    public void save(Provincia provincia){
+	    public void save(Viaje provincia){
 	        try {
 	            connection= JDBCConnection.getInstanceConnection();
 	            preparedStatement = connection.prepareStatement("INSERT INTO PROVINCIA (PROVINCIA_idProvincia) values(?)");
@@ -33,7 +32,7 @@ import javafx.collections.FXCollections;
 
 
 	    }
-	    public void update(Provincia provincia){
+	    public void update(Viaje provincia){
 	        try {
 	            connection = JDBCConnection.getInstanceConnection();
 	            preparedStatement= connection.prepareStatement("" +
@@ -51,7 +50,7 @@ import javafx.collections.FXCollections;
 	            e.printStackTrace();
 	        }
 	    }
-	    public void delete(Provincia provincia){
+	    public void delete(Viaje provincia){
 	        try {
 	            connection= JDBCConnection.getInstanceConnection();
 	            preparedStatement = connection.prepareStatement(
@@ -64,15 +63,15 @@ import javafx.collections.FXCollections;
 	            e.printStackTrace();
 	        }
 	    }
-	    public ObservableList<Provincia> view(){
+	    public ObservableList<Viaje> view(){
 
-	        ObservableList<Provincia> list = FXCollections.observableArrayList();
+	        ObservableList<Viaje> list = FXCollections.observableArrayList();
 	        try {
 	            connection= JDBCConnection.getInstanceConnection();
 	            preparedStatement=connection.prepareStatement("SELECT * FROM PROVINCIA");
 	            resultSet = preparedStatement.executeQuery();
 	            while (resultSet.next()){
-	                Provincia provincia = new Provincia();
+	                Viaje provincia = new Viaje();
 	                provincia.setIdProvincia(resultSet.getInt("idProvincia"));
 	                provincia.setNombre(resultSet.getString("NombreProvincia"));
 	                list.add(provincia);
@@ -86,7 +85,7 @@ import javafx.collections.FXCollections;
 
 	        return list;
 	    }
-	    public void search(Provincia provincia){
+	    public void search(Viaje provincia){
 	        try {
 	            connection= JDBCConnection.getInstanceConnection();
 	            preparedStatement=connection.prepareStatement("SELECT * FROM PROVINCIA where idProvincia=?");

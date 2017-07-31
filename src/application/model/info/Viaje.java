@@ -5,17 +5,17 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Provincia {
+public class Viaje {
 
 private final IntegerProperty idProvincia;
 private final StringProperty nombre;
 	
-	public Provincia(Integer id, String nombre){
+	public Viaje(Integer id, String nombre){
 		this.idProvincia = new SimpleIntegerProperty(id);
 		this.nombre = new SimpleStringProperty(nombre);
 	}
 	
-	public Provincia(){
+	public Viaje(){
 		this(0, null);
 	}
 
