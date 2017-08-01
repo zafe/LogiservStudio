@@ -1,14 +1,24 @@
 package application.view.compra;
 
+import application.Main;
+import application.comunes.Alerta;
 import application.model.compra.CategoriaArticulo;
+import application.repository.info.CategoriaArticuloRepository;
+import application.view.compra.cruds.CategoriaArticuloEditController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.Optional;
 
 public class CompraCategoriaArticulosController {
-
     @FXML
     private Button btnNuevaCategoria;
     @FXML
@@ -22,36 +32,92 @@ public class CompraCategoriaArticulosController {
     @FXML
     private TableColumn<CategoriaArticulo, String> nombreCategoriaTableColumn;
 
+    private Stage owner;
+    private ObservableList<CategoriaArticulo> categoriaArticulosData = FXCollections.observableArrayList();
+    private CategoriaArticuloRepository categoriaRepo = new CategoriaArticuloRepository();
+
+
     @FXML
     private void initialize(){
-        /*idCategoriaTableColumn.setCellValueFactory(cellData -> cellData.getValue().idCategoriaArticuloProperty());*/
+        idCategoriaTableColumn.setCellValueFactory(cellData -> cellData.getValue().idCategoriaArticuloProperty().asString());
         nombreCategoriaTableColumn.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
 
     }
-
     @FXML
     public void handleNuevaCategoria(){
-        CategoriaArticulo categoriaArticulo = new CategoriaArticulo();
-        boolean okClicked;
-
+        CategoriaArticulo tempCategoria = new CategoriaArticulo();
+        boolean okClicked = this.showCategoriaEdit(tempCategoria,true);
+        if(okClicked)
+            categoriaArticulosData.add(tempCategoria);
     }
     @FXML
     public void handleEditCategoria(){
+        CategoriaArticulo selectedItem = categoriaArticuloTableView.getSelectionModel().getSelectedItem();
+        if(selectedItem!=null)
+            this.showCategoriaEdit(selectedItem,false);
+        else
+            Alerta.alertaError("Seleccionar Categoria de Artículo",
+                    "Por favor selecciona una categoria en la tabla.");
 
     }
     @FXML
     public void handleEliminarCategoria(){
-        int seleccionado = categoriaArticuloTableView.getSelectionModel().getSelectedIndex();
-        if (seleccionado>=0){
+        CategoriaArticulo categoriaSeleccionada = categoriaArticuloTableView.getSelectionModel().getSelectedItem();
+        Optional<ButtonType> resultado = Alerta.alertaConfirmacion("Eliminar Categoria",null,
+                "Esta seguro de querer borrar la categoria seleccionada? \nPara confirmar presione OK.");
+        if(resultado.isPresent() && resultado.get() == ButtonType.OK){
+            categoriaArticuloTableView.getItems().remove(
+                    categoriaArticuloTableView.getSelectionModel().getSelectedIndex());
+            categoriaRepo.delete(categoriaSeleccionada);
+        }else
+            Alerta.alertaError("Seleccionar Categoria","Por favor selecciona una categoria en la tabla");
+
+        /*if (seleccionado>=0){
             categoriaArticuloTableView.getItems().remove(seleccionado);
+            categoriaRepo.delete(categoriaArticulo);
         }else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Seleccionar Categoria");
-            alert.setHeaderText(null);
-            alert.setContentText("Por favor selecciona una categoria en la tabla");
-            alert.showAndWait();
-        }
+            Alerta.alertaError("Seleccionar Categoria","Por favor selecciona una categoria en la tabla");
+        }*/
     }
+    public void buscarCategorias(){
+        this.categoriaArticulosData = categoriaRepo.viewAll();
+        categoriaArticuloTableView.setItems(categoriaArticulosData);
+    }
+    public void setOwner(Stage owner){
+        this.owner = owner;
+
+    }
+    public boolean showCategoriaEdit(CategoriaArticulo categoriaArticulo, boolean tipo){
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/application/view/compra/cruds/CategoriaArticuloEdit.fxml"));
+            Group page = loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Editar Categoria Artículo");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(owner);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+
+            CategoriaArticuloEditController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setIsNew(tipo);
+            controller.setCategoriaArticulo(categoriaArticulo);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
 
 
 

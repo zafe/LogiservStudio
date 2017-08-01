@@ -54,6 +54,8 @@
                                  <children>
                                     <Button mnemonicParsing="false" onAction="#showComprasOverview" prefHeight="27.0" prefWidth="210.0" text="Compras" />
                                     <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="204.0" text="Proveedores" />
+                                    <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="204.0" text="Articulos" />
+                                    <Button mnemonicParsing="false" onAction="#showCategoriaArticuloOverview" prefHeight="27.0" prefWidth="204.0" text="Categorias Articulos" />
                                  </children>
                               </VBox>
                            </children></AnchorPane>
