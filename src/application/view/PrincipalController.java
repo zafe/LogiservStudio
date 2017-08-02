@@ -2,6 +2,7 @@ package application.view;
 
 import java.io.IOException;
 
+import application.view.compra.CompraCategoriaArticulosController;
 import javafx.fxml.FXML;
 import application.Main;
 import javafx.fxml.FXMLLoader;
@@ -42,6 +43,27 @@ public class PrincipalController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    @FXML
+    private void showCategoriaArticuloOverview(){
+	    try{
+            // Load category overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/compra/CompraCategoriaArticulos.fxml"));
+            AnchorPane categoryOverview = loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(categoryOverview);
+
+            // Give the controller access to the main app.
+            CompraCategoriaArticulosController controller = loader.getController();
+            controller.setOwner(primaryStage);
+            controller.buscarCategorias();
+
+        }catch (IOException e){
+	        e.printStackTrace();
+        }
+
     }
 	
 	
