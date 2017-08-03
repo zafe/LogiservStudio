@@ -3,6 +3,7 @@ package application.view;
 import java.io.IOException;
 
 import application.view.compra.CompraCategoriaArticulosController;
+import application.view.compra.CompraProveedoresController;
 import javafx.fxml.FXML;
 import application.Main;
 import javafx.fxml.FXMLLoader;
@@ -62,6 +63,27 @@ public class PrincipalController {
 
         }catch (IOException e){
 	        e.printStackTrace();
+        }
+
+    }
+    @FXML
+    private void showProveedorOverview(){
+        try{
+            // Load category overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/compra/CompraProveedores.fxml"));
+            AnchorPane proveedorOverview = loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(proveedorOverview);
+
+            // Give the controller access to the main app.
+            CompraProveedoresController controller = loader.getController();
+            controller.setOwner(primaryStage);
+            controller.obtenerProveedores();
+
+        }catch (IOException e){
+            e.printStackTrace();
         }
 
     }

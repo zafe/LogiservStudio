@@ -2,7 +2,7 @@
 
 	import application.comunes.Alerta;
 	import application.database.JDBCConnection;
-	import application.model.info.Viaje;
+	import application.model.info.Provincia;
 	import javafx.collections.FXCollections;
 	import javafx.collections.ObservableList;
 
@@ -16,7 +16,7 @@
 	    PreparedStatement preparedStatement;
 	    ResultSet resultSet;
 	    
-	    public void save(Viaje provincia){
+	    public void save(Provincia provincia){
 	        try {
 	            connection= JDBCConnection.getInstanceConnection();
 	            preparedStatement = connection.prepareStatement("INSERT INTO PROVINCIA (PROVINCIA_idProvincia) values(?)");
@@ -32,7 +32,7 @@
 
 
 	    }
-	    public void update(Viaje provincia){
+	    public void update(Provincia provincia){
 	        try {
 	            connection = JDBCConnection.getInstanceConnection();
 	            preparedStatement= connection.prepareStatement("" +
@@ -50,7 +50,7 @@
 	            e.printStackTrace();
 	        }
 	    }
-	    public void delete(Viaje provincia){
+	    public void delete(Provincia provincia){
 	        try {
 	            connection= JDBCConnection.getInstanceConnection();
 	            preparedStatement = connection.prepareStatement(
@@ -63,39 +63,42 @@
 	            e.printStackTrace();
 	        }
 	    }
-	    public ObservableList<Viaje> view(){
+	    public ObservableList<String> view(){
 
-	        ObservableList<Viaje> list = FXCollections.observableArrayList();
+	        ObservableList<String> list = FXCollections.observableArrayList();
 	        try {
 	            connection= JDBCConnection.getInstanceConnection();
 	            preparedStatement=connection.prepareStatement("SELECT * FROM PROVINCIA");
 	            resultSet = preparedStatement.executeQuery();
 	            while (resultSet.next()){
-	                Viaje provincia = new Viaje();
-	                provincia.setIdProvincia(resultSet.getInt("idProvincia"));
-	                provincia.setNombre(resultSet.getString("NombreProvincia"));
-	                list.add(provincia);
+//	                Provincia provincia = new Provincia();
+//	                provincia.setIdProvincia(resultSet.getInt("idProvincia"));
+//	                provincia.setNombre(resultSet.getString("NombreProvincia"));
+	                list.add(resultSet.getString("NombreProvincia"));
 	            }
-	            preparedStatement.close();
-	            resultSet.close();
-	            connection.close();
-	        } catch (SQLException e) {
+			} catch (SQLException e) {
 	            e.printStackTrace();
 	        }
 
 	        return list;
 	    }
-	    public void search(Viaje provincia){
+	    public Provincia search(String nombreProvincia){
+	    	Provincia provincia = new Provincia();
 	        try {
 	            connection= JDBCConnection.getInstanceConnection();
-	            preparedStatement=connection.prepareStatement("SELECT * FROM PROVINCIA where idProvincia=?");
-	            preparedStatement.setInt(1,provincia.getIdProvincia());
-	            preparedStatement.executeUpdate();
-	            preparedStatement.close();
-	            connection.close();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
+	            preparedStatement=connection.prepareStatement("SELECT * FROM PROVINCIA WHERE NombreProvincia LIKE ?");
+	            preparedStatement.setString(1, nombreProvincia + '%');
+	            resultSet=preparedStatement.executeQuery();
+//	            resultSet=preparedStatement.getResultSet();
+	            while(resultSet.next()){
+	            	provincia.setIdProvincia(resultSet.getInt(1));
+	            	provincia.setNombre(resultSet.getString(2));
+				}
 
-	    }
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			return provincia;
+		}
 	}

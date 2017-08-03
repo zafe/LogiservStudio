@@ -51,7 +51,7 @@
 	            preparedStatement.executeUpdate();
 	            preparedStatement.close();
 	            connection.close();
-	            String cuerpoMsj = "Viaje " + viaje.getIdRemito()+ " agregado correctamente.\n";
+	            String cuerpoMsj = "Provincia " + viaje.getIdRemito()+ " agregado correctamente.\n";
 	            Alerta.alertaInfo("Viajes",cuerpoMsj);
 	        } catch (SQLException e) {
 	            e.printStackTrace();
@@ -91,9 +91,9 @@
 	            preparedStatement.setInt(9, viaje.getIdRemito());
 	            preparedStatement.close();
 	            connection.close();
-	            String headerMsj="Actualización: Viaje actualizado";
-	            String cuerpoMsj = "Viaje: " + viaje.getIdRemito() + " modificado correctamente.";
-	            Alerta.alertaInfo("Viaje", headerMsj, cuerpoMsj);
+	            String headerMsj="Actualización: Provincia actualizado";
+	            String cuerpoMsj = "Provincia: " + viaje.getIdRemito() + " modificado correctamente.";
+	            Alerta.alertaInfo("Provincia", headerMsj, cuerpoMsj);
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }

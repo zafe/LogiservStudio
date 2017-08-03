@@ -23,8 +23,6 @@
 	            preparedStatement.setString(1,localidad.getNombre());
 	            preparedStatement.setInt(2,idProvincia);
 	            preparedStatement.executeUpdate();
-	            preparedStatement.close();
-	            connection.close();
 	            String cuerpoMsj = "Localidad " + localidad.getNombre()+ " agregada correctamente.\n";
 	            Alerta.alertaInfo("Localidad",cuerpoMsj);
 	        } catch (SQLException e) {
@@ -65,40 +63,46 @@
 	            e.printStackTrace();
 	        }
 	    }
-	    public ObservableList<Localidad> view(){
+	    public ObservableList<String> view(int idProvincia){
 
-	        ObservableList<Localidad> list = FXCollections.observableArrayList();
+	        ObservableList<String> list = FXCollections.observableArrayList();
 	        try {
 	            connection= JDBCConnection.getInstanceConnection();
-	            preparedStatement=connection.prepareStatement("SELECT * FROM LOCALIDAD INNER JOIN PROVINCIA WHERE idProvincia = PROVINCIA_idProvincia");
+	            preparedStatement=connection.prepareStatement("SELECT * FROM LOCALIDAD WHERE PROVINCIA_idProvincia = ?");
+	            preparedStatement.setInt(1,idProvincia);
 	            resultSet = preparedStatement.executeQuery();
+
 	            while (resultSet.next()){
-	                Localidad localidad = new Localidad();
-	                localidad.setIdLocalidad(resultSet.getInt("idLocalidad"));
-	                localidad.setNombre(resultSet.getString("NombreLocalidad"));
-	                localidad.setProvincia(resultSet.getString("NombreProvincia"));
-	                list.add(localidad);
+//	                Localidad localidad = new Localidad();
+//	                localidad.setIdLocalidad(resultSet.getInt("idLocalidad"));
+//	                localidad.setNombre(resultSet.getString("NombreLocalidad"));
+//	                localidad.setProvincia(resultSet.getString("NombreProvincia"));
+	                list.add(resultSet.getString("NombreLocalidad"));
 	            }
-	            preparedStatement.close();
-	            resultSet.close();
-	            connection.close();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
 
 	        return list;
 	    }
-	    public void search(Localidad localidad){
+	    public Localidad search(String nombreLocalidad){
+	    	Localidad localidad = new Localidad();
 	        try {
 	            connection= JDBCConnection.getInstanceConnection();
-	            preparedStatement=connection.prepareStatement("SELECT * FROM LOCALIDAD where idLocalidad=?");
-	            preparedStatement.setInt(1,localidad.getIdLocalidad());
-	            preparedStatement.executeUpdate();
-	            preparedStatement.close();
-	            connection.close();
+	            preparedStatement=connection.prepareStatement("SELECT * FROM LOCALIDAD where NombreLocalidad LIKE ?");
+	            preparedStatement.setString(1,nombreLocalidad+ '%');
+				resultSet=preparedStatement.executeQuery();
+//	            resultSet=preparedStatement.getResultSet();
+				while(resultSet.next()){
+					localidad.setIdLocalidad(resultSet.getInt(1));
+					localidad.setNombre(resultSet.getString(2));
+				}
+
+				System.out.println(localidad.getNombre());
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
+	        return localidad;
 
 	    }
 	}

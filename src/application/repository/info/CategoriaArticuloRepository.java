@@ -41,7 +41,7 @@ public class CategoriaArticuloRepository {
                     " where idCategoriaArticulo=?");
             preparedStatement.setString(1, categoriaArticulo.getNombre());
             preparedStatement.setInt(2, categoriaArticulo.getIdCategoriaArticulo());
-
+            preparedStatement.executeUpdate();
             String headerMsj = "Actualización: categoría de artículo realizada";
             String cuerpoMsj =  "Categoría '" + categoriaArticulo.getNombre() + "' modificada correctamente.";
             Alerta.alertaInfo("Categoría Artículo",headerMsj,cuerpoMsj);

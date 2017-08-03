@@ -13,19 +13,32 @@ public class Proveedor {
 	private final StringProperty calle;
 	private final StringProperty numero;
 	private final StringProperty localidad;
-	
+	private IntegerProperty idLocalidad;
+
+	public int getIdLocalidad() {
+		return idLocalidad.get();
+	}
+
+	public IntegerProperty idLocalidadProperty() {
+		return idLocalidad;
+	}
+
+	public void setIdLocalidad(int idLocalidad) {
+		this.idLocalidad.set(idLocalidad);
+	}
 
 	public Proveedor(){
-		this(0, null, null, null, null, null);
+		this(0, null, null, null, null, null, 0);
 	}
 	
-	public Proveedor(Integer id, String nombre, String cuit, String calle, String numero, String localidad){
+	public Proveedor(Integer id, String nombre, String cuit, String calle, String numero, String localidad, Integer idLocalidad){
 		this.idProveedor = new SimpleIntegerProperty(id);
 		this.nombre = new SimpleStringProperty(nombre);
 		this.cuit = new SimpleStringProperty(cuit);
 		this.calle = new SimpleStringProperty(calle);
 		this.numero = new SimpleStringProperty(numero);
 		this.localidad = new SimpleStringProperty(localidad);
+		this.idLocalidad = new SimpleIntegerProperty(idLocalidad);
 	}
 	
 	public final StringProperty nombreProperty() {

@@ -3,8 +3,7 @@
 	import application.comunes.Alerta;
 	import application.database.JDBCConnection;
 import application.model.info.CategoriaEmpleado;
-import application.model.info.Viaje;
-	import javafx.collections.FXCollections;
+    import javafx.collections.FXCollections;
 	import javafx.collections.ObservableList;
 
 	import java.sql.Connection;

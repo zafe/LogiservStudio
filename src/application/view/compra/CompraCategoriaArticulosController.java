@@ -71,13 +71,6 @@ public class CompraCategoriaArticulosController {
             categoriaRepo.delete(categoriaSeleccionada);
         }else
             Alerta.alertaError("Seleccionar Categoria","Por favor selecciona una categoria en la tabla");
-
-        /*if (seleccionado>=0){
-            categoriaArticuloTableView.getItems().remove(seleccionado);
-            categoriaRepo.delete(categoriaArticulo);
-        }else {
-            Alerta.alertaError("Seleccionar Categoria","Por favor selecciona una categoria en la tabla");
-        }*/
     }
     public void buscarCategorias(){
         this.categoriaArticulosData = categoriaRepo.viewAll();
@@ -117,11 +110,4 @@ public class CompraCategoriaArticulosController {
 
         return false;
     }
-
-
-
-
-
-
-
 }

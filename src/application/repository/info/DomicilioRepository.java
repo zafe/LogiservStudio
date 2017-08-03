@@ -24,10 +24,6 @@
 	            preparedStatement.setString(2,domicilio.getNumero());
 	            preparedStatement.setInt(3,localidad);
 	            preparedStatement.executeUpdate();
-	            preparedStatement.close();
-	            connection.close();
-	            String cuerpoMsj = "Domicilio " + domicilio.getCalle() + " " + domicilio.getNumero()+ " agregada correctamente.\n";
-	            Alerta.alertaInfo("Domicilio",cuerpoMsj);
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
@@ -44,8 +40,6 @@
 	            preparedStatement.setString(1,domicilio.getCalle());
 	            preparedStatement.setString(2,domicilio.getNumero());
 	            preparedStatement.setInt(3, localidad);
-	            preparedStatement.close();
-	            connection.close();
 	            String headerMsj="Actualización: Domicilio actualizado";
 	            String cuerpoMsj = "Domicilio " + domicilio.getCalle() + " " + domicilio.getNumero()+ " agregada correctamente.\n";
 	            Alerta.alertaInfo("Domicilio", headerMsj, cuerpoMsj);
@@ -60,8 +54,7 @@
 	                    "DELETE FROM DOMICILIO WHERE idDomicilio=?");
 	            preparedStatement.setInt(1, domicilio.getIdDomicilio());
 	            preparedStatement.executeUpdate();
-	            preparedStatement.close();
-	            connection.close();
+
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }

@@ -20,7 +20,18 @@ public class Domicilio {
 		this.calle = new SimpleStringProperty(calle);
 		this.numero = new SimpleStringProperty(numero);
 	}
-	
+	//TODO: QUITAR TOSTRING
+	@Override
+	public String toString() {
+		return "Domicilio{" +
+				"idDomicilio=" + idDomicilio +
+				", nombre_provincia=" + nombre_provincia +
+				", nombre_localidad=" + nombre_localidad +
+				", calle=" + calle +
+				", numero=" + numero +
+				'}';
+	}
+
 	public Domicilio(){
 		this(0, null, null, null, null);
 	}
