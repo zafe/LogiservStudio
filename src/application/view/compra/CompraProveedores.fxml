@@ -13,10 +13,10 @@
          <children>
             <AnchorPane prefHeight="400.0" prefWidth="600.0">
                <children>
-                  <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Label text="Proveedores" />
-                        <TableView fx:id="proveedorTableView" pickOnBounds="false" prefHeight="233.0" prefWidth="600.0">
+                        <TableView fx:id="proveedorTableView" pickOnBounds="false" prefHeight="194.0" prefWidth="600.0">
                           <columns>
                             <TableColumn fx:id="nombreTableColumn" prefWidth="75.0" text="Nombre" />
                             <TableColumn fx:id="cuitTableColumn" prefWidth="75.0" text="CUIT" />

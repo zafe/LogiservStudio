@@ -92,13 +92,11 @@
 	            preparedStatement=connection.prepareStatement("SELECT * FROM LOCALIDAD where NombreLocalidad LIKE ?");
 	            preparedStatement.setString(1,nombreLocalidad+ '%');
 				resultSet=preparedStatement.executeQuery();
-//	            resultSet=preparedStatement.getResultSet();
+
 				while(resultSet.next()){
 					localidad.setIdLocalidad(resultSet.getInt(1));
 					localidad.setNombre(resultSet.getString(2));
 				}
-
-				System.out.println(localidad.getNombre());
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }

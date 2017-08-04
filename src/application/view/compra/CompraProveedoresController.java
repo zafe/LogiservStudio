@@ -3,7 +3,7 @@ package application.view.compra;
 import application.Main;
 import application.comunes.Alerta;
 import application.model.compra.Proveedor;
-import application.model.info.Localidad;
+import application.repository.info.DomicilioRepository;
 import application.repository.info.ProveedorRepository;
 import application.view.compra.cruds.ProveedorEditController;
 import javafx.collections.FXCollections;
@@ -47,6 +47,7 @@ public class CompraProveedoresController {
     private ObservableList<Proveedor> proveedorObservableList = FXCollections.observableArrayList();
     private ProveedorRepository proveedorRepository = new ProveedorRepository();
 
+
     @FXML
     private void initialize(){
         nombreTableColumn.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
@@ -81,7 +82,9 @@ public class CompraProveedoresController {
         if (resultado.isPresent() && resultado.get()==ButtonType.OK){
             proveedorTableView.getItems().remove(
                     proveedorTableView.getSelectionModel().getSelectedIndex());
+
             proveedorRepository.delete(proveedor);
+
         }else
             Alerta.alertaError("Seleccionar Proveedor", "Por favor seleccione un proveedor en la tabla.");
 
@@ -106,7 +109,7 @@ public class CompraProveedoresController {
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Editar Categoria Artículo");
+            dialogStage.setTitle("Editar Proveedores");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(owner);
             Scene scene = new Scene(page);
@@ -116,7 +119,8 @@ public class CompraProveedoresController {
             ProveedorEditController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setIsNew(tipo);
-            controller.setProveedor(proveedor);
+
+            controller.setDatos(proveedor);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();

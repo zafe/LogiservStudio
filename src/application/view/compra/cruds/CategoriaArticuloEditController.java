@@ -36,7 +36,6 @@ public class CategoriaArticuloEditController {
     public void handleOk(){
 
         if (isInputValid()){
-            System.out.println("clicked");
             categoriaArticulo.setNombre(nombreCategoriaField.getText());
             if (isNew){
                 reporsitory.save(categoriaArticulo);

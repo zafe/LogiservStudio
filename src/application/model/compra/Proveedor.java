@@ -128,10 +128,18 @@ public class Proveedor {
 	public final void setIdProveedor(final int idProveedor) {
 		this.idProveedorProperty().set(idProveedor);
 	}
-	
-	
-	
-	
-	
-	
+
+
+	@Override
+	public String toString() {
+		return "Proveedor{" +
+				"idProveedor=" + idProveedor +
+				", \nnombre=" + nombre +
+				", \ncuit=" + cuit +
+				", \ncalle=" + calle +
+				", \nnumero=" + numero +
+				", \nlocalidad=" + localidad +
+				", \nidLocalidad=" + idLocalidad +
+				'}';
+	}
 }

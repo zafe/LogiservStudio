@@ -15,14 +15,14 @@ public class ProveedorRepository {
     Connection connection;
     PreparedStatement preparedStatement;
     ResultSet resultSet;
-    public void save(Proveedor proveedor){
+    public void save(Proveedor proveedor, int idDomicilio){
         try {
             connection = JDBCConnection.getInstanceConnection();
             preparedStatement= connection.prepareStatement("INSERT INTO proveedor VALUES(?,?,?,?)");
             preparedStatement.setString(1,null);
             preparedStatement.setString(2,proveedor.getNombre());
             preparedStatement.setString(3,proveedor.getCuit());
-            preparedStatement.setString(4,"LAST_INSERT_ID()");
+            preparedStatement.setInt(4,idDomicilio);
             preparedStatement.executeUpdate();
             String cuerpoMsj = "Proveedor  " + proveedor.getNombre() + " agregado correctamente.\n";
             Alerta.alertaInfo("Proveedores",cuerpoMsj);
@@ -34,17 +34,18 @@ public class ProveedorRepository {
     public void update(Proveedor proveedor){
         try {
             connection = JDBCConnection.getInstanceConnection();
-            preparedStatement=connection.prepareStatement("" +
-                    "UPDATE proveedor " +
-                    "SET nombre=?, cuit=?, Domicilio_idDomicilio=?" +
-                    "WHERE idPROVEEDOR=?");
+            preparedStatement=connection.prepareStatement(" UPDATE PROVEEDOR as p\n" +
+                    "    INNER JOIN DOMICILIO as d ON p.DOMICILIO_idDomicilio = idDomicilio\n" +
+                    "    SET p.NOMBRE = ?, p.CUIT=?, d.calle =?, d.numero=?\n" +
+                    "    WHERE p.IDPROVEEDOR = ?");
             preparedStatement.setString(1,proveedor.getNombre());
             preparedStatement.setString(2,proveedor.getCuit());
-//            preparedStatement.setString(3,proveedor.getIdDomicilio());
-            preparedStatement.setInt(4,proveedor.getIdProveedor());
-
+            preparedStatement.setString(3,proveedor.getCalle());
+            preparedStatement.setString(4,proveedor.getNumero());
+            preparedStatement.setInt(5,proveedor.getIdProveedor());
+            preparedStatement.executeUpdate();
             String headerMsj="Actualización: proveedor actualizado";
-            String cuerpoMsj = "Proveedor: " + proveedor.getNombre() + "modificado correctamente.";
+            String cuerpoMsj = "Proveedor: " + proveedor.getNombre() + " modificado correctamente.";
             Alerta.alertaInfo("Proveedores", headerMsj, cuerpoMsj);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -54,7 +55,8 @@ public class ProveedorRepository {
     public void delete(Proveedor proveedor){
         try {
             connection= JDBCConnection.getInstanceConnection();
-            preparedStatement=connection.prepareStatement("DELETE FROM proveedor WHERE idPROVEEDOR=?");
+            preparedStatement=connection.prepareStatement("DELETE a1, a2 FROM Proveedor AS a1 INNER JOIN domicilio AS a2\n" +
+                    "WHERE a1.DOMICILIO_idDomicilio=a2.idDomicilio AND a1.idProveedor=?");
             preparedStatement.setInt(1,proveedor.getIdProveedor());
             preparedStatement.executeUpdate();
             preparedStatement.close();

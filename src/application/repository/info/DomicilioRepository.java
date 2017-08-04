@@ -30,6 +30,20 @@
 
 
 	    }
+	    public int  last(){
+	    	int last = 0;
+			try {
+				connection = JDBCConnection.getInstanceConnection();
+				preparedStatement= connection.prepareStatement("" +
+						"Select max(idDomicilio) as id from domicilio");
+				resultSet = preparedStatement.executeQuery();
+				while (resultSet.next())
+				last = resultSet.getInt(1);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+	    	return last;
+		}
 	    public void update(Domicilio domicilio, int localidad){
 	        try {
 	            connection = JDBCConnection.getInstanceConnection();
@@ -77,9 +91,6 @@
 	                domicilio.setNombre_provincia(resultSet.getString("NombreProvincia"));
 	                list.add(domicilio);
 	            }
-	            preparedStatement.close();
-	            resultSet.close();
-	            connection.close();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }

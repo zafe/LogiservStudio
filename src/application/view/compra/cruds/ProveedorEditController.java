@@ -62,8 +62,17 @@ public class ProveedorEditController {
     }
 
 
-    public void setProveedor(Proveedor proveedor) {
+    public void setDatos(Proveedor proveedor) {
         this.proveedor = proveedor;
+        if (!isNew){
+
+            nombreTextField.setText(proveedor.getNombre());
+            cuitTextField.setText(proveedor.getCuit());
+            calleTextField.setText(proveedor.getCalle());
+            numeroTextField.setText(proveedor.getNumero());
+            provinciaComboBox.getSelectionModel().select(23); //TODO ver como hacer para que se ponga la provincia a la que pertenece
+            localidadComboBox.getSelectionModel().select(proveedor.getLocalidad());
+        }
     }
 
     public boolean isOkClicked(){
@@ -102,14 +111,19 @@ public class ProveedorEditController {
     @FXML
     public void handleOk(){
         if (isInputValid()){
-            localidad = getLocalidad();
-            domicilio = getDomicilio();
-            proveedor = getProveedor();
             if (isNew){
+                localidad = getLocalidad();
+                domicilio = getDomicilio();
+                proveedor = getProveedor();
                 domicilioRepository.save(domicilio,localidad.getIdLocalidad());
-                proveedorRepository.save(proveedor);
+                int last = domicilioRepository.last();
+                proveedorRepository.save(proveedor,last);
             }else {
-//                proveedorRepository.update(proveedor);
+                proveedor.setNombre(nombreTextField.getText());
+                proveedor.setCuit(cuitTextField.getText());
+                proveedor.setCalle(calleTextField.getText());
+                proveedor.setNumero(numeroTextField.getText());
+                proveedorRepository.update(proveedor);
             }
             okClicked=true;
             dialogStage.close();
@@ -138,6 +152,7 @@ public class ProveedorEditController {
 
     public Proveedor getProveedor(){
         Proveedor proveedor = new Proveedor();
+        proveedor.setIdProveedor(1);//////////////////////////////////////////////////////
         proveedor.setNombre(nombreTextField.getText());
         proveedor.setCuit(cuitTextField.getText());
         proveedor.setIdLocalidad(getLocalidad().getIdLocalidad());
