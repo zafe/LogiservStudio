@@ -2,8 +2,9 @@ package application.view;
 
 import java.io.IOException;
 
-import application.view.compra.CompraCategoriaArticulosController;
-import application.view.compra.CompraProveedoresController;
+import application.view.compra.ArticulosController;
+import application.view.compra.CategoriaArticuloController;
+import application.view.compra.ProveedoresController;
 import javafx.fxml.FXML;
 import application.Main;
 import javafx.fxml.FXMLLoader;
@@ -39,46 +40,25 @@ public class PrincipalController {
             // Give the controller access to the main app.
             CompraComprasController controller = loader.getController();
             controller.setOwner(primaryStage);
-            //TODO CAMBIAR ESTO controller.buscarEmpleados();
+            //TODO CAMBIAR ESTO controller.buscarEmpleados(); ?? xD
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     @FXML
-    private void showCategoriaArticuloOverview(){
-	    try{
-            // Load category overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/compra/CompraCategoriaArticulos.fxml"));
-            AnchorPane categoryOverview = loader.load();
-
-            // Set person overview into the center of root layout.
-            rootLayout.setCenter(categoryOverview);
-
-            // Give the controller access to the main app.
-            CompraCategoriaArticulosController controller = loader.getController();
-            controller.setOwner(primaryStage);
-            controller.buscarCategorias();
-
-        }catch (IOException e){
-	        e.printStackTrace();
-        }
-
-    }
-    @FXML
     private void showProveedorOverview(){
         try{
             // Load category overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/compra/CompraProveedores.fxml"));
+            loader.setLocation(Main.class.getResource("view/compra/Proveedores.fxml"));
             AnchorPane proveedorOverview = loader.load();
 
             // Set person overview into the center of root layout.
             rootLayout.setCenter(proveedorOverview);
 
             // Give the controller access to the main app.
-            CompraProveedoresController controller = loader.getController();
+            ProveedoresController controller = loader.getController();
             controller.setOwner(primaryStage);
             controller.obtenerProveedores();
 
@@ -87,8 +67,49 @@ public class PrincipalController {
         }
 
     }
-	
-	
+    @FXML
+    private void showArticuloOverview(){
+        try{
+            // Load category overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/compra/Articulos.fxml"));
+            AnchorPane articuloOverview = loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(articuloOverview);
+
+            // Give the controller access to the main app.
+           ArticulosController controller = loader.getController();
+           controller.setOwner(primaryStage);
+           controller.cargarArticulos();
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void showCategoriaArticuloOverview(){
+        try{
+            // Load category overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/compra/CategoriaArticulos.fxml"));
+            AnchorPane categoryOverview = loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(categoryOverview);
+
+            // Give the controller access to the main app.
+            CategoriaArticuloController controller = loader.getController();
+            controller.setOwner(primaryStage);
+            controller.buscarCategorias();
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+    }
+
 //---------------MODULO ADMINISTRAR-------------------//
     @FXML
 	private void showPersonOverview() {

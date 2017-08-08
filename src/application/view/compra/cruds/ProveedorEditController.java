@@ -152,7 +152,7 @@ public class ProveedorEditController {
 
     public Proveedor getProveedor(){
         Proveedor proveedor = new Proveedor();
-        proveedor.setIdProveedor(1);//////////////////////////////////////////////////////
+        //proveedor.setIdProveedor(1);//////////////////////////////////////////////////////
         proveedor.setNombre(nombreTextField.getText());
         proveedor.setCuit(cuitTextField.getText());
         proveedor.setIdLocalidad(getLocalidad().getIdLocalidad());

@@ -25,7 +25,7 @@ public class CategoriaArticuloRepository {
             //            preparedStatement.setNull(1, Types.INTEGER);
             preparedStatement.setString(1, categoriaArticulo.getNombre());
             preparedStatement.execute();
-            String cuerpoMsj = "Categoría " + categoriaArticulo.getNombre() + "creada correctamente.";
+            String cuerpoMsj = "Categoría " + categoriaArticulo.getNombre() + " creada correctamente.";
             Alerta.alertaInfo("Categoría de Artículos", cuerpoMsj);
 
         }catch (SQLException ex){

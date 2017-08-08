@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Optional;
 
-public class CompraProveedoresController {
+public class ProveedoresController {
     @FXML
     private Button buttonNew;
     @FXML

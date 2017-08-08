@@ -16,7 +16,7 @@ public class ArticuloRepository {
     PreparedStatement preparedStatement;
     ResultSet resultSet;
 
-    public void save(Articulo articulo){
+    public void save(Articulo articulo, int indexCategoria){
         try {
             connection= JDBCConnection.getInstanceConnection();
             preparedStatement = connection.prepareStatement("INSERT INTO ARTICULO values(?,?,?,?,?)");
@@ -24,10 +24,8 @@ public class ArticuloRepository {
             preparedStatement.setString(2,articulo.getMarca());
             preparedStatement.setString(3,articulo.getModelo());
             preparedStatement.setString(4,articulo.getDescripcion());
-            preparedStatement.setInt(5,articulo.getCategoria());
+            preparedStatement.setInt(5,indexCategoria);
             preparedStatement.executeUpdate();
-            preparedStatement.close();
-            connection.close();
             String cuerpoMsj = "Artículo " + articulo.getDescripcion() + " agregado correctamente.\n";
             Alerta.alertaInfo("Artículos",cuerpoMsj);
         } catch (SQLException e) {
@@ -46,7 +44,7 @@ public class ArticuloRepository {
             preparedStatement.setString(1,articulo.getMarca());
             preparedStatement.setString(2,articulo.getModelo());
             preparedStatement.setString(3,articulo.getDescripcion());
-            preparedStatement.setInt(4,articulo.getCategoria());
+            preparedStatement.setString(4,articulo.getCategoria());
             preparedStatement.setInt(5,articulo.getIdArticulo());
             preparedStatement.close();
             connection.close();
@@ -65,19 +63,20 @@ public class ArticuloRepository {
                     "DELETE FROM ARTICULO WHERE idArticulo=?");
             preparedStatement.setInt(1, articulo.getIdArticulo());
             preparedStatement.executeUpdate();
-            preparedStatement.close();
-            connection.close();
-        } catch (SQLException e) {
+            } catch (SQLException e) {
             e.printStackTrace();
         }
 
 
     }
-    public ObservableList<Articulo> viewAll(){
+    public ObservableList<Articulo> view(){
         ObservableList<Articulo> list = FXCollections.observableArrayList();
         try {
             connection= JDBCConnection.getInstanceConnection();
-            preparedStatement=connection.prepareStatement("SELECT * FROM ARTICULO");
+            preparedStatement=connection.prepareStatement("SELECT a.idArticulo, a.Marca, a.Modelo," +
+                    " a.Descripcion, ca.NombreCategoria" +
+                    "     FROM ARTICULO a, CATEGORIA_ARTICULO ca " +
+                    "    WHERE a.CATEGORIA_ARTICULO_idCategoriaArticulo = ca.idCategoriaArticulo ");
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 Articulo articulo = new Articulo();
@@ -85,12 +84,9 @@ public class ArticuloRepository {
                 articulo.setMarca(resultSet.getString(2));
                 articulo.setModelo(resultSet.getString(3));
                 articulo.setDescripcion(resultSet.getString(4));
-                articulo.setCategoria(resultSet.getInt(5));
+                articulo.setCategoria(resultSet.getString(5));
                 list.add(articulo);
             }
-            preparedStatement.close();
-            resultSet.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

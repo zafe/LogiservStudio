@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.compra.CategoriaArticuloController">
    <children>
       <Pane prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -15,13 +15,11 @@
                <children>
                   <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label text="Articulos" />
-                        <TableView pickOnBounds="false" prefHeight="233.0" prefWidth="600.0">
+                        <Label text="Categoría Articulos" />
+                        <TableView fx:id="categoriaArticuloTableView" pickOnBounds="false" prefHeight="233.0" prefWidth="600.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="Marca" />
-                            <TableColumn prefWidth="75.0" text="Modelo" />
-                              <TableColumn prefWidth="75.0" text="Descripción" />
-                              <TableColumn prefWidth="90.0" text="Categoría" />
+                            <TableColumn fx:id="idCategoriaTableColumn" prefWidth="75.0" text="id" />
+                            <TableColumn fx:id="nombreCategoriaTableColumn" prefWidth="75.0" text="Nombre Categoría" />
                           </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -29,9 +27,9 @@
                         </TableView>
                         <HBox alignment="CENTER" prefHeight="152.0" prefWidth="600.0" spacing="10.0">
                            <children>
-                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleNewEmpleado" text="Nuevo Artículo" />
-                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleEditPerson" text="Editar Artículo" />
-                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleDeleteEmpleado" text="Eliminar Artículo" />
+                              <Button fx:id="btnNuevaCategoria" alignment="CENTER" mnemonicParsing="false" onAction="#handleNuevaCategoria" text="Nueva Categoría" />
+                              <Button fx:id="btnEditarCategoria" alignment="CENTER" mnemonicParsing="false" onAction="#handleEditCategoria" text="Editar Categoría" />
+                              <Button fx:id="btnEliminarCategoria" alignment="CENTER" mnemonicParsing="false" onAction="#handleEliminarCategoria" text="Eliminar Categoría" />
                            </children>
                            <VBox.margin>
                               <Insets />

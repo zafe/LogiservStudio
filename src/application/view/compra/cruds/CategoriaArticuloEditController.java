@@ -50,7 +50,6 @@ public class CategoriaArticuloEditController {
     @FXML
     public void handleCancel(){
         dialogStage.close();
-
     }
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
