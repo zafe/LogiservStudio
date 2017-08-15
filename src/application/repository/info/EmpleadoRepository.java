@@ -47,7 +47,7 @@ public class EmpleadoRepository {
 			System.out.println(empleados.get(0).getNombre());
 			System.out.println(empleados.get(1).getNombre());
 			System.out.println(empleados.get(2).getNombre());
-			System.out.println(empleados.get(3).getNombre());
+
 			
 			
 			
