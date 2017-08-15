@@ -39,9 +39,6 @@ public class EmpleadoRepository {
 			empleado.setDomicilio(resultSet.getString("Calle") + ", " + resultSet.getString("Numero"));
 			System.out.println("Empleado " + empleado.getNombre() + " " + empleado.getApellido());
 			empleados.add(empleado);
-			}
-
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
