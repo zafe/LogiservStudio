@@ -40,7 +40,6 @@ public class EmpleadoRepository {
 			System.out.println("Empleado " + empleado.getNombre() + " " + empleado.getApellido());
 			empleados.add(empleado);
 			}
-
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

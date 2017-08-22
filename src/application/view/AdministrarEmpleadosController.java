@@ -25,6 +25,16 @@ public class AdministrarEmpleadosController {
 	private TableColumn<Empleado, String> nombreColumn;
 	@FXML
 	private TableColumn<Empleado, String> apellidoColumn;
+	@FXML
+	private TableColumn<Empleado, String> domicilioColumn;
+	@FXML
+	private TableColumn<Empleado, String> nacimientoColumn;
+	@FXML
+	private TableColumn<Empleado, String> hijosColumn;
+	@FXML
+	private TableColumn<Empleado, String> cuitColumn;
+	@FXML
+	private TableColumn<Empleado, String> categoriaColumn;
 	private Stage owner;
 	private ObservableList<Empleado> empleadoData = FXCollections.observableArrayList();
 	
@@ -39,6 +49,11 @@ public class AdministrarEmpleadosController {
 		// Initialize the person table with the two columns.
 		nombreColumn.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
 		apellidoColumn.setCellValueFactory(cellData -> cellData.getValue().apellidoProperty());
+		nacimientoColumn.setCellValueFactory(cellData -> cellData.getValue().nacimientoProperty());
+		domicilioColumn.setCellValueFactory(cellData -> cellData.getValue().domicilioProperty());
+		hijosColumn.setCellValueFactory(cellData -> cellData.getValue().hijosProperty().asString());
+		cuitColumn.setCellValueFactory(cellData -> cellData.getValue().cuitProperty());
+		categoriaColumn.setCellValueFactory(cellData -> cellData.getValue().categoriaProperty());
 	}
 
 	/**

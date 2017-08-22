@@ -153,6 +153,25 @@ public class PrincipalController {
           }
       }
     
+    @FXML
+  	private void showGPSOverview() {
+      	try {
+              // Load person overview.
+              FXMLLoader loaderusuario = new FXMLLoader();
+              loaderusuario.setLocation(Main.class.getResource("view/GPSWebView.fxml"));
+              AnchorPane usuarioOverview = (AnchorPane) loaderusuario.load();
+
+              // Set person overview into the center of root layout.
+              rootLayout.setCenter(usuarioOverview);
+
+              // Give the controller access to the main app.
+              GPSWebViewController usercontroller = loaderusuario.getController();
+              usercontroller.setOwner(primaryStage);
+          } catch (IOException e) {
+              e.printStackTrace();
+          }
+      }
+    
     
 	
 

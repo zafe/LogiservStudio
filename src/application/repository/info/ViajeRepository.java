@@ -14,6 +14,8 @@
 	import java.text.ParseException;
 	import java.text.SimpleDateFormat;
 
+import com.sun.prism.ResourceFactoryListener;
+
 	public class ViajeRepository {
 	    Connection connection;
 	    PreparedStatement preparedStatement;
@@ -145,8 +147,9 @@
 	        return list;
 	    }
 	    
-	    public void search(Viaje viaje){
-	        try {
+	    public Viaje search(int idViaje){
+	    	Viaje viaje = new Viaje();
+	    	try {
 	            connection= JDBCConnection.getInstanceConnection();
 	            preparedStatement=connection.prepareStatement("SELECT * FROM VIAJE INNER JOIN"
 	            		+ "FROM VIAJE v, ORIGEN_DESTINO o, EMPLEADO e, CAMION c, FACTURA_VENTA f"
@@ -155,13 +158,17 @@
 	            		+ "AND v.Camion_idCamion = c.idCamion"
 	            		+ "AND v.FACTURA_VENTA_idFactura_VENTA = f.idFactura_Venta"
 	            		+ "AND v.idRemito=?");
-	            preparedStatement.setInt(1,viaje.getIdRemito());
-	            preparedStatement.executeUpdate();
-	            preparedStatement.close();
-	            connection.close();
+	            preparedStatement.setInt(1,idViaje);
+	            resultSet = preparedStatement.executeQuery();
+	            viaje.setIdRemito(resultSet.getInt("idRemito"));
+	            viaje.setBruto(resultSet.getDouble("Bruto"));
+	            viaje.setCamion(resultSet.getString("Marca") +  " " + resultSet.getString("Modelo") );
+	            viaje.setFecha(resultSet.getString("Fecha"));
+	            viaje.setDistanciaRecorrida(resultSet.getString("DistanciaKM"));
+	            
 	        } catch (SQLException e) {
 	            e.printStackTrace();
-	        }
-
+	        }	
+	    	return viaje;
 	    }
 	}
