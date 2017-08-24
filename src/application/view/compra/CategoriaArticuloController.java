@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Optional;
 
-public class CompraCategoriaArticulosController {
+public class CategoriaArticuloController {
     @FXML
     private Button btnNuevaCategoria;
     @FXML
@@ -56,28 +56,21 @@ public class CompraCategoriaArticulosController {
         if(selectedItem!=null)
             this.showCategoriaEdit(selectedItem,false);
         else
-            Alerta.alertaError("Seleccionar Categoria de Artículo",
-                    "Por favor selecciona una categoria en la tabla.");
+            Alerta.alertaError("Seleccionar Categoría de Artículo",
+                    "Por favor selecciona una categoría en la tabla.");
 
     }
     @FXML
     public void handleEliminarCategoria(){
         CategoriaArticulo categoriaSeleccionada = categoriaArticuloTableView.getSelectionModel().getSelectedItem();
-        Optional<ButtonType> resultado = Alerta.alertaConfirmacion("Eliminar Categoria",null,
-                "Esta seguro de querer borrar la categoria seleccionada? \nPara confirmar presione OK.");
+        Optional<ButtonType> resultado = Alerta.alertaConfirmacion("Eliminar Categoría",null,
+                "Esta seguro de querer borrar la categoria seleccionada? \nPara confirmar presione Aceptar.");
         if(resultado.isPresent() && resultado.get() == ButtonType.OK){
             categoriaArticuloTableView.getItems().remove(
                     categoriaArticuloTableView.getSelectionModel().getSelectedIndex());
             categoriaRepo.delete(categoriaSeleccionada);
         }else
-            Alerta.alertaError("Seleccionar Categoria","Por favor selecciona una categoria en la tabla");
-
-        /*if (seleccionado>=0){
-            categoriaArticuloTableView.getItems().remove(seleccionado);
-            categoriaRepo.delete(categoriaArticulo);
-        }else {
-            Alerta.alertaError("Seleccionar Categoria","Por favor selecciona una categoria en la tabla");
-        }*/
+            Alerta.alertaError("Seleccionar Categoría","Por favor selecciona una categoría en la tabla");
     }
     public void buscarCategorias(){
         this.categoriaArticulosData = categoriaRepo.viewAll();
@@ -96,7 +89,7 @@ public class CompraCategoriaArticulosController {
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Editar Categoria Artículo");
+            dialogStage.setTitle("Nueva Categoria Artículo");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(owner);
             Scene scene = new Scene(page);
@@ -117,11 +110,4 @@ public class CompraCategoriaArticulosController {
 
         return false;
     }
-
-
-
-
-
-
-
 }

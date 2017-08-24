@@ -25,7 +25,7 @@ public class CategoriaArticuloRepository {
             //            preparedStatement.setNull(1, Types.INTEGER);
             preparedStatement.setString(1, categoriaArticulo.getNombre());
             preparedStatement.execute();
-            String cuerpoMsj = "Categoría " + categoriaArticulo.getNombre() + "creada correctamente.";
+            String cuerpoMsj = "Categoría " + categoriaArticulo.getNombre() + " creada correctamente.";
             Alerta.alertaInfo("Categoría de Artículos", cuerpoMsj);
 
         }catch (SQLException ex){
@@ -41,7 +41,7 @@ public class CategoriaArticuloRepository {
                     " where idCategoriaArticulo=?");
             preparedStatement.setString(1, categoriaArticulo.getNombre());
             preparedStatement.setInt(2, categoriaArticulo.getIdCategoriaArticulo());
-
+            preparedStatement.executeUpdate();
             String headerMsj = "Actualización: categoría de artículo realizada";
             String cuerpoMsj =  "Categoría '" + categoriaArticulo.getNombre() + "' modificada correctamente.";
             Alerta.alertaInfo("Categoría Artículo",headerMsj,cuerpoMsj);

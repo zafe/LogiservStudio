@@ -24,16 +24,26 @@
 	            preparedStatement.setString(2,domicilio.getNumero());
 	            preparedStatement.setInt(3,localidad);
 	            preparedStatement.executeUpdate();
-	            preparedStatement.close();
-	            connection.close();
-	            String cuerpoMsj = "Domicilio " + domicilio.getCalle() + " " + domicilio.getNumero()+ " agregada correctamente.\n";
-	            Alerta.alertaInfo("Domicilio",cuerpoMsj);
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
 
 
 	    }
+	    public int  last(){
+	    	int last = 0;
+			try {
+				connection = JDBCConnection.getInstanceConnection();
+				preparedStatement= connection.prepareStatement("" +
+						"Select max(idDomicilio) as id from domicilio");
+				resultSet = preparedStatement.executeQuery();
+				while (resultSet.next())
+				last = resultSet.getInt(1);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+	    	return last;
+		}
 	    public void update(Domicilio domicilio, int localidad){
 	        try {
 	            connection = JDBCConnection.getInstanceConnection();
@@ -44,8 +54,6 @@
 	            preparedStatement.setString(1,domicilio.getCalle());
 	            preparedStatement.setString(2,domicilio.getNumero());
 	            preparedStatement.setInt(3, localidad);
-	            preparedStatement.close();
-	            connection.close();
 	            String headerMsj="Actualización: Domicilio actualizado";
 	            String cuerpoMsj = "Domicilio " + domicilio.getCalle() + " " + domicilio.getNumero()+ " agregada correctamente.\n";
 	            Alerta.alertaInfo("Domicilio", headerMsj, cuerpoMsj);
@@ -60,8 +68,7 @@
 	                    "DELETE FROM DOMICILIO WHERE idDomicilio=?");
 	            preparedStatement.setInt(1, domicilio.getIdDomicilio());
 	            preparedStatement.executeUpdate();
-	            preparedStatement.close();
-	            connection.close();
+
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
@@ -84,9 +91,6 @@
 	                domicilio.setNombre_provincia(resultSet.getString("NombreProvincia"));
 	                list.add(domicilio);
 	            }
-	            preparedStatement.close();
-	            resultSet.close();
-	            connection.close();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
