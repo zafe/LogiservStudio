@@ -16,20 +16,15 @@ public class CategoriaArticuloRepository {
     ResultSet resultSet;
 
     public void save(CategoriaArticulo categoriaArticulo) {
-//        System.out.println("Paso por aqui sin romperme");
-//        connection;
         connection= JDBCConnection.getInstanceConnection();
-        try {            System.out.println("conexion: "+ JDBCConnection.getInstanceConnection().isClosed());
-
+        try {
             preparedStatement =connection.prepareStatement("INSERT INTO CATEGORIA_ARTICULO(NombreCategoria) VALUES(?)");
-            //            preparedStatement.setNull(1, Types.INTEGER);
             preparedStatement.setString(1, categoriaArticulo.getNombre());
             preparedStatement.execute();
             String cuerpoMsj = "Categoría " + categoriaArticulo.getNombre() + " creada correctamente.";
             Alerta.alertaInfo("Categoría de Artículos", cuerpoMsj);
 
         }catch (SQLException ex){
-            System.err.println("salio todo mal viejo");
             ex.printStackTrace();
         }
     }
@@ -50,12 +45,11 @@ public class CategoriaArticuloRepository {
         }
     }
 
-    public void delete(CategoriaArticulo categoriaArticulo) {
-        System.out.println(categoriaArticulo.getIdCategoriaArticulo());
+    public void delete(int indiceCategoria) {
         try{
             connection= JDBCConnection.getInstanceConnection();
             preparedStatement= connection.prepareStatement("DELETE FROM CATEGORIA_ARTICULO WHERE idCategoriaArticulo=?");
-            preparedStatement.setInt(1,categoriaArticulo.getIdCategoriaArticulo());
+            preparedStatement.setInt(1,indiceCategoria);
             preparedStatement.execute();
             }catch (SQLException ex){
             ex.printStackTrace();
@@ -63,7 +57,7 @@ public class CategoriaArticuloRepository {
 
     }
 
-    public ObservableList<CategoriaArticulo> viewAll() {
+    public ObservableList<CategoriaArticulo> view() {
         ObservableList<CategoriaArticulo> list = FXCollections.observableArrayList();
         try {
             connection= JDBCConnection.getInstanceConnection();

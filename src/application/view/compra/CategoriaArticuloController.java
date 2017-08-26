@@ -68,12 +68,12 @@ public class CategoriaArticuloController {
         if(resultado.isPresent() && resultado.get() == ButtonType.OK){
             categoriaArticuloTableView.getItems().remove(
                     categoriaArticuloTableView.getSelectionModel().getSelectedIndex());
-            categoriaRepo.delete(categoriaSeleccionada);
+            categoriaRepo.delete(categoriaSeleccionada.getIdCategoriaArticulo());
         }else
             Alerta.alertaError("Seleccionar Categoría","Por favor selecciona una categoría en la tabla");
     }
     public void buscarCategorias(){
-        this.categoriaArticulosData = categoriaRepo.viewAll();
+        this.categoriaArticulosData = categoriaRepo.view();
         categoriaArticuloTableView.setItems(categoriaArticulosData);
     }
     public void setOwner(Stage owner){
