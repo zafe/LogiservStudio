@@ -6,25 +6,20 @@ import application.model.compra.Articulo;
 import application.model.compra.CategoriaArticulo;
 import application.repository.info.ArticuloRepository;
 import application.repository.info.CategoriaArticuloRepository;
-import application.view.compra.CategoriaArticuloController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
 import java.io.IOException;
-import java.security.acl.Owner;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -33,6 +28,8 @@ public class ArticuloEditController {
     private TextField marcaTextField;
     @FXML
     private TextField modeloTextField;
+    @FXML
+    private TextField stockTextField;
     @FXML
     private TextArea descripcionTextArea;
     @FXML
@@ -45,11 +42,11 @@ public class ArticuloEditController {
 
     private Stage dialogStage;
     private boolean isNew;
-    private Articulo articulo = new Articulo();
+    private Articulo articulo;
     private boolean okClicked = false;
     private ArticuloRepository repository = new ArticuloRepository();
     private CategoriaArticuloRepository categoriaArticuloRepository = new CategoriaArticuloRepository();
-    private ArrayList<Integer> categoriaIndices = guardarIndices(categoriaArticuloRepository.viewAll());
+    private ArrayList<Integer> categoriaIndices = guardarIndices(categoriaArticuloRepository.view());
 
 
     public void setDialogStage(Stage dialogStage) {
@@ -61,6 +58,12 @@ public class ArticuloEditController {
     }
 
     public void setDatos(Articulo datos) {
+        articulo = datos;
+        marcaTextField.setText(articulo.getMarca());
+        modeloTextField.setText(articulo.getModelo());
+        descripcionTextArea.setText(articulo.getDescripcion());
+        categoriaComboBox.getSelectionModel().select(articulo.getCategoria());
+        stockTextField.setText(String.valueOf(articulo.getStock()));
 
     }
 
@@ -73,7 +76,7 @@ public class ArticuloEditController {
     }
 
     private void refreshComboBox(){
-    ObservableList<String> categorias =  this.createAObservableListOfStrings(categoriaArticuloRepository.viewAll());
+    ObservableList<String> categorias =  this.createAObservableListOfStrings(categoriaArticuloRepository.view());
     categoriaComboBox.setItems(categorias);
 }
     private ObservableList<String> createAObservableListOfStrings(ObservableList<CategoriaArticulo> categoriaArticulos) {
@@ -98,12 +101,13 @@ public class ArticuloEditController {
         articulo.setMarca(marcaTextField.getText());
         articulo.setModelo(modeloTextField.getText());
         articulo.setDescripcion(descripcionTextArea.getText());
+        articulo.setStock( Integer.parseInt(stockTextField.getText()));
         if (isInputValid()) {
+            int indice = categoriaComboBox.getSelectionModel().getSelectedIndex();
             if (isNew) {
-                int indice = categoriaComboBox.getSelectionModel().getSelectedIndex();
                 repository.save(articulo,categoriaIndices.get(indice));
             } else {
-                repository.update(articulo);
+                repository.update(articulo,categoriaIndices.get(indice));
             }
             okClicked = true;
             dialogStage.close();
@@ -138,7 +142,6 @@ public class ArticuloEditController {
     }
     @FXML
     public void handleNuevaCategoria(){
-        System.out.println(categoriaIndices); //todo borrar
         CategoriaArticulo tempCategoria = new CategoriaArticulo();
         this.showCategoriaEdit(tempCategoria,true);
         refreshComboBox();
@@ -157,7 +160,7 @@ public class ArticuloEditController {
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Editar Categoria Artículo");
+            dialogStage.setTitle("Editar Artículo");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(this.dialogStage);
             Scene scene = new Scene(page);

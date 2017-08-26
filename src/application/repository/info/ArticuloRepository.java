@@ -3,13 +3,11 @@ package application.repository.info;
 import application.comunes.Alerta;
 import application.database.JDBCConnection;
 import application.model.compra.Articulo;
+import com.sun.corba.se.impl.encoding.TypeCodeInputStream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class ArticuloRepository {
     Connection connection;
@@ -19,35 +17,35 @@ public class ArticuloRepository {
     public void save(Articulo articulo, int indexCategoria){
         try {
             connection= JDBCConnection.getInstanceConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO ARTICULO values(?,?,?,?,?)");
-            preparedStatement.setString(1,null);
+            preparedStatement = connection.prepareStatement("INSERT INTO ARTICULO values(?,?,?,?,?,?)");
+            preparedStatement.setString(1, null);
             preparedStatement.setString(2,articulo.getMarca());
             preparedStatement.setString(3,articulo.getModelo());
             preparedStatement.setString(4,articulo.getDescripcion());
             preparedStatement.setInt(5,indexCategoria);
+            preparedStatement.setInt(6,articulo.getStock());
             preparedStatement.executeUpdate();
-            String cuerpoMsj = "Artículo " + articulo.getDescripcion() + " agregado correctamente.\n";
+            String cuerpoMsj = "Artículo '" + articulo.getDescripcion() + "' agregado correctamente.\n";
             Alerta.alertaInfo("Artículos",cuerpoMsj);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
-    public void update(Articulo articulo){
+    public void update(Articulo articulo, int index){
         try {
             connection = JDBCConnection.getInstanceConnection();
-            preparedStatement= connection.prepareStatement("" +
+            preparedStatement= connection.prepareStatement(
                     "UPDATE ARTICULO " +
-                        "SET Marca=?, Modelo=?, Descripcion=?, " +
-                    "categoria_articulo_idCategoriaArticulo=?" +
+                        "SET Marca=?, Modelo=?, Descripcion=?, CATEGORIA_ARTICULO_idCategoriaArticulo=?, stock=? " +
                     "WHERE idArticulo=?");
             preparedStatement.setString(1,articulo.getMarca());
             preparedStatement.setString(2,articulo.getModelo());
             preparedStatement.setString(3,articulo.getDescripcion());
-            preparedStatement.setString(4,articulo.getCategoria());
-            preparedStatement.setInt(5,articulo.getIdArticulo());
-            preparedStatement.close();
-            connection.close();
+            preparedStatement.setInt(4,index);
+            preparedStatement.setInt(5,articulo.getStock());
+            preparedStatement.setInt(6,articulo.getIdArticulo());
+            preparedStatement.executeUpdate();
             String headerMsj="Actualización: artículo actualizado";
             String cuerpoMsj = "Artículo: " + articulo.getDescripcion() + " modificado correctamente.";
             Alerta.alertaInfo("Artículos", headerMsj, cuerpoMsj);
@@ -74,7 +72,7 @@ public class ArticuloRepository {
         try {
             connection= JDBCConnection.getInstanceConnection();
             preparedStatement=connection.prepareStatement("SELECT a.idArticulo, a.Marca, a.Modelo," +
-                    " a.Descripcion, ca.NombreCategoria" +
+                    " a.Descripcion, a.stock, ca.NombreCategoria" +
                     "     FROM ARTICULO a, CATEGORIA_ARTICULO ca " +
                     "    WHERE a.CATEGORIA_ARTICULO_idCategoriaArticulo = ca.idCategoriaArticulo ");
             resultSet = preparedStatement.executeQuery();
@@ -84,7 +82,8 @@ public class ArticuloRepository {
                 articulo.setMarca(resultSet.getString(2));
                 articulo.setModelo(resultSet.getString(3));
                 articulo.setDescripcion(resultSet.getString(4));
-                articulo.setCategoria(resultSet.getString(5));
+                articulo.setStock(resultSet.getInt(5));
+                articulo.setCategoria(resultSet.getString(6));
                 list.add(articulo);
             }
         } catch (SQLException e) {

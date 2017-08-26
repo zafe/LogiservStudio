@@ -38,6 +38,8 @@ public class ArticulosController {
     private TableColumn<Articulo, String> descripcionTableColumn;
     @FXML
     private TableColumn<Articulo, String> categoriaTableColumn;
+    @FXML
+    private TableColumn<Articulo, String> stockTableColumn;
 
     private Stage owner;
     private ObservableList<Articulo> articuloObservableList = FXCollections.observableArrayList();
@@ -48,6 +50,7 @@ public class ArticulosController {
         modeloTableColumn.setCellValueFactory(cellData -> cellData.getValue().modeloProperty());
         descripcionTableColumn.setCellValueFactory(cellData -> cellData.getValue().descripcionProperty());
         categoriaTableColumn.setCellValueFactory(cellData -> cellData.getValue().categoriaProperty());
+        stockTableColumn.setCellValueFactory(cellData -> cellData.getValue().stockProperty().asString());
     }
     @FXML
     public void handleNew(){
