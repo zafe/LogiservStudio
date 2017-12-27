@@ -32,9 +32,6 @@ public class CompraComprasController {
 	    fechaColumn.setCellValueFactory(cellData -> cellData.getValue().fechaProperty());
 	    proveedorColumn.setCellValueFactory(cellData -> cellData.getValue().nombre_proveedorProperty());*/
 
-		/**
-		 * ESTE CODIGO LO PUSE DESDE LA PC
-		 */
 	}
 
 	public void setOwner(Stage owner){
