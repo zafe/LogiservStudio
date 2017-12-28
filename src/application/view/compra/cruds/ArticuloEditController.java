@@ -46,7 +46,7 @@ public class ArticuloEditController {
     private boolean okClicked = false;
     private ArticuloRepository repository = new ArticuloRepository();
     private CategoriaArticuloRepository categoriaArticuloRepository = new CategoriaArticuloRepository();
-    private ArrayList<Integer> categoriaIndices = guardarIndices(categoriaArticuloRepository.view());
+    private ArrayList<Integer> categoriaIndices;
 
 
     public void setDialogStage(Stage dialogStage) {
@@ -56,6 +56,7 @@ public class ArticuloEditController {
     public void setIsNew(boolean isNew) {
         this.isNew = isNew;
     }
+
 
     public void setDatos(Articulo datos) {
         articulo = datos;
@@ -76,8 +77,10 @@ public class ArticuloEditController {
     }
 
     private void refreshComboBox(){
-    ObservableList<String> categorias =  this.createAObservableListOfStrings(categoriaArticuloRepository.view());
-    categoriaComboBox.setItems(categorias);
+        ObservableList<CategoriaArticulo> categoriaArticuloObservableList = categoriaArticuloRepository.view();
+        categoriaIndices =guardarIndices(categoriaArticuloObservableList) ;
+        ObservableList<String> categorias =  this.createAObservableListOfStrings(categoriaArticuloObservableList);
+        categoriaComboBox.setItems(categorias);
 }
     private ObservableList<String> createAObservableListOfStrings(ObservableList<CategoriaArticulo> categoriaArticulos) {
         Iterator<CategoriaArticulo> iterator = categoriaArticulos.iterator();
@@ -145,6 +148,7 @@ public class ArticuloEditController {
         CategoriaArticulo tempCategoria = new CategoriaArticulo();
         this.showCategoriaEdit(tempCategoria,true);
         refreshComboBox();
+
 
     }
 

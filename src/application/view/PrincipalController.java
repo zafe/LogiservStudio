@@ -32,15 +32,15 @@ public class PrincipalController {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/CompraCompras.fxml"));
-            AnchorPane personOverview = (AnchorPane) loader.load();
+            AnchorPane pane = loader.load();
 
             // Set person overview into the center of root layout.
-            rootLayout.setCenter(personOverview);
+            rootLayout.setCenter(pane);
 
             // Give the controller access to the main app.
             CompraComprasController controller = loader.getController();
             controller.setOwner(primaryStage);
-            //TODO CAMBIAR ESTO controller.buscarEmpleados(); ?? xD
+            controller.obtenerCompras();
 
         } catch (IOException e) {
             e.printStackTrace();

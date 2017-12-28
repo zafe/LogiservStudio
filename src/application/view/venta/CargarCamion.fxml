@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -14,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.CompraComprasController">
+<AnchorPane xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -22,25 +18,20 @@
                <children>
                   <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Pane prefHeight="70.0" prefWidth="600.0" />
-                        <Label text="Compras" />
-                        <TableView fx:id="comprasTable" pickOnBounds="false" prefHeight="233.0" prefWidth="600.0">
+                        <Label text="Camiones" />
+                        <TableView pickOnBounds="false" prefHeight="233.0" prefWidth="600.0">
                           <columns>
-                            <TableColumn fx:id="codigoFacturaColumn" prefWidth="75.0" text="Factura" />
-                            <TableColumn fx:id="fechaColumn" prefWidth="75.0" text="Fecha" />
-                              <TableColumn fx:id="proveedorColumn" prefWidth="75.0" text="Proveedor" />
-                              <TableColumn fx:id="montoColumn" prefWidth="90.0" text="Monto" />
+                            <TableColumn minWidth="0.0" prefWidth="0.0" text="id" />
+                            <TableColumn prefWidth="203.20001220703125" text="Marca" />
+                              <TableColumn prefWidth="206.4000244140625" text="Modelo" />
+                              <TableColumn prefWidth="192.79998779296875" text="Patente" />
                           </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
                         </TableView>
                         <HBox alignment="CENTER" prefHeight="152.0" prefWidth="600.0" spacing="10.0">
                            <children>
-                              <Button alignment="CENTER" mnemonicParsing="false" text="Ver Detalle" />
-                              <Button alignment="CENTER" mnemonicParsing="false" text="Nueva Compra" />
-                              <Button alignment="CENTER" mnemonicParsing="false" text="Editar Compra" />
-                              <Button alignment="CENTER" mnemonicParsing="false" text="Eliminar Compra" />
+                              <Button alignment="CENTER" mnemonicParsing="false" text="Nuevo Camion" />
+                              <Button alignment="CENTER" mnemonicParsing="false" text="Editar Camion" />
+                              <Button alignment="CENTER" mnemonicParsing="false" text="Eliminar Camion" />
                            </children>
                            <VBox.margin>
                               <Insets />
