@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <AnchorPane prefHeight="400.0" prefWidth="600.0">
+               <children>
+                  <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label text="Camiones" />
+                        <TableView pickOnBounds="false" prefHeight="233.0" prefWidth="600.0">
+                          <columns>
+                            <TableColumn minWidth="0.0" prefWidth="0.0" text="id" />
+                            <TableColumn prefWidth="203.20001220703125" text="Marca" />
+                              <TableColumn prefWidth="206.4000244140625" text="Modelo" />
+                              <TableColumn prefWidth="192.79998779296875" text="Patente" />
+                          </columns>
+                        </TableView>
+                        <HBox alignment="CENTER" prefHeight="152.0" prefWidth="600.0" spacing="10.0">
+                           <children>
+                              <Button alignment="CENTER" mnemonicParsing="false" text="Nuevo Camion" />
+                              <Button alignment="CENTER" mnemonicParsing="false" text="Editar Camion" />
+                              <Button alignment="CENTER" mnemonicParsing="false" text="Eliminar Camion" />
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets top="30.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

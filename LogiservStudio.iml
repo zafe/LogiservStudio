@@ -20,6 +20,5 @@
     <orderEntry type="library" name="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER" level="application" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.13" level="project" />
     <orderEntry type="library" name="Maven: org.controlsfx:controlsfx:8.0.6_20" level="project" />
-    <orderEntry type="library" name="de.taimos:dvalin-template-jasperreports:1.22" level="project" />
   </component>
 </module>
