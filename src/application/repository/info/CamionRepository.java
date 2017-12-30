@@ -23,9 +23,7 @@ public class CamionRepository {
             preparedStatement.setString(2,camion.getMarca());
             preparedStatement.setString(3,camion.getModelo());
             preparedStatement.setString(4,camion.getPatente());
-            preparedStatement.executeUpdate();
-            preparedStatement.close();
-            connection.close();
+            preparedStatement.execute();
             String cuerpoMsj = "Camión: " + camion.getMarca() + " agregado correctamente.\n";
             Alerta.alertaInfo("Camiones",cuerpoMsj);
         } catch (SQLException e) {
@@ -37,14 +35,13 @@ public class CamionRepository {
             connection = JDBCConnection.getInstanceConnection();
             preparedStatement= connection.prepareStatement("" +
                     "UPDATE CAMION " +
-                    "SET Marca=?, Modelo=?, Patente=?, " +
+                    "SET Marca=?, Modelo=?, Patente=? " +
                     "WHERE idCamion=?");
             preparedStatement.setString(1,camion.getMarca());
             preparedStatement.setString(2,camion.getModelo());
             preparedStatement.setString(3,camion.getPatente());
             preparedStatement.setInt(4,camion.getId());
-            preparedStatement.close();
-            connection.close();
+            preparedStatement.execute();
             String headerMsj="Actualización: Camión actualizado";
             String cuerpoMsj = "Camión: " + camion.getMarca() + " modificado correctamente.";
             Alerta.alertaInfo("Camiones", headerMsj, cuerpoMsj);
@@ -53,15 +50,13 @@ public class CamionRepository {
         }
 
     }
-    public void delete(Camion camion){
+    public void delete(int idCamion){
         try {
             connection= JDBCConnection.getInstanceConnection();
             preparedStatement = connection.prepareStatement(
                     "DELETE FROM CAMION WHERE idCamion=?");
-            preparedStatement.setInt(1, camion.getId());
-            preparedStatement.executeUpdate();
-            preparedStatement.close();
-            connection.close();
+            preparedStatement.setInt(1, idCamion);
+            preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -81,9 +76,7 @@ public class CamionRepository {
                 camion.setPatente(resultSet.getString(4));
                 list.add(camion);
             }
-            preparedStatement.close();
-            resultSet.close();
-            connection.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -94,9 +87,7 @@ public class CamionRepository {
             connection= JDBCConnection.getInstanceConnection();
             preparedStatement=connection.prepareStatement("SELECT * FROM CAMION where idCamion=?");
             preparedStatement.setInt(1,camion.getId());
-            preparedStatement.executeUpdate();
-            preparedStatement.close();
-            connection.close();
+            preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -40,6 +40,7 @@
                                     <VBox layoutX="30.4" layoutY="30.4" prefHeight="462.0" prefWidth="232.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="219.0" text="Button" />
+                                    <Button mnemonicParsing="false" onAction="#showCamionesOverview" prefHeight="25.0" prefWidth="219.0" text="Camiones" />
                                        </children>
                                     </VBox>
                                  </children>

@@ -5,6 +5,7 @@ import java.io.IOException;
 import application.view.compra.ArticulosController;
 import application.view.compra.CategoriaArticuloController;
 import application.view.compra.ProveedoresController;
+import application.view.venta.CargarCamionController;
 import javafx.fxml.FXML;
 import application.Main;
 import javafx.fxml.FXMLLoader;
@@ -24,6 +25,29 @@ public class PrincipalController {
 	public void setPrimaryStage(Stage primary){
 		this.primaryStage = primary;
 	}
+
+    //---------------MODULO VENTAS------------------------//
+    @FXML
+    private void showCamionesOverview(){
+        try{
+            // Load category overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/venta/CargarCamion.fxml"));
+            AnchorPane camionOverview = loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(camionOverview);
+
+            // Give the controller access to the main app.
+            CargarCamionController controller = loader.getController();
+            controller.setOwner(primaryStage);
+            controller.buscarCamiones();
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+    }
 //---------------MODULO COMPRA------------------------//
 	
 	@FXML
