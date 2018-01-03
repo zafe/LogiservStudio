@@ -17,10 +17,9 @@ public class EmpleadoRepository {
 	public static ObservableList<Empleado> buscarEmpleados(){
 		
 		
-		ObservableList<Empleado> empleados = FXCollections.observableArrayList();;
+		ObservableList<Empleado> empleados = FXCollections.observableArrayList();
 		Statement statement = null;
 		ResultSet resultSet = null;
-		
 		try {
 			statement = JDBCConnection.getInstanceConnection().createStatement();
 			resultSet = statement.executeQuery("SELECT * FROM EMPLEADO e, CATEGORIA_EMPLEADO c, DOMICILIO d "
@@ -38,10 +37,8 @@ public class EmpleadoRepository {
 			empleado.setCategoria(resultSet.getString("NombreCategoria"));
 			empleado.setDomicilio(resultSet.getString("Calle") + ", " + resultSet.getString("Numero"));
 			System.out.println("Empleado " + empleado.getNombre() + " " + empleado.getApellido());
-			empleados.add(empleado);
-			}
-			
-		} catch (SQLException e) {
+			empleados.add(empleado); }
+			} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
