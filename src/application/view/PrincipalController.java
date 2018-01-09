@@ -2,10 +2,11 @@ package application.view;
 
 import java.io.IOException;
 
+import application.view.calculo.InfoFincaController;
 import application.view.compra.ArticulosController;
 import application.view.compra.CategoriaArticuloController;
 import application.view.compra.ProveedoresController;
-import application.view.venta.CargarCamionController;
+import application.view.calculo.CargarCamionController;
 import javafx.fxml.FXML;
 import application.Main;
 import javafx.fxml.FXMLLoader;
@@ -26,13 +27,13 @@ public class PrincipalController {
 		this.primaryStage = primary;
 	}
 
-    //---------------MODULO VENTAS------------------------//
+    //---------------MODULO CALCULO------------------------//
     @FXML
     private void showCamionesOverview(){
         try{
             // Load category overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/venta/CargarCamion.fxml"));
+            loader.setLocation(Main.class.getResource("view/calculo/CargarCamion.fxml"));
             AnchorPane camionOverview = loader.load();
 
             // Set person overview into the center of root layout.
@@ -43,6 +44,25 @@ public class PrincipalController {
             controller.setOwner(primaryStage);
             controller.buscarCamiones();
 
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+    }
+    @FXML
+    private void showFincasOverview(){
+        try{
+            // Load category overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/calculo/InfoFinca.fxml"));
+            AnchorPane anchorPane = loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(anchorPane);
+
+            // Give the controller access to the main app.
+            InfoFincaController controller = loader.getController();
+            controller.setOwner(primaryStage);
         }catch (IOException e){
             e.printStackTrace();
         }

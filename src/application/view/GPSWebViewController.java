@@ -14,7 +14,7 @@ public class GPSWebViewController {
 	private Button refreshButton;
 	
 	
-private Stage owner;
+	private Stage owner;
 	
 	@FXML
 	private void initialize(){

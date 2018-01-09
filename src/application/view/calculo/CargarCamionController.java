@@ -1,10 +1,10 @@
-package application.view.venta;
+package application.view.calculo;
 
 import application.Main;
 import application.comunes.Alerta;
 import application.model.calculo.Camion;
 import application.repository.info.CamionRepository;
-import application.view.venta.cruds.CamionEditController;
+import application.view.calculo.cruds.CamionEditController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -78,14 +78,18 @@ public class CargarCamionController {
     @FXML
     public void handleEliminarCamion(){
         Camion selectedItem = camionTableView.getSelectionModel().getSelectedItem();
-        Optional<ButtonType> resultado = Alerta.alertaConfirmacion("Eliminar Camión",null,
-                "Esta seguro de querer borrar el Camión seleccionado? \nPara confirmar presione Aceptar.");
-        if(resultado.isPresent() && resultado.get() == ButtonType.OK){
-            camionTableView.getItems().remove(
-                    camionTableView.getSelectionModel().getSelectedIndex());
-            camionRepository.delete(selectedItem.getId());
-        }else
+        if(selectedItem!=null){
+            Optional<ButtonType> resultado = Alerta.alertaConfirmacion("Eliminar Camión",null,
+                    "Esta seguro de querer borrar el Camión seleccionado? \nPara confirmar presione Aceptar.");
+            if(resultado.isPresent() && resultado.get() == ButtonType.OK){
+                camionTableView.getItems().remove(
+                        camionTableView.getSelectionModel().getSelectedIndex());
+                camionRepository.delete(selectedItem.getId());
+            }
+
+        }else{
             Alerta.alertaError("Seleccionar Camión","Por favor selecciona un Camión en la tabla");
+        }
     }
     public void buscarCamiones(){
         this.camionData = camionRepository.view();
@@ -99,7 +103,7 @@ public class CargarCamionController {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/venta/cruds/CamionEdit.fxml"));
+            loader.setLocation(Main.class.getResource("view/calculo/cruds/CamionEdit.fxml"));
             Group page = loader.load();
 
             // Create the dialog Stage.

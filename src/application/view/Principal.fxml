@@ -40,7 +40,6 @@
                                     <VBox layoutX="30.4" layoutY="30.4" prefHeight="462.0" prefWidth="232.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="219.0" text="Button" />
-                                    <Button mnemonicParsing="false" onAction="#showCamionesOverview" prefHeight="25.0" prefWidth="219.0" text="Camiones" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -74,11 +73,6 @@
                            </children></AnchorPane>
                           </content>
                         </TitledPane>
-                        <TitledPane animated="false" text="Seguimientos">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                           </content>
-                        </TitledPane>
                       <TitledPane animated="false" text="Administrar">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -95,6 +89,15 @@
                               </AnchorPane>
                         </content>
                       </TitledPane>
+                        <TitledPane animated="false" text="Calculo">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Button layoutX="6.0" layoutY="14.0" mnemonicParsing="false" onAction="#showCamionesOverview" prefHeight="25.0" prefWidth="202.0" text="Camiones" />
+                              <Button layoutX="6.0" layoutY="39.0" mnemonicParsing="false" onAction="#showFincasOverview" prefHeight="25.0" prefWidth="202.0" text="Finca" />
+                           </children></AnchorPane>
+                           </content>
+                        </TitledPane>
                     </panes>
                   </Accordion>
                </children>
