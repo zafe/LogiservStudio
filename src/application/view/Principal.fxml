@@ -41,6 +41,7 @@
                                        <children>
                                           <Button mnemonicParsing="false" onAction="#showAcopladosOverview" prefHeight="27.0" prefWidth="219.0" text="Acoplados" />
                                     <Button mnemonicParsing="false" onAction="#showCamionesOverview" prefHeight="25.0" prefWidth="219.0" text="Camiones" />
+
                                        </children>
                                     </VBox>
                                  </children>
@@ -74,11 +75,6 @@
                            </children></AnchorPane>
                           </content>
                         </TitledPane>
-                        <TitledPane animated="false" text="Seguimientos">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                           </content>
-                        </TitledPane>
                       <TitledPane animated="false" text="Administrar">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -95,6 +91,16 @@
                               </AnchorPane>
                         </content>
                       </TitledPane>
+                        <TitledPane animated="false" text="Calculo">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Button layoutX="6.0" layoutY="14.0" mnemonicParsing="false" onAction="#showCamionesOverview" prefHeight="25.0" prefWidth="202.0" text="Camiones" />
+                              <Button layoutX="6.0" layoutY="39.0" mnemonicParsing="false" onAction="#showFincasOverview" prefHeight="25.0" prefWidth="202.0" text="Finca" />
+                              <Button layoutX="6.0" layoutY="64.0" mnemonicParsing="false" onAction="#showIngeniosOverview" prefHeight="25.0" prefWidth="202.0" text="Ingenio" />
+                           </children></AnchorPane>
+                           </content>
+                        </TitledPane>
                     </panes>
                   </Accordion>
                </children>

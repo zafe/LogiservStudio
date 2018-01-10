@@ -16,22 +16,22 @@
                   <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Label text="Distancia" />
-                        <TableView pickOnBounds="false" prefHeight="233.0" prefWidth="600.0">
-                          <columns>
-                            <TableColumn prefWidth="75.0" text="Ingenio" />
-                            <TableColumn prefWidth="75.0" text="Finca" />
-                              <TableColumn prefWidth="75.0" text="Distancia" />
-                          </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
-                        <HBox alignment="CENTER" prefHeight="152.0" prefWidth="600.0" spacing="10.0">
+                        <Pane prefHeight="65.0" prefWidth="600.0">
                            <children>
-                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleNewEmpleado" text="Nueva Distancia" />
-                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleEditPerson" text="Editar Distancia" />
-                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleDeleteEmpleado" text="Eliminar Distancia" />
+                              <TextField layoutX="300.0" layoutY="9.0" />
+                              <Button layoutX="465.0" layoutY="9.0" mnemonicParsing="false" text="Buscar" />
+                              <Label layoutX="191.0" layoutY="13.0" text="Buscar por Ingenio:" />
                            </children>
+                        </Pane>
+                        <TableView pickOnBounds="false" prefHeight="269.0" prefWidth="600.0">
+                          <columns>
+                              <TableColumn minWidth="0.0" prefWidth="0.0" text="Id" />
+                            <TableColumn prefWidth="230.0" text="Ingenio" />
+                            <TableColumn prefWidth="230.0" text="Finca" />
+                              <TableColumn prefWidth="139.0" text="Distancia" />
+                          </columns>
+                        </TableView>
+                        <HBox alignment="CENTER" prefHeight="45.0" prefWidth="600.0" spacing="10.0">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
