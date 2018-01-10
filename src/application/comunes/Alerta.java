@@ -6,7 +6,7 @@ import javafx.stage.StageStyle;
 
 import java.util.Optional;
 
-public class Alerta {
+public abstract class Alerta {
     protected Alerta(){
 
     }

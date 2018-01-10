@@ -3,6 +3,7 @@ package application.view;
 import java.io.IOException;
 
 import application.view.calculo.InfoFincaController;
+import application.view.calculo.InfoIngenioController;
 import application.view.compra.ArticulosController;
 import application.view.compra.CategoriaArticuloController;
 import application.view.compra.ProveedoresController;
@@ -63,6 +64,26 @@ public class PrincipalController {
             // Give the controller access to the main app.
             InfoFincaController controller = loader.getController();
             controller.setOwner(primaryStage);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+    }
+    @FXML
+    private void showIngeniosOverview(){
+        try{
+            // Load category overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/calculo/InfoIngenio.fxml"));
+            AnchorPane anchorPane = loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(anchorPane);
+
+            // Give the controller access to the main app.
+            InfoIngenioController controller = loader.getController();
+            controller.setOwner(primaryStage);
+            controller.buscarIngenios();
         }catch (IOException e){
             e.printStackTrace();
         }

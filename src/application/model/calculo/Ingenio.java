@@ -7,6 +7,33 @@ public class Ingenio {
     private DoubleProperty latitud;
     private DoubleProperty longitud;
     private StringProperty nombre;
+    private DoubleProperty arranque;
+
+    public double getArranque() {
+        return arranque.get();
+    }
+
+    public DoubleProperty arranqueProperty() {
+        return arranque;
+    }
+
+    public void setArranque(double arranque) {
+        this.arranque.set(arranque);
+    }
+
+    public double getTarifa() {
+        return tarifa.get();
+    }
+
+    public DoubleProperty tarifaProperty() {
+        return tarifa;
+    }
+
+    public void setTarifa(double tarifa) {
+        this.tarifa.set(tarifa);
+    }
+
+    private DoubleProperty tarifa;
 
     public int getIdIngenio() {
         return idIngenio.get();
@@ -56,15 +83,18 @@ public class Ingenio {
         this.nombre.set(nombre);
     }
 
-    public Ingenio(Integer idIngenio, Double latitud, Double longitud, String nombre) {
+    public Ingenio(Integer idIngenio, Double latitud, Double longitud, String nombre, Double arranque, Double tarifa) {
         this.idIngenio = new SimpleIntegerProperty(idIngenio);
         this.latitud = new SimpleDoubleProperty(latitud);
         this.longitud = new SimpleDoubleProperty(longitud);
         this.nombre = new SimpleStringProperty(nombre);
+        this.arranque = new SimpleDoubleProperty(arranque);
+        this.tarifa = new SimpleDoubleProperty(tarifa);
+
     }
 
     public Ingenio() {
-        this(0,0.0,0.0,null);
+        this(0,0.0,0.0,null,0.0,0.0);
     }
 
 }
