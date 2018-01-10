@@ -24,7 +24,6 @@ public class AcopladoRepository {
             preparedStatement.setString(3, acoplado.getPatente());
             preparedStatement.executeUpdate();
             preparedStatement.close();
-            connection.close();
             String cuerpoMsj = "Acoplado \n Marca: " + acoplado.getMarca() + "\nPatente: "+acoplado.getPatente() +"\nagregado correctamente.\n";
             Alerta.alertaInfo("Acoplados",cuerpoMsj);
         } catch (SQLException e) {
@@ -44,7 +43,6 @@ public class AcopladoRepository {
             preparedStatement.setInt(3, acoplado.getId());
             preparedStatement.executeUpdate();
             preparedStatement.close();
-            connection.close();
             String headerMsj="Actualización: Acoplado actualizado";
             String cuerpoMsj = "Acoplado: \n\tMarca: " + acoplado.getMarca() + "\n\tPatente: " +
                    acoplado.getPatente()+  "modificado correctamente.";
@@ -60,9 +58,8 @@ public class AcopladoRepository {
             preparedStatement = connection.prepareStatement(
                     "DELETE FROM ACOPLADO WHERE idAcoplado=?");
             preparedStatement.setInt(1, acoplado.getId());
-            preparedStatement.executeUpdate();
+            preparedStatement.execute();
             preparedStatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -83,7 +80,6 @@ public class AcopladoRepository {
             }
             preparedStatement.close();
             resultSet.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -97,7 +93,6 @@ public class AcopladoRepository {
             preparedStatement.setInt(1,acoplado.getId());
             preparedStatement.executeUpdate();
             preparedStatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
