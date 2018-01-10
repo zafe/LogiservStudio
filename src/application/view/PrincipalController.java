@@ -8,6 +8,8 @@ import application.view.compra.ArticulosController;
 import application.view.compra.CategoriaArticuloController;
 import application.view.compra.ProveedoresController;
 import application.view.calculo.CargarCamionController;
+import application.view.venta.CargarAcopladoController;
+
 import javafx.fxml.FXML;
 import application.Main;
 import javafx.fxml.FXMLLoader;
@@ -50,6 +52,7 @@ public class PrincipalController {
         }
 
     }
+
     @FXML
     private void showFincasOverview(){
         try{
@@ -84,6 +87,25 @@ public class PrincipalController {
             InfoIngenioController controller = loader.getController();
             controller.setOwner(primaryStage);
             controller.buscarIngenios();
+
+    
+    @FXML
+    private void showAcopladosOverview(){
+        try{
+            // Load category overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/venta/CargarAcoplado.fxml"));
+            AnchorPane acopladoOverview = loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(acopladoOverview);
+
+            // Give the controller access to the main app.
+            CargarAcopladoController controller = loader.getController();
+            controller.setOwner(primaryStage);
+            controller.buscarAcoplados();
+
+
         }catch (IOException e){
             e.printStackTrace();
         }
