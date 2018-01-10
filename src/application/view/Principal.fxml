@@ -37,13 +37,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="44.0" prefWidth="232.0">
                                  <children>
-                                    <VBox layoutX="30.4" layoutY="30.4" prefHeight="462.0" prefWidth="232.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <children>
-                                          <Button mnemonicParsing="false" onAction="#showAcopladosOverview" prefHeight="27.0" prefWidth="219.0" text="Acoplados" />
-                                    <Button mnemonicParsing="false" onAction="#showCamionesOverview" prefHeight="25.0" prefWidth="219.0" text="Camiones" />
-
-                                       </children>
-                                    </VBox>
+                                    <VBox layoutX="30.4" layoutY="30.4" prefHeight="462.0" prefWidth="232.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                         </content>
@@ -95,9 +89,14 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <Button layoutX="6.0" layoutY="14.0" mnemonicParsing="false" onAction="#showCamionesOverview" prefHeight="25.0" prefWidth="202.0" text="Camiones" />
-                              <Button layoutX="6.0" layoutY="39.0" mnemonicParsing="false" onAction="#showFincasOverview" prefHeight="25.0" prefWidth="202.0" text="Finca" />
-                              <Button layoutX="6.0" layoutY="64.0" mnemonicParsing="false" onAction="#showIngeniosOverview" prefHeight="25.0" prefWidth="202.0" text="Ingenio" />
+                              <VBox prefHeight="433.0" prefWidth="217.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#showCamionesOverview" prefHeight="25.0" prefWidth="202.0" text="Camiones" />
+                                          <Button mnemonicParsing="false" onAction="#showAcopladosOverview" prefHeight="27.0" prefWidth="219.0" text="Acoplados" />
+                                    <Button mnemonicParsing="false" onAction="#showFincasOverview" prefHeight="25.0" prefWidth="202.0" text="Finca" />
+                                    <Button mnemonicParsing="false" onAction="#showIngeniosOverview" prefHeight="25.0" prefWidth="202.0" text="Ingenio" />
+                                 </children>
+                              </VBox>
                            </children></AnchorPane>
                            </content>
                         </TitledPane>

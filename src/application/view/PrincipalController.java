@@ -9,7 +9,6 @@ import application.view.compra.CategoriaArticuloController;
 import application.view.compra.ProveedoresController;
 import application.view.calculo.CargarCamionController;
 import application.view.venta.CargarAcopladoController;
-
 import javafx.fxml.FXML;
 import application.Main;
 import javafx.fxml.FXMLLoader;
@@ -87,7 +86,10 @@ public class PrincipalController {
             InfoIngenioController controller = loader.getController();
             controller.setOwner(primaryStage);
             controller.buscarIngenios();
-
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        }
     
     @FXML
     private void showAcopladosOverview(){

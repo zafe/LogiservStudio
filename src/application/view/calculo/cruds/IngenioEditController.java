@@ -17,6 +17,8 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 public class IngenioEditController implements Initializable {
     @FXML
     private TextField nombreTextField;
@@ -96,10 +98,10 @@ public class IngenioEditController implements Initializable {
         if (longField.getText() == null || longField.getText().length() == 0) {
             errorMessage += "Longitud no Ingresada correctamente.\n";
         }
-        if (tarifaField.getText() == null || tarifaField.getText().length() == 0 || Tool.isNumeric(tarifaField.getText())) {
+        if (tarifaField.getText() == null || tarifaField.getText().length() == 0 || !NumberUtils.isParsable(tarifaField.getText())) {
             errorMessage += "tarifa no Ingresada correctamente.\n";
         }
-        if (arranqueField.getText() == null || arranqueField.getText().length() == 0 || Tool.isNumeric(arranqueField.getText())) {
+        if (arranqueField.getText() == null || arranqueField.getText().length() == 0 || !NumberUtils.isParsable(arranqueField.getText())) {
             errorMessage += "Arranque no Ingresado correctamente.\n";
         }
         if (errorMessage.length() == 0) {
