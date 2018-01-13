@@ -23,7 +23,6 @@ import application.model.info.CategoriaEmpleado;
 	            preparedStatement.setString(1, categoriaEmpleado.getNombre());
 	            preparedStatement.executeUpdate();
 	            preparedStatement.close();
-	            connection.close();
 	            String cuerpoMsj = "Categoria Empleado " + categoriaEmpleado.getNombre()+ " agregada correctamente.\n";
 	            Alerta.alertaInfo("Categoria Empleado",cuerpoMsj);
 	        } catch (SQLException e) {
@@ -41,8 +40,8 @@ import application.model.info.CategoriaEmpleado;
 	                    "WHERE idCategoriaEmpleado=?");
 	            preparedStatement.setString(1, categoriaEmpleado.getNombre());
 	            preparedStatement.setInt(2, categoriaEmpleado.getIdCategoriaEmpleado());
+	            preparedStatement.executeUpdate();
 	            preparedStatement.close();
-	            connection.close();
 	            String headerMsj="Actualización: Categora Empleado actualizada";
 	            String cuerpoMsj = "Categoria Empleado: " + categoriaEmpleado.getNombre() + " modificado correctamente.";
 	            Alerta.alertaInfo("Categoria Empleado", headerMsj, cuerpoMsj);
@@ -50,15 +49,16 @@ import application.model.info.CategoriaEmpleado;
 	            e.printStackTrace();
 	        }
 	    }
+	    
+	    
 	    public void delete(CategoriaEmpleado categoriaEmpleado){
 	        try {
 	            connection= JDBCConnection.getInstanceConnection();
 	            preparedStatement = connection.prepareStatement(
 	                    "DELETE FROM CATEGORIA_EMPLEADO WHERE idCategoriaEmpleado=?");
 	            preparedStatement.setInt(1, categoriaEmpleado.getIdCategoriaEmpleado());
-	            preparedStatement.executeUpdate();
+	            preparedStatement.execute();
 	            preparedStatement.close();
-	            connection.close();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
@@ -78,7 +78,6 @@ import application.model.info.CategoriaEmpleado;
 	            }
 	            preparedStatement.close();
 	            resultSet.close();
-	            connection.close();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
@@ -99,7 +98,6 @@ import application.model.info.CategoriaEmpleado;
 	            }
 	            preparedStatement.executeUpdate();
 	            preparedStatement.close();
-	            connection.close();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }

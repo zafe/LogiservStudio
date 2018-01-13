@@ -7,6 +7,7 @@ import application.view.calculo.InfoIngenioController;
 import application.view.compra.ArticulosController;
 import application.view.compra.CategoriaArticuloController;
 import application.view.compra.ProveedoresController;
+import application.view.info.InfoCategoriaEmpleadoController;
 import application.view.calculo.CargarCamionController;
 import application.view.venta.CargarAcopladoController;
 import javafx.fxml.FXML;
@@ -29,6 +30,31 @@ public class PrincipalController {
 		this.primaryStage = primary;
 	}
 
+	//---------------MODULO INFORMACION------------------------//
+	
+	@FXML
+    private void showCategoriaEmpleadosOverview(){
+        try{
+            // Load category overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/info/InfoCategoriaEmpleado.fxml"));
+            AnchorPane ceOverview = loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(ceOverview);
+
+            // Give the controller access to the main app.
+            InfoCategoriaEmpleadoController controller = loader.getController();
+            controller.setOwner(primaryStage);
+            controller.buscarCategoriaEmpleados();
+
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        }
+
+	
     //---------------MODULO CALCULO------------------------//
     @FXML
     private void showCamionesOverview(){

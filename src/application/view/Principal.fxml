@@ -69,13 +69,14 @@
                            </children></AnchorPane>
                           </content>
                         </TitledPane>
-                      <TitledPane animated="false" text="Administrar">
+                      <TitledPane animated="false" text="Información">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
                                     <VBox layoutX="58.0" layoutY="14.0" prefHeight="462.0" prefWidth="232.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <Button mnemonicParsing="false" onAction="#showPersonOverview" prefHeight="27.0" prefWidth="229.0" text="Empleados" />
+                                    <Button mnemonicParsing="false" onAction="#showCategoriaEmpleadosOverview" prefHeight="27.0" prefWidth="223.0" text="Categorías de Empleados" />
                                           <Button mnemonicParsing="false" onAction="#showUsuarioOverview" prefHeight="27.0" prefWidth="222.0" text="Usuarios" />
                                           <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="253.0" text="Domicilios" />
                                     <Button mnemonicParsing="false" onAction="#showGPSOverview" prefHeight="27.0" prefWidth="208.0" text="GPS" />
