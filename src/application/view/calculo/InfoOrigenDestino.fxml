@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.calculo.InfoOrigenDestinoController">
    <children>
       <Pane prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -16,19 +16,19 @@
                   <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Label text="Distancia" />
-                        <Pane prefHeight="65.0" prefWidth="600.0">
+                        <Pane prefHeight="43.0" prefWidth="600.0">
                            <children>
-                              <TextField layoutX="300.0" layoutY="9.0" />
-                              <Button layoutX="465.0" layoutY="9.0" mnemonicParsing="false" text="Buscar" />
+                              <TextField fx:id="buscarPorIngenioField" layoutX="300.0" layoutY="9.0" />
+                              <Button fx:id="searchButton" layoutX="465.0" layoutY="9.0" mnemonicParsing="false" text="Buscar" />
                               <Label layoutX="191.0" layoutY="13.0" text="Buscar por Ingenio:" />
                            </children>
                         </Pane>
-                        <TableView pickOnBounds="false" prefHeight="269.0" prefWidth="600.0">
+                        <TableView fx:id="tableView" pickOnBounds="false" prefHeight="269.0" prefWidth="600.0">
                           <columns>
-                              <TableColumn minWidth="0.0" prefWidth="0.0" text="Id" />
-                            <TableColumn prefWidth="230.0" text="Ingenio" />
-                            <TableColumn prefWidth="230.0" text="Finca" />
-                              <TableColumn prefWidth="139.0" text="Distancia" />
+                              <TableColumn fx:id="idColumn" minWidth="0.0" prefWidth="0.0" text="Id" />
+                            <TableColumn fx:id="ingenioColumn" prefWidth="230.0" text="Ingenio" />
+                            <TableColumn fx:id="fincaColumn" prefWidth="230.0" text="Finca" />
+                              <TableColumn fx:id="distanciaColumn" prefWidth="139.0" text="Distancia" />
                           </columns>
                         </TableView>
                         <HBox alignment="CENTER" prefHeight="45.0" prefWidth="600.0" spacing="10.0">
@@ -38,6 +38,11 @@
                            <padding>
                               <Insets top="30.0" />
                            </padding>
+                           <children>
+                              <Button fx:id="newButton" mnemonicParsing="false" onAction="#handleNew" text="Nueva Distancia" />
+                              <Button fx:id="editButton" mnemonicParsing="false" onAction="#handleEdit" text="Editar Distancia" />
+                              <Button fx:id="eliminarButton" mnemonicParsing="false" onAction="#handleEliminar" text="Eliminar Distancia" />
+                           </children>
                         </HBox>
                      </children>
                   </VBox>
