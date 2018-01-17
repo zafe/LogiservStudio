@@ -99,4 +99,18 @@ public class IngenioRepository {
         }
 
     }
+    public ObservableList<String> listOfIngenios(){
+        ObservableList<String> list = FXCollections.observableArrayList();
+        try {
+            connection= JDBCConnection.getInstanceConnection();
+            preparedStatement=connection.prepareStatement("SELECT nombre FROM ingenio");
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                list.add(resultSet.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }
