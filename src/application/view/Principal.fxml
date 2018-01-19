@@ -96,7 +96,6 @@
                                           <Button mnemonicParsing="false" onAction="#showAcopladosOverview" prefHeight="27.0" prefWidth="219.0" text="Acoplados" />
                                     <Button mnemonicParsing="false" onAction="#showFincasOverview" prefHeight="25.0" prefWidth="202.0" text="Finca" />
                                     <Button mnemonicParsing="false" onAction="#showIngeniosOverview" prefHeight="25.0" prefWidth="202.0" text="Ingenio" />
-                                    <Button layoutX="10.0" layoutY="87.0" mnemonicParsing="false" onAction="#showDistanciasOverview" prefHeight="25.0" prefWidth="202.0" text="Distancias" />
                                  </children>
                               </VBox>
                            </children></AnchorPane>

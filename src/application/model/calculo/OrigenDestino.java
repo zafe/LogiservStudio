@@ -65,5 +65,4 @@ public class OrigenDestino {
     public OrigenDestino(){
         this(0,0f,null,null);
     }
-
-    }
+}
