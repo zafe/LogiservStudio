@@ -45,7 +45,7 @@ public class ArticuloRepository {
             preparedStatement.setInt(4,index);
             preparedStatement.setInt(5,articulo.getStock());
             preparedStatement.setInt(6,articulo.getIdArticulo());
-            preparedStatement.executeUpdate();
+            preparedStatement.execute();
             String headerMsj="Actualización: artículo actualizado";
             String cuerpoMsj = "Artículo: " + articulo.getDescripcion() + " modificado correctamente.";
             Alerta.alertaInfo("Artículos", headerMsj, cuerpoMsj);
