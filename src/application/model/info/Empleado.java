@@ -5,7 +5,6 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.css.StyleableStringProperty;
 
 
 public class Empleado {
@@ -17,10 +16,10 @@ public class Empleado {
 	private final StringProperty cuit;
 	private final StringProperty nacimiento;
 	private final StringProperty categoria;
-	private final StringProperty domicilio;
+	private final IntegerProperty domicilio;
 	
 	public Empleado(){
-		this(0, null, null, 0, null, null, null, null);
+		this(0, null, null, 0, null, null, null, 0);
 	}
 	
 	/**
@@ -30,7 +29,7 @@ public class Empleado {
 	 */
 	
 	public Empleado(Integer id, String name, String surname, Integer hijos,
-			String cuit, String nacimiento, String categoria, String domicilio) {
+			String cuit, String nacimiento, String categoria, int idDomicilio) {
 		this.idEmpleado = new SimpleIntegerProperty(id);
 		this.nombre = new SimpleStringProperty(name);
 		this.apellido = new SimpleStringProperty(surname);
@@ -38,7 +37,7 @@ public class Empleado {
 		this.cuit = new SimpleStringProperty(cuit);
 		this.nacimiento = new SimpleStringProperty(nacimiento);
 		this.categoria = new SimpleStringProperty(categoria);
-		this.domicilio = new SimpleStringProperty(domicilio);
+		this.domicilio = new SimpleIntegerProperty(idDomicilio);
 	}
 
 	public String getNombre(){
@@ -137,21 +136,22 @@ public class Empleado {
 	public final void setCategoria(final String categoria) {
 		this.categoriaProperty().set(categoria);
 	}
-	
 
-	public final StringProperty domicilioProperty() {
+	public final IntegerProperty domicilioProperty() {
 		return this.domicilio;
 	}
 	
 
-	public final String getDomicilio() {
+	public final int getDomicilio() {
 		return this.domicilioProperty().get();
 	}
 	
 
-	public final void setDomicilio(final String domicilio) {
+	public final void setDomicilio(final int domicilio) {
 		this.domicilioProperty().set(domicilio);
 	}
+	
+	
 	
 		
 	

@@ -23,7 +23,7 @@
 	            preparedStatement.setString(1,domicilio.getCalle());
 	            preparedStatement.setString(2,domicilio.getNumero());
 	            preparedStatement.setInt(3,localidad);
-	            preparedStatement.executeUpdate();
+	            preparedStatement.execute();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
@@ -106,10 +106,32 @@
 	            preparedStatement.setInt(1,domicilio.getIdDomicilio());
 	            preparedStatement.executeUpdate();
 	            preparedStatement.close();
-	            connection.close();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
 
+	    }
+	    
+	    public Domicilio getDomicilioById(int idDomicilio){
+	    	Domicilio domicilio = new Domicilio();
+	        try {
+	            connection= JDBCConnection.getInstanceConnection();
+	            preparedStatement=connection.prepareStatement("SELECT d.Calle, d.Numero, l.NombreLocalidad, p.NombreProvincia "
+	            		+ "FROM DOMICILIO d, LOCALIDAD l, PROVINCIA p WHERE d.LOCALIDAD_idLocalidad = l.idLocalidad"
+	            		+ " AND l.PROVINCIA_idProvincia = p.idProvincia AND d.idDomicilio=?");
+	            preparedStatement.setInt(1,idDomicilio);
+	            resultSet = preparedStatement.executeQuery();
+	            if(resultSet.next()){
+	           //TODO Revisar esto domicilio.setIdDomicilio(resultSet.getInt("idDomicilio"));
+	            domicilio.setCalle(resultSet.getString("Calle"));
+	            domicilio.setNumero(resultSet.getString("Numero"));
+	            domicilio.setNombre_provincia(resultSet.getString("NombreProvincia"));
+	            domicilio.setNombre_localidad(resultSet.getString("NombreLocalidad"));
+	            }
+	            preparedStatement.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        return domicilio;
 	    }
 	}

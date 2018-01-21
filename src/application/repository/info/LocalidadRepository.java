@@ -63,6 +63,8 @@
 	            e.printStackTrace();
 	        }
 	    }
+	    
+	    //cambiar retorno de view. de string a localidad
 	    public ObservableList<String> view(int idProvincia){
 
 	        ObservableList<String> list = FXCollections.observableArrayList();
@@ -85,6 +87,29 @@
 
 	        return list;
 	    }
+	    
+	    public ObservableList<Localidad> view2(int idProvincia){
+
+	        ObservableList<Localidad> list = FXCollections.observableArrayList();
+	        try {
+	            connection= JDBCConnection.getInstanceConnection();
+	            preparedStatement=connection.prepareStatement("SELECT * FROM LOCALIDAD WHERE PROVINCIA_idProvincia = ?");
+	            preparedStatement.setInt(1,idProvincia);
+	            resultSet = preparedStatement.executeQuery();
+
+	            while (resultSet.next()){
+	                Localidad localidad = new Localidad();
+	                localidad.setIdLocalidad(resultSet.getInt("idLocalidad"));
+	                localidad.setNombre(resultSet.getString("NombreLocalidad"));
+	                list.add(localidad);
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+
+	        return list;
+	    }
+	    
 	    public Localidad search(String nombreLocalidad){
 	    	Localidad localidad = new Localidad();
 	        try {
