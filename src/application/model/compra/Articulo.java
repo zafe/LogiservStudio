@@ -11,18 +11,32 @@ public class Articulo {
 	private final StringProperty marca;
 	private final StringProperty modelo;
 	private final StringProperty descripcion;
-	private final IntegerProperty categoria;
+	private final StringProperty categoria;
+	private final IntegerProperty stock;
 	
 	public Articulo(){
-		this(0, null, null, null, 0);
+		this(0, null, null, null, null,0);
 	}
 	
-	public Articulo(Integer id, String marca, String modelo, String descripcion, Integer categoria){
+	public Articulo(Integer id, String marca, String modelo, String descripcion, String categoria, Integer stock){
 		this.idArticulo = new SimpleIntegerProperty(id);
 		this.marca = new SimpleStringProperty(marca);
 		this.modelo = new SimpleStringProperty(modelo);
 		this.descripcion = new SimpleStringProperty(descripcion);
-		this.categoria = new SimpleIntegerProperty(categoria);
+		this.categoria = new SimpleStringProperty(categoria);
+		this.stock= new SimpleIntegerProperty(stock);
+	}
+
+	public int getStock() {
+		return stock.get();
+	}
+
+	public IntegerProperty stockProperty() {
+		return stock;
+	}
+
+	public void setStock(int stock) {
+		this.stock.set(stock);
 	}
 
 	public final StringProperty marcaProperty() {
@@ -70,17 +84,17 @@ public class Articulo {
 	}
 	
 
-	public final IntegerProperty categoriaProperty() {
+	public final StringProperty categoriaProperty() {
 		return this.categoria;
 	}
 	
 
-	public final int getCategoria() {
+	public final String getCategoria() {
 		return this.categoriaProperty().get();
 	}
 	
 
-	public final void setCategoria(final int categoria) {
+	public final void setCategoria(final String categoria) {
 		this.categoriaProperty().set(categoria);
 	}
 
@@ -97,7 +111,16 @@ public class Articulo {
 	public final void setIdArticulo(final int idArticulo) {
 		this.idArticuloProperty().set(idArticulo);
 	}
-	
-	
 
+	@Override
+	public String toString() {
+		return "Articulo{" +
+				"idArticulo=" + idArticulo.get() +
+				", marca=" + marca.get() +
+				", modelo=" + modelo.get() +
+				", descripcion=" + descripcion.get() +
+				", categoria=" + categoria.get() +
+				", stock=" + stock.get() +
+				'}';
+	}
 }

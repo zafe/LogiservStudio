@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Group xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.info.cruds.CategoriaEmpleadoEditController">
+  <children>
+    <AnchorPane prefHeight="387.0" prefWidth="473.0">
+      <children>
+        <GridPane layoutY="14.0" prefHeight="116.0" prefWidth="442.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="16.0">
+          <children>
+            <Label prefHeight="17.0" prefWidth="276.0" text="Nombre de la Categoría del Empleado" />
+            <TextField fx:id="nombreCategoriaField" prefHeight="27.0" prefWidth="437.0" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+          </children>
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="321.0" minWidth="10.0" prefWidth="321.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints maxHeight="172.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="201.0" minHeight="10.0" prefHeight="125.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="216.0" minHeight="10.0" prefHeight="91.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+        <HBox layoutX="167.0" layoutY="325.0" spacing="15.0">
+          <children>
+            <Button fx:id="btnOk" defaultButton="true" mnemonicParsing="false" onAction="#handleOk" text="Aceptar" />
+            <Button fx:id="btnCancel" cancelButton="true" mnemonicParsing="false" onAction="#handleCancel" text="Cancelar" />
+          </children>
+        </HBox>
+      </children>
+    </AnchorPane>
+  </children>
+</Group>

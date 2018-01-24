@@ -66,4 +66,9 @@ public class Finca {
     public Finca() {
         this(0,0.0,0.0,null);
     }
+
+    @Override
+    public String toString() {
+        return  this.getNombre();
+    }
 }

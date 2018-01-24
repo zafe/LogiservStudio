@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.web.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.Group?>
+
+<Group xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.calculo.cruds.FincaEditController">
+   <children>
+      <AnchorPane prefHeight="416.0" prefWidth="528.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="44.0" prefWidth="511.0" text="Agregar Finca" />
+            <GridPane layoutX="51.0" layoutY="44.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0">
+               <children>
+                  <Label text="Nombre:" />
+                  <Label text="Coordenadas:" GridPane.rowIndex="2" />
+                  <TextField fx:id="nombreTextField" GridPane.columnSpan="3" GridPane.rowIndex="1" />
+                  <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="71.0" text="Latitud:" GridPane.rowIndex="3" />
+                  <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="17.0" prefWidth="70.0" text="Longitud:" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <TextField fx:id="latField" prefHeight="25.0" prefWidth="124.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="longField" prefHeight="25.0" prefWidth="119.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                  <WebView fx:id="webView" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="4" GridPane.rowIndex="4" />
+               </children>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="226.0" minWidth="10.0" prefWidth="90.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="226.0" minWidth="10.0" prefWidth="138.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="368.0" minWidth="10.0" prefWidth="90.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="368.0" minWidth="10.0" prefWidth="142.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="20.0" prefHeight="200.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+            </GridPane>
+            <HBox layoutX="197.0" layoutY="377.0" spacing="15.0">
+               <children>
+                  <Button fx:id="btnOk" defaultButton="true" layoutX="172.0" layoutY="273.0" mnemonicParsing="false" onAction="#handleOk" text="Aceptar" />
+                  <Button fx:id="btnCancel" cancelButton="true" layoutX="305.0" layoutY="273.0" mnemonicParsing="false" onAction="#handleCancel" text="Cancelar" />
+               </children>
+            </HBox>
+         </children></AnchorPane>
+   </children>
+</Group>

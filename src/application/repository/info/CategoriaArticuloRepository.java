@@ -6,26 +6,22 @@ import application.model.compra.CategoriaArticulo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
-public class CategoriaArticuloReporsitory {
+import java.sql.*;
+
+public class CategoriaArticuloRepository {
 
     Connection connection;
     PreparedStatement preparedStatement;
     ResultSet resultSet;
+
     public void save(CategoriaArticulo categoriaArticulo) {
+        connection= JDBCConnection.getInstanceConnection();
         try {
-            connection= JDBCConnection.getInstanceConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO CATEGORIA_ARTICULO values (?,?)");
-            preparedStatement.setString(1,null);
-            preparedStatement.setString(2,categoriaArticulo.getNombre());
-            preparedStatement.executeUpdate();
-            preparedStatement.close();
-            connection.close();
-            String cuerpoMsj = "Categoría " + categoriaArticulo.getNombre() + "creada correctamente.";
+            preparedStatement =connection.prepareStatement("INSERT INTO CATEGORIA_ARTICULO(NombreCategoria) VALUES(?)");
+            preparedStatement.setString(1, categoriaArticulo.getNombre());
+            preparedStatement.execute();
+            String cuerpoMsj = "Categoría " + categoriaArticulo.getNombre() + " creada correctamente.";
             Alerta.alertaInfo("Categoría de Artículos", cuerpoMsj);
 
         }catch (SQLException ex){
@@ -36,12 +32,11 @@ public class CategoriaArticuloReporsitory {
     public void update(CategoriaArticulo categoriaArticulo) {
         try{
             connection= JDBCConnection.getInstanceConnection();
-            preparedStatement=connection.prepareStatement("UPDATE CATEGORIA_ARTICULO SET NombreCategoria=? " +
+            preparedStatement= connection.prepareStatement("UPDATE CATEGORIA_ARTICULO SET NombreCategoria=? " +
                     " where idCategoriaArticulo=?");
             preparedStatement.setString(1, categoriaArticulo.getNombre());
             preparedStatement.setInt(2, categoriaArticulo.getIdCategoriaArticulo());
-            preparedStatement.close();
-            connection.close();
+            preparedStatement.executeUpdate();
             String headerMsj = "Actualización: categoría de artículo realizada";
             String cuerpoMsj =  "Categoría '" + categoriaArticulo.getNombre() + "' modificada correctamente.";
             Alerta.alertaInfo("Categoría Artículo",headerMsj,cuerpoMsj);
@@ -50,21 +45,19 @@ public class CategoriaArticuloReporsitory {
         }
     }
 
-    public void delete(CategoriaArticulo categoriaArticulo) {
+    public void delete(int indiceCategoria) {
         try{
             connection= JDBCConnection.getInstanceConnection();
             preparedStatement= connection.prepareStatement("DELETE FROM CATEGORIA_ARTICULO WHERE idCategoriaArticulo=?");
-            preparedStatement.setInt(1,categoriaArticulo.getIdCategoriaArticulo());
-            preparedStatement.executeUpdate();
-            preparedStatement.close();
-            connection.close();
-        }catch (SQLException ex){
+            preparedStatement.setInt(1,indiceCategoria);
+            preparedStatement.execute();
+            }catch (SQLException ex){
             ex.printStackTrace();
         }
 
     }
 
-    public ObservableList<CategoriaArticulo> viewAll() {
+    public ObservableList<CategoriaArticulo> view() {
         ObservableList<CategoriaArticulo> list = FXCollections.observableArrayList();
         try {
             connection= JDBCConnection.getInstanceConnection();
@@ -76,11 +69,6 @@ public class CategoriaArticuloReporsitory {
                 categoriaArticulo.setNombre(resultSet.getString(2));
                 list.add(categoriaArticulo);
             }
-            preparedStatement.close();
-            resultSet.close();
-            connection.close();
-
-
         }catch (SQLException ex){
             ex.printStackTrace();
         }

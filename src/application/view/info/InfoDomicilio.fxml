@@ -19,7 +19,8 @@
                         <TableView pickOnBounds="false" prefHeight="233.0" prefWidth="600.0">
                           <columns>
                             <TableColumn prefWidth="75.0" text="id" />
-                            <TableColumn prefWidth="75.0" text="Dirección" />
+                              <TableColumn prefWidth="75.0" text="Calle" />
+                              <TableColumn prefWidth="75.0" text="Numero" />
                               <TableColumn prefWidth="75.0" text="Localidad" />
                           </columns>
                            <columnResizePolicy>

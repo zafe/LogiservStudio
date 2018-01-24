@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.web.*?>
 <?import javafx.scene.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -7,37 +8,40 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="417.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.calculo.InfoIngenioController">
    <children>
-      <Pane prefHeight="400.0" prefWidth="600.0">
+      <Pane prefHeight="417.0" prefWidth="600.0">
          <children>
-            <AnchorPane prefHeight="400.0" prefWidth="600.0">
+            <AnchorPane prefHeight="417.0" prefWidth="600.0">
                <children>
-                  <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox layoutY="5.0" prefHeight="417.0" prefWidth="600.0" AnchorPane.bottomAnchor="-5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                      <children>
-                        <Label text="Ingenio" />
-                        <TableView pickOnBounds="false" prefHeight="233.0" prefWidth="600.0">
-                          <columns>
-                            <TableColumn prefWidth="75.0" text="id" />
-                            <TableColumn prefWidth="75.0" text="Nombre" />
-                              <TableColumn prefWidth="75.0" text="Coordenadas" />
-                          </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
-                        <HBox alignment="CENTER" prefHeight="152.0" prefWidth="600.0" spacing="10.0">
+                        <Label text="Ingenio:" />
+                        <Pane prefHeight="32.0" prefWidth="600.0" />
+                        <HBox alignment="CENTER" prefHeight="311.0" prefWidth="600.0" spacing="20.0">
                            <children>
-                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleNewEmpleado" text="Nuevo Ingenio" />
-                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleEditPerson" text="Editar Ingenio" />
-                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleDeleteEmpleado" text="Eliminar Ingenio" />
+                              <TableView fx:id="ingenioTableView" prefHeight="303.0" prefWidth="377.0">
+                                <columns>
+                                  <TableColumn fx:id="idColumn" minWidth="0.0" prefWidth="0.0" text="Id" />
+                                    <TableColumn fx:id="latitudColumn" minWidth="0.0" prefWidth="0.0" text="Latitud" />
+                                    <TableColumn fx:id="longitudColumn" minWidth="0.0" prefWidth="0.0" text="Longitud" />
+                                  <TableColumn fx:id="nombreColumn" prefWidth="172.0" text="Nombre" />
+                                    <TableColumn fx:id="arranqueColumn" prefWidth="65.0" text="Arranque" />
+                                    <TableColumn fx:id="tarifaColumn" prefWidth="65.0" text="Tarifa" />
+                                </columns>
+                              </TableView>
+                              <WebView fx:id="webView" prefHeight="303.0" prefWidth="350.0" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="80.0" prefWidth="600.0" spacing="20.0">
+                           <children>
+                              <Button fx:id="btnNew" alignment="CENTER" mnemonicParsing="false" onAction="#handleNew" text="Nuevo Ingenio" />
+                              <Button fx:id="btnEdit" alignment="CENTER" mnemonicParsing="false" onAction="#handleEdit" text="Editar Ingenio" />
+                              <Button fx:id="btnDelete" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleEliminar" text="Eliminar Ingenio" />
                            </children>
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
-                           <padding>
-                              <Insets top="30.0" />
-                           </padding>
                         </HBox>
                      </children>
                   </VBox>

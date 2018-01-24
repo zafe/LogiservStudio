@@ -37,11 +37,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="44.0" prefWidth="232.0">
                                  <children>
-                                    <VBox layoutX="30.4" layoutY="30.4" prefHeight="462.0" prefWidth="232.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <children>
-                                          <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="219.0" text="Button" />
-                                       </children>
-                                    </VBox>
+                                    <VBox layoutX="30.4" layoutY="30.4" prefHeight="462.0" prefWidth="232.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                         </content>
@@ -53,37 +49,58 @@
                               <VBox prefHeight="433.0" prefWidth="217.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
                                     <Button mnemonicParsing="false" onAction="#showComprasOverview" prefHeight="27.0" prefWidth="210.0" text="Compras" />
-                                    <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="204.0" text="Proveedores" />
+                                    <Button mnemonicParsing="false" onAction="#showProveedorOverview" prefHeight="27.0" prefWidth="204.0" text="Proveedores" />
+                                    <Button mnemonicParsing="false" onAction="#showArticuloOverview" prefHeight="27.0" prefWidth="204.0" text="Articulos" />
+                                    <Button mnemonicParsing="false" onAction="#showCategoriaArticuloOverview" prefHeight="27.0" prefWidth="204.0" text="Categorias Articulos" />
                                  </children>
                               </VBox>
                            </children></AnchorPane>
                         </content>
                       </TitledPane>
-                        <TitledPane animated="false" prefHeight="463.0" prefWidth="215.0" text="Liquidación">
+                        <TitledPane animated="false" prefHeight="463.0" prefWidth="215.0" text="Sueldo">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="435.0" prefWidth="197.0" />
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="435.0" prefWidth="197.0">
+                           <children>
+                              <VBox layoutX="9.0" prefHeight="433.0" prefWidth="217.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="223.0" text="Liquidar Empleado" />
+                                 </children>
+                              </VBox>
+                           </children></AnchorPane>
                           </content>
                         </TitledPane>
-                        <TitledPane animated="false" text="Seguimientos">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                           </content>
-                        </TitledPane>
-                      <TitledPane animated="false" text="Administrar">
+                      <TitledPane animated="false" text="Información">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
                                     <VBox layoutX="58.0" layoutY="14.0" prefHeight="462.0" prefWidth="232.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <Button mnemonicParsing="false" onAction="#showPersonOverview" prefHeight="27.0" prefWidth="229.0" text="Empleados" />
+                                    <Button mnemonicParsing="false" onAction="#showCategoriaEmpleadosOverview" prefHeight="27.0" prefWidth="223.0" text="Categorías de Empleados" />
                                           <Button mnemonicParsing="false" onAction="#showUsuarioOverview" prefHeight="27.0" prefWidth="222.0" text="Usuarios" />
                                           <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="253.0" text="Domicilios" />
+                                    <Button mnemonicParsing="false" onAction="#showGPSOverview" prefHeight="27.0" prefWidth="208.0" text="GPS" />
                                        </children>
                                     </VBox>
                                  </children>
                               </AnchorPane>
                         </content>
                       </TitledPane>
+                        <TitledPane animated="false" text="Calculo">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <VBox prefHeight="433.0" prefWidth="217.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#showCamionesOverview" prefHeight="25.0" prefWidth="202.0" text="Camiones" />
+                                          <Button mnemonicParsing="false" onAction="#showAcopladosOverview" prefHeight="27.0" prefWidth="219.0" text="Acoplados" />
+                                    <Button mnemonicParsing="false" onAction="#showFincasOverview" prefHeight="25.0" prefWidth="202.0" text="Finca" />
+                                    <Button mnemonicParsing="false" onAction="#showIngeniosOverview" prefHeight="25.0" prefWidth="202.0" text="Ingenio" />
+                                 </children>
+                              </VBox>
+                           </children></AnchorPane>
+                           </content>
+                        </TitledPane>
                     </panes>
                   </Accordion>
                </children>

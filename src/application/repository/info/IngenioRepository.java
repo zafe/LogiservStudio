@@ -18,15 +18,14 @@ public class IngenioRepository {
     public void save(Ingenio ingenio){
         try {
             connection= JDBCConnection.getInstanceConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO Ingenio values(?,?,?,?)");
+            preparedStatement = connection.prepareStatement("INSERT INTO Ingenio values(?,point(?,?),?,?,?)");
             preparedStatement.setString(1,null);
-//            preparedStatement.setInt(2,finca.getIdEmpresa());
-            preparedStatement.setString(3,"POINT('"+ingenio.getLatitud()+" "+ingenio.getLongitud()+"')");
+            preparedStatement.setDouble(2,ingenio.getLatitud());
+            preparedStatement.setDouble(3,ingenio.getLongitud());
             preparedStatement.setString(4,ingenio.getNombre());
-
-            preparedStatement.executeUpdate();
-            preparedStatement.close();
-            connection.close();
+            preparedStatement.setDouble(5,ingenio.getArranque());
+            preparedStatement.setDouble(6,ingenio.getTarifa());
+            preparedStatement.execute();
             String cuerpoMsj = "Ingenio " + ingenio.getNombre()+ " agregado correctamente.\n";
             Alerta.alertaInfo("Ingenios",cuerpoMsj);
         } catch (SQLException e) {
@@ -39,14 +38,15 @@ public class IngenioRepository {
             connection = JDBCConnection.getInstanceConnection();
             preparedStatement= connection.prepareStatement("" +
                     "UPDATE ingenio " +
-                    "SET Empresa_idDueño=?, Coordenada=?, Nombre=?, " +
-                    "WHERE idFinca=?");
-//            preparedStatement.setString(1,finca.getIdEmpresa());
-            preparedStatement.setString(2,"POINT('"+ingenio.getLatitud()+" "+ingenio.getLongitud()+"')");
+                    "SET coordenada=point(?,?),Nombre=?, arranque=?, tarifa=?" +
+                    "WHERE idIngenio=?");
+            preparedStatement.setDouble(1, ingenio.getLatitud());
+            preparedStatement.setDouble(2, ingenio.getLongitud());
             preparedStatement.setString(3,ingenio.getNombre());
-            preparedStatement.setInt(4,ingenio.getIdIngenio());
-            preparedStatement.close();
-            connection.close();
+            preparedStatement.setDouble(4,ingenio.getArranque());
+            preparedStatement.setDouble(5, ingenio.getTarifa());
+            preparedStatement.setInt(6, ingenio.getIdIngenio());
+            preparedStatement.executeUpdate();
             String headerMsj="Actualización: finca actualizada";
             String cuerpoMsj = "Finca: " + ingenio.getNombre() + " modificado correctamente.";
             Alerta.alertaInfo("Fincas", headerMsj, cuerpoMsj);
@@ -55,15 +55,13 @@ public class IngenioRepository {
         }
 
     }
-    public void delete(Ingenio ingenio){
+    public void delete(int id){
         try {
             connection= JDBCConnection.getInstanceConnection();
             preparedStatement = connection.prepareStatement(
                     "DELETE FROM INGENIO WHERE idIngenio=?");
-            preparedStatement.setInt(1, ingenio.getIdIngenio());
+            preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
-            preparedStatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -72,20 +70,18 @@ public class IngenioRepository {
         ObservableList<Ingenio> list = FXCollections.observableArrayList();
         try {
             connection= JDBCConnection.getInstanceConnection();
-            preparedStatement=connection.prepareStatement("SELECT * FROM FINCA");
+            preparedStatement=connection.prepareStatement("select idIngenio, x(coordenada), y(coordenada), nombre, arranque, tarifa from ingenio");
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 Ingenio ingenio = new Ingenio();
                 ingenio.setIdIngenio(resultSet.getInt(1));
-//                ingenio.setIdEmpresa(resultSet.getInt(2));
-                ingenio.setLatitud(resultSet.getDouble(3));
+                ingenio.setLatitud(resultSet.getDouble(2));
                 ingenio.setLongitud(resultSet.getDouble(3));
                 ingenio.setNombre(resultSet.getString(4));
+                ingenio.setArranque(resultSet.getDouble(5));
+                ingenio.setTarifa(resultSet.getDouble(6));
                 list.add(ingenio);
             }
-            preparedStatement.close();
-            resultSet.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -97,8 +93,7 @@ public class IngenioRepository {
             preparedStatement=connection.prepareStatement("SELECT * FROM INGENIO where idIngenio=?");
             preparedStatement.setInt(1,ingenio.getIdIngenio());
             preparedStatement.executeUpdate();
-            preparedStatement.close();
-            connection.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
