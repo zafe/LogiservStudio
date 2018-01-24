@@ -7,60 +7,50 @@ import javafx.beans.property.StringProperty;
 
 public class Localidad {
 
-private final IntegerProperty idLocalidad;
-private final StringProperty nombre;
-private final StringProperty provincia;
-	
-	public Localidad(Integer id, String nombre, String provincia){
+	private final IntegerProperty idLocalidad;
+	private final StringProperty nombre;
+	private Provincia provincia;
+
+
+	public Localidad(Integer id, String nombre, Provincia provincia){
 		this.idLocalidad = new SimpleIntegerProperty(id);
 		this.nombre = new SimpleStringProperty(nombre);
-		this.provincia = new SimpleStringProperty(provincia);
+		this.provincia= provincia;
 	}
 	
 	public Localidad(){
 		this(0, null, null);
 	}
 
-	public final StringProperty nombreProperty() {
-		return this.nombre;
-	}
-	
-
-	public final String getNombre() {
-		return this.nombreProperty().get();
-	}
-	
-
-	public final void setNombre(final String nombre) {
-		this.nombreProperty().set(nombre);
+	public int getIdLocalidad() {
+		return idLocalidad.get();
 	}
 
-	public final StringProperty provinciaProperty() {
-		return this.provincia;
-	}
-	
-
-	public final String getProvincia() {
-		return this.provinciaProperty().get();
-	}
-	
-
-	public final void setProvincia(final String provincia) {
-		this.provinciaProperty().set(provincia);
+	public IntegerProperty idLocalidadProperty() {
+		return idLocalidad;
 	}
 
-	public final IntegerProperty idLocalidadProperty() {
-		return this.idLocalidad;
+	public void setIdLocalidad(int idLocalidad) {
+		this.idLocalidad.set(idLocalidad);
 	}
-	
 
-	public final int getIdLocalidad() {
-		return this.idLocalidadProperty().get();
+	public String getNombre() {
+		return nombre.get();
 	}
-	
 
-	public final void setIdLocalidad(final int idLocalidad) {
-		this.idLocalidadProperty().set(idLocalidad);
+	public StringProperty nombreProperty() {
+		return nombre;
 	}
-	
+
+	public void setNombre(String nombre) {
+		this.nombre.set(nombre);
+	}
+
+	public Provincia getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(Provincia provincia) {
+		this.provincia = provincia;
+	}
 }
