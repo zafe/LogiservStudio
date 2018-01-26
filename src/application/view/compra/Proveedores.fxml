@@ -18,15 +18,13 @@
                         <Label text="Proveedores" />
                         <TableView fx:id="proveedorTableView" pickOnBounds="false" prefHeight="194.0" prefWidth="600.0">
                           <columns>
-                            <TableColumn fx:id="nombreTableColumn" prefWidth="75.0" text="Nombre" />
-                            <TableColumn fx:id="cuitTableColumn" prefWidth="75.0" text="CUIT" />
-                              <TableColumn fx:id="calleTableColumn" prefWidth="75.0" text="Calle" />
-                              <TableColumn fx:id="numeroTableColumn" prefWidth="75.0" text="Numero" />
-                              <TableColumn fx:id="localidadTableColumn" prefWidth="75.0" text="Localidad" />
+                              <TableColumn fx:id="idColumn" minWidth="0.0" prefWidth="0.0" text="id" />
+                            <TableColumn fx:id="nombreTableColumn" prefWidth="155.0" text="Nombre" />
+                            <TableColumn fx:id="cuitTableColumn" prefWidth="120.0" text="CUIT" />
+                              <TableColumn fx:id="calleTableColumn" prefWidth="103.0" text="Calle" />
+                              <TableColumn fx:id="numeroTableColumn" prefWidth="58.0" text="Numero" />
+                              <TableColumn fx:id="localidadTableColumn" prefWidth="163.0" text="Localidad" />
                           </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
                         </TableView>
                         <HBox alignment="CENTER" prefHeight="152.0" prefWidth="600.0" spacing="10.0">
                            <children>

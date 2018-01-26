@@ -46,6 +46,9 @@ private final StringProperty nombre;
 	public final void setIdProvincia(final int idProvincia) {
 		this.idProvinciaProperty().set(idProvincia);
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return this.getNombre();
+	}
 }

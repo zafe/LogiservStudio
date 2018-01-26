@@ -3,6 +3,7 @@
 	import application.comunes.Alerta;
 	import application.database.JDBCConnection;
 	import application.model.info.Localidad;
+	import application.model.info.Provincia;
 	import javafx.collections.FXCollections;
 	import javafx.collections.ObservableList;
 
@@ -63,23 +64,19 @@
 	            e.printStackTrace();
 	        }
 	    }
-	    
-	    //cambiar retorno de view. de string a localidad
-	    public ObservableList<String> view(int idProvincia){
 
-	        ObservableList<String> list = FXCollections.observableArrayList();
+	    public ObservableList<Localidad> view(int idProvincia){
+
+	        ObservableList<Localidad> list = FXCollections.observableArrayList();
 	        try {
 	            connection= JDBCConnection.getInstanceConnection();
-	            preparedStatement=connection.prepareStatement("SELECT * FROM LOCALIDAD WHERE PROVINCIA_idProvincia = ?");
+	            preparedStatement=connection.prepareStatement("SELECT * FROM localidad inner join provincia WHERE PROVINCIA_idProvincia =? AND provincia_idprovincia=idprovincia;");
 	            preparedStatement.setInt(1,idProvincia);
 	            resultSet = preparedStatement.executeQuery();
-
 	            while (resultSet.next()){
-//	                Localidad localidad = new Localidad();
-//	                localidad.setIdLocalidad(resultSet.getInt("idLocalidad"));
-//	                localidad.setNombre(resultSet.getString("NombreLocalidad"));
-//	                localidad.setProvincia(resultSet.getString("NombreProvincia"));
-	                list.add(resultSet.getString("NombreLocalidad"));
+	            	Localidad localidad = new Localidad(resultSet.getInt(1), resultSet.getString(2),
+							new Provincia(resultSet.getInt(3), resultSet.getString(5)));
+	            	list.add(localidad);
 	            }
 	        } catch (SQLException e) {
 	            e.printStackTrace();
@@ -87,7 +84,7 @@
 
 	        return list;
 	    }
-	    
+
 	    public ObservableList<Localidad> view2(int idProvincia){
 
 	        ObservableList<Localidad> list = FXCollections.observableArrayList();

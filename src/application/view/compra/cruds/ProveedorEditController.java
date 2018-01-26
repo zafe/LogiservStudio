@@ -33,8 +33,6 @@ public class ProveedorEditController {
     private Domicilio domicilio;
     private DomicilioRepository domicilioRepository = new DomicilioRepository();
 
-
-
     @FXML
     private TextField nombreTextField;
     @FXML
@@ -44,9 +42,9 @@ public class ProveedorEditController {
     @FXML
     private TextField numeroTextField;
     @FXML
-    private ComboBox<String> provinciaComboBox;
+    private ComboBox<Provincia> provinciaComboBox;
     @FXML
-    private ComboBox<String> localidadComboBox;
+    private ComboBox<Localidad> localidadComboBox;
     @FXML
     private Button btnOk;
     @FXML
@@ -65,13 +63,13 @@ public class ProveedorEditController {
     public void setDatos(Proveedor proveedor) {
         this.proveedor = proveedor;
         if (!isNew){
-
             nombreTextField.setText(proveedor.getNombre());
             cuitTextField.setText(proveedor.getCuit());
-            calleTextField.setText(proveedor.getCalle());
-            numeroTextField.setText(proveedor.getNumero());
-            provinciaComboBox.getSelectionModel().select(23); //TODO ver como hacer para que se ponga la provincia a la que pertenece
-            localidadComboBox.getSelectionModel().select(proveedor.getLocalidad());
+            calleTextField.setText(proveedor.getDomicilio().getCalle());
+            numeroTextField.setText(proveedor.getDomicilio().getNumero());
+            provinciaComboBox.getSelectionModel().select(proveedor.getDomicilio().getLocalidad().getProvincia());
+            buscarLocalidades();
+            localidadComboBox.getSelectionModel().select(proveedor.getDomicilio().getLocalidad());
         }
     }
 
@@ -104,25 +102,25 @@ public class ProveedorEditController {
     }
     @FXML
     public void initialize() {
-
         provinciaComboBox.setItems(provinciaRepository.view());
-
     }
     @FXML
     public void handleOk(){
         if (isInputValid()){
             if (isNew){
-                localidad = getLocalidad();
-                domicilio = getDomicilio();
-                proveedor = getProveedor();
-                domicilioRepository.save(domicilio,localidad.getIdLocalidad());
-                int last = domicilioRepository.last();
-                proveedorRepository.save(proveedor,last);
+                localidad = localidadComboBox.getSelectionModel().getSelectedItem();
+                provincia = provinciaComboBox.getSelectionModel().getSelectedItem();
+                domicilio = new Domicilio(0, localidad, calleTextField.getText(), numeroTextField.getText());
+                proveedor = new Proveedor(0,nombreTextField.getText(),cuitTextField.getText(), domicilio);
+                domicilioRepository.save(domicilio);
+                proveedorRepository.save(proveedor);
             }else {
                 proveedor.setNombre(nombreTextField.getText());
                 proveedor.setCuit(cuitTextField.getText());
-                proveedor.setCalle(calleTextField.getText());
-                proveedor.setNumero(numeroTextField.getText());
+                proveedor.getDomicilio().setCalle(calleTextField.getText());
+                proveedor.getDomicilio().setNumero(numeroTextField.getText());
+                proveedor.getDomicilio().setLocalidad(localidadComboBox.getSelectionModel().getSelectedItem());
+                proveedor.getDomicilio().getLocalidad().setProvincia(provinciaComboBox.getSelectionModel().getSelectedItem());
                 proveedorRepository.update(proveedor);
             }
             okClicked=true;
@@ -138,33 +136,8 @@ public class ProveedorEditController {
     }
     @FXML
     public void buscarLocalidades(){
-            String provinciaSeleccionada = provinciaComboBox.getSelectionModel().getSelectedItem();
-            provincia = provinciaRepository.search(provinciaSeleccionada);
-            localidadComboBox.setItems(localidadRepository.view(provincia.getIdProvincia()));
+            Provincia provinciaSeleccionada = provinciaComboBox.getSelectionModel().getSelectedItem();
+            localidadComboBox.setItems(localidadRepository.view(provinciaSeleccionada.getIdProvincia()));
     }
-
-    public Localidad getLocalidad(){
-        Localidad localidad;
-        String localidadSeleccionada = localidadComboBox.getSelectionModel().getSelectedItem();
-        localidad= localidadRepository.search(localidadSeleccionada);
-        return localidad;
-    }
-
-    public Proveedor getProveedor(){
-        Proveedor proveedor = new Proveedor();
-        //proveedor.setIdProveedor(1);//////////////////////////////////////////////////////
-        proveedor.setNombre(nombreTextField.getText());
-        proveedor.setCuit(cuitTextField.getText());
-        proveedor.setIdLocalidad(getLocalidad().getIdLocalidad());
-        return proveedor;
-    }
-    public Domicilio getDomicilio(){
-        Domicilio domicilio = new Domicilio();
-        domicilio.setCalle(calleTextField.getText());
-        domicilio.setNumero(numeroTextField.getText());
-        return domicilio;
-    }
-
-
 
 }
