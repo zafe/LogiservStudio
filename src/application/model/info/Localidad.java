@@ -53,4 +53,8 @@ public class Localidad {
 	public void setProvincia(Provincia provincia) {
 		this.provincia = provincia;
 	}
+	@Override
+	public String toString() {
+		return this.getNombre();
+	}
 }

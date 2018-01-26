@@ -15,22 +15,21 @@
 	    Connection connection;
 	    PreparedStatement preparedStatement;
 	    ResultSet resultSet;
-	    
-//DEBERÍA DEVOLVER UNA LISTA DE PROVINCIA Y NO UNA LISTA DE STRINGS
-	    public ObservableList<String> view(){
 
-	        ObservableList<String> list = FXCollections.observableArrayList();
+	    public ObservableList<Provincia> view(){
+
+	        ObservableList<Provincia> list = FXCollections.observableArrayList();
 	        try {
 	            connection= JDBCConnection.getInstanceConnection();
 	            preparedStatement=connection.prepareStatement("SELECT * FROM PROVINCIA");
 	            resultSet = preparedStatement.executeQuery();
 	            while (resultSet.next()){
-	                list.add(resultSet.getString("NombreProvincia"));
+	            	Provincia provincia = new Provincia(resultSet.getInt(1), resultSet.getString(2));
+	                list.add(provincia);
 	            }
 			} catch (SQLException e) {
 	            e.printStackTrace();
 	        }
-
 	        return list;
 	    }
 	    

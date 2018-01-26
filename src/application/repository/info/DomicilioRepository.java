@@ -16,13 +16,13 @@
 	    PreparedStatement preparedStatement;
 	    ResultSet resultSet;
 	    
-	    public void save(Domicilio domicilio, int localidad){
+	    public void save(Domicilio domicilio){
 	        try {
 	            connection= JDBCConnection.getInstanceConnection();
 	            preparedStatement = connection.prepareStatement("INSERT INTO DOMICILIO (Calle, Numero, LOCALIDAD_idLocalidad) values(?,?,?)");
 	            preparedStatement.setString(1,domicilio.getCalle());
 	            preparedStatement.setString(2,domicilio.getNumero());
-	            preparedStatement.setInt(3,localidad);
+	            preparedStatement.setInt(3, domicilio.getLocalidad().getIdLocalidad());
 	            preparedStatement.execute();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
@@ -44,7 +44,7 @@
 			}
 	    	return last;
 		}
-	    public void update(Domicilio domicilio, int localidad){
+	    public void update(Domicilio domicilio){
 	        try {
 	            connection = JDBCConnection.getInstanceConnection();
 	            preparedStatement= connection.prepareStatement("" +
@@ -53,7 +53,8 @@
 	                    "WHERE idProvincia=?");
 	            preparedStatement.setString(1,domicilio.getCalle());
 	            preparedStatement.setString(2,domicilio.getNumero());
-	            preparedStatement.setInt(3, localidad);
+	            preparedStatement.setInt(3, domicilio.getLocalidad().getIdLocalidad());
+	            preparedStatement.setInt(4, domicilio.getLocalidad().getProvincia().getIdProvincia());
 	            String headerMsj="Actualización: Domicilio actualizado";
 	            String cuerpoMsj = "Domicilio " + domicilio.getCalle() + " " + domicilio.getNumero()+ " agregada correctamente.\n";
 	            Alerta.alertaInfo("Domicilio", headerMsj, cuerpoMsj);
@@ -87,8 +88,8 @@
 	                domicilio.setIdDomicilio(resultSet.getInt("idDomicilio"));
 	                domicilio.setCalle(resultSet.getString("Calle"));
 	                domicilio.setNumero(resultSet.getString("Numero"));
-	                domicilio.setNombre_localidad(resultSet.getString("NombreLocalidad"));
-	                domicilio.setNombre_provincia(resultSet.getString("NombreProvincia"));
+	               // domicilio.setNombre_localidad(resultSet.getString("NombreLocalidad"));
+	               // domicilio.setNombre_provincia(resultSet.getString("NombreProvincia"));
 	                list.add(domicilio);
 	            }
 	        } catch (SQLException e) {
@@ -97,21 +98,7 @@
 
 	        return list;
 	    }
-	    public void search(Domicilio domicilio){
-	        try {
-	            connection= JDBCConnection.getInstanceConnection();
-	            preparedStatement=connection.prepareStatement("SELECT d.Calle, d.Numero, l.NombreLocalidad, p.NombreProvincia "
-	            		+ "FROM DOMICILIO d, LOCALIDAD l, PROVINCIA p WHERE d.LOCALIDAD_idLocalidad = l.idLocalidad"
-	            		+ " AND l.PROVINCIA_idProvincia = p.idProvincia AND d.idDomicilio=?");
-	            preparedStatement.setInt(1,domicilio.getIdDomicilio());
-	            preparedStatement.executeUpdate();
-	            preparedStatement.close();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
 
-	    }
-	    
 	    public Domicilio getDomicilioById(int idDomicilio){
 	    	Domicilio domicilio = new Domicilio();
 	        try {
@@ -125,10 +112,9 @@
 	           //TODO Revisar esto domicilio.setIdDomicilio(resultSet.getInt("idDomicilio"));
 	            domicilio.setCalle(resultSet.getString("Calle"));
 	            domicilio.setNumero(resultSet.getString("Numero"));
-	            domicilio.setNombre_provincia(resultSet.getString("NombreProvincia"));
-	            domicilio.setNombre_localidad(resultSet.getString("NombreLocalidad"));
+//	            domicilio.setNombre_provincia(resultSet.getString("NombreProvincia"));
+//	            domicilio.setNombre_localidad(resultSet.getString("NombreLocalidad"));
 	            }
-	            preparedStatement.close();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }

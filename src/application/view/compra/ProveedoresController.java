@@ -3,6 +3,8 @@ package application.view.compra;
 import application.Main;
 import application.comunes.Alerta;
 import application.model.compra.Proveedor;
+import application.model.info.Domicilio;
+import application.model.info.Localidad;
 import application.repository.info.DomicilioRepository;
 import application.repository.info.ProveedorRepository;
 import application.view.compra.cruds.ProveedorEditController;
@@ -29,9 +31,10 @@ public class ProveedoresController {
     private Button buttonUpdate;
     @FXML
     private Button buttonDelete;
-
     @FXML
     private TableView<Proveedor> proveedorTableView;
+    @FXML
+    private TableColumn<Proveedor, String> idColumn;
     @FXML
     private TableColumn<Proveedor, String> nombreTableColumn;
     @FXML
@@ -50,17 +53,18 @@ public class ProveedoresController {
 
     @FXML
     private void initialize(){
+        idColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty().asString());
         nombreTableColumn.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
         cuitTableColumn.setCellValueFactory(cellData -> cellData.getValue().cuitProperty());
-        calleTableColumn.setCellValueFactory(cellData -> cellData.getValue().calleProperty());
-        numeroTableColumn.setCellValueFactory(cellData -> cellData.getValue().numeroProperty());
-        localidadTableColumn.setCellValueFactory(cellData -> cellData.getValue().localidadProperty());
+        calleTableColumn.setCellValueFactory(cellData -> cellData.getValue().getDomicilio().calleProperty());
+        numeroTableColumn.setCellValueFactory(cellData -> cellData.getValue().getDomicilio().numeroProperty());
+        localidadTableColumn.setCellValueFactory(cellData -> cellData.getValue().getDomicilio().getLocalidad().nombreProperty());
     }
 
     @FXML
     public void handleNew(){
         Proveedor proveedor = new Proveedor();
-        boolean okClicked = this.showProveedorEdit(proveedor, true);
+        boolean okClicked = this.showEdit(proveedor, true);
         if(okClicked)
             proveedorObservableList.add(proveedor);
     }
@@ -68,7 +72,8 @@ public class ProveedoresController {
     public void handleUpdate(){
         Proveedor proveedorSeleccionado = proveedorTableView.getSelectionModel().getSelectedItem();
         if (proveedorSeleccionado!=null){
-            this.showProveedorEdit(proveedorSeleccionado,false);
+            //todo: se guardan bien todos los datos?
+            this.showEdit(proveedorSeleccionado,false);
         }else
             Alerta.alertaError("Seleccionar Proveedor",
                     "Por favor selecciona un proveedor en la tabla.");
@@ -82,13 +87,9 @@ public class ProveedoresController {
         if (resultado.isPresent() && resultado.get()==ButtonType.OK){
             proveedorTableView.getItems().remove(
                     proveedorTableView.getSelectionModel().getSelectedIndex());
-
             proveedorRepository.delete(proveedor);
-
         }else
             Alerta.alertaError("Seleccionar Proveedor", "Por favor seleccione un proveedor en la tabla.");
-
-
     }
 
     public void obtenerProveedores(){
@@ -100,7 +101,7 @@ public class ProveedoresController {
         this.owner = owner;
     }
 
-    public boolean showProveedorEdit(Proveedor proveedor, boolean tipo){
+    public boolean showEdit(Proveedor proveedor, boolean tipo){
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
@@ -119,7 +120,6 @@ public class ProveedoresController {
             ProveedorEditController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setIsNew(tipo);
-
             controller.setDatos(proveedor);
 
             // Show the dialog and wait until the user closes it
