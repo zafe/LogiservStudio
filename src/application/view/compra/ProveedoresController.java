@@ -65,14 +65,14 @@ public class ProveedoresController {
     public void handleNew(){
         Proveedor proveedor = new Proveedor();
         boolean okClicked = this.showEdit(proveedor, true);
-        if(okClicked)
-            proveedorObservableList.add(proveedor);
+        if(okClicked){
+            obtenerProveedores();
+        }
     }
     @FXML
     public void handleUpdate(){
         Proveedor proveedorSeleccionado = proveedorTableView.getSelectionModel().getSelectedItem();
         if (proveedorSeleccionado!=null){
-            //todo: se guardan bien todos los datos?
             this.showEdit(proveedorSeleccionado,false);
         }else
             Alerta.alertaError("Seleccionar Proveedor",
