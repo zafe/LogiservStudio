@@ -6,6 +6,7 @@ import application.view.calculo.InfoFincaController;
 import application.view.calculo.InfoIngenioController;
 import application.view.compra.ArticulosController;
 import application.view.compra.CategoriaArticuloController;
+import application.view.compra.CompraComprasController;
 import application.view.compra.ProveedoresController;
 import application.view.info.InfoCategoriaEmpleadoController;
 import application.view.calculo.CargarCamionController;
@@ -146,7 +147,7 @@ public class PrincipalController {
     	try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/CompraCompras.fxml"));
+            loader.setLocation(Main.class.getResource("view/compra/CompraCompras.fxml"));
             AnchorPane pane = loader.load();
 
             // Set person overview into the center of root layout.

@@ -1,4 +1,4 @@
-package application.view;
+package application.view.compra;
 
 import application.model.compra.FacturaCompra;
 import application.repository.info.FacturaCompraRepository;

@@ -49,7 +49,7 @@ public class ArticulosController {
         marcaTableColumn.setCellValueFactory(cellData -> cellData.getValue().marcaProperty());
         modeloTableColumn.setCellValueFactory(cellData -> cellData.getValue().modeloProperty());
         descripcionTableColumn.setCellValueFactory(cellData -> cellData.getValue().descripcionProperty());
-        categoriaTableColumn.setCellValueFactory(cellData -> cellData.getValue().categoriaProperty());
+        categoriaTableColumn.setCellValueFactory(cellData -> cellData.getValue().getCategoria().nombreProperty());
         stockTableColumn.setCellValueFactory(cellData -> cellData.getValue().stockProperty().asString());
     }
     @FXML

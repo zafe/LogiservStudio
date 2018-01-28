@@ -11,20 +11,72 @@ public class Articulo {
 	private final StringProperty marca;
 	private final StringProperty modelo;
 	private final StringProperty descripcion;
-	private final StringProperty categoria;
+	private final CategoriaArticulo categoria;
 	private final IntegerProperty stock;
 	
 	public Articulo(){
 		this(0, null, null, null, null,0);
 	}
 	
-	public Articulo(Integer id, String marca, String modelo, String descripcion, String categoria, Integer stock){
+	public Articulo(Integer id, String marca, String modelo, String descripcion, CategoriaArticulo categoria, Integer stock){
 		this.idArticulo = new SimpleIntegerProperty(id);
 		this.marca = new SimpleStringProperty(marca);
 		this.modelo = new SimpleStringProperty(modelo);
 		this.descripcion = new SimpleStringProperty(descripcion);
-		this.categoria = new SimpleStringProperty(categoria);
+		this.categoria = categoria;
 		this.stock= new SimpleIntegerProperty(stock);
+	}
+
+	public int getIdArticulo() {
+		return idArticulo.get();
+	}
+
+	public IntegerProperty idArticuloProperty() {
+		return idArticulo;
+	}
+
+	public void setIdArticulo(int idArticulo) {
+		this.idArticulo.set(idArticulo);
+	}
+
+	public String getMarca() {
+		return marca.get();
+	}
+
+	public StringProperty marcaProperty() {
+		return marca;
+	}
+
+	public void setMarca(String marca) {
+		this.marca.set(marca);
+	}
+
+	public String getModelo() {
+		return modelo.get();
+	}
+
+	public StringProperty modeloProperty() {
+		return modelo;
+	}
+
+	public void setModelo(String modelo) {
+		this.modelo.set(modelo);
+	}
+
+	public String getDescripcion() {
+		return descripcion.get();
+	}
+
+	public StringProperty descripcionProperty() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion.set(descripcion);
+	}
+
+	public CategoriaArticulo getCategoria() {
+		return categoria;
 	}
 
 	public int getStock() {
@@ -37,90 +89,5 @@ public class Articulo {
 
 	public void setStock(int stock) {
 		this.stock.set(stock);
-	}
-
-	public final StringProperty marcaProperty() {
-		return this.marca;
-	}
-	
-
-	public final String getMarca() {
-		return this.marcaProperty().get();
-	}
-	
-
-	public final void setMarca(final String marca) {
-		this.marcaProperty().set(marca);
-	}
-	
-
-	public final StringProperty modeloProperty() {
-		return this.modelo;
-	}
-	
-
-	public final String getModelo() {
-		return this.modeloProperty().get();
-	}
-	
-
-	public final void setModelo(final String modelo) {
-		this.modeloProperty().set(modelo);
-	}
-	
-
-	public final StringProperty descripcionProperty() {
-		return this.descripcion;
-	}
-	
-
-	public final String getDescripcion() {
-		return this.descripcionProperty().get();
-	}
-	
-
-	public final void setDescripcion(final String descripcion) {
-		this.descripcionProperty().set(descripcion);
-	}
-	
-
-	public final StringProperty categoriaProperty() {
-		return this.categoria;
-	}
-	
-
-	public final String getCategoria() {
-		return this.categoriaProperty().get();
-	}
-	
-
-	public final void setCategoria(final String categoria) {
-		this.categoriaProperty().set(categoria);
-	}
-
-	public final IntegerProperty idArticuloProperty() {
-		return this.idArticulo;
-	}
-	
-
-	public final int getIdArticulo() {
-		return this.idArticuloProperty().get();
-	}
-	
-
-	public final void setIdArticulo(final int idArticulo) {
-		this.idArticuloProperty().set(idArticulo);
-	}
-
-	@Override
-	public String toString() {
-		return "Articulo{" +
-				"idArticulo=" + idArticulo.get() +
-				", marca=" + marca.get() +
-				", modelo=" + modelo.get() +
-				", descripcion=" + descripcion.get() +
-				", categoria=" + categoria.get() +
-				", stock=" + stock.get() +
-				'}';
 	}
 }
