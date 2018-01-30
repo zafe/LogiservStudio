@@ -1,6 +1,7 @@
 package application.repository.info;
 
 import application.database.JDBCConnection;
+import application.model.compra.Articulo;
 import application.model.compra.DetalleCompra;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,17 +24,12 @@ public class DetalleCompraRepository {
             preparedStatement.setString(1,null);
             preparedStatement.setInt(2,detalleCompra.getCantidad());
             preparedStatement.setDouble(3,detalleCompra.getPrecioUnitario());
-            preparedStatement.setInt(4, detalleCompra.getArticuloID());
-            preparedStatement.setInt(5, detalleCompra.getFacturaCompraArticuloId());
+            preparedStatement.setInt(4, detalleCompra.getArticulo().getIdArticulo());
+            preparedStatement.setInt(5, detalleCompra.getFacturaCompra().getIdFacturaCompra());
             preparedStatement.executeUpdate();
-            preparedStatement.close();
-            connection.close();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
     }
     public void update(DetalleCompra detalleCompra){
         try {
@@ -45,12 +41,10 @@ public class DetalleCompraRepository {
                     "   WHERE idCompraArticulo=?");
             preparedStatement.setInt(1,detalleCompra.getCantidad());
             preparedStatement.setDouble(2,detalleCompra.getPrecioUnitario());
-            preparedStatement.setInt(3,detalleCompra.getArticuloID());
-            preparedStatement.setInt(4,detalleCompra.getFacturaCompraArticuloId());
-            preparedStatement.setInt(5, detalleCompra.getId());
+            preparedStatement.setInt(3,detalleCompra.getArticulo().getIdArticulo());
+            preparedStatement.setInt(4,detalleCompra.getFacturaCompra().getIdFacturaCompra());
+            preparedStatement.setInt(5, detalleCompra.getIdDetalleCompra());
             preparedStatement.executeUpdate();
-            preparedStatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -60,32 +54,33 @@ public class DetalleCompraRepository {
         try {
             connection = JDBCConnection.getInstanceConnection();
             preparedStatement= connection.prepareStatement("DELETE FROM COMPRA_ARTICULO WHERE idCompraArticulo=?");
-            preparedStatement.setInt(1,detalleCompra.getId());
+            preparedStatement.setInt(1,detalleCompra.getIdDetalleCompra());
             preparedStatement.executeUpdate();
-            preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
-    public ObservableList<DetalleCompra> view(){
+    public ObservableList<DetalleCompra> view(int idFactura){
         ObservableList<DetalleCompra> list = FXCollections.observableArrayList();
         try {
             connection= JDBCConnection.getInstanceConnection();
-            preparedStatement=connection.prepareStatement("SELECT * FROM COMPRA_ARTICULO");
+            preparedStatement=connection.prepareStatement("SELECT l.idCompraArticulo, " +
+                    "l.Cantidad, l.PrecioUnitario, l.Articulo_idArticulo, a.Descripcion " +
+                    " from detalle_compra as l, articulo as a " +
+                    " where FacturaCompraArticulo_idFacturaCompraArticulo=? AND l.Articulo_idArticulo=a.idArticulo;");
+            preparedStatement.setInt(1,idFactura);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
-                DetalleCompra detalleCompra = new DetalleCompra();
-                detalleCompra.setIdDetalleCompra(resultSet.getInt(1));
-                detalleCompra.setCantidad(resultSet.getInt(2));
-                detalleCompra.setPrecioUnitario((float) resultSet.getDouble(3));
-                detalleCompra.setArticuloID(resultSet.getInt(4));
-                detalleCompra.setFacturaCompraArticuloId(resultSet.getInt(5));
+                DetalleCompra detalleCompra = new DetalleCompra(
+                        resultSet.getInt(1), resultSet.getInt(2),
+                        resultSet.getFloat(3),
+                        new Articulo(resultSet.getInt(4), null,null,
+                                resultSet.getString(5), null,0),
+                        null
+                );
                 list.add(detalleCompra);
             }
-            preparedStatement.close();
-            resultSet.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
