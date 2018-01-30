@@ -16,7 +16,7 @@ public class Empleado {
 	private final StringProperty cuit;
 	private final StringProperty nacimiento;
 	private final StringProperty categoria;
-	private final IntegerProperty domicilio;
+	private final IntegerProperty idDomicilio;
 	
 	public Empleado(){
 		this(0, null, null, 0, null, null, null, 0);
@@ -37,7 +37,7 @@ public class Empleado {
 		this.cuit = new SimpleStringProperty(cuit);
 		this.nacimiento = new SimpleStringProperty(nacimiento);
 		this.categoria = new SimpleStringProperty(categoria);
-		this.domicilio = new SimpleIntegerProperty(idDomicilio);
+		this.idDomicilio = new SimpleIntegerProperty(idDomicilio);
 	}
 
 	public String getNombre(){
@@ -136,24 +136,19 @@ public class Empleado {
 	public final void setCategoria(final String categoria) {
 		this.categoriaProperty().set(categoria);
 	}
+	
 
-	public final IntegerProperty domicilioProperty() {
-		return this.domicilio;
+	public final IntegerProperty idDomicilioProperty() {
+		return this.idDomicilio;
 	}
 	
 
-	public final int getDomicilio() {
-		return this.domicilioProperty().get();
+	public final int getIdDomicilio() {
+		return this.idDomicilioProperty().get();
 	}
 	
 
-	public final void setDomicilio(final int domicilio) {
-		this.domicilioProperty().set(domicilio);
+	public final void setIdDomicilio(final int idDomicilio) {
+		this.idDomicilioProperty().set(idDomicilio);
 	}
-	
-	
-	
-		
-	
-
 }

@@ -12,7 +12,10 @@ public class Domicilio {
 	private StringProperty nombre_localidad;
 	private StringProperty calle;
 	private StringProperty numero;
+	private IntegerProperty idLocalidad;
+	private IntegerProperty idProvincia;
 	
+	/*
 	public Domicilio(Integer id, String provincia, String localidad, String calle, String numero){
 		this.idDomicilio = new SimpleIntegerProperty(id);
 		this.nombre_provincia = new SimpleStringProperty(provincia);
@@ -20,6 +23,19 @@ public class Domicilio {
 		this.calle = new SimpleStringProperty(calle);
 		this.numero = new SimpleStringProperty(numero);
 	}
+*/
+	
+	public Domicilio(Integer id, String provincia, String localidad, String calle, String numero,
+			Integer idLocalidad, Integer idProvincia){
+		this.idDomicilio = new SimpleIntegerProperty(id);
+		this.nombre_provincia = new SimpleStringProperty(provincia);
+		this.nombre_localidad = new SimpleStringProperty(localidad);
+		this.calle = new SimpleStringProperty(calle);
+		this.numero = new SimpleStringProperty(numero);
+		this.idLocalidad = new SimpleIntegerProperty(idLocalidad);
+		this.idProvincia = new SimpleIntegerProperty(idProvincia);
+	}
+	
 	//TODO: QUITAR TOSTRING
 	@Override
 	public String toString() {
@@ -33,7 +49,7 @@ public class Domicilio {
 	}
 
 	public Domicilio(){
-		this(0, null, null, null, null);
+		this(0, null, null, null, null,0,0);
 	}
 
 	public final StringProperty nombre_provinciaProperty() {
@@ -107,6 +123,35 @@ public class Domicilio {
 
 	public final void setIdDomicilio(final int idDomicilio) {
 		this.idDomicilioProperty().set(idDomicilio);
+	}
+
+	public final IntegerProperty idLocalidadProperty() {
+		return this.idLocalidad;
+	}
+	
+
+	public final int getIdLocalidad() {
+		return this.idLocalidadProperty().get();
+	}
+	
+
+	public final void setIdLocalidad(final int idLocalidad) {
+		this.idLocalidadProperty().set(idLocalidad);
+	}
+	
+
+	public final IntegerProperty idProvinciaProperty() {
+		return this.idProvincia;
+	}
+	
+
+	public final int getIdProvincia() {
+		return this.idProvinciaProperty().get();
+	}
+	
+
+	public final void setIdProvincia(final int idProvincia) {
+		this.idProvinciaProperty().set(idProvincia);
 	}
 	
 }

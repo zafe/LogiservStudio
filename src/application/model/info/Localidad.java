@@ -9,15 +9,16 @@ public class Localidad {
 
 private final IntegerProperty idLocalidad;
 private final StringProperty nombre;
-private final StringProperty provincia;
+private final StringProperty provincia_nombre;
+private Provincia provincia;
 	
-	public Localidad(Integer id, String nombre, String provincia){
+	public Localidad(Integer id, String nombre, String provincia_nombre){
 		this.idLocalidad = new SimpleIntegerProperty(id);
 		this.nombre = new SimpleStringProperty(nombre);
-		this.provincia = new SimpleStringProperty(provincia);
+		this.provincia_nombre = new SimpleStringProperty(provincia_nombre);
 	}
 	
-	public Localidad(){
+	public Localidad(){    
 		this(0, null, null);
 	}
 
@@ -36,7 +37,7 @@ private final StringProperty provincia;
 	}
 
 	public final StringProperty provinciaProperty() {
-		return this.provincia;
+		return this.provincia_nombre;
 	}
 	
 

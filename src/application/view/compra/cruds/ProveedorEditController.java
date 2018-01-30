@@ -70,7 +70,7 @@ public class ProveedorEditController {
             cuitTextField.setText(proveedor.getCuit());
             calleTextField.setText(proveedor.getCalle());
             numeroTextField.setText(proveedor.getNumero());
-            provinciaComboBox.getSelectionModel().select(23); //TODO ver como hacer para que se ponga la provincia a la que pertenece
+            provinciaComboBox.getSelectionModel().select(proveedor.getLocalidad()); //TODO ver como hacer para que se ponga la provincia a la que pertenece
             localidadComboBox.getSelectionModel().select(proveedor.getLocalidad());
         }
     }

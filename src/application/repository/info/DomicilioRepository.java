@@ -16,6 +16,7 @@
 	    PreparedStatement preparedStatement;
 	    ResultSet resultSet;
 	    
+	    //TODO Arreglar esto: sacar el parametro int localidad;
 	    public void save(Domicilio domicilio, int localidad){
 	        try {
 	            connection= JDBCConnection.getInstanceConnection();
@@ -78,9 +79,9 @@
 	        ObservableList<Domicilio> list = FXCollections.observableArrayList();
 	        try {
 	            connection= JDBCConnection.getInstanceConnection();
-	            preparedStatement=connection.prepareStatement("SELECT d.Calle, d.Numero, l.NombreLocalidad, p.NombreProvincia "
-	            		+ "FROM DOMICILIO d, LOCALIDAD l, PROVINCIA p WHERE d.LOCALIDAD_idLocalidad = l.idLocalidad"
-	            		+ " AND l.PROVINCIA_idProvincia = p.idProvincia");
+	            preparedStatement=connection.prepareStatement("SELECT d.Calle, d.Numero, l.NombreLocalidad, l.idLocalidad, p.NombreProvincia, "
+	            		+ "p.idProvincia FROM DOMICILIO d, LOCALIDAD l, PROVINCIA p WHERE d.LOCALIDAD_idLocalidad = l.idLocalidad "
+	            		+ "AND l.PROVINCIA_idProvincia = p.idProvincia");
 	            resultSet = preparedStatement.executeQuery();
 	            while (resultSet.next()){
 	                Domicilio domicilio = new Domicilio();
@@ -89,6 +90,8 @@
 	                domicilio.setNumero(resultSet.getString("Numero"));
 	                domicilio.setNombre_localidad(resultSet.getString("NombreLocalidad"));
 	                domicilio.setNombre_provincia(resultSet.getString("NombreProvincia"));
+	                domicilio.setIdLocalidad(resultSet.getInt("idLocalidad"));	       
+	                domicilio.setIdProvincia(resultSet.getInt("idProvincia"));
 	                list.add(domicilio);
 	            }
 	        } catch (SQLException e) {
@@ -116,8 +119,8 @@
 	    	Domicilio domicilio = new Domicilio();
 	        try {
 	            connection= JDBCConnection.getInstanceConnection();
-	            preparedStatement=connection.prepareStatement("SELECT d.Calle, d.Numero, l.NombreLocalidad, p.NombreProvincia "
-	            		+ "FROM DOMICILIO d, LOCALIDAD l, PROVINCIA p WHERE d.LOCALIDAD_idLocalidad = l.idLocalidad"
+	            preparedStatement=connection.prepareStatement("SELECT d.Calle, d.Numero, l.NombreLocalidad, l.idLocalidad, p.NombreProvincia, "
+	            		+ "p.idProvincia FROM DOMICILIO d, LOCALIDAD l, PROVINCIA p WHERE d.LOCALIDAD_idLocalidad = l.idLocalidad"
 	            		+ " AND l.PROVINCIA_idProvincia = p.idProvincia AND d.idDomicilio=?");
 	            preparedStatement.setInt(1,idDomicilio);
 	            resultSet = preparedStatement.executeQuery();
@@ -127,6 +130,8 @@
 	            domicilio.setNumero(resultSet.getString("Numero"));
 	            domicilio.setNombre_provincia(resultSet.getString("NombreProvincia"));
 	            domicilio.setNombre_localidad(resultSet.getString("NombreLocalidad"));
+	            domicilio.setIdLocalidad(resultSet.getInt("idLocalidad"));
+	            domicilio.setIdProvincia(resultSet.getInt("idProvincia"));
 	            }
 	            preparedStatement.close();
 	        } catch (SQLException e) {

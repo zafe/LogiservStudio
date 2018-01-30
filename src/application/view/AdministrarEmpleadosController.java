@@ -50,7 +50,7 @@ public class AdministrarEmpleadosController {
 		nombreColumn.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
 		apellidoColumn.setCellValueFactory(cellData -> cellData.getValue().apellidoProperty());
 		nacimientoColumn.setCellValueFactory(cellData -> cellData.getValue().nacimientoProperty());
-		//domicilioColumn.setCellValueFactory(cellData -> cellData.getValue().domicilioProperty());
+		domicilioColumn.setCellValueFactory(cellData -> cellData.getValue().idDomicilioProperty().asString());
 		hijosColumn.setCellValueFactory(cellData -> cellData.getValue().hijosProperty().asString());
 		cuitColumn.setCellValueFactory(cellData -> cellData.getValue().cuitProperty());
 		categoriaColumn.setCellValueFactory(cellData -> cellData.getValue().categoriaProperty());
