@@ -55,12 +55,12 @@ public class ArticuloRepository {
         }
 
     }
-    public void delete(Articulo articulo){
+    public void delete(int id){
         try {
             connection= JDBCConnection.getInstanceConnection();
             preparedStatement = connection.prepareStatement(
                     "DELETE FROM ARTICULO WHERE idArticulo=?");
-            preparedStatement.setInt(1, articulo.getIdArticulo());
+            preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
             } catch (SQLException e) {
             e.printStackTrace();
@@ -82,7 +82,6 @@ public class ArticuloRepository {
                         resultSet.getString(3), resultSet.getString(4),
                         new CategoriaArticulo(resultSet.getInt(5),resultSet.getString(6)),
                         resultSet.getInt(7));
-
                 list.add(articulo);
             }
         } catch (SQLException e) {

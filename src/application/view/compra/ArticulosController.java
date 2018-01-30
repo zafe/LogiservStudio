@@ -80,12 +80,12 @@ public class ArticulosController {
         if (resultado.isPresent() && resultado.get()==ButtonType.OK){
             articuloTableView.getItems().remove(
                     articuloTableView.getSelectionModel().getSelectedIndex());
-            articuloRepository.delete(articulo);
+            articuloRepository.delete(articulo.getIdArticulo());
         }else
             Alerta.alertaError("Seleccionar Artículo", "Por favor seleccione un artículo en la tabla.");
 
     }
-    private boolean showEdit(Articulo articulo, boolean tipo) {
+    public boolean showEdit(Articulo articulo, boolean tipo) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();

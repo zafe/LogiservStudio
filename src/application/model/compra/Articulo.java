@@ -90,4 +90,9 @@ public class Articulo {
 	public void setStock(int stock) {
 		this.stock.set(stock);
 	}
+
+	@Override
+	public String toString() {
+		return getMarca() +" " + getDescripcion();
+	}
 }

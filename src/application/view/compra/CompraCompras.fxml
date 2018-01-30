@@ -16,15 +16,14 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.compra.CompraComprasController">
    <children>
-      <Pane prefHeight="400.0" prefWidth="600.0">
+      <Pane prefHeight="548.0" prefWidth="600.0">
          <children>
-            <AnchorPane prefHeight="400.0" prefWidth="600.0">
+            <AnchorPane prefHeight="548.0" prefWidth="600.0">
                <children>
                   <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Pane prefHeight="70.0" prefWidth="600.0" />
                         <Label text="Compras" />
-                        <TableView fx:id="comprasTable" pickOnBounds="false" prefHeight="233.0" prefWidth="600.0">
+                        <TableView fx:id="comprasTable" onMouseClicked="#showLinea" pickOnBounds="false" prefHeight="172.0" prefWidth="600.0">
                           <columns>
                             <TableColumn fx:id="codigoFacturaColumn" prefWidth="75.0" text="Factura" />
                             <TableColumn fx:id="fechaColumn" prefWidth="75.0" text="Fecha" />
@@ -35,10 +34,18 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
-                        <HBox alignment="CENTER" prefHeight="152.0" prefWidth="600.0" spacing="10.0">
+                        <Pane prefHeight="49.0" prefWidth="600.0" />
+                        <TableView fx:id="lineaCompraTableView" prefHeight="177.0" prefWidth="600.0">
+                           <columns>
+                              <TableColumn fx:id="descripcionColumn" prefWidth="312.0" text="Descripción" />
+                              <TableColumn fx:id="cantidadColumn" prefWidth="105.0" text="Cantidad" />
+                              <TableColumn fx:id="precioUnitarioColumn" prefWidth="118.0" text="Precio Unitario" />
+                              <TableColumn fx:id="subTotalColumn" prefWidth="64.0" text="Subtotal" />
+                           </columns>
+                        </TableView>
+                        <HBox alignment="CENTER" prefHeight="131.0" prefWidth="600.0" spacing="10.0">
                            <children>
-                              <Button alignment="CENTER" mnemonicParsing="false" text="Ver Detalle" />
-                              <Button alignment="CENTER" mnemonicParsing="false" text="Nueva Compra" />
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleNew" text="Nueva Compra" />
                               <Button alignment="CENTER" mnemonicParsing="false" text="Editar Compra" />
                               <Button alignment="CENTER" mnemonicParsing="false" text="Eliminar Compra" />
                            </children>
