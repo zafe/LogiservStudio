@@ -1,10 +1,7 @@
 package application.view.calculo.cruds;
 
 import application.comunes.Alerta;
-import application.comunes.Tool;
-import application.model.calculo.Finca;
 import application.model.calculo.Ingenio;
-import application.repository.info.FincaRepository;
 import application.repository.info.IngenioRepository;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

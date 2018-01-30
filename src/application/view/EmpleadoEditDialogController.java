@@ -131,8 +131,8 @@ public class EmpleadoEditDialogController {
 	
 	//Antes de crear un Empleado es necesario crear el Domicilio donde reside
 	public void setDomicilio(String calle, String numero, int idLocaliad){
-		Domicilio domicilio = new Domicilio(0, "", "", calle, numero);
-		domicilioRepository.save(domicilio, idLocaliad);
+		Domicilio domicilio = new Domicilio(0, new Localidad(), calle, numero);
+		domicilioRepository.save(domicilio);
 	}
 
 	public boolean isOkClicked(){
