@@ -12,78 +12,60 @@ public class FacturaCompra {
 	private IntegerProperty idFacturaCompra;
 	private StringProperty fecha;
 	private DoubleProperty total;
-	private StringProperty nombre_proveedor;
+	private Proveedor proveedor;
 	
-	public FacturaCompra(Integer id, String fecha, Double total, String nombre){
+	public FacturaCompra(Integer id, String fecha, Double total, Proveedor proveedor){
 		this.idFacturaCompra = new SimpleIntegerProperty(id);
 		this.fecha = new SimpleStringProperty(fecha);
 		this.total = new SimpleDoubleProperty(total);
-		this.nombre_proveedor = new SimpleStringProperty(nombre);
+		this.proveedor = proveedor;
 	}
 	
 	public FacturaCompra(){
 		this(0, null, 0.0, null);
 	}
 
-	public final IntegerProperty idFacturaCompraProperty() {
-		return this.idFacturaCompra;
+	public int getIdFacturaCompra() {
+		return idFacturaCompra.get();
 	}
-	
 
-	public final int getIdFacturaCompra() {
-		return this.idFacturaCompraProperty().get();
+	public IntegerProperty idFacturaCompraProperty() {
+		return idFacturaCompra;
 	}
-	
 
-	public final void setIdFacturaCompra(final int idFacturaCompra) {
-		this.idFacturaCompraProperty().set(idFacturaCompra);
+	public void setIdFacturaCompra(int idFacturaCompra) {
+		this.idFacturaCompra.set(idFacturaCompra);
 	}
-	
 
-	public final StringProperty fechaProperty() {
-		return this.fecha;
+	public String getFecha() {
+		return fecha.get();
 	}
-	
 
-	public final String getFecha() {
-		return this.fechaProperty().get();
+	public StringProperty fechaProperty() {
+		return fecha;
 	}
-	
 
-	public final void setFecha(final String fecha) {
-		this.fechaProperty().set(fecha);
+	public void setFecha(String fecha) {
+		this.fecha.set(fecha);
 	}
-	
 
-	public final DoubleProperty totalProperty() {
-		return this.total;
+	public double getTotal() {
+		return total.get();
 	}
-	
 
-	public final double getTotal() {
-		return this.totalProperty().get();
+	public DoubleProperty totalProperty() {
+		return total;
 	}
-	
 
-	public final void setTotal(final double total) {
-		this.totalProperty().set(total);
+	public void setTotal(double total) {
+		this.total.set(total);
 	}
-	
 
-	public final StringProperty nombre_proveedorProperty() {
-		return this.nombre_proveedor;
+	public Proveedor getProveedor() {
+		return proveedor;
 	}
-	
 
-	public final String getNombre_proveedor() {
-		return this.nombre_proveedorProperty().get();
+	public void setProveedor(Proveedor proveedor) {
+		this.proveedor = proveedor;
 	}
-	
-
-	public final void setNombre_proveedor(final String nombre_proveedor) {
-		this.nombre_proveedorProperty().set(nombre_proveedor);
-	}
-	
-	
-	
 }

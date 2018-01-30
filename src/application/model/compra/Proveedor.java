@@ -63,4 +63,9 @@ public class Proveedor {
 	public Domicilio getDomicilio() {
 		return domicilio;
 	}
+
+	@Override
+	public String toString() {
+		return getNombre();
+	}
 }

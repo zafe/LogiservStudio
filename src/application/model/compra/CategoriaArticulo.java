@@ -46,5 +46,9 @@ public class CategoriaArticulo {
 	public final void setIdCategoriaArticulo(final int idCategoriaArticulo) {
 		this.idCategoriaArticuloProperty().set(idCategoriaArticulo);
 	}
-	
+
+	@Override
+	public String toString() {
+		return getNombre();
+	}
 }
