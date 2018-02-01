@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import application.view.calculo.InfoFincaController;
 import application.view.calculo.InfoIngenioController;
+import application.view.calculo.InfoOrigenDestinoController;
 import application.view.compra.ArticulosController;
 import application.view.compra.CategoriaArticuloController;
 import application.view.compra.CompraComprasController;
@@ -138,8 +139,24 @@ public class PrincipalController {
         }catch (IOException e){
             e.printStackTrace();
         }
-
     }
+    @FXML
+    private void showDistanciasOverview(){
+	    try{
+            // Load category overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/calculo/InfoOrigenDestino.fxml"));
+            AnchorPane anchorPane = loader.load();
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(anchorPane);
+            // Give the controller access to the main app.
+            InfoOrigenDestinoController controller = loader.getController();
+            controller.setOwner(primaryStage);
+            controller.buscarDistancias();
+	    }catch (IOException e){
+	        e.printStackTrace();
+	    }
+	}
 //---------------MODULO COMPRA------------------------//
 	
 	@FXML
