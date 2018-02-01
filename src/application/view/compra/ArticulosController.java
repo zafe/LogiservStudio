@@ -57,8 +57,7 @@ public class ArticulosController {
         Articulo articulo = new Articulo();
         boolean okClicked = this.showEdit(articulo, true);
         if(okClicked)
-            articuloObservableList.add(articulo);
-
+            cargarArticulos();
     }
 
     @FXML
