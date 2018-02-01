@@ -11,14 +11,17 @@ import application.repository.info.FacturaCompraRepository;
 import application.repository.info.ProveedorRepository;
 import application.view.compra.ArticulosController;
 import application.view.compra.ProveedoresController;
+import com.sun.org.apache.xpath.internal.operations.Number;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.math.NumberUtils;
 
 import java.net.URL;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -44,7 +47,7 @@ public class FacturaEditController implements Initializable {
     @FXML
     private TextField precioField;
     @FXML
-    private ComboBox<Integer> cantidadCb;
+    private TextField cantidadField;
 
     @FXML
     private TableView<DetalleCompra> lineasTableView;
@@ -81,9 +84,10 @@ public class FacturaEditController implements Initializable {
     private ProveedorRepository proveedorRepository = new ProveedorRepository();
     private ArticuloRepository articuloRepository = new ArticuloRepository();
     private FacturaCompra factura;
+    private double costoTotal=0;
+    private double subtotal =0;
     private boolean isNew;
     private boolean okClicked=false;
-    private ObservableList<Integer> cantidades= FXCollections.observableArrayList();
 
 
     private void cargarIdNuevo(){
@@ -97,6 +101,11 @@ public class FacturaEditController implements Initializable {
     private void cargarArticulos(){
         articulos = articuloRepository.view();
         articuloComboBox.setItems(articulos);
+        if (!lineasTableView.getItems().isEmpty()) {
+            for (DetalleCompra linea : lineasTableView.getItems()) {
+                articuloComboBox.getItems().remove(linea.getArticulo()); //todo: esto no anda, aunque deberia quitar el articulo no lo hace
+            }
+        }
     }
 
     @FXML
@@ -108,64 +117,62 @@ public class FacturaEditController implements Initializable {
 
     private void refresh() {
         cargarProveedores();
-        cargarArticulos();
     }
 
     @FXML
     public void handleNewArticulo(){
         ArticulosController controller = new ArticulosController();
         controller.showEdit(new Articulo(), true);
-        refresh();
+        cargarArticulos();
     }
     @FXML
     public void setLabels(){
-        Articulo articulo = articuloComboBox.getSelectionModel().getSelectedItem();
-        marcaLabel.setText(articulo.getMarca());
-        modeloLabel.setText(articulo.getModelo());
-        stockLabel.setText(String.valueOf(articulo.getStock()));
-        descripcionLabel.setText(articulo.getDescripcion());
-        cantidades = poblarCantidades();
-        cantidadCb.setItems(cantidades);
+        if(isArticuloSetted()){
+            Articulo articulo = articuloComboBox.getSelectionModel().getSelectedItem();
+            marcaLabel.setText(articulo.getMarca());
+            modeloLabel.setText(articulo.getModelo());
+            stockLabel.setText(String.valueOf(articulo.getStock()));
+            descripcionLabel.setText(articulo.getDescripcion());
+            descripcionLabel.setWrapText(true);  /**@Isa: Salto de linea :D*/
+        }
     }
     private void ponerFechaActual(){
         java.util.Date input = new Date();
         LocalDate date = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         fechaDatePicker.setValue(date);
     }
-    private ObservableList<Integer> poblarCantidades(){
-        int size = articuloComboBox.getSelectionModel().getSelectedItem().getStock();
-        ObservableList<Integer> nros = FXCollections.observableArrayList();
-        for (int i=1; i<=size; i++){
-            nros.add(i);
-        }
-        return nros;
-    }
-
-
     @FXML
     public void handleNewLine(){
         if(isArticuloSetted()){
             DetalleCompra linea = new DetalleCompra();
-            linea.setCantidad(cantidadCb.getValue());
+            linea.setCantidad(Integer.parseInt(cantidadField.getText()));
             linea.setPrecioUnitario(Float.parseFloat(precioField.getText()));
             linea.setArticulo(articuloComboBox.getValue());
             lineas.add(linea);
             lineasTableView.setItems(lineas);
+            calcularTotal(linea);
             borrarElementos(linea.getArticulo());
+
         }else
-            Alerta.alertaError("Error al seleccionar un articulo", "Por Favor ingrese un Articulo");
+            Alerta.alertaError("Error al seleccionar un articulo", "Por Favor seleccione un Articulo");
 
     }
 
+    private void calcularTotal(DetalleCompra linea) {
+        subtotal = linea.getCantidad()*linea.getPrecioUnitario();
+        costoTotal += subtotal;
+        totalLabel.setText(String.valueOf(costoTotal));
+    }
+
     private void borrarElementos(Articulo articulo) {
-//        articuloComboBox.getItems().remove(articulo);
-//        articuloComboBox.getSelectionModel().clearSelection();
-       /* modeloLabel.setText("");
+        articuloComboBox.getItems().remove(articulo);
+        articuloComboBox.getSelectionModel().clearSelection();
+        modeloLabel.setText("");
         marcaLabel.setText("");
         stockLabel.setText("");
         descripcionLabel.setText("");
-        precioField.setText("");*/
-        cantidadCb.getItems().removeAll(cantidades);
+        precioField.setText("");
+        cantidadField.setText("");
     }
 
 
@@ -173,10 +180,6 @@ public class FacturaEditController implements Initializable {
         boolean isMyComboBoxEmpty = articuloComboBox.getSelectionModel().isEmpty();
         return !isMyComboBoxEmpty;
     }
-
-
-
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -213,4 +216,57 @@ public class FacturaEditController implements Initializable {
     public void setIsNew(boolean bandera){
         this.isNew = bandera;
     }
+    /**
+     *  @Isa
+     * Validation Data
+     */
+    private boolean isInputValid() {
+        String errorMessage = "";
+        if (fechaDatePicker.getValue() == null || fechaDatePicker.getValue().toString().length() == 0) {
+            errorMessage += "Fecha no ingresada correctamente.\n";
+        }
+        if(proveedorComboBox.getSelectionModel().isEmpty())
+            errorMessage += "Proveedor no seleccionado.\n";
+        if(lineasTableView.getItems().isEmpty())
+            errorMessage += "No se agregó linea de compra de articulos.\n";
+        if (precioField.getText()== null || precioField.getText().length() ==0 || !NumberUtils.isParsable(precioField.getText()))
+            errorMessage += "El precio ingresado no corresponde a un número válido.\n";
+        if (cantidadField.getText()== null || cantidadField.getText().length() ==0 || !NumberUtils.isParsable(cantidadField.getText()))
+            errorMessage += "La cantidad ingresada no corresponde a un número válido.\n";
+
+        if (errorMessage.length() == 0) {
+            return true;
+        } else {
+            Alerta.alertaError("Datos inválidos", errorMessage);
+            return false;
+        }
+    }
+
+    @FXML
+    public void handleOK(){
+        if (isInputValid()){
+            factura.setFecha(fechaDatePicker.getValue().toString());
+            factura.setProveedor(proveedorComboBox.getValue());
+            factura.setTotal(Double.parseDouble(totalLabel.getText()));
+            lineas = lineasTableView.getItems();
+            if (isNew){
+                //todo: impactar cantidades en el stock de los articulos
+                facturaCompraRepository.save(factura);
+                for (DetalleCompra linea :
+                        lineas) {
+                    lineaRepository.save(linea);
+                }
+            }else {
+                facturaCompraRepository.update(factura);
+                for (DetalleCompra linea :
+                        lineas) {
+                    lineaRepository.update(linea);
+                }
+            }
+            okClicked=true;
+            dialogStage.close();
+        }
+    }
+
+
 }
