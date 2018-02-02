@@ -110,4 +110,28 @@ public class EmpleadoRepository {
 		return empleado;
 		}
 
+		public ObservableList<Empleado> getEmpleadosByCategoriaEmpleado(int idCategoria){
+			ObservableList<Empleado> list = FXCollections.observableArrayList();
+			try {
+				Connection connection= JDBCConnection.getInstanceConnection();
+				PreparedStatement preparedStatement=connection.prepareStatement("select idEmpleado, " +
+						"Apellido, Nombre " +
+						"from Empleado " +
+						"where CATEGORIA_EMPLEADO_idCategoriaEmpleado = ?");
+				preparedStatement.setInt(1,idCategoria);
+				ResultSet resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()){
+					Empleado empleado = new Empleado();
+					empleado.setIdEmpleado(resultSet.getInt(1));
+					empleado.setApellido(resultSet.getString(2));
+					empleado.setNombre(resultSet.getString(3));
+					list.add(empleado);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			return list;
+		}
+
 }
