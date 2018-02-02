@@ -3,6 +3,7 @@ package application.repository.info;
 import application.comunes.Alerta;
 import application.database.JDBCConnection;
 import application.model.compra.Articulo;
+import application.model.compra.CategoriaArticulo;
 import com.sun.corba.se.impl.encoding.TypeCodeInputStream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,7 +15,7 @@ public class ArticuloRepository {
     PreparedStatement preparedStatement;
     ResultSet resultSet;
 
-    public void save(Articulo articulo, int indexCategoria){
+    public void save(Articulo articulo){
         try {
             connection= JDBCConnection.getInstanceConnection();
             preparedStatement = connection.prepareStatement("INSERT INTO ARTICULO values(?,?,?,?,?,?)");
@@ -22,7 +23,7 @@ public class ArticuloRepository {
             preparedStatement.setString(2,articulo.getMarca());
             preparedStatement.setString(3,articulo.getModelo());
             preparedStatement.setString(4,articulo.getDescripcion());
-            preparedStatement.setInt(5,indexCategoria);
+            preparedStatement.setInt(5, articulo.getCategoria().getIdCategoriaArticulo());
             preparedStatement.setInt(6,articulo.getStock());
             preparedStatement.executeUpdate();
             String cuerpoMsj = "Artículo '" + articulo.getDescripcion() + "' agregado correctamente.\n";
@@ -32,7 +33,7 @@ public class ArticuloRepository {
         }
 
     }
-    public void update(Articulo articulo, int index){
+    public void update(Articulo articulo){
         try {
             connection = JDBCConnection.getInstanceConnection();
             preparedStatement= connection.prepareStatement(
@@ -42,7 +43,7 @@ public class ArticuloRepository {
             preparedStatement.setString(1,articulo.getMarca());
             preparedStatement.setString(2,articulo.getModelo());
             preparedStatement.setString(3,articulo.getDescripcion());
-            preparedStatement.setInt(4,index);
+            preparedStatement.setInt(4,articulo.getCategoria().getIdCategoriaArticulo());
             preparedStatement.setInt(5,articulo.getStock());
             preparedStatement.setInt(6,articulo.getIdArticulo());
             preparedStatement.execute();
@@ -54,12 +55,12 @@ public class ArticuloRepository {
         }
 
     }
-    public void delete(Articulo articulo){
+    public void delete(int id){
         try {
             connection= JDBCConnection.getInstanceConnection();
             preparedStatement = connection.prepareStatement(
                     "DELETE FROM ARTICULO WHERE idArticulo=?");
-            preparedStatement.setInt(1, articulo.getIdArticulo());
+            preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
             } catch (SQLException e) {
             e.printStackTrace();
@@ -72,18 +73,15 @@ public class ArticuloRepository {
         try {
             connection= JDBCConnection.getInstanceConnection();
             preparedStatement=connection.prepareStatement("SELECT a.idArticulo, a.Marca, a.Modelo," +
-                    " a.Descripcion, a.stock, ca.NombreCategoria" +
+                    " a.Descripcion, ca.idCategoriaArticulo, ca.NombreCategoria, a.stock" +
                     "     FROM ARTICULO a, CATEGORIA_ARTICULO ca " +
                     "    WHERE a.CATEGORIA_ARTICULO_idCategoriaArticulo = ca.idCategoriaArticulo ");
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
-                Articulo articulo = new Articulo();
-                articulo.setIdArticulo(resultSet.getInt(1));
-                articulo.setMarca(resultSet.getString(2));
-                articulo.setModelo(resultSet.getString(3));
-                articulo.setDescripcion(resultSet.getString(4));
-                articulo.setStock(resultSet.getInt(5));
-                articulo.setCategoria(resultSet.getString(6));
+                Articulo articulo = new Articulo(resultSet.getInt(1), resultSet.getString(2),
+                        resultSet.getString(3), resultSet.getString(4),
+                        new CategoriaArticulo(resultSet.getInt(5),resultSet.getString(6)),
+                        resultSet.getInt(7));
                 list.add(articulo);
             }
         } catch (SQLException e) {

@@ -46,8 +46,9 @@ public class CategoriaEmpleado {
 	public final void setIdCategoriaEmpleado(final int idCategoriaEmpleado) {
 		this.idCategoriaEmpleadoProperty().set(idCategoriaEmpleado);
 	}
-	
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return getNombre();
+	}
 }

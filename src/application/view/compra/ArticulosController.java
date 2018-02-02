@@ -49,7 +49,7 @@ public class ArticulosController {
         marcaTableColumn.setCellValueFactory(cellData -> cellData.getValue().marcaProperty());
         modeloTableColumn.setCellValueFactory(cellData -> cellData.getValue().modeloProperty());
         descripcionTableColumn.setCellValueFactory(cellData -> cellData.getValue().descripcionProperty());
-        categoriaTableColumn.setCellValueFactory(cellData -> cellData.getValue().categoriaProperty());
+        categoriaTableColumn.setCellValueFactory(cellData -> cellData.getValue().getCategoria().nombreProperty());
         stockTableColumn.setCellValueFactory(cellData -> cellData.getValue().stockProperty().asString());
     }
     @FXML
@@ -57,8 +57,7 @@ public class ArticulosController {
         Articulo articulo = new Articulo();
         boolean okClicked = this.showEdit(articulo, true);
         if(okClicked)
-            articuloObservableList.add(articulo);
-
+            cargarArticulos();
     }
 
     @FXML
@@ -80,12 +79,12 @@ public class ArticulosController {
         if (resultado.isPresent() && resultado.get()==ButtonType.OK){
             articuloTableView.getItems().remove(
                     articuloTableView.getSelectionModel().getSelectedIndex());
-            articuloRepository.delete(articulo);
+            articuloRepository.delete(articulo.getIdArticulo());
         }else
             Alerta.alertaError("Seleccionar Artículo", "Por favor seleccione un artículo en la tabla.");
 
     }
-    private boolean showEdit(Articulo articulo, boolean tipo) {
+    public boolean showEdit(Articulo articulo, boolean tipo) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();

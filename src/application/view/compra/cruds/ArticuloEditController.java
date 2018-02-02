@@ -33,7 +33,7 @@ public class ArticuloEditController {
     @FXML
     private TextArea descripcionTextArea;
     @FXML
-    private ComboBox<String> categoriaComboBox;
+    private ComboBox<CategoriaArticulo> categoriaComboBox;
     @FXML
     private Button btnOk;
     @FXML
@@ -46,7 +46,7 @@ public class ArticuloEditController {
     private boolean okClicked = false;
     private ArticuloRepository repository = new ArticuloRepository();
     private CategoriaArticuloRepository categoriaArticuloRepository = new CategoriaArticuloRepository();
-    private ArrayList<Integer> categoriaIndices;
+
 
 
     public void setDialogStage(Stage dialogStage) {
@@ -60,11 +60,13 @@ public class ArticuloEditController {
 
     public void setDatos(Articulo datos) {
         articulo = datos;
-        marcaTextField.setText(articulo.getMarca());
-        modeloTextField.setText(articulo.getModelo());
-        descripcionTextArea.setText(articulo.getDescripcion());
-        categoriaComboBox.getSelectionModel().select(articulo.getCategoria());
-        stockTextField.setText(String.valueOf(articulo.getStock()));
+        if (!isNew){
+            marcaTextField.setText(articulo.getMarca());
+            modeloTextField.setText(articulo.getModelo());
+            descripcionTextArea.setText(articulo.getDescripcion());
+            categoriaComboBox.getSelectionModel().select(articulo.getCategoria());
+            stockTextField.setText(String.valueOf(articulo.getStock()));
+        }
 
     }
 
@@ -77,40 +79,20 @@ public class ArticuloEditController {
     }
 
     private void refreshComboBox(){
-        ObservableList<CategoriaArticulo> categoriaArticuloObservableList = categoriaArticuloRepository.view();
-        categoriaIndices =guardarIndices(categoriaArticuloObservableList) ;
-        ObservableList<String> categorias =  this.createAObservableListOfStrings(categoriaArticuloObservableList);
-        categoriaComboBox.setItems(categorias);
+        ObservableList<CategoriaArticulo> categoriaArticulos = categoriaArticuloRepository.view();
+        categoriaComboBox.setItems(categoriaArticulos);
 }
-    private ObservableList<String> createAObservableListOfStrings(ObservableList<CategoriaArticulo> categoriaArticulos) {
-        Iterator<CategoriaArticulo> iterator = categoriaArticulos.iterator();
-        ObservableList<String> categorias = FXCollections.observableArrayList();
-        while (iterator.hasNext()){
-            categorias.add(iterator.next().getNombre());
-        }
-        return categorias;
-    }
-    private ArrayList<Integer> guardarIndices(ObservableList<CategoriaArticulo> categoriaArticulos){
-        ArrayList<Integer> indices = new ArrayList<>();
-        Iterator<CategoriaArticulo> iterator = categoriaArticulos.iterator();
-        while (iterator.hasNext()){
-            indices.add(iterator.next().getIdCategoriaArticulo());
-        }
-        return indices;
-    }
+
 
     @FXML
     public void handleOk() {
-        articulo.setMarca(marcaTextField.getText());
-        articulo.setModelo(modeloTextField.getText());
-        articulo.setDescripcion(descripcionTextArea.getText());
-        articulo.setStock( Integer.parseInt(stockTextField.getText()));
+        articulo = new Articulo(0,marcaTextField.getText(), modeloTextField.getText(),
+                descripcionTextArea.getText(),categoriaComboBox.getValue(), Integer.parseInt(stockTextField.getText()));
         if (isInputValid()) {
-            int indice = categoriaComboBox.getSelectionModel().getSelectedIndex();
             if (isNew) {
-                repository.save(articulo,categoriaIndices.get(indice));
+                repository.save(articulo);
             } else {
-                repository.update(articulo,categoriaIndices.get(indice));
+                repository.update(articulo);
             }
             okClicked = true;
             dialogStage.close();
@@ -148,23 +130,19 @@ public class ArticuloEditController {
         CategoriaArticulo tempCategoria = new CategoriaArticulo();
         this.showCategoriaEdit(tempCategoria,true);
         refreshComboBox();
-
-
     }
 
     private boolean showCategoriaEdit(CategoriaArticulo tempCategoria, boolean b) {
-
         try {
             // Load the fxml file and create a new stage for the popup dialog.
 
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("/application/view/compra/cruds/CategoriaArticuloEdit.fxml"));
+            loader.setLocation(Main.class.getResource("view/compra/cruds/CategoriaArticuloEdit.fxml"));
             Group page = loader.load();
-
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Editar Artículo");
+            dialogStage.setTitle("Nueva Categoria");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(this.dialogStage);
             Scene scene = new Scene(page);

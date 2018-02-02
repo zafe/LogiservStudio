@@ -12,11 +12,21 @@ public class DetalleCompra {
 	private IntegerProperty idDetalleCompra;
 	private IntegerProperty cantidad;
 	private FloatProperty precioUnitario;
-	private StringProperty articulo_marca;
-	private StringProperty articulo_modelo;
-	private IntegerProperty articuloID;
-	private IntegerProperty facturaCompraArticuloId;
+	private Articulo articulo;
+	private FacturaCompra facturaCompra;
 
+	public DetalleCompra(Integer id, Integer cantidad, Float precio, Articulo articulo, FacturaCompra factura){
+		
+		this.idDetalleCompra = new SimpleIntegerProperty(id);
+		this.cantidad = new SimpleIntegerProperty(cantidad);
+		this.precioUnitario = new SimpleFloatProperty(precio);
+		this.articulo=articulo;
+		this.facturaCompra=factura;
+	}
+
+	public DetalleCompra() {
+		this(0,0,0f,null,null);
+	}
 
 	public int getIdDetalleCompra() {
 		return idDetalleCompra.get();
@@ -30,132 +40,43 @@ public class DetalleCompra {
 		this.idDetalleCompra.set(idDetalleCompra);
 	}
 
-	public int getFacturaCompraArticuloId() {
-		return facturaCompraArticuloId.get();
+	public int getCantidad() {
+		return cantidad.get();
 	}
 
-	public IntegerProperty facturaCompraArticuloIdProperty() {
-		return facturaCompraArticuloId;
+	public IntegerProperty cantidadProperty() {
+		return cantidad;
 	}
 
-	public void setFacturaCompraArticuloId(int facturaCompraArticuloId) {
-		this.facturaCompraArticuloId.set(facturaCompraArticuloId);
+	public void setCantidad(int cantidad) {
+		this.cantidad.set(cantidad);
 	}
 
-	public DetalleCompra(Integer id, Integer cantidad, Float precio, 
-			Integer articuloId, String articulo_marca, String articulo_modelo, Integer facturaCompraArticuloId){
-		
-		this.idDetalleCompra = new SimpleIntegerProperty(id);
-		this.cantidad = new SimpleIntegerProperty(cantidad);
-		this.precioUnitario = new SimpleFloatProperty(precio);
-		this.articuloID = new SimpleIntegerProperty(articuloId);
-		this.articulo_marca = new SimpleStringProperty(articulo_marca);
-		this.articulo_modelo = new SimpleStringProperty(articulo_modelo);
-		this.facturaCompraArticuloId = new SimpleIntegerProperty(facturaCompraArticuloId);
+	public float getPrecioUnitario() {
+		return precioUnitario.get();
 	}
 
-	public DetalleCompra() {
-		this(0,0,0f,0,null,null,0);
+	public FloatProperty precioUnitarioProperty() {
+		return precioUnitario;
 	}
 
-	public final IntegerProperty idProperty() {
-		return this.idDetalleCompra;
-	}
-	
-
-
-	public final int getId() {
-		return this.idProperty().get();
-	}
-	
-
-
-	public final void setId(final int id) {
-		this.idProperty().set(id);
-	}
-	
-
-
-	public final IntegerProperty cantidadProperty() {
-		return this.cantidad;
-	}
-	
-
-
-	public final int getCantidad() {
-		return this.cantidadProperty().get();
-	}
-	
-
-
-	public final void setCantidad(final int cantidad) {
-		this.cantidadProperty().set(cantidad);
-	}
-	
-
-
-	public final FloatProperty precioUnitarioProperty() {
-		return this.precioUnitario;
-	}
-	
-
-
-	public final float getPrecioUnitario() {
-		return this.precioUnitarioProperty().get();
-	}
-	
-
-
-	public final void setPrecioUnitario(final float precioUnitario) {
-		this.precioUnitarioProperty().set(precioUnitario);
-	}
-	
-
-
-	public final StringProperty articulo_marcaProperty() {
-		return this.articulo_marca;
-	}
-	
-
-
-	public final String getArticulo_marca() {
-		return this.articulo_marcaProperty().get();
-	}
-	
-
-
-	public final void setArticulo_marca(final String articulo_marca) {
-		this.articulo_marcaProperty().set(articulo_marca);
-	}
-	
-
-
-	public final StringProperty articulo_modeloProperty() {
-		return this.articulo_modelo;
-	}
-	
-
-
-	public final String getArticulo_modelo() {
-		return this.articulo_modeloProperty().get();
-	}
-	
-
-
-	public final void setArticulo_modelo(final String articulo_modelo) {
-		this.articulo_modeloProperty().set(articulo_modelo);
+	public void setPrecioUnitario(float precioUnitario) {
+		this.precioUnitario.set(precioUnitario);
 	}
 
-
-	public int getArticuloID() {
-		return articuloID.get();
+	public Articulo getArticulo() {
+		return articulo;
 	}
 
-	public IntegerProperty articuloIDProperty() {
-		return articuloID;
+	public void setArticulo(Articulo articulo) {
+		this.articulo = articulo;
 	}
 
-	public void setArticuloID(int articuloID) {
-		this.articuloID.set(articuloID);
+	public FacturaCompra getFacturaCompra() {
+		return facturaCompra;
+	}
+
+	public void setFacturaCompra(FacturaCompra facturaCompra) {
+		this.facturaCompra = facturaCompra;
 	}
 }

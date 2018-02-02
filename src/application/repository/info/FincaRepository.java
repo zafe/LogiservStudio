@@ -82,5 +82,19 @@ public class FincaRepository {
         }
         return list;
     }
+    public ObservableList<String> listOfFincas(){
+                ObservableList<String> list = FXCollections.observableArrayList();
+                try {
+                        connection= JDBCConnection.getInstanceConnection();
+                        preparedStatement=connection.prepareStatement("SELECT nombre FROM finca");
+                        resultSet = preparedStatement.executeQuery();
+                        while (resultSet.next()){
+                                list.add(resultSet.getString(1));
+                            }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                return list;
+            }
 
 }
