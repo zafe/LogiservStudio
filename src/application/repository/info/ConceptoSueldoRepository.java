@@ -26,9 +26,6 @@ public class ConceptoSueldoRepository {
             preparedStatement.setString(4, conceptoSueldo.getTipoConcepto());
             preparedStatement.setString(5, conceptoSueldo.getTipoCantidad());
             preparedStatement.executeUpdate();
-            preparedStatement.close();
-            connection.close();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -49,8 +46,6 @@ public class ConceptoSueldoRepository {
             preparedStatement.setString(4,conceptoSueldo.getTipoCantidad());
             preparedStatement.setInt(5, conceptoSueldo.getIdConceptoSueldo());
             preparedStatement.executeUpdate();
-            preparedStatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -72,7 +67,7 @@ public class ConceptoSueldoRepository {
         ObservableList<ConceptoSueldo> list = FXCollections.observableArrayList();
         try {
             connection= JDBCConnection.getInstanceConnection();
-            preparedStatement=connection.prepareStatement("SELECT * FROM COMPRA_ARTICULO");
+            preparedStatement=connection.prepareStatement("SELECT * FROM concepto_Sueldo");
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 ConceptoSueldo conceptoSueldo = new ConceptoSueldo();
@@ -83,9 +78,6 @@ public class ConceptoSueldoRepository {
                 conceptoSueldo.setTipoCantidad(resultSet.getString(5));
                 list.add(conceptoSueldo);
             }
-            preparedStatement.close();
-            resultSet.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
