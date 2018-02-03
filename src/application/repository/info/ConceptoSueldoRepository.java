@@ -91,4 +91,40 @@ public class ConceptoSueldoRepository {
         }
         return list;
     }
+    public ObservableList<ConceptoSueldo> getConceptosByEmpleadoId(int idEmpleado){
+        ObservableList<ConceptoSueldo> list = FXCollections.observableArrayList();
+        try {
+            connection= JDBCConnection.getInstanceConnection();
+            preparedStatement=connection.prepareStatement("SELECT\n" +
+                    "CONCEPTO_SUELDO.idCodigoConcepto,\n" +
+                    "CONCEPTO_SUELDO.descripcion,\n" +
+                    "CONCEPTO_SUELDO.cantidad,\n" +
+                    "CONCEPTO_SUELDO.tipo_concepto,\n" +
+                    "        CONCEPTO_SUELDO.tipo_cantidad\n" +
+                    "FROM \n" +
+                    "CONCEPTO_SUELDO\n" +
+                    "INNER JOIN \n" +
+                    "TIPO_LIQUIDACION ON TIPO_LIQUIDACION.CONCEPTO_SUELDO_idCodigoConcepto = CONCEPTO_SUELDO.idCodigoConcepto\n" +
+                    "INNER JOIN\n" +
+                    "        CATEGORIA_EMPLEADO ON CATEGORIA_EMPLEADO.idCategoriaEmpleado = TIPO_LIQUIDACION.CATEGORIA_EMPLEADO_idCategoriaEmpleado\n" +
+                    "INNER JOIN\n" +
+                    "EMPLEADO ON EMPLEADO.CATEGORIA_EMPLEADO_idCategoriaEmpleado = CATEGORIA_EMPLEADO.idCategoriaEmpleado\n" +
+                    "WHERE\n" +
+                    "EMPLEADO.idEmpleado = ?;");
+            preparedStatement.setInt(1, idEmpleado);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                ConceptoSueldo conceptoSueldo = new ConceptoSueldo();
+                conceptoSueldo.setIdConceptoSueldo(resultSet.getInt(1));
+                conceptoSueldo.setDescripcion(resultSet.getString(2));
+                conceptoSueldo.setCantidad(resultSet.getFloat(3));
+                conceptoSueldo.setTipoConcepto(resultSet.getString(4));
+                conceptoSueldo.setTipoCantidad(resultSet.getString(5));
+                list.add(conceptoSueldo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }
