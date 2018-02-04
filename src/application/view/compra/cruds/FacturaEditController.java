@@ -101,9 +101,10 @@ public class FacturaEditController implements Initializable {
     private void cargarArticulos(){
         articulos = articuloRepository.view();
         articuloComboBox.setItems(articulos);
-        if (!lineasTableView.getItems().isEmpty()) {
-            for (DetalleCompra linea : lineasTableView.getItems()) {
-                articuloComboBox.getItems().remove(linea.getArticulo()); //todo: esto no anda, aunque deberia quitar el articulo no lo hace
+        if (!lineasTableView.getItems().isEmpty()){
+            for (DetalleCompra linea :
+                    lineasTableView.getItems()) {
+                    articuloComboBox.getItems().remove(linea.getArticulo());
             }
         }
     }
