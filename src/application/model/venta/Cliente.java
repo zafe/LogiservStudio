@@ -1,5 +1,7 @@
 package application.model.venta;
 
+import application.model.info.Domicilio;
+import application.model.info.Localidad;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -9,7 +11,8 @@ public class Cliente {
     private IntegerProperty idCliente;
     private StringProperty nombre;
     private StringProperty cuit;
-    private StringProperty domicilio;
+    private Domicilio domicilio;
+
 
     public int getIdCliente() {
         return idCliente.get();
@@ -47,23 +50,19 @@ public class Cliente {
         this.cuit.set(cuit);
     }
 
-    public String getDomicilio() {
-        return domicilio.get();
-    }
-
-    public StringProperty domicilioProperty() {
+    public Domicilio getDomicilio() {
         return domicilio;
     }
 
-    public void setDomicilio(String domicilio) {
-        this.domicilio.set(domicilio);
+    public void setDomicilio(Domicilio domicilio) {
+        this.domicilio = domicilio;
     }
 
-    public Cliente(Integer idCliente, String nombre, String cuit, String domicilio) {
+    public Cliente(Integer idCliente, String nombre, String cuit, Domicilio domicilio) {
         this.idCliente = new SimpleIntegerProperty(idCliente);
         this.nombre = new SimpleStringProperty(nombre);
         this.cuit = new SimpleStringProperty(cuit);
-        this.domicilio = new SimpleStringProperty(domicilio);
+        this.domicilio = domicilio;
     }
 
     public Cliente() {

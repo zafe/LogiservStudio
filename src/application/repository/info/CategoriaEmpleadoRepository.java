@@ -76,8 +76,6 @@ import application.model.info.CategoriaEmpleado;
 	                categoriaEmpleado.setNombre(resultSet.getString("NombreCategoria"));
 	                list.add(categoriaEmpleado);
 	            }
-	            preparedStatement.close();
-	            resultSet.close();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }

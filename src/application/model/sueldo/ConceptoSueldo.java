@@ -81,4 +81,5 @@ public class ConceptoSueldo {
     public ConceptoSueldo(){
     	this(0, null, 0f, null, null);
     }
+
 }

@@ -2,6 +2,8 @@ package application.model.sueldo;
 
 import javafx.beans.property.*;
 
+import java.util.List;
+
 public class LiquidacionEmpleado {
     private IntegerProperty id;
     private StringProperty fechaLiquidacion;
@@ -156,4 +158,39 @@ public class LiquidacionEmpleado {
                 0.0,0.0,null,
                 null,null);
     }
+    private double calcularSumaRemunerativos(List<HaberesRemunerativos> haberesRemunerativos){
+        double total =0;
+        for (HaberesRemunerativos remunerativo : haberesRemunerativos){
+            total+=remunerativo.getMontoCalculado();
+        }
+        return total;
+    }
+    private double calcularRetenciones(List<Retencion> retenciones){
+        double total =0;
+        for (Retencion retencion : retenciones){
+            total+= retencion.getMontoCalculado();
+        }
+        return total;
+    }
+    private double calcularSumaNoRemunerativos(List<HaberNoRemunerativo> haberNoRemunerativos){
+        double total =0;
+        for (HaberNoRemunerativo noRemunerativo : haberNoRemunerativos){
+            total+=noRemunerativo.getMontoCalculado();
+        }
+        return total;
+    }
+    private double calcularSueldoBlanco(List<HaberesRemunerativos> haberesRemunerativos,List<Retencion> retenciones){
+        double sueldoBlanco = calcularSumaRemunerativos(haberesRemunerativos) - calcularRetenciones(retenciones);
+        return sueldoBlanco;
+    }
+    public double calcularSueldoTotal(List<HaberNoRemunerativo> haberNoRemunerativos,
+                                      List<HaberesRemunerativos> haberesRemunerativos,
+                                      List<Retencion> retenciones){
+        double sueldoTotal = calcularSueldoBlanco(haberesRemunerativos, retenciones)
+                + calcularSumaNoRemunerativos(haberNoRemunerativos);
+        return sueldoTotal;
+
+    }
+
+
 }

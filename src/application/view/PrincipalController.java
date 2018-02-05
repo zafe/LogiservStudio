@@ -4,11 +4,15 @@ import java.io.IOException;
 
 import application.view.calculo.InfoFincaController;
 import application.view.calculo.InfoIngenioController;
+import application.view.calculo.InfoOrigenDestinoController;
 import application.view.compra.ArticulosController;
 import application.view.compra.CategoriaArticuloController;
+import application.view.compra.CompraComprasController;
 import application.view.compra.ProveedoresController;
 import application.view.info.InfoCategoriaEmpleadoController;
 import application.view.calculo.CargarCamionController;
+import application.view.sueldo.ConceptosSalarialesController;
+import application.view.sueldo.cruds.LiquidacionSueldoController;
 import application.view.venta.CargarAcopladoController;
 import javafx.fxml.FXML;
 import application.Main;
@@ -137,8 +141,24 @@ public class PrincipalController {
         }catch (IOException e){
             e.printStackTrace();
         }
-
     }
+    @FXML
+    private void showDistanciasOverview(){
+	    try{
+            // Load category overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/calculo/InfoOrigenDestino.fxml"));
+            AnchorPane anchorPane = loader.load();
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(anchorPane);
+            // Give the controller access to the main app.
+            InfoOrigenDestinoController controller = loader.getController();
+            controller.setOwner(primaryStage);
+            controller.buscarDistancias();
+	    }catch (IOException e){
+	        e.printStackTrace();
+	    }
+	}
 //---------------MODULO COMPRA------------------------//
 	
 	@FXML
@@ -146,7 +166,7 @@ public class PrincipalController {
     	try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/CompraCompras.fxml"));
+            loader.setLocation(Main.class.getResource("view/compra/CompraCompras.fxml"));
             AnchorPane pane = loader.load();
 
             // Set person overview into the center of root layout.
@@ -286,8 +306,49 @@ public class PrincipalController {
               e.printStackTrace();
           }
       }
-    
-    
-	
+    //---------------MODULO Sueldos-------------------//
+    @FXML
+    private void showSueldosOverview() {
+        try {
+            // Load person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/sueldo/cruds/LiquidacionSueldo.fxml"));
+            AnchorPane anchorPane = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(anchorPane);
+
+            // Give the controller access to the main app.
+            LiquidacionSueldoController controller = loader.getController();
+            controller.setOwner(primaryStage);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void showConceptosSalarialesOverview() {
+        try {
+            // Load person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("application/view/sueldo/ConceptosSalariales.fxml"));
+            AnchorPane anchorPane = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(anchorPane);
+
+            // Give the controller access to the main app.
+            ConceptosSalarialesController controller = loader.getController();
+            controller.setOwner(primaryStage);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
 
 }
