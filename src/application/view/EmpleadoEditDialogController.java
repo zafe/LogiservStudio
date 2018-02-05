@@ -1,6 +1,5 @@
 package application.view;
 
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -8,15 +7,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 import application.model.info.CategoriaEmpleado;
 import application.model.info.Domicilio;
@@ -116,7 +111,7 @@ public class EmpleadoEditDialogController {
 
 	public void setPerson(Empleado empleado) {
 		this.empleado = empleado;
-		Domicilio domicilio = domicilioRepository.getDomicilioById(empleado.getDomicilio());;
+		Domicilio domicilio = domicilioRepository.getDomicilioById(empleado.getDomicile());;
 
 		nombreField.setText(empleado.getNombre());
 		apellidoField.setText(empleado.getApellido());
