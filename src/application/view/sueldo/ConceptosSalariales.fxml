@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.sueldo.ConceptosSalarialesController">
+<AnchorPane xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.sueldo.ConceptosSalarialesController">
    <children>
       <Pane prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -33,7 +33,7 @@
                         </TableView>
                         <HBox alignment="CENTER" prefHeight="152.0" prefWidth="600.0" spacing="10.0">
                            <children>
-                              <Button alignment="CENTER" mnemonicParsing="false" text="Nuevo Concepto" />
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleNew" text="Nuevo Concepto" />
                               <Button alignment="CENTER" mnemonicParsing="false" text="Editar Concepto" />
                               <Button alignment="CENTER" mnemonicParsing="false" text="Eliminar Concepto" />
                            </children>
