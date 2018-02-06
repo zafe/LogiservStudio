@@ -11,6 +11,7 @@ import application.view.compra.CompraComprasController;
 import application.view.compra.ProveedoresController;
 import application.view.info.InfoCategoriaEmpleadoController;
 import application.view.calculo.CargarCamionController;
+import application.view.sueldo.LiquidacionController;
 import application.view.sueldo.cruds.LiquidacionSueldoController;
 import application.view.venta.CargarAcopladoController;
 import javafx.fxml.FXML;
@@ -311,14 +312,14 @@ public class PrincipalController {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/sueldo/cruds/LiquidacionSueldo.fxml"));
+            loader.setLocation(Main.class.getResource("view/sueldo/Liquidaciones.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
 
             // Set person overview into the center of root layout.
             rootLayout.setCenter(personOverview);
 
             // Give the controller access to the main app.
-            LiquidacionSueldoController controller = loader.getController();
+            LiquidacionController controller = loader.getController();
             controller.setOwner(primaryStage);
 
         } catch (IOException e) {
