@@ -110,7 +110,7 @@ public class LiquidacionSueldoController implements Initializable {
         tipoColumn.setCellValueFactory(cellData -> cellData.getValue().tipoConceptoProperty());
         cantidadColumn.setCellValueFactory(celData -> celData.getValue().cantidadProperty().asString());
         tipoCantidadColumn.setCellValueFactory(cellData -> cellData.getValue().tipoCantidadProperty());
-//        factorColumn.setCellValueFactory(cellData -> cellData.getValue().factorProperty().asString());
+        factorColumn.setCellValueFactory(cellData -> cellData.getValue().factorProperty().asString());
 
         ponerFechaActual();
         cargarCategoriaEmpleado();

@@ -93,17 +93,18 @@ public class ConceptoSueldo {
     }
 
     public ConceptoSueldo(Integer idConceptoSueldo, String descripcion, Float cantidad,
-                          String tipoConcepto, String tipoCantidad) {
+                          String tipoConcepto, String tipoCantidad, Double factor) {
         this.idConceptoSueldo = new SimpleIntegerProperty(idConceptoSueldo);
         this.descripcion = new SimpleStringProperty(descripcion);
         this.cantidad = new SimpleFloatProperty(cantidad);
         this.tipoConcepto = new SimpleStringProperty(tipoConcepto);
         this.tipoCantidad = new SimpleStringProperty(tipoCantidad);
+        this.factor = new SimpleDoubleProperty(factor);
         this.select = new CheckBox();
     }
     
     public ConceptoSueldo(){
-    	this(0, null, 0f, null, null);
+    	this(0, null, 0f, null, null, 1.0);
     }
 
 }
