@@ -1,4 +1,4 @@
-package application.repository.info;
+package application.repository.compra;
 
 import application.database.JDBCConnection;
 import application.model.compra.Articulo;

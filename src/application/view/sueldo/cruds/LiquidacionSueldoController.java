@@ -4,15 +4,17 @@ import application.model.info.CategoriaEmpleado;
 import application.model.info.Empleado;
 import application.model.sueldo.ConceptoSueldo;
 import application.repository.info.CategoriaEmpleadoRepository;
-import application.repository.info.ConceptoSueldoRepository;
+import application.repository.sueldo.ConceptoSueldoRepository;
 import application.repository.info.EmpleadoRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import javax.xml.soap.Text;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -50,10 +52,11 @@ public class LiquidacionSueldoController implements Initializable {
 
     @FXML
     private TableView<ConceptoSueldo> novedadesTableView;
-//    @FXML
-//    private TableColumn<ConceptoSueldo, String> checkLiquidacionColumn;
+    //    @FXML
     @FXML
     private TableColumn<ConceptoSueldo, String> codigoColumn;
+    @FXML
+    private TableColumn<ConceptoSueldo, String> checkLiquidacionColumn;
     @FXML
     private TableColumn<ConceptoSueldo, String> conceptoColumn;
     @FXML
@@ -63,10 +66,13 @@ public class LiquidacionSueldoController implements Initializable {
     @FXML
     private TableColumn<ConceptoSueldo, String> tipoCantidadColumn;
     @FXML
+    private TableColumn<ConceptoSueldo, String> factorColumn;
+    @FXML
     private DatePicker fechaLiquidacion;
     @FXML
     private Button liquidarButton;
-
+    @FXML
+    private TextField factorTextField;
     @FXML
     private Button cancelButton;
 
@@ -78,14 +84,6 @@ public class LiquidacionSueldoController implements Initializable {
     private ObservableList<Empleado> empleados = FXCollections.observableArrayList();
     private ObservableList<Empleado> liquidarEmpleados = FXCollections.observableArrayList();
     private ObservableList<ConceptoSueldo> conceptoSueldos = FXCollections.observableArrayList();
-
-
-
-
-
-
-
-
 
     public void setOwner(Stage owner){
         this.owner = owner;
@@ -105,13 +103,23 @@ public class LiquidacionSueldoController implements Initializable {
         liquidarApellidoColumn.setCellValueFactory(cellData -> cellData.getValue().apellidoProperty());
         liquidarNombreColumn.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
 
+        checkLiquidacionColumn.setCellValueFactory(new PropertyValueFactory<ConceptoSueldo, String>("select"));
+        checkLiquidacionColumn.setStyle( "-fx-alignment: CENTER;");
         codigoColumn.setCellValueFactory(cellData -> cellData.getValue().idConceptoSueldoProperty().asString());
         conceptoColumn.setCellValueFactory(cellData -> cellData.getValue().descripcionProperty());
         tipoColumn.setCellValueFactory(cellData -> cellData.getValue().tipoConceptoProperty());
         cantidadColumn.setCellValueFactory(celData -> celData.getValue().cantidadProperty().asString());
         tipoCantidadColumn.setCellValueFactory(cellData -> cellData.getValue().tipoCantidadProperty());
+//        factorColumn.setCellValueFactory(cellData -> cellData.getValue().factorProperty().asString());
+
         ponerFechaActual();
         cargarCategoriaEmpleado();
+    }
+
+    private void ponerFechaActual() {
+        java.util.Date input = new Date();
+        LocalDate date = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        fechaLiquidacion.setValue(date);
     }
 
     private void cargarCategoriaEmpleado(){
@@ -121,40 +129,62 @@ public class LiquidacionSueldoController implements Initializable {
 
     @FXML
     public void cargarTablaEmpleados(){
-        int id= categoriaEmpleadoComboBox.getSelectionModel().getSelectedItem().getIdCategoriaEmpleado();
-        empleados = empleadoRepository.getEmpleadosByCategoriaEmpleado(id);
-        validarListaEmpleados();
+
+        if (categoriaEmpleadoComboBox.getSelectionModel().getSelectedItem() != null) {
+            int id = categoriaEmpleadoComboBox.getSelectionModel().getSelectedItem().getIdCategoriaEmpleado();
+            totalEmpleadoTableView.setItems(empleadoRepository.getEmpleadosByCategoriaEmpleado(id));
+            validarListaEmpleados();
+        }
+
     }
 
     private void validarListaEmpleados() {
-        for(Empleado empleadoLiquidado : liquidarEmpleados){
-            for (Empleado empleadoDuplicado : empleados){
-                if (empleadoDuplicado.getIdEmpleado() == empleadoLiquidado.getIdEmpleado()){
-                    empleados.remove(empleadoDuplicado);
+
+        for (Empleado eLiquidar : liquidarEmpleadoTableView.getItems())
+            for(Empleado eDuplicado : totalEmpleadoTableView.getItems())
+                if (eLiquidar.getIdEmpleado() == eDuplicado.getIdEmpleado()) {
+                    totalEmpleadoTableView.getItems().remove(eDuplicado);
                     break;
                 }
-            }
-        }
-        totalEmpleadoTableView.setItems(empleados);
     }
 
     @FXML
     private void agregarEmpleadoALiquidar(){
-        if (totalEmpleadoTableView.getSelectionModel().getSelectedItem() != null){
-            int empleadoIndex = totalEmpleadoTableView.getSelectionModel().getFocusedIndex();
-            Empleado empleadoLista = empleados.get(empleadoIndex);
-            liquidarEmpleados.add(empleadoLista);
-            liquidarEmpleadoTableView.setItems(liquidarEmpleados);
-            totalEmpleadoTableView.getItems().remove(empleadoLista);
-        }
+
+        if(totalEmpleadoTableView.getSelectionModel().getSelectedItem() != null)
+            liquidarEmpleadoTableView.getItems().add(totalEmpleadoTableView.getSelectionModel().getSelectedItem());
+
+        cargarTablaEmpleados();
+
     }
+
+    @FXML
+    private void agregarTodos(){
+
+        if(!totalEmpleadoTableView.getItems().isEmpty())
+        for(Empleado empleado : totalEmpleadoTableView.getItems())
+            liquidarEmpleadoTableView.getItems().add(empleado);
+
+        cargarTablaEmpleados();
+    }
+
     @FXML
     private void quitarEmpleadoALiquidar(){
-        if (liquidarEmpleadoTableView.getSelectionModel().getSelectedItem() != null){
-            liquidarEmpleadoTableView.getItems().remove(liquidarEmpleadoTableView.getSelectionModel().getSelectedIndex());
-            cargarTablaEmpleados();
-            novedadesTableView.getItems().removeAll(conceptoSueldos);
-        }
+
+        if(liquidarEmpleadoTableView.getSelectionModel().getSelectedItem() != null)
+            liquidarEmpleadoTableView.getItems().remove(liquidarEmpleadoTableView.getSelectionModel().getSelectedItem());
+
+        cargarTablaEmpleados();
+    }
+
+    @FXML
+    private void quitarTodos(){
+
+        if(!liquidarEmpleadoTableView.getItems().isEmpty())
+            liquidarEmpleadoTableView.getItems().removeAll(liquidarEmpleadoTableView.getItems());
+
+        cargarTablaEmpleados();
+
     }
     @FXML
     private void cargarNovedades(){
@@ -163,21 +193,10 @@ public class LiquidacionSueldoController implements Initializable {
             novedadesTableView.setItems(conceptoSueldos);
         }
     }
-
     @FXML
-    private void agregarTodos(){
-       //todo: hacer
-    }
-    @FXML
-    private void quitarTodos(){
-        //todo: hacer
-    }
-    private void ponerFechaActual() {
-        java.util.Date input = new Date();
-        LocalDate date = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        fechaLiquidacion.setValue(date);
-    }
+    private void agregarFactor(){
 
+    }
 
 
 

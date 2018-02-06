@@ -3,7 +3,7 @@ package application.view.compra;
 import application.Main;
 import application.comunes.Alerta;
 import application.model.compra.CategoriaArticulo;
-import application.repository.info.CategoriaArticuloRepository;
+import application.repository.compra.CategoriaArticuloRepository;
 import application.view.compra.cruds.CategoriaArticuloEditController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

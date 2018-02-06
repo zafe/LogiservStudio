@@ -1,4 +1,4 @@
-	package application.repository.info;
+	package application.repository.venta;
 
 	import application.comunes.Alerta;
 	import application.database.JDBCConnection;

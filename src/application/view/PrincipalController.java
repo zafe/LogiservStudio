@@ -9,6 +9,8 @@ import application.view.compra.ArticulosController;
 import application.view.compra.CategoriaArticuloController;
 import application.view.compra.CompraComprasController;
 import application.view.compra.ProveedoresController;
+import application.view.info.AdministrarEmpleadosController;
+import application.view.info.AdministrarUsuariosController;
 import application.view.info.InfoCategoriaEmpleadoController;
 import application.view.calculo.CargarCamionController;
 import application.view.sueldo.ConceptosSalarialesController;
@@ -22,20 +24,20 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class PrincipalController {
-	
+
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 
 	public void setRootLayout(BorderPane root){
 		this.rootLayout = root;
 	}
-	
+
 	public void setPrimaryStage(Stage primary){
 		this.primaryStage = primary;
 	}
 
 	//---------------MODULO INFORMACION------------------------//
-	
+
 	@FXML
     private void showCategoriaEmpleadosOverview(){
         try{
@@ -58,7 +60,7 @@ public class PrincipalController {
         }
         }
 
-	
+
     //---------------MODULO CALCULO------------------------//
     @FXML
     private void showCamionesOverview(){
@@ -120,7 +122,7 @@ public class PrincipalController {
             e.printStackTrace();
         }
         }
-    
+
     @FXML
     private void showAcopladosOverview(){
         try{
@@ -160,7 +162,7 @@ public class PrincipalController {
 	    }
 	}
 //---------------MODULO COMPRA------------------------//
-	
+
 	@FXML
 	private void showComprasOverview() {
     	try {
@@ -251,7 +253,7 @@ public class PrincipalController {
     	try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/AdministrarEmpleados.fxml"));
+            loader.setLocation(Main.class.getResource("view/info/AdministrarEmpleados.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
 
             // Set person overview into the center of root layout.
@@ -266,13 +268,13 @@ public class PrincipalController {
             e.printStackTrace();
         }
     }
-    
+
     @FXML
   	private void showUsuarioOverview() {
       	try {
               // Load person overview.
               FXMLLoader loaderusuario = new FXMLLoader();
-              loaderusuario.setLocation(Main.class.getResource("view/AdministrarUsuarios.fxml"));
+              loaderusuario.setLocation(Main.class.getResource("view/info/AdministrarUsuarios.fxml"));
               AnchorPane usuarioOverview = (AnchorPane) loaderusuario.load();
 
               // Set person overview into the center of root layout.

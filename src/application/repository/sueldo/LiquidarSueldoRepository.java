@@ -1,4 +1,4 @@
-package application.repository.info;
+package application.repository.sueldo;
 
 import java.sql.Connection;
 import java.sql.Date;

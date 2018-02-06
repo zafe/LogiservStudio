@@ -2,7 +2,7 @@ package application.view.venta.cruds;
 
 import application.comunes.Alerta;
 import application.model.calculo.Acoplado;
-import application.repository.info.AcopladoRepository;
+import application.repository.calculo.AcopladoRepository;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;

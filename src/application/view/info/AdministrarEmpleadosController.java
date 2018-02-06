@@ -1,6 +1,8 @@
-package application.view;
+package application.view.info;
 
 import java.io.IOException;
+
+import application.view.info.cruds.EmpleadoEditDialogController;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -50,7 +52,7 @@ public class AdministrarEmpleadosController {
 		nombreColumn.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
 		apellidoColumn.setCellValueFactory(cellData -> cellData.getValue().apellidoProperty());
 		nacimientoColumn.setCellValueFactory(cellData -> cellData.getValue().nacimientoProperty());
-		//domicilioColumn.setCellValueFactory(cellData -> cellData.getValue().domicilioProperty());
+		//domicilioColumn.setCellValueFactory(cellData -> cellData.getValue().domicileProperty());
 		hijosColumn.setCellValueFactory(cellData -> cellData.getValue().hijosProperty().asString());
 		cuitColumn.setCellValueFactory(cellData -> cellData.getValue().cuitProperty());
 		categoriaColumn.setCellValueFactory(cellData -> cellData.getValue().categoriaProperty());
@@ -82,7 +84,7 @@ public class AdministrarEmpleadosController {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/EditarEmpleadoDialog.fxml"));
+            loader.setLocation(Main.class.getResource("view/info/cruds/EditarEmpleadoDialog.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
 
             // Create the dialog Stage.

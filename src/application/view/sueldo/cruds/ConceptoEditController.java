@@ -5,8 +5,8 @@ import application.model.enums.TipoCantidad;
 import application.model.info.CategoriaEmpleado;
 import application.model.sueldo.ConceptoSueldo;
 import application.repository.info.CategoriaEmpleadoRepository;
-import application.repository.info.ConceptoSueldoRepository;
 import application.repository.info.TipoLiquidacionRepository;
+import application.repository.sueldo.ConceptoSueldoRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -55,16 +55,6 @@ public class ConceptoEditController implements Initializable{
 
     private ToggleGroup group = new ToggleGroup();
 
-    private void configRadioButtons(){
-        haberRemunerativoRadioButton.setToggleGroup(group);
-        haberNoRemunerativoRadioButton.setToggleGroup(group);
-        retencionRadioButton.setToggleGroup(group);
-    }
-
-
-    public void setIsNew(boolean bandera){
-        this.isNew = bandera;
-    }
 
 
     @FXML
@@ -186,4 +176,15 @@ public class ConceptoEditController implements Initializable{
         }
         return cantidad;
     }
+    private void configRadioButtons(){
+        haberRemunerativoRadioButton.setToggleGroup(group);
+        haberNoRemunerativoRadioButton.setToggleGroup(group);
+        retencionRadioButton.setToggleGroup(group);
+    }
+
+
+    public void setIsNew(boolean bandera){
+        this.isNew = bandera;
+    }
+
 }
