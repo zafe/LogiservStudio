@@ -11,8 +11,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import javax.xml.soap.Text;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -50,10 +52,11 @@ public class LiquidacionSueldoController implements Initializable {
 
     @FXML
     private TableView<ConceptoSueldo> novedadesTableView;
-//    @FXML
-//    private TableColumn<ConceptoSueldo, String> checkLiquidacionColumn;
+    //    @FXML
     @FXML
     private TableColumn<ConceptoSueldo, String> codigoColumn;
+    @FXML
+    private TableColumn<ConceptoSueldo, String> checkLiquidacionColumn;
     @FXML
     private TableColumn<ConceptoSueldo, String> conceptoColumn;
     @FXML
@@ -63,10 +66,13 @@ public class LiquidacionSueldoController implements Initializable {
     @FXML
     private TableColumn<ConceptoSueldo, String> tipoCantidadColumn;
     @FXML
+    private TableColumn<ConceptoSueldo, String> factorColumn;
+    @FXML
     private DatePicker fechaLiquidacion;
     @FXML
     private Button liquidarButton;
-
+    @FXML
+    private TextField factorTextField;
     @FXML
     private Button cancelButton;
 
@@ -97,11 +103,14 @@ public class LiquidacionSueldoController implements Initializable {
         liquidarApellidoColumn.setCellValueFactory(cellData -> cellData.getValue().apellidoProperty());
         liquidarNombreColumn.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
 
+        checkLiquidacionColumn.setCellValueFactory(new PropertyValueFactory<ConceptoSueldo, String>("select"));
+        checkLiquidacionColumn.setStyle( "-fx-alignment: CENTER;");
         codigoColumn.setCellValueFactory(cellData -> cellData.getValue().idConceptoSueldoProperty().asString());
         conceptoColumn.setCellValueFactory(cellData -> cellData.getValue().descripcionProperty());
         tipoColumn.setCellValueFactory(cellData -> cellData.getValue().tipoConceptoProperty());
         cantidadColumn.setCellValueFactory(celData -> celData.getValue().cantidadProperty().asString());
         tipoCantidadColumn.setCellValueFactory(cellData -> cellData.getValue().tipoCantidadProperty());
+//        factorColumn.setCellValueFactory(cellData -> cellData.getValue().factorProperty().asString());
 
         ponerFechaActual();
         cargarCategoriaEmpleado();
@@ -183,6 +192,10 @@ public class LiquidacionSueldoController implements Initializable {
             conceptoSueldos = conceptoSueldoRepository.getConceptosByEmpleadoId(liquidarEmpleadoTableView.getSelectionModel().getSelectedItem().getIdEmpleado());
             novedadesTableView.setItems(conceptoSueldos);
         }
+    }
+    @FXML
+    private void agregarFactor(){
+
     }
 
 

@@ -334,7 +334,7 @@ public class PrincipalController {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("application/view/sueldo/ConceptosSalariales.fxml"));
+            loader.setLocation(Main.class.getResource("view/sueldo/ConceptosSalariales.fxml"));
             AnchorPane anchorPane = (AnchorPane) loader.load();
 
             // Set person overview into the center of root layout.

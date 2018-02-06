@@ -19,21 +19,16 @@ public class ConceptoSueldoRepository {
         try {
             connection = JDBCConnection.getInstanceConnection();
             preparedStatement = connection.prepareStatement("INSERT INTO CONCEPTO_SUELDO" +
-                    "values(?,?,?,?,?)");
+                    " values(?,?,?,?,?)");
             preparedStatement.setString(1,null);
             preparedStatement.setString(2,conceptoSueldo.getDescripcion());
             preparedStatement.setFloat(3,conceptoSueldo.getCantidad());
             preparedStatement.setString(4, conceptoSueldo.getTipoConcepto());
             preparedStatement.setString(5, conceptoSueldo.getTipoCantidad());
             preparedStatement.executeUpdate();
-            preparedStatement.close();
-            connection.close();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
     }
     public void update(ConceptoSueldo conceptoSueldo){
         try {
@@ -49,8 +44,6 @@ public class ConceptoSueldoRepository {
             preparedStatement.setString(4,conceptoSueldo.getTipoCantidad());
             preparedStatement.setInt(5, conceptoSueldo.getIdConceptoSueldo());
             preparedStatement.executeUpdate();
-            preparedStatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -72,7 +65,7 @@ public class ConceptoSueldoRepository {
         ObservableList<ConceptoSueldo> list = FXCollections.observableArrayList();
         try {
             connection= JDBCConnection.getInstanceConnection();
-            preparedStatement=connection.prepareStatement("SELECT * FROM COMPRA_ARTICULO");
+            preparedStatement=connection.prepareStatement("SELECT * FROM concepto_Sueldo");
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 ConceptoSueldo conceptoSueldo = new ConceptoSueldo();
@@ -83,9 +76,6 @@ public class ConceptoSueldoRepository {
                 conceptoSueldo.setTipoCantidad(resultSet.getString(5));
                 list.add(conceptoSueldo);
             }
-            preparedStatement.close();
-            resultSet.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -127,4 +117,19 @@ public class ConceptoSueldoRepository {
         }
         return list;
     }
+    public int getLastId(){
+        int id=0;
+        try {
+            connection = JDBCConnection.getInstanceConnection();
+            preparedStatement= connection.prepareStatement("select max(idCodigoConcepto) from concepto_sueldo;");
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next())
+            id = resultSet.getInt(1);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
 }

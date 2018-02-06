@@ -1,8 +1,18 @@
 package application.model.sueldo;
 
-public abstract class ConceptoCalculado {
+public class ConceptoCalculado {
     private double montoCalculado;
     private ConceptoSueldo conceptoSueldo;
+
+    private double factor;
+
+    public double getFactor() {
+        return factor;
+    }
+
+    public void setFactor(double factor) {
+        this.factor = factor;
+    }
 
     public double getMontoCalculado() {
         return montoCalculado;
