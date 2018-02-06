@@ -1,4 +1,4 @@
-package application.view;
+package application.view.info.cruds;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

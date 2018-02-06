@@ -2,7 +2,7 @@ package application.view.calculo.cruds;
 
 import application.comunes.Alerta;
 import application.model.calculo.Camion;
-import application.repository.info.CamionRepository;
+import application.repository.calculo.CamionRepository;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;

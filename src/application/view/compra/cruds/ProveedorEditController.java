@@ -7,18 +7,13 @@ import application.model.info.Localidad;
 import application.model.info.Provincia;
 import application.repository.info.DomicilioRepository;
 import application.repository.info.LocalidadRepository;
-import application.repository.info.ProveedorRepository;
+import application.repository.compra.ProveedorRepository;
 import application.repository.info.ProvinciaRepository;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import javax.print.attribute.HashAttributeSet;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 
 public class ProveedorEditController {
     private boolean isNew;

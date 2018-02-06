@@ -4,9 +4,8 @@ import application.Main;
 import application.comunes.Alerta;
 import application.model.compra.Articulo;
 import application.model.compra.CategoriaArticulo;
-import application.repository.info.ArticuloRepository;
-import application.repository.info.CategoriaArticuloRepository;
-import javafx.collections.FXCollections;
+import application.repository.compra.ArticuloRepository;
+import application.repository.compra.CategoriaArticuloRepository;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,8 +19,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 public class ArticuloEditController {
     @FXML

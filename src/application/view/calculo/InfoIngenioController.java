@@ -2,11 +2,8 @@ package application.view.calculo;
 
 import application.Main;
 import application.comunes.Alerta;
-import application.model.calculo.Finca;
 import application.model.calculo.Ingenio;
-import application.repository.info.FincaRepository;
-import application.repository.info.IngenioRepository;
-import application.view.calculo.cruds.FincaEditController;
+import application.repository.calculo.IngenioRepository;
 import application.view.calculo.cruds.IngenioEditController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

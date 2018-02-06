@@ -1,5 +1,6 @@
-package application.view;
+package application.view.info;
 
+import application.view.info.cruds.UsuarioEditDialogController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -98,7 +99,7 @@ public class AdministrarUsuariosController {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/EditarUsuarioDialog.fxml"));
+            loader.setLocation(Main.class.getResource("view/info/cruds/EditarUsuarioDialog.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
 
             // Create the dialog Stage.

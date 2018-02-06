@@ -3,7 +3,7 @@ package application.view.calculo;
 import application.Main;
 import application.comunes.Alerta;
 import application.model.calculo.Finca;
-import application.repository.info.FincaRepository;
+import application.repository.calculo.FincaRepository;
 import application.view.calculo.cruds.FincaEditController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

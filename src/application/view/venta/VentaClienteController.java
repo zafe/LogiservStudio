@@ -2,11 +2,8 @@ package application.view.venta;
 
 import application.Main;
 import application.comunes.Alerta;
-import application.model.calculo.Camion;
 import application.model.venta.Cliente;
-import application.repository.info.ClienteRepository;
-import application.view.calculo.cruds.CamionEditController;
-import javafx.beans.property.StringProperty;
+import application.repository.venta.ClienteRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
