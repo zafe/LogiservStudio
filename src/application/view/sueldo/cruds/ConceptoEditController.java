@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.math.NumberUtils;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -111,27 +112,27 @@ public class ConceptoEditController implements Initializable{
     }
     private boolean isInputValid() {
         String errorMessage = "";
-
-   /*     if (marcaField.getText() == null || marcaField.getText().length() == 0) {
-            errorMessage += "Marca no Ingresada\n";
-        }
-        if (modeloField.getText() == null || modeloField.getText().length() == 0) {
-            errorMessage += "Modelo no Ingresado\n";
-        }
-        if (patenteField.getText() == null || patenteField.getText().length() == 0 || patenteField.getText().length() > 6 ) {
-            errorMessage += "Patente no Ingresado correctamente (6 digitos).\n";
-        }
+        if (descripcionColField.getText() == null || descripcionColField.getText().length() == 0)
+            errorMessage += "Descripcion del concepto no ingresado\n";
+        if (haberRemunerativoRadioButton.isSelected() || haberNoRemunerativoRadioButton.isSelected() || retencionRadioButton.isSelected())
+            errorMessage += "Tipo de concepto no seleccionado\n";
+        if (cantidadTextField.getText() == null || cantidadTextField.getText().length() == 0 || !NumberUtils.isParsable(cantidadTextField.getText()))
+            errorMessage += "Cantidad no ingresada correctamente\n";
+        if (tipoCantidadComboBox.getSelectionModel().isEmpty())
+            errorMessage += "Por favor seleecione un tipo de cantidad (porcentaje, fijo o unidad).\n";
+        if (tablas()==0)
+            errorMessage += "Seleccione la/las categorias asignadas al concepto.";
         if (errorMessage.length() == 0) {
             return true;
         } else {
             Alerta.alertaError("Datos inválidos", errorMessage);
             return false;
-        }*/
-   return true;
+        }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        configRadioButtons();
         setComboBox();
         cargarCategorias();
         nombreCategoriaColumn.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
@@ -148,5 +149,14 @@ public class ConceptoEditController implements Initializable{
         ObservableList<String> tipos = FXCollections.observableArrayList();
         tipos.setAll(TipoCantidad.FIJO.toString(), TipoCantidad.UNIDAD.toString(),TipoCantidad.PORCENTAJE.toString());
         tipoCantidadComboBox.setItems(tipos);
+    }
+    private int tablas(){
+        int cantidad=0;
+        for (CategoriaEmpleado categoria :
+                categoriaEmpleadoTableView.getItems()) {
+            if (categoria.getSelect().isSelected())
+                cantidad++;
+        }
+        return cantidad;
     }
 }
