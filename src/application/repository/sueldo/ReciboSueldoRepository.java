@@ -1,4 +1,4 @@
-package application.repository.info;
+package application.repository.sueldo;
 
 import application.database.JDBCConnection;
 import application.model.sueldo.ReciboSueldo;

@@ -2,7 +2,7 @@ package application.view.compra.cruds;
 
 import application.comunes.Alerta;
 import application.model.compra.CategoriaArticulo;
-import application.repository.info.CategoriaArticuloRepository;
+import application.repository.compra.CategoriaArticuloRepository;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

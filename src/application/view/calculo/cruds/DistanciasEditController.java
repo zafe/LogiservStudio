@@ -1,10 +1,8 @@
 package application.view.calculo.cruds;
 
 import application.comunes.Alerta;
-import application.model.calculo.Finca;
-import application.model.calculo.Ingenio;
 import application.model.calculo.OrigenDestino;
-import application.repository.info.OrigenDestinoRepository;
+import application.repository.calculo.OrigenDestinoRepository;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

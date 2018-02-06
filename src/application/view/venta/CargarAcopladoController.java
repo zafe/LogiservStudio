@@ -3,7 +3,7 @@ package application.view.venta;
 import application.Main;
 import application.comunes.Alerta;
 import application.model.calculo.Acoplado;
-import application.repository.info.AcopladoRepository;
+import application.repository.calculo.AcopladoRepository;
 import application.view.venta.cruds.AcopladoEditController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
