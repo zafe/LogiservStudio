@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<Group xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.sueldo.cruds.ConceptoEditController">
+<Group xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.sueldo.cruds.ConceptoEditController">
   <children>
     <AnchorPane prefHeight="579.0" prefWidth="660.0">
       <children>
