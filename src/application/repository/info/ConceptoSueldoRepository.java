@@ -19,7 +19,7 @@ public class ConceptoSueldoRepository {
         try {
             connection = JDBCConnection.getInstanceConnection();
             preparedStatement = connection.prepareStatement("INSERT INTO CONCEPTO_SUELDO" +
-                    "values(?,?,?,?,?)");
+                    " values(?,?,?,?,?)");
             preparedStatement.setString(1,null);
             preparedStatement.setString(2,conceptoSueldo.getDescripcion());
             preparedStatement.setFloat(3,conceptoSueldo.getCantidad());
@@ -29,8 +29,6 @@ public class ConceptoSueldoRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
     }
     public void update(ConceptoSueldo conceptoSueldo){
         try {
