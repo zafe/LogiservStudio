@@ -2,7 +2,7 @@ package application.view.sueldo;
 
 import application.Main;
 import application.model.sueldo.ConceptoSueldo;
-import application.repository.info.ConceptoSueldoRepository;
+import application.repository.sueldo.ConceptoSueldoRepository;
 import application.view.sueldo.cruds.ConceptoEditController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
