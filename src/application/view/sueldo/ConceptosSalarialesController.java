@@ -106,7 +106,7 @@ public class ConceptosSalarialesController implements Initializable {
             ConceptoEditController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setIsNew(b);
-//            controller.setDatos(conceptoSueldo);
+            controller.setDatos(conceptoSueldo);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();

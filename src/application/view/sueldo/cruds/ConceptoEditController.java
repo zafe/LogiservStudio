@@ -4,7 +4,6 @@ import application.comunes.Alerta;
 import application.model.enums.TipoCantidad;
 import application.model.info.CategoriaEmpleado;
 import application.model.sueldo.ConceptoSueldo;
-import application.repository.info.CamionRepository;
 import application.repository.info.CategoriaEmpleadoRepository;
 import application.repository.info.ConceptoSueldoRepository;
 import application.repository.info.TipoLiquidacionRepository;
@@ -83,7 +82,10 @@ public class ConceptoEditController implements Initializable{
                 conceptoSueldo.setTipoConcepto("RETENCION");
             if (isNew){
                 repository.save(conceptoSueldo);
-                tipoLiquidacionRepository.save(categoriaEmpleadoTableView.getSelectionModel().getSelectedItem().getIdCategoriaEmpleado());
+                int last = repository.getLastId();
+                for (int idCategoria : obtenerIDs()){
+                    tipoLiquidacionRepository.save(idCategoria,last);
+                }
             }
             else {
                 repository.update(conceptoSueldo);
@@ -93,6 +95,17 @@ public class ConceptoEditController implements Initializable{
         }
 
     }
+
+    private ObservableList<Integer> obtenerIDs() {
+        ObservableList<Integer> ids = FXCollections.observableArrayList();
+        for (CategoriaEmpleado categoria :
+                categoriaEmpleadoTableView.getItems()) {
+            if (categoria.getSelect().isSelected())
+                ids.add(categoria.getIdCategoriaEmpleado());
+        }
+        return ids;
+    }
+
     @FXML
     public void handleCancel(){
         dialogStage.close();
@@ -102,10 +115,23 @@ public class ConceptoEditController implements Initializable{
     }
 
     public void setDatos(ConceptoSueldo conceptoSueldo){
-   /*     this.conceptoSueldo = conceptoSueldo;
-        marcaField.setText(conceptoSueldo.getMarca());
-        modeloField.setText(conceptoSueldo.getModelo());
-        patenteField.setText(conceptoSueldo.getPatente());*/
+        this.conceptoSueldo = conceptoSueldo;
+        if (!isNew){
+            descripcionColField.setText(conceptoSueldo.getDescripcion());
+            switch (conceptoSueldo.getTipoConcepto()){
+                case "NO REMUNERATIVO":
+                    haberNoRemunerativoRadioButton.setSelected(true);
+                    break;
+                case "REMUNERATIVO":
+                    haberRemunerativoRadioButton.setSelected(true);
+                    break;
+                case "RETENCION":
+                    retencionRadioButton.setSelected(true);
+                    break;
+            }
+            cantidadTextField.setText(String.valueOf(conceptoSueldo.getCantidad()));
+            tipoCantidadComboBox.getSelectionModel().select(conceptoSueldo.getTipoCantidad());
+        }
     }
     public boolean isOkClicked(){
         return okClicked;
@@ -114,13 +140,13 @@ public class ConceptoEditController implements Initializable{
         String errorMessage = "";
         if (descripcionColField.getText() == null || descripcionColField.getText().length() == 0)
             errorMessage += "Descripcion del concepto no ingresado\n";
-        if (haberRemunerativoRadioButton.isSelected() || haberNoRemunerativoRadioButton.isSelected() || retencionRadioButton.isSelected())
-            errorMessage += "Tipo de concepto no seleccionado\n";
+        /*if (!haberRemunerativoRadioButton.isSelected() || !haberNoRemunerativoRadioButton.isSelected() || !retencionRadioButton.isSelected())
+            errorMessage += "Tipo de concepto no seleccionado\n";*/ //todo: corregir
         if (cantidadTextField.getText() == null || cantidadTextField.getText().length() == 0 || !NumberUtils.isParsable(cantidadTextField.getText()))
             errorMessage += "Cantidad no ingresada correctamente\n";
         if (tipoCantidadComboBox.getSelectionModel().isEmpty())
             errorMessage += "Por favor seleecione un tipo de cantidad (porcentaje, fijo o unidad).\n";
-        if (tablas()==0)
+        if (cantidadCategoriasChekeadas()==0)
             errorMessage += "Seleccione la/las categorias asignadas al concepto.";
         if (errorMessage.length() == 0) {
             return true;
@@ -141,6 +167,7 @@ public class ConceptoEditController implements Initializable{
     }
 
     private void cargarCategorias(){
+        //todo: hacer que cuando se seleccione esta fila se guarden todas las categorias.
         categorias = categoriaEmpleadoRepository.view();
         categorias.add(new CategoriaEmpleado(0, "Todos"));
         categoriaEmpleadoTableView.setItems(categorias);
@@ -150,7 +177,7 @@ public class ConceptoEditController implements Initializable{
         tipos.setAll(TipoCantidad.FIJO.toString(), TipoCantidad.UNIDAD.toString(),TipoCantidad.PORCENTAJE.toString());
         tipoCantidadComboBox.setItems(tipos);
     }
-    private int tablas(){
+    private int cantidadCategoriasChekeadas(){
         int cantidad=0;
         for (CategoriaEmpleado categoria :
                 categoriaEmpleadoTableView.getItems()) {

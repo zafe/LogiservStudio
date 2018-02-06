@@ -14,11 +14,12 @@ public class TipoLiquidacionRepository {
     PreparedStatement preparedStatement;
     ResultSet resultSet;
 
-    public void save(int idCategoria){
+    public void save(int idCategoria, int idConceptoSueldo){
         try {
             connection= JDBCConnection.getInstanceConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO tipo_liquidacion values(?,LAST_INSERT_ID())");
+            preparedStatement = connection.prepareStatement("INSERT INTO tipo_liquidacion values(?,?)");
             preparedStatement.setInt(1,idCategoria);
+            preparedStatement.setInt(2,idConceptoSueldo);
             preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
