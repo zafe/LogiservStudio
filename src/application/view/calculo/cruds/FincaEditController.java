@@ -2,7 +2,7 @@ package application.view.calculo.cruds;
 
 import application.comunes.Alerta;
 import application.model.calculo.Finca;
-import application.repository.info.FincaRepository;
+import application.repository.calculo.FincaRepository;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;

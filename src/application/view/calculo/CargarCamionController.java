@@ -3,7 +3,7 @@ package application.view.calculo;
 import application.Main;
 import application.comunes.Alerta;
 import application.model.calculo.Camion;
-import application.repository.info.CamionRepository;
+import application.repository.calculo.CamionRepository;
 import application.view.calculo.cruds.CamionEditController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
