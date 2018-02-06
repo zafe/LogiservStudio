@@ -117,4 +117,19 @@ public class ConceptoSueldoRepository {
         }
         return list;
     }
+    public int getLastId(){
+        int id=0;
+        try {
+            connection = JDBCConnection.getInstanceConnection();
+            preparedStatement= connection.prepareStatement("select max(idCodigoConcepto) from concepto_sueldo;");
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next())
+            id = resultSet.getInt(1);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
 }
