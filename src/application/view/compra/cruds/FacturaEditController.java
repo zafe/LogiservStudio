@@ -5,13 +5,12 @@ import application.model.compra.Articulo;
 import application.model.compra.DetalleCompra;
 import application.model.compra.FacturaCompra;
 import application.model.compra.Proveedor;
-import application.repository.info.ArticuloRepository;
-import application.repository.info.DetalleCompraRepository;
-import application.repository.info.FacturaCompraRepository;
-import application.repository.info.ProveedorRepository;
+import application.repository.compra.ArticuloRepository;
+import application.repository.compra.DetalleCompraRepository;
+import application.repository.compra.FacturaCompraRepository;
+import application.repository.compra.ProveedorRepository;
 import application.view.compra.ArticulosController;
 import application.view.compra.ProveedoresController;
-import com.sun.org.apache.xpath.internal.operations.Number;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,7 +20,6 @@ import javafx.stage.Stage;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import java.net.URL;
-import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -101,9 +99,10 @@ public class FacturaEditController implements Initializable {
     private void cargarArticulos(){
         articulos = articuloRepository.view();
         articuloComboBox.setItems(articulos);
-        if (!lineasTableView.getItems().isEmpty()) {
-            for (DetalleCompra linea : lineasTableView.getItems()) {
-                articuloComboBox.getItems().remove(linea.getArticulo()); //todo: esto no anda, aunque deberia quitar el articulo no lo hace
+        if (!lineasTableView.getItems().isEmpty()){
+            for (DetalleCompra linea :
+                    lineasTableView.getItems()) {
+                    articuloComboBox.getItems().remove(linea.getArticulo());
             }
         }
     }

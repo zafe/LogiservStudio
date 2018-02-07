@@ -5,31 +5,34 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import application.repository.info.DomicilioRepository;
 
 
 public class Empleado {
-	
-	private final IntegerProperty idEmpleado;
-	private final StringProperty nombre;
-	private final StringProperty apellido;
-	private final IntegerProperty hijos;
-	private final StringProperty cuit;
-	private final StringProperty nacimiento;
-	private final StringProperty categoria;
-	private final IntegerProperty domicilio;
-	
+
+	private IntegerProperty idEmpleado;
+	private StringProperty nombre;
+	private StringProperty apellido;
+	private IntegerProperty hijos;
+	private StringProperty cuit;
+	private StringProperty nacimiento;
+	private StringProperty categoria;
+	private Domicilio domicilio;//TODO borrar esto
+    private  DomicilioRepository domicilioRepository = new DomicilioRepository();
+
+
 	public Empleado(){
-		this(0, null, null, 0, null, null, null, 0);
+		this(0, null, null, 0, null, null, null, null);
 	}
-	
+
 	/**
 	 *
 	 * @param name
 	 * @param surname
 	 */
-	
+
 	public Empleado(Integer id, String name, String surname, Integer hijos,
-			String cuit, String nacimiento, String categoria, int idDomicilio) {
+			String cuit, String nacimiento, String categoria, Domicilio idDomicilio) {
 		this.idEmpleado = new SimpleIntegerProperty(id);
 		this.nombre = new SimpleStringProperty(name);
 		this.apellido = new SimpleStringProperty(surname);
@@ -37,29 +40,29 @@ public class Empleado {
 		this.cuit = new SimpleStringProperty(cuit);
 		this.nacimiento = new SimpleStringProperty(nacimiento);
 		this.categoria = new SimpleStringProperty(categoria);
-		this.domicilio = new SimpleIntegerProperty(idDomicilio);
+		this.domicilio = new Domicilio();
 	}
 
 	public String getNombre(){
 		return nombre.get();
 	}
-	
-	public void setNombre(String nombre){	
+
+	public void setNombre(String nombre){
 		this.nombre.set(nombre);
 	}
-	
+
 	public StringProperty nombreProperty() {
 		return nombre;
 	}
-	
+
 	public String getApellido(){
 		return apellido.get();
 	}
-	
+
 	public void setApellido(String apellido){
 		this.apellido.set(apellido);
 	}
-	
+
 	public StringProperty apellidoProperty(){
 		return apellido;
 	}
@@ -67,12 +70,12 @@ public class Empleado {
 	public final IntegerProperty idEmpleadoProperty() {
 		return this.idEmpleado;
 	}
-	
+
 
 	public final int getIdEmpleado() {
 		return this.idEmpleadoProperty().get();
 	}
-	
+
 
 	public final void setIdEmpleado(final int idEmpleado) {
 		this.idEmpleadoProperty().set(idEmpleado);
@@ -81,79 +84,68 @@ public class Empleado {
 	public final IntegerProperty hijosProperty() {
 		return this.hijos;
 	}
-	
+
 
 	public final int getHijos() {
 		return this.hijosProperty().get();
 	}
-	
+
 
 	public final void setHijos(final int hijos) {
 		this.hijosProperty().set(hijos);
 	}
-	
+
 
 	public final StringProperty cuitProperty() {
 		return this.cuit;
 	}
-	
+
 
 	public final String getCuit() {
 		return this.cuitProperty().get();
 	}
-	
+
 
 	public final void setCuit(final String cuit) {
 		this.cuitProperty().set(cuit);
 	}
-	
+
 
 	public final StringProperty nacimientoProperty() {
 		return this.nacimiento;
 	}
-	
+
 
 	public final String getNacimiento() {
 		return this.nacimientoProperty().get();
 	}
-	
+
 
 	public final void setNacimiento(final String nacimiento) {
 		this.nacimientoProperty().set(nacimiento);
 	}
-	
+
 
 	public final StringProperty categoriaProperty() {
 		return this.categoria;
 	}
-	
+
 
 	public final String getCategoria() {
 		return this.categoriaProperty().get();
 	}
-	
+
 
 	public final void setCategoria(final String categoria) {
 		this.categoriaProperty().set(categoria);
 	}
 
-	public final IntegerProperty domicilioProperty() {
-		return this.domicilio;
+	public Domicilio getDomicilio() {
+		return domicilio;
 	}
-	
 
-	public final int getDomicilio() {
-		return this.domicilioProperty().get();
-	}
-	
-
-	public final void setDomicilio(final int domicilio) {
-		this.domicilioProperty().set(domicilio);
-	}
-	
-	
-	
-		
-	
+	public void setDomicilio(int idDomicilio){
+	    this.domicilio = domicilioRepository.getDomicilioById(idDomicilio);
+    }
 
 }

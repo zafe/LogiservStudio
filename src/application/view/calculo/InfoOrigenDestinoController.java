@@ -2,12 +2,10 @@ package application.view.calculo;
 
 import application.Main;
 import application.comunes.Alerta;
-import application.model.calculo.Finca;
-import application.model.calculo.Ingenio;
 import application.model.calculo.OrigenDestino;
-import application.repository.info.FincaRepository;
-import application.repository.info.IngenioRepository;
-import application.repository.info.OrigenDestinoRepository;
+import application.repository.calculo.FincaRepository;
+import application.repository.calculo.IngenioRepository;
+import application.repository.calculo.OrigenDestinoRepository;
 import application.view.calculo.cruds.DistanciasEditController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

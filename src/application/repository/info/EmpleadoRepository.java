@@ -116,7 +116,7 @@ public class EmpleadoRepository {
 				Connection connection= JDBCConnection.getInstanceConnection();
 				PreparedStatement preparedStatement=connection.prepareStatement("select idEmpleado, " +
 						"Apellido, Nombre " +
-						"from EMPLEADO " +
+						"from Empleado " +
 						"where CATEGORIA_EMPLEADO_idCategoriaEmpleado = ?");
 				preparedStatement.setInt(1,idCategoria);
 				ResultSet resultSet = preparedStatement.executeQuery();
