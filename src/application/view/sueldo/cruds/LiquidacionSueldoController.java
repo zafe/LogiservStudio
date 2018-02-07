@@ -162,8 +162,8 @@ public class LiquidacionSueldoController implements Initializable {
     private void agregarTodos(){
 
         if(!totalEmpleadoTableView.getItems().isEmpty())
-        for(Empleado empleado : totalEmpleadoTableView.getItems())
-            liquidarEmpleadoTableView.getItems().add(empleado);
+            for(Empleado empleado : totalEmpleadoTableView.getItems())
+                liquidarEmpleadoTableView.getItems().add(empleado);
 
         cargarTablaEmpleados();
     }
