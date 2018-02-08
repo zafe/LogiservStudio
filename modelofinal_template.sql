@@ -1,721 +1,510 @@
--- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
---
--- Host: 127.0.0.1    Database: modelofinal
--- ------------------------------------------------------
--- Server version	5.7.16
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `ACOPLADO`
---
-
-DROP TABLE IF EXISTS `ACOPLADO`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ACOPLADO` (
-  `idAcoplado` int(11) NOT NULL AUTO_INCREMENT,
-  `Marca` varchar(45) DEFAULT NULL,
-  `Patente` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idAcoplado`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ACOPLADO`
---
-
-LOCK TABLES `ACOPLADO` WRITE;
-/*!40000 ALTER TABLE `ACOPLADO` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ACOPLADO` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `ARTICULO`
---
-
-DROP TABLE IF EXISTS `ARTICULO`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ARTICULO` (
-  `idArticulo` int(11) NOT NULL AUTO_INCREMENT,
-  `Marca` varchar(20) DEFAULT NULL,
-  `Modelo` varchar(20) DEFAULT NULL,
-  `Descripcion` varchar(45) DEFAULT NULL,
-  `CATEGORIA_ARTICULO_idCategoriaArticulo` int(11) NOT NULL,
-  `stock` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idArticulo`,`CATEGORIA_ARTICULO_idCategoriaArticulo`),
-  KEY `fk_ARTICULO_CATEGORIA_ARTICULO1_idx` (`CATEGORIA_ARTICULO_idCategoriaArticulo`),
-  CONSTRAINT `fk_ARTICULO_CATEGORIA_ARTICULO1` FOREIGN KEY (`CATEGORIA_ARTICULO_idCategoriaArticulo`) REFERENCES `CATEGORIA_ARTICULO` (`idCategoriaArticulo`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ARTICULO`
---
-
-LOCK TABLES `ARTICULO` WRITE;
-/*!40000 ALTER TABLE `ARTICULO` DISABLE KEYS */;
-INSERT INTO `ARTICULO` VALUES (1,'Man','klj','joijo	',1,2);
-/*!40000 ALTER TABLE `ARTICULO` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `CAMION`
---
-
-DROP TABLE IF EXISTS `CAMION`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `CAMION` (
-  `idCamion` int(11) NOT NULL AUTO_INCREMENT,
-  `Marca` varchar(45) DEFAULT NULL,
-  `Modelo` varchar(45) DEFAULT NULL,
-  `PATENTE` varchar(6) DEFAULT NULL,
-  PRIMARY KEY (`idCamion`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `CAMION`
---
-
-LOCK TABLES `CAMION` WRITE;
-/*!40000 ALTER TABLE `CAMION` DISABLE KEYS */;
-/*!40000 ALTER TABLE `CAMION` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `CATEGORIA_ARTICULO`
---
-
-DROP TABLE IF EXISTS `CATEGORIA_ARTICULO`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `CATEGORIA_ARTICULO` (
-  `idCategoriaArticulo` int(11) NOT NULL AUTO_INCREMENT,
-  `NombreCategoria` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idCategoriaArticulo`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `CATEGORIA_ARTICULO`
---
-
-LOCK TABLES `CATEGORIA_ARTICULO` WRITE;
-/*!40000 ALTER TABLE `CATEGORIA_ARTICULO` DISABLE KEYS */;
-INSERT INTO `CATEGORIA_ARTICULO` VALUES (1,'Insumos');
-/*!40000 ALTER TABLE `CATEGORIA_ARTICULO` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `CATEGORIA_EMPLEADO`
---
-
-DROP TABLE IF EXISTS `CATEGORIA_EMPLEADO`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `CATEGORIA_EMPLEADO` (
-  `idCategoriaEmpleado` int(11) NOT NULL AUTO_INCREMENT,
-  `NombreCategoria` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idCategoriaEmpleado`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `CATEGORIA_EMPLEADO`
---
-
-LOCK TABLES `CATEGORIA_EMPLEADO` WRITE;
-/*!40000 ALTER TABLE `CATEGORIA_EMPLEADO` DISABLE KEYS */;
-INSERT INTO `CATEGORIA_EMPLEADO` VALUES (1,'Administradores'),(2,'Conductores');
-/*!40000 ALTER TABLE `CATEGORIA_EMPLEADO` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `CLIENTE`
---
-
-DROP TABLE IF EXISTS `CLIENTE`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `CLIENTE` (
-  `idCLIENTE` int(11) NOT NULL AUTO_INCREMENT,
-  `Nombre` varchar(45) DEFAULT NULL,
-  `CUIT` varchar(45) DEFAULT NULL,
-  `DOMICILIO_idDomicilio` int(11) NOT NULL,
-  PRIMARY KEY (`idCLIENTE`,`DOMICILIO_idDomicilio`),
-  KEY `fk_CLIENTE_DOMICILIO1_idx` (`DOMICILIO_idDomicilio`),
-  CONSTRAINT `fk_CLIENTE_DOMICILIO1` FOREIGN KEY (`DOMICILIO_idDomicilio`) REFERENCES `DOMICILIO` (`idDomicilio`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `CLIENTE`
---
-
-LOCK TABLES `CLIENTE` WRITE;
-/*!40000 ALTER TABLE `CLIENTE` DISABLE KEYS */;
-/*!40000 ALTER TABLE `CLIENTE` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `COMPRA_ARTICULO`
---
-
-DROP TABLE IF EXISTS `COMPRA_ARTICULO`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `COMPRA_ARTICULO` (
-  `idFacturaCompraArticulo` int(11) NOT NULL AUTO_INCREMENT,
-  `Fecha` date DEFAULT NULL,
-  `Total` double DEFAULT NULL,
-  `PROVEEDOR_idPROVEEDOR` int(11) NOT NULL,
-  PRIMARY KEY (`idFacturaCompraArticulo`,`PROVEEDOR_idPROVEEDOR`),
-  KEY `fk_COMPRA_ARTICULO_PROVEEDOR1_idx` (`PROVEEDOR_idPROVEEDOR`),
-  CONSTRAINT `fk_COMPRA_ARTICULO_PROVEEDOR1` FOREIGN KEY (`PROVEEDOR_idPROVEEDOR`) REFERENCES `PROVEEDOR` (`idPROVEEDOR`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `COMPRA_ARTICULO`
---
-
-LOCK TABLES `COMPRA_ARTICULO` WRITE;
-/*!40000 ALTER TABLE `COMPRA_ARTICULO` DISABLE KEYS */;
-/*!40000 ALTER TABLE `COMPRA_ARTICULO` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `CONCEPTO_SUELDO`
---
-
-DROP TABLE IF EXISTS `CONCEPTO_SUELDO`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `CONCEPTO_SUELDO` (
-  `idCodigoConcepto` int(11) NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(45) DEFAULT NULL,
-  `cantidad` float DEFAULT NULL,
-  `tipo_concepto` enum('REMUNERATIVO','NO REMUNERATIVO','RETENCION') DEFAULT NULL,
-  `tipo_cantidad` enum('PORCENTAJE','FIJO','UNIDAD') DEFAULT NULL,
-  PRIMARY KEY (`idCodigoConcepto`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `CONCEPTO_SUELDO`
---
-
-LOCK TABLES `CONCEPTO_SUELDO` WRITE;
-/*!40000 ALTER TABLE `CONCEPTO_SUELDO` DISABLE KEYS */;
-INSERT INTO `CONCEPTO_SUELDO` VALUES (1,'Comisión Carga Transportada',15,'NO REMUNERATIVO','PORCENTAJE'),(2,'Ley 19.032',3,'RETENCION','PORCENTAJE'),(3,'Obra Social',3,'RETENCION','PORCENTAJE'),(4,'Seguro Sepelio',1.5,'RETENCION','PORCENTAJE'),(5,'Jubilación',11,'RETENCION','PORCENTAJE'),(6,'Sueldo Básico',9150,'REMUNERATIVO','FIJO');
-/*!40000 ALTER TABLE `CONCEPTO_SUELDO` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `DETALLE_COMPRA`
---
-
-DROP TABLE IF EXISTS `DETALLE_COMPRA`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `DETALLE_COMPRA` (
-  `idCompraArticulo` int(11) NOT NULL AUTO_INCREMENT,
-  `Cantidad` int(11) DEFAULT NULL,
-  `PrecioUnitario` double DEFAULT NULL,
-  `Articulo_idArticulo` int(11) NOT NULL,
-  `FacturaCompraArticulo_idFacturaCompraArticulo` int(11) NOT NULL,
-  PRIMARY KEY (`idCompraArticulo`,`Articulo_idArticulo`,`FacturaCompraArticulo_idFacturaCompraArticulo`),
-  KEY `fk_CompraArticulo_Articulo1_idx` (`Articulo_idArticulo`),
-  KEY `fk_CompraArticulo_FacturaCompraArticulo1_idx` (`FacturaCompraArticulo_idFacturaCompraArticulo`),
-  CONSTRAINT `fk_CompraArticulo_Articulo1` FOREIGN KEY (`Articulo_idArticulo`) REFERENCES `ARTICULO` (`idArticulo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_CompraArticulo_FacturaCompraArticulo1` FOREIGN KEY (`FacturaCompraArticulo_idFacturaCompraArticulo`) REFERENCES `COMPRA_ARTICULO` (`idFacturaCompraArticulo`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `DETALLE_COMPRA`
---
-
-LOCK TABLES `DETALLE_COMPRA` WRITE;
-/*!40000 ALTER TABLE `DETALLE_COMPRA` DISABLE KEYS */;
-/*!40000 ALTER TABLE `DETALLE_COMPRA` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `DETALLE_LIQUIDACION_EMPLEADO`
---
-
-DROP TABLE IF EXISTS `DETALLE_LIQUIDACION_EMPLEADO`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `DETALLE_LIQUIDACION_EMPLEADO` (
-  `idDetalleLiquidacionEmpleado` int(11) NOT NULL AUTO_INCREMENT,
-  `cantidad` double DEFAULT NULL,
-  `LiquidacionEmpleado_idLiquidacionEmpleado` int(11) NOT NULL,
-  `CONCEPTO_SUELDO_idCodigoConcepto` int(11) NOT NULL,
-  `monto` double DEFAULT NULL,
-  PRIMARY KEY (`idDetalleLiquidacionEmpleado`,`LiquidacionEmpleado_idLiquidacionEmpleado`,`CONCEPTO_SUELDO_idCodigoConcepto`),
-  KEY `fk_DetalleLiquidacionEmpleado_LiquidacionEmpleado1_idx` (`LiquidacionEmpleado_idLiquidacionEmpleado`),
-  KEY `fk_DETALLE_LIQUIDACION_EMPLEADO_CONCEPTO_SUELDO1_idx` (`CONCEPTO_SUELDO_idCodigoConcepto`),
-  CONSTRAINT `fk_DETALLE_LIQUIDACION_EMPLEADO_CONCEPTO_SUELDO1` FOREIGN KEY (`CONCEPTO_SUELDO_idCodigoConcepto`) REFERENCES `CONCEPTO_SUELDO` (`idCodigoConcepto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_DetalleLiquidacionEmpleado_LiquidacionEmpleado1` FOREIGN KEY (`LiquidacionEmpleado_idLiquidacionEmpleado`) REFERENCES `LIQUIDACION_EMPLEADO` (`idLiquidacionEmpleado`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `DETALLE_LIQUIDACION_EMPLEADO`
---
-
-LOCK TABLES `DETALLE_LIQUIDACION_EMPLEADO` WRITE;
-/*!40000 ALTER TABLE `DETALLE_LIQUIDACION_EMPLEADO` DISABLE KEYS */;
-/*!40000 ALTER TABLE `DETALLE_LIQUIDACION_EMPLEADO` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `DOMICILIO`
---
-
-DROP TABLE IF EXISTS `DOMICILIO`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `DOMICILIO` (
-  `idDomicilio` int(11) NOT NULL AUTO_INCREMENT,
-  `LOCALIDAD_idLocalidad` int(11) NOT NULL,
-  `Calle` varchar(45) DEFAULT NULL,
-  `Numero` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idDomicilio`,`LOCALIDAD_idLocalidad`),
-  KEY `fk_DOMICILIO_LOCALIDAD1_idx` (`LOCALIDAD_idLocalidad`),
-  CONSTRAINT `fk_DOMICILIO_LOCALIDAD1` FOREIGN KEY (`LOCALIDAD_idLocalidad`) REFERENCES `LOCALIDAD` (`idLocalidad`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `DOMICILIO`
---
-
-LOCK TABLES `DOMICILIO` WRITE;
-/*!40000 ALTER TABLE `DOMICILIO` DISABLE KEYS */;
-INSERT INTO `DOMICILIO` VALUES (1,2,'Sarmiento','S/N'),(2,3,'San Martín','530'),(3,4,'Av. Belgrano','1275');
-/*!40000 ALTER TABLE `DOMICILIO` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `EMPLEADO`
---
-
-DROP TABLE IF EXISTS `EMPLEADO`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `EMPLEADO` (
-  `idEmpleado` int(11) NOT NULL AUTO_INCREMENT,
-  `CUIT` varchar(13) DEFAULT NULL,
-  `CATEGORIA_EMPLEADO_idCategoriaEmpleado` int(11) NOT NULL,
-  `hijos` int(11) DEFAULT NULL,
-  `Nombre` varchar(45) DEFAULT NULL,
-  `Apellido` varchar(45) DEFAULT NULL,
-  `FechaNacimiento` date DEFAULT NULL,
-  `DOMICILIO_idDomicilio` int(11) NOT NULL,
-  PRIMARY KEY (`idEmpleado`,`CATEGORIA_EMPLEADO_idCategoriaEmpleado`,`DOMICILIO_idDomicilio`),
-  KEY `fk_EMPLEADO_CATEGORIA_EMPLEADO1_idx` (`CATEGORIA_EMPLEADO_idCategoriaEmpleado`),
-  KEY `fk_EMPLEADO_DOMICILIO1_idx` (`DOMICILIO_idDomicilio`),
-  CONSTRAINT `fk_EMPLEADO_CATEGORIA_EMPLEADO1` FOREIGN KEY (`CATEGORIA_EMPLEADO_idCategoriaEmpleado`) REFERENCES `CATEGORIA_EMPLEADO` (`idCategoriaEmpleado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_EMPLEADO_DOMICILIO1` FOREIGN KEY (`DOMICILIO_idDomicilio`) REFERENCES `DOMICILIO` (`idDomicilio`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `EMPLEADO`
---
-
-LOCK TABLES `EMPLEADO` WRITE;
-/*!40000 ALTER TABLE `EMPLEADO` DISABLE KEYS */;
-INSERT INTO `EMPLEADO` VALUES (1,'20367439018',1,0,'Omar Fernando','Zafe','1992-08-12',1),(2,'2021336082',1,3,'José Omar','Zafe','1970-01-22',1),(3,'20383494348',2,2,'Emanuel','Cordoba','1994-11-23',2);
-/*!40000 ALTER TABLE `EMPLEADO` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `FACTURA_VENTA`
---
-
-DROP TABLE IF EXISTS `FACTURA_VENTA`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `FACTURA_VENTA` (
-  `idFACTURA_VENTA` int(11) NOT NULL AUTO_INCREMENT,
-  `CUIT` varchar(45) DEFAULT NULL,
-  `FechaEmisión` date DEFAULT NULL,
-  `CLIENTE_idCLIENTE` int(11) NOT NULL,
-  PRIMARY KEY (`idFACTURA_VENTA`,`CLIENTE_idCLIENTE`),
-  KEY `fk_FACTURA_VENTA_CLIENTE1_idx` (`CLIENTE_idCLIENTE`),
-  CONSTRAINT `fk_FACTURA_VENTA_CLIENTE1` FOREIGN KEY (`CLIENTE_idCLIENTE`) REFERENCES `CLIENTE` (`idCLIENTE`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `FACTURA_VENTA`
---
-
-LOCK TABLES `FACTURA_VENTA` WRITE;
-/*!40000 ALTER TABLE `FACTURA_VENTA` DISABLE KEYS */;
-/*!40000 ALTER TABLE `FACTURA_VENTA` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `FINCA`
---
-
-DROP TABLE IF EXISTS `FINCA`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `FINCA` (
-  `idFinca` int(11) NOT NULL AUTO_INCREMENT,
-  `coordenada` point DEFAULT NULL,
-  `Nombre` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idFinca`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `FINCA`
---
-
-LOCK TABLES `FINCA` WRITE;
-/*!40000 ALTER TABLE `FINCA` DISABLE KEYS */;
-/*!40000 ALTER TABLE `FINCA` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `INGENIO`
---
-
-DROP TABLE IF EXISTS `INGENIO`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `INGENIO` (
-  `idIngenio` int(11) NOT NULL AUTO_INCREMENT,
-  `coordenada` point DEFAULT NULL,
-  `Nombre` varchar(45) NOT NULL,
-  `Arranque` double DEFAULT NULL,
-  `Tarifa` double DEFAULT NULL,
-  PRIMARY KEY (`idIngenio`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `INGENIO`
---
-
-LOCK TABLES `INGENIO` WRITE;
-/*!40000 ALTER TABLE `INGENIO` DISABLE KEYS */;
-/*!40000 ALTER TABLE `INGENIO` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `LIQUIDACION_EMPLEADO`
---
-
-DROP TABLE IF EXISTS `LIQUIDACION_EMPLEADO`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `LIQUIDACION_EMPLEADO` (
-  `idLiquidacionEmpleado` int(11) NOT NULL AUTO_INCREMENT,
-  `fecha_liquidacion` date DEFAULT NULL,
-  `importe_neto` double DEFAULT NULL,
-  `total_haberes_remunerativos` double DEFAULT NULL,
-  `total_haberes_no_remunerativos` double DEFAULT NULL,
-  `total_retenciones` double DEFAULT NULL,
-  `total_bruto` double DEFAULT NULL,
-  `EMPLEADO_idEmpleado` int(11) NOT NULL,
-  `inicio_periodo` date DEFAULT NULL,
-  `fin_periodo` date DEFAULT NULL,
-  PRIMARY KEY (`idLiquidacionEmpleado`,`EMPLEADO_idEmpleado`),
-  KEY `fk_LIQUIDACION_EMPLEADO_EMPLEADO1_idx` (`EMPLEADO_idEmpleado`),
-  CONSTRAINT `fk_LIQUIDACION_EMPLEADO_EMPLEADO1` FOREIGN KEY (`EMPLEADO_idEmpleado`) REFERENCES `EMPLEADO` (`idEmpleado`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `LIQUIDACION_EMPLEADO`
---
-
-LOCK TABLES `LIQUIDACION_EMPLEADO` WRITE;
-/*!40000 ALTER TABLE `LIQUIDACION_EMPLEADO` DISABLE KEYS */;
-/*!40000 ALTER TABLE `LIQUIDACION_EMPLEADO` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `LOCALIDAD`
---
-
-DROP TABLE IF EXISTS `LOCALIDAD`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `LOCALIDAD` (
-  `idLocalidad` int(11) NOT NULL AUTO_INCREMENT,
-  `NombreLocalidad` varchar(45) DEFAULT NULL,
-  `PROVINCIA_idProvincia` int(11) NOT NULL,
-  PRIMARY KEY (`idLocalidad`,`PROVINCIA_idProvincia`),
-  KEY `fk_LOCALIDAD_PROVINCIA1_idx` (`PROVINCIA_idProvincia`),
-  CONSTRAINT `fk_LOCALIDAD_PROVINCIA1` FOREIGN KEY (`PROVINCIA_idProvincia`) REFERENCES `PROVINCIA` (`idProvincia`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `LOCALIDAD`
---
-
-LOCK TABLES `LOCALIDAD` WRITE;
-/*!40000 ALTER TABLE `LOCALIDAD` DISABLE KEYS */;
-INSERT INTO `LOCALIDAD` VALUES (2,'La Florida',24),(3,'Cruz Alta',24),(4,'Delfín Gallo',24),(5,'Alderetes',24),(6,'Aguilares',24),(7,'Concepción',24),(8,'Monteros',24),(9,'León Rouges',24);
-/*!40000 ALTER TABLE `LOCALIDAD` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `ORIGEN_DESTINO`
---
-
-DROP TABLE IF EXISTS `ORIGEN_DESTINO`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ORIGEN_DESTINO` (
-  `idOrigen_Destino` int(11) NOT NULL AUTO_INCREMENT,
-  `DistanciaKM` float DEFAULT NULL,
-  `FINCA_idFinca` int(11) NOT NULL,
-  `INGENIO_idIngenio` int(11) NOT NULL,
-  PRIMARY KEY (`idOrigen_Destino`,`FINCA_idFinca`,`INGENIO_idIngenio`),
-  KEY `fk_ORIGEN_DESTINO_FINCA1_idx` (`FINCA_idFinca`),
-  KEY `fk_ORIGEN_DESTINO_INGENIO1_idx` (`INGENIO_idIngenio`),
-  CONSTRAINT `fk_ORIGEN_DESTINO_FINCA1` FOREIGN KEY (`FINCA_idFinca`) REFERENCES `FINCA` (`idFinca`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_ORIGEN_DESTINO_INGENIO1` FOREIGN KEY (`INGENIO_idIngenio`) REFERENCES `INGENIO` (`idIngenio`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ORIGEN_DESTINO`
---
-
-LOCK TABLES `ORIGEN_DESTINO` WRITE;
-/*!40000 ALTER TABLE `ORIGEN_DESTINO` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ORIGEN_DESTINO` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `PROVEEDOR`
---
-
-DROP TABLE IF EXISTS `PROVEEDOR`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `PROVEEDOR` (
-  `idPROVEEDOR` int(11) NOT NULL AUTO_INCREMENT,
-  `Nombre` varchar(45) DEFAULT NULL,
-  `CUIT` varchar(13) DEFAULT NULL,
-  `DOMICILIO_idDomicilio` int(11) NOT NULL,
-  PRIMARY KEY (`idPROVEEDOR`,`DOMICILIO_idDomicilio`),
-  KEY `fk_PROVEEDOR_DOMICILIO1_idx` (`DOMICILIO_idDomicilio`),
-  CONSTRAINT `fk_PROVEEDOR_DOMICILIO1` FOREIGN KEY (`DOMICILIO_idDomicilio`) REFERENCES `DOMICILIO` (`idDomicilio`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `PROVEEDOR`
---
-
-LOCK TABLES `PROVEEDOR` WRITE;
-/*!40000 ALTER TABLE `PROVEEDOR` DISABLE KEYS */;
-/*!40000 ALTER TABLE `PROVEEDOR` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `PROVINCIA`
---
-
-DROP TABLE IF EXISTS `PROVINCIA`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `PROVINCIA` (
-  `idProvincia` int(11) NOT NULL AUTO_INCREMENT,
-  `NombreProvincia` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idProvincia`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `PROVINCIA`
---
-
-LOCK TABLES `PROVINCIA` WRITE;
-/*!40000 ALTER TABLE `PROVINCIA` DISABLE KEYS */;
-INSERT INTO `PROVINCIA` VALUES (1,'CABA'),(2,'Buenos Aires'),(3,'Catamarca'),(4,'Chaco'),(5,'Chubut'),(6,'Córdoba'),(7,'Corrientes'),(8,'Entre Ríos'),(9,'Formosa'),(10,'Jujuy'),(11,'La Pampa'),(12,'La Rioja'),(13,'Mendoza'),(14,'Misiones'),(15,'Neuquén'),(16,'Río Negro'),(17,'Salta'),(18,'San Juan'),(19,'San Luis'),(20,'Santa Cruz'),(21,'Santa Fe'),(22,'Santiago del Estero'),(23,'Tierra del Fuego'),(24,'Tucumán');
-/*!40000 ALTER TABLE `PROVINCIA` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `RECIBO_SUELDO`
---
-
-DROP TABLE IF EXISTS `RECIBO_SUELDO`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `RECIBO_SUELDO` (
-  `idRECIBO_SUELDO` int(11) NOT NULL AUTO_INCREMENT,
-  `fecha` date DEFAULT NULL,
-  `total_neto` double DEFAULT NULL,
-  `LiquidacionEmpleado_idLiquidacionEmpleado` int(11) NOT NULL,
-  PRIMARY KEY (`idRECIBO_SUELDO`,`LiquidacionEmpleado_idLiquidacionEmpleado`),
-  KEY `fk_RECIBO_SUELDO_LiquidacionEmpleado1_idx` (`LiquidacionEmpleado_idLiquidacionEmpleado`),
-  CONSTRAINT `fk_RECIBO_SUELDO_LiquidacionEmpleado1` FOREIGN KEY (`LiquidacionEmpleado_idLiquidacionEmpleado`) REFERENCES `LIQUIDACION_EMPLEADO` (`idLiquidacionEmpleado`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `RECIBO_SUELDO`
---
-
-LOCK TABLES `RECIBO_SUELDO` WRITE;
-/*!40000 ALTER TABLE `RECIBO_SUELDO` DISABLE KEYS */;
-/*!40000 ALTER TABLE `RECIBO_SUELDO` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `REMITO_HAS_ACOPLADO`
---
-
-DROP TABLE IF EXISTS `REMITO_HAS_ACOPLADO`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `REMITO_HAS_ACOPLADO` (
-  `Remito_idRemito` int(11) NOT NULL,
-  `Acoplado_idAcoplado` int(11) NOT NULL,
-  PRIMARY KEY (`Remito_idRemito`,`Acoplado_idAcoplado`),
-  KEY `fk_Remito_has_Acoplado_Acoplado1_idx` (`Acoplado_idAcoplado`),
-  KEY `fk_Remito_has_Acoplado_Remito1_idx` (`Remito_idRemito`),
-  CONSTRAINT `fk_Remito_has_Acoplado_Acoplado1` FOREIGN KEY (`Acoplado_idAcoplado`) REFERENCES `ACOPLADO` (`idAcoplado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Remito_has_Acoplado_Remito1` FOREIGN KEY (`Remito_idRemito`) REFERENCES `VIAJE` (`idRemito`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `REMITO_HAS_ACOPLADO`
---
-
-LOCK TABLES `REMITO_HAS_ACOPLADO` WRITE;
-/*!40000 ALTER TABLE `REMITO_HAS_ACOPLADO` DISABLE KEYS */;
-/*!40000 ALTER TABLE `REMITO_HAS_ACOPLADO` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `TIPO_LIQUIDACION`
---
-
-DROP TABLE IF EXISTS `TIPO_LIQUIDACION`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `TIPO_LIQUIDACION` (
-  `CATEGORIA_EMPLEADO_idCategoriaEmpleado` int(11) NOT NULL,
-  `CONCEPTO_SUELDO_idCodigoConcepto` int(11) NOT NULL,
-  PRIMARY KEY (`CATEGORIA_EMPLEADO_idCategoriaEmpleado`,`CONCEPTO_SUELDO_idCodigoConcepto`),
-  KEY `fk_CATEGORIA_EMPLEADO_has_CONCEPTO_SUELDO_CONCEPTO_SUELDO1_idx` (`CONCEPTO_SUELDO_idCodigoConcepto`),
-  KEY `fk_CATEGORIA_EMPLEADO_has_CONCEPTO_SUELDO_CATEGORIA_EMPLEAD_idx` (`CATEGORIA_EMPLEADO_idCategoriaEmpleado`),
-  CONSTRAINT `fk_CATEGORIA_EMPLEADO_has_CONCEPTO_SUELDO_CATEGORIA_EMPLEADO1` FOREIGN KEY (`CATEGORIA_EMPLEADO_idCategoriaEmpleado`) REFERENCES `CATEGORIA_EMPLEADO` (`idCategoriaEmpleado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_CATEGORIA_EMPLEADO_has_CONCEPTO_SUELDO_CONCEPTO_SUELDO1` FOREIGN KEY (`CONCEPTO_SUELDO_idCodigoConcepto`) REFERENCES `CONCEPTO_SUELDO` (`idCodigoConcepto`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `TIPO_LIQUIDACION`
---
-
-LOCK TABLES `TIPO_LIQUIDACION` WRITE;
-/*!40000 ALTER TABLE `TIPO_LIQUIDACION` DISABLE KEYS */;
-/*!40000 ALTER TABLE `TIPO_LIQUIDACION` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `USUARIO`
---
-
-DROP TABLE IF EXISTS `USUARIO`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `USUARIO` (
-  `idUsuario` int(11) NOT NULL AUTO_INCREMENT,
-  `NombreUsuario` varchar(45) DEFAULT NULL,
-  `Password` varchar(45) DEFAULT NULL,
-  `Empleado_idEmpleado` int(11) NOT NULL,
-  PRIMARY KEY (`idUsuario`,`Empleado_idEmpleado`),
-  KEY `fk_Usuario_Empleado1_idx` (`Empleado_idEmpleado`),
-  CONSTRAINT `fk_Usuario_Empleado1` FOREIGN KEY (`Empleado_idEmpleado`) REFERENCES `EMPLEADO` (`idEmpleado`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `USUARIO`
---
-
-LOCK TABLES `USUARIO` WRITE;
-/*!40000 ALTER TABLE `USUARIO` DISABLE KEYS */;
-INSERT INTO `USUARIO` VALUES (1,'fernando','password1234',1),(2,'jose70','clave345',2);
-/*!40000 ALTER TABLE `USUARIO` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `VIAJE`
---
-
-DROP TABLE IF EXISTS `VIAJE`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `VIAJE` (
-  `idRemito` int(11) NOT NULL AUTO_INCREMENT,
-  `Fecha` date DEFAULT NULL,
-  `HoraEntrada` time DEFAULT NULL,
-  `Bruto` double DEFAULT NULL,
-  `Tara` double DEFAULT NULL,
-  `Origen_Destino_idOrigen_Destino` int(11) NOT NULL,
-  `Empleado_idEmpleado` int(11) NOT NULL,
-  `CAMION_idCamion` int(11) NOT NULL,
-  `FACTURA_VENTA_idFACTURA_VENTA` int(11) NOT NULL,
-  PRIMARY KEY (`idRemito`,`Origen_Destino_idOrigen_Destino`,`Empleado_idEmpleado`,`CAMION_idCamion`,`FACTURA_VENTA_idFACTURA_VENTA`),
-  KEY `fk_Remito_Origen_Destino1_idx` (`Origen_Destino_idOrigen_Destino`),
-  KEY `fk_Remito_Empleado1_idx` (`Empleado_idEmpleado`),
-  KEY `fk_REMITO_CAMION1_idx` (`CAMION_idCamion`),
-  KEY `fk_VIAJE_FACTURA_VENTA1_idx` (`FACTURA_VENTA_idFACTURA_VENTA`),
-  CONSTRAINT `fk_REMITO_CAMION1` FOREIGN KEY (`CAMION_idCamion`) REFERENCES `CAMION` (`idCamion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Remito_Empleado1` FOREIGN KEY (`Empleado_idEmpleado`) REFERENCES `EMPLEADO` (`idEmpleado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Remito_Origen_Destino1` FOREIGN KEY (`Origen_Destino_idOrigen_Destino`) REFERENCES `ORIGEN_DESTINO` (`idOrigen_Destino`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_VIAJE_FACTURA_VENTA1` FOREIGN KEY (`FACTURA_VENTA_idFACTURA_VENTA`) REFERENCES `FACTURA_VENTA` (`idFACTURA_VENTA`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `VIAJE`
---
-
-LOCK TABLES `VIAJE` WRITE;
-/*!40000 ALTER TABLE `VIAJE` DISABLE KEYS */;
-/*!40000 ALTER TABLE `VIAJE` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2017-12-26 17:58:29
+-- MySQL Script generated by MySQL Workbench
+-- Tue Feb  6 19:58:15 2018
+-- Model: New Model    Version: 1.0
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema modelofinal
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema modelofinal
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `modelofinal` DEFAULT CHARACTER SET utf8 ;
+USE `modelofinal` ;
+
+-- -----------------------------------------------------
+-- Table `modelofinal`.`CAMION`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `modelofinal`.`CAMION` (
+  `idCamion` INT NOT NULL AUTO_INCREMENT,
+  `Marca` VARCHAR(45) NULL,
+  `Modelo` VARCHAR(45) NULL,
+  `PATENTE` VARCHAR(6) NULL,
+  `MotorNumero` VARCHAR(17) NULL,
+  `ChasisNumero` VARCHAR(17) NULL,
+  PRIMARY KEY (`idCamion`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `modelofinal`.`CATEGORIA_EMPLEADO`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `modelofinal`.`CATEGORIA_EMPLEADO` (
+  `idCategoriaEmpleado` INT NOT NULL AUTO_INCREMENT,
+  `NombreCategoria` VARCHAR(45) NULL,
+  PRIMARY KEY (`idCategoriaEmpleado`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `modelofinal`.`PROVINCIA`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `modelofinal`.`PROVINCIA` (
+  `idProvincia` INT NOT NULL AUTO_INCREMENT,
+  `NombreProvincia` VARCHAR(45) NULL,
+  PRIMARY KEY (`idProvincia`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `modelofinal`.`LOCALIDAD`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `modelofinal`.`LOCALIDAD` (
+  `idLocalidad` INT NOT NULL AUTO_INCREMENT,
+  `NombreLocalidad` VARCHAR(45) NULL,
+  `PROVINCIA_idProvincia` INT NOT NULL,
+  PRIMARY KEY (`idLocalidad`, `PROVINCIA_idProvincia`),
+  INDEX `fk_LOCALIDAD_PROVINCIA1_idx` (`PROVINCIA_idProvincia` ASC),
+  CONSTRAINT `fk_LOCALIDAD_PROVINCIA1`
+    FOREIGN KEY (`PROVINCIA_idProvincia`)
+    REFERENCES `modelofinal`.`PROVINCIA` (`idProvincia`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `modelofinal`.`DOMICILIO`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `modelofinal`.`DOMICILIO` (
+  `idDomicilio` INT NOT NULL AUTO_INCREMENT,
+  `LOCALIDAD_idLocalidad` INT NOT NULL,
+  `Calle` VARCHAR(45) NULL,
+  `Numero` VARCHAR(45) NULL,
+  PRIMARY KEY (`idDomicilio`, `LOCALIDAD_idLocalidad`),
+  INDEX `fk_DOMICILIO_LOCALIDAD1_idx` (`LOCALIDAD_idLocalidad` ASC),
+  CONSTRAINT `fk_DOMICILIO_LOCALIDAD1`
+    FOREIGN KEY (`LOCALIDAD_idLocalidad`)
+    REFERENCES `modelofinal`.`LOCALIDAD` (`idLocalidad`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `modelofinal`.`EMPLEADO`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `modelofinal`.`EMPLEADO` (
+  `idEmpleado` INT NOT NULL AUTO_INCREMENT,
+  `CUIT` VARCHAR(13) NULL,
+  `CATEGORIA_EMPLEADO_idCategoriaEmpleado` INT NOT NULL,
+  `hijos` INT NULL,
+  `Nombre` VARCHAR(45) NULL,
+  `Apellido` VARCHAR(45) NULL,
+  `FechaNacimiento` DATE NULL,
+  `DOMICILIO_idDomicilio` INT NOT NULL,
+  PRIMARY KEY (`idEmpleado`, `CATEGORIA_EMPLEADO_idCategoriaEmpleado`, `DOMICILIO_idDomicilio`),
+  INDEX `fk_EMPLEADO_CATEGORIA_EMPLEADO1_idx` (`CATEGORIA_EMPLEADO_idCategoriaEmpleado` ASC),
+  INDEX `fk_EMPLEADO_DOMICILIO1_idx` (`DOMICILIO_idDomicilio` ASC),
+  CONSTRAINT `fk_EMPLEADO_CATEGORIA_EMPLEADO1`
+    FOREIGN KEY (`CATEGORIA_EMPLEADO_idCategoriaEmpleado`)
+    REFERENCES `modelofinal`.`CATEGORIA_EMPLEADO` (`idCategoriaEmpleado`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_EMPLEADO_DOMICILIO1`
+    FOREIGN KEY (`DOMICILIO_idDomicilio`)
+    REFERENCES `modelofinal`.`DOMICILIO` (`idDomicilio`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+PACK_KEYS = DEFAULT;
+
+
+-- -----------------------------------------------------
+-- Table `modelofinal`.`FINCA`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `modelofinal`.`FINCA` (
+  `idFinca` INT NOT NULL AUTO_INCREMENT,
+  `coordenada` POINT NULL,
+  `Nombre` VARCHAR(45) NULL,
+  PRIMARY KEY (`idFinca`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `modelofinal`.`INGENIO`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `modelofinal`.`INGENIO` (
+  `idIngenio` INT NOT NULL AUTO_INCREMENT,
+  `coordenada` POINT NULL,
+  `Nombre` VARCHAR(45) NOT NULL,
+  `Arranque` DOUBLE NULL,
+  `Tarifa` DOUBLE NULL,
+  PRIMARY KEY (`idIngenio`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `modelofinal`.`ORIGEN_DESTINO`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `modelofinal`.`ORIGEN_DESTINO` (
+  `idOrigen_Destino` INT NOT NULL AUTO_INCREMENT,
+  `DistanciaKM` FLOAT NULL,
+  `FINCA_idFinca` INT NOT NULL,
+  `INGENIO_idIngenio` INT NOT NULL,
+  PRIMARY KEY (`idOrigen_Destino`, `FINCA_idFinca`, `INGENIO_idIngenio`),
+  INDEX `fk_ORIGEN_DESTINO_FINCA1_idx` (`FINCA_idFinca` ASC),
+  INDEX `fk_ORIGEN_DESTINO_INGENIO1_idx` (`INGENIO_idIngenio` ASC),
+  CONSTRAINT `fk_ORIGEN_DESTINO_FINCA1`
+    FOREIGN KEY (`FINCA_idFinca`)
+    REFERENCES `modelofinal`.`FINCA` (`idFinca`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_ORIGEN_DESTINO_INGENIO1`
+    FOREIGN KEY (`INGENIO_idIngenio`)
+    REFERENCES `modelofinal`.`INGENIO` (`idIngenio`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `modelofinal`.`CLIENTE`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `modelofinal`.`CLIENTE` (
+  `idCLIENTE` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  `CUIT` VARCHAR(45) NULL,
+  `DOMICILIO_idDomicilio` INT NOT NULL,
+  PRIMARY KEY (`idCLIENTE`, `DOMICILIO_idDomicilio`),
+  INDEX `fk_CLIENTE_DOMICILIO1_idx` (`DOMICILIO_idDomicilio` ASC),
+  CONSTRAINT `fk_CLIENTE_DOMICILIO1`
+    FOREIGN KEY (`DOMICILIO_idDomicilio`)
+    REFERENCES `modelofinal`.`DOMICILIO` (`idDomicilio`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `modelofinal`.`FACTURA_VENTA`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `modelofinal`.`FACTURA_VENTA` (
+  `idFACTURA_VENTA` INT NOT NULL AUTO_INCREMENT,
+  `CUIT` VARCHAR(45) NULL,
+  `FechaEmisión` DATE NULL,
+  `CLIENTE_idCLIENTE` INT NOT NULL,
+  PRIMARY KEY (`idFACTURA_VENTA`, `CLIENTE_idCLIENTE`),
+  INDEX `fk_FACTURA_VENTA_CLIENTE1_idx` (`CLIENTE_idCLIENTE` ASC),
+  CONSTRAINT `fk_FACTURA_VENTA_CLIENTE1`
+    FOREIGN KEY (`CLIENTE_idCLIENTE`)
+    REFERENCES `modelofinal`.`CLIENTE` (`idCLIENTE`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `modelofinal`.`VIAJE`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `modelofinal`.`VIAJE` (
+  `idRemito` INT NOT NULL AUTO_INCREMENT,
+  `Fecha` DATE NULL,
+  `HoraEntrada` TIME NULL,
+  `Bruto` DOUBLE NULL,
+  `Tara` DOUBLE NULL,
+  `Origen_Destino_idOrigen_Destino` INT NOT NULL,
+  `Empleado_idEmpleado` INT NOT NULL,
+  `CAMION_idCamion` INT NOT NULL,
+  `FACTURA_VENTA_idFACTURA_VENTA` INT NOT NULL,
+  PRIMARY KEY (`idRemito`, `Origen_Destino_idOrigen_Destino`, `Empleado_idEmpleado`, `CAMION_idCamion`, `FACTURA_VENTA_idFACTURA_VENTA`),
+  INDEX `fk_Remito_Origen_Destino1_idx` (`Origen_Destino_idOrigen_Destino` ASC),
+  INDEX `fk_Remito_Empleado1_idx` (`Empleado_idEmpleado` ASC),
+  INDEX `fk_REMITO_CAMION1_idx` (`CAMION_idCamion` ASC),
+  INDEX `fk_VIAJE_FACTURA_VENTA1_idx` (`FACTURA_VENTA_idFACTURA_VENTA` ASC),
+  CONSTRAINT `fk_Remito_Origen_Destino1`
+    FOREIGN KEY (`Origen_Destino_idOrigen_Destino`)
+    REFERENCES `modelofinal`.`ORIGEN_DESTINO` (`idOrigen_Destino`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Remito_Empleado1`
+    FOREIGN KEY (`Empleado_idEmpleado`)
+    REFERENCES `modelofinal`.`EMPLEADO` (`idEmpleado`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_REMITO_CAMION1`
+    FOREIGN KEY (`CAMION_idCamion`)
+    REFERENCES `modelofinal`.`CAMION` (`idCamion`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_VIAJE_FACTURA_VENTA1`
+    FOREIGN KEY (`FACTURA_VENTA_idFACTURA_VENTA`)
+    REFERENCES `modelofinal`.`FACTURA_VENTA` (`idFACTURA_VENTA`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `modelofinal`.`PROVEEDOR`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `modelofinal`.`PROVEEDOR` (
+  `idPROVEEDOR` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  `CUIT` VARCHAR(13) NULL,
+  `DOMICILIO_idDomicilio` INT NOT NULL,
+  PRIMARY KEY (`idPROVEEDOR`, `DOMICILIO_idDomicilio`),
+  INDEX `fk_PROVEEDOR_DOMICILIO1_idx` (`DOMICILIO_idDomicilio` ASC),
+  CONSTRAINT `fk_PROVEEDOR_DOMICILIO1`
+    FOREIGN KEY (`DOMICILIO_idDomicilio`)
+    REFERENCES `modelofinal`.`DOMICILIO` (`idDomicilio`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `modelofinal`.`COMPRA_ARTICULO`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `modelofinal`.`COMPRA_ARTICULO` (
+  `idFacturaCompraArticulo` INT NOT NULL AUTO_INCREMENT,
+  `Fecha` DATE NULL,
+  `Total` DOUBLE NULL,
+  `PROVEEDOR_idPROVEEDOR` INT NOT NULL,
+  PRIMARY KEY (`idFacturaCompraArticulo`, `PROVEEDOR_idPROVEEDOR`),
+  INDEX `fk_COMPRA_ARTICULO_PROVEEDOR1_idx` (`PROVEEDOR_idPROVEEDOR` ASC),
+  CONSTRAINT `fk_COMPRA_ARTICULO_PROVEEDOR1`
+    FOREIGN KEY (`PROVEEDOR_idPROVEEDOR`)
+    REFERENCES `modelofinal`.`PROVEEDOR` (`idPROVEEDOR`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `modelofinal`.`CATEGORIA_ARTICULO`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `modelofinal`.`CATEGORIA_ARTICULO` (
+  `idCategoriaArticulo` INT NOT NULL AUTO_INCREMENT,
+  `NombreCategoria` VARCHAR(45) NULL,
+  PRIMARY KEY (`idCategoriaArticulo`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `modelofinal`.`ARTICULO`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `modelofinal`.`ARTICULO` (
+  `idArticulo` INT NOT NULL AUTO_INCREMENT,
+  `Marca` VARCHAR(20) NULL,
+  `Modelo` VARCHAR(20) NULL,
+  `Descripcion` VARCHAR(45) NULL,
+  `CATEGORIA_ARTICULO_idCategoriaArticulo` INT NOT NULL,
+  `stock` INT NULL,
+  PRIMARY KEY (`idArticulo`, `CATEGORIA_ARTICULO_idCategoriaArticulo`),
+  INDEX `fk_ARTICULO_CATEGORIA_ARTICULO1_idx` (`CATEGORIA_ARTICULO_idCategoriaArticulo` ASC),
+  CONSTRAINT `fk_ARTICULO_CATEGORIA_ARTICULO1`
+    FOREIGN KEY (`CATEGORIA_ARTICULO_idCategoriaArticulo`)
+    REFERENCES `modelofinal`.`CATEGORIA_ARTICULO` (`idCategoriaArticulo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `modelofinal`.`DETALLE_COMPRA`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `modelofinal`.`DETALLE_COMPRA` (
+  `idCompraArticulo` INT NOT NULL AUTO_INCREMENT,
+  `Cantidad` INT NULL,
+  `PrecioUnitario` DOUBLE NULL,
+  `Articulo_idArticulo` INT NOT NULL,
+  `FacturaCompraArticulo_idFacturaCompraArticulo` INT NOT NULL,
+  PRIMARY KEY (`idCompraArticulo`, `Articulo_idArticulo`, `FacturaCompraArticulo_idFacturaCompraArticulo`),
+  INDEX `fk_CompraArticulo_Articulo1_idx` (`Articulo_idArticulo` ASC),
+  INDEX `fk_CompraArticulo_FacturaCompraArticulo1_idx` (`FacturaCompraArticulo_idFacturaCompraArticulo` ASC),
+  CONSTRAINT `fk_CompraArticulo_Articulo1`
+    FOREIGN KEY (`Articulo_idArticulo`)
+    REFERENCES `modelofinal`.`ARTICULO` (`idArticulo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_CompraArticulo_FacturaCompraArticulo1`
+    FOREIGN KEY (`FacturaCompraArticulo_idFacturaCompraArticulo`)
+    REFERENCES `modelofinal`.`COMPRA_ARTICULO` (`idFacturaCompraArticulo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `modelofinal`.`USUARIO`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `modelofinal`.`USUARIO` (
+  `idUsuario` INT NOT NULL AUTO_INCREMENT,
+  `NombreUsuario` VARCHAR(45) NULL,
+  `Password` VARCHAR(45) NULL,
+  `Empleado_idEmpleado` INT NOT NULL,
+  PRIMARY KEY (`idUsuario`, `Empleado_idEmpleado`),
+  INDEX `fk_Usuario_Empleado1_idx` (`Empleado_idEmpleado` ASC),
+  CONSTRAINT `fk_Usuario_Empleado1`
+    FOREIGN KEY (`Empleado_idEmpleado`)
+    REFERENCES `modelofinal`.`EMPLEADO` (`idEmpleado`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `modelofinal`.`LIQUIDACION`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `modelofinal`.`LIQUIDACION` (
+  `idLIQUIDACION` INT NOT NULL AUTO_INCREMENT,
+  `timestamp` TIMESTAMP NULL,
+  `total_haberes_remunerativos` DOUBLE NULL,
+  `total_haberes_no_remunerativos` VARCHAR(45) NULL,
+  `total_retenciones` VARCHAR(45) NULL,
+  PRIMARY KEY (`idLIQUIDACION`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `modelofinal`.`LIQUIDACION_EMPLEADO`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `modelofinal`.`LIQUIDACION_EMPLEADO` (
+  `idLiquidacionEmpleado` INT NOT NULL AUTO_INCREMENT,
+  `fecha_liquidacion` DATE NULL,
+  `importe_neto` DOUBLE NULL,
+  `total_haberes_remunerativos` DOUBLE NULL,
+  `total_haberes_no_remunerativos` DOUBLE NULL,
+  `total_retenciones` DOUBLE NULL,
+  `total_bruto` DOUBLE NULL,
+  `EMPLEADO_idEmpleado` INT NOT NULL,
+  `inicio_periodo` DATE NULL,
+  `fin_periodo` DATE NULL,
+  `LIQUIDACION_idLIQUIDACION` INT NOT NULL,
+  PRIMARY KEY (`idLiquidacionEmpleado`, `EMPLEADO_idEmpleado`, `LIQUIDACION_idLIQUIDACION`),
+  INDEX `fk_LIQUIDACION_EMPLEADO_EMPLEADO1_idx` (`EMPLEADO_idEmpleado` ASC),
+  INDEX `fk_LIQUIDACION_EMPLEADO_LIQUIDACION1_idx` (`LIQUIDACION_idLIQUIDACION` ASC),
+  CONSTRAINT `fk_LIQUIDACION_EMPLEADO_EMPLEADO1`
+    FOREIGN KEY (`EMPLEADO_idEmpleado`)
+    REFERENCES `modelofinal`.`EMPLEADO` (`idEmpleado`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_LIQUIDACION_EMPLEADO_LIQUIDACION1`
+    FOREIGN KEY (`LIQUIDACION_idLIQUIDACION`)
+    REFERENCES `modelofinal`.`LIQUIDACION` (`idLIQUIDACION`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `modelofinal`.`CONCEPTO_SUELDO`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `modelofinal`.`CONCEPTO_SUELDO` (
+  `idCodigoConcepto` INT NOT NULL AUTO_INCREMENT,
+  `descripcion` VARCHAR(45) NULL,
+  `factor` FLOAT NULL,
+  `tipo_concepto` ENUM('REMUNERATIVO', 'NO REMUNERATIVO', 'RETENCION') NULL,
+  `tipo_cantidad` ENUM('PORCENTAJE', 'FIJO', 'UNIDAD') NULL,
+  PRIMARY KEY (`idCodigoConcepto`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `modelofinal`.`DETALLE_LIQUIDACION_EMPLEADO`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `modelofinal`.`DETALLE_LIQUIDACION_EMPLEADO` (
+  `idDetalleLiquidacionEmpleado` INT NOT NULL AUTO_INCREMENT,
+  `cantidad` DOUBLE NULL,
+  `LiquidacionEmpleado_idLiquidacionEmpleado` INT NOT NULL,
+  `monto` DOUBLE NULL,
+  `CONCEPTO_SUELDO_idCodigoConcepto` INT NOT NULL,
+  PRIMARY KEY (`idDetalleLiquidacionEmpleado`, `LiquidacionEmpleado_idLiquidacionEmpleado`, `CONCEPTO_SUELDO_idCodigoConcepto`),
+  INDEX `fk_DetalleLiquidacionEmpleado_LiquidacionEmpleado1_idx` (`LiquidacionEmpleado_idLiquidacionEmpleado` ASC),
+  INDEX `fk_DETALLE_LIQUIDACION_EMPLEADO_CONCEPTO_SUELDO1_idx` (`CONCEPTO_SUELDO_idCodigoConcepto` ASC),
+  CONSTRAINT `fk_DetalleLiquidacionEmpleado_LiquidacionEmpleado1`
+    FOREIGN KEY (`LiquidacionEmpleado_idLiquidacionEmpleado`)
+    REFERENCES `modelofinal`.`LIQUIDACION_EMPLEADO` (`idLiquidacionEmpleado`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_DETALLE_LIQUIDACION_EMPLEADO_CONCEPTO_SUELDO1`
+    FOREIGN KEY (`CONCEPTO_SUELDO_idCodigoConcepto`)
+    REFERENCES `modelofinal`.`CONCEPTO_SUELDO` (`idCodigoConcepto`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `modelofinal`.`RECIBO_SUELDO`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `modelofinal`.`RECIBO_SUELDO` (
+  `idRECIBO_SUELDO` INT NOT NULL AUTO_INCREMENT,
+  `fecha` DATE NULL,
+  `total_neto` DOUBLE NULL,
+  `LiquidacionEmpleado_idLiquidacionEmpleado` INT NOT NULL,
+  PRIMARY KEY (`idRECIBO_SUELDO`, `LiquidacionEmpleado_idLiquidacionEmpleado`),
+  INDEX `fk_RECIBO_SUELDO_LiquidacionEmpleado1_idx` (`LiquidacionEmpleado_idLiquidacionEmpleado` ASC),
+  CONSTRAINT `fk_RECIBO_SUELDO_LiquidacionEmpleado1`
+    FOREIGN KEY (`LiquidacionEmpleado_idLiquidacionEmpleado`)
+    REFERENCES `modelofinal`.`LIQUIDACION_EMPLEADO` (`idLiquidacionEmpleado`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `modelofinal`.`ACOPLADO`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `modelofinal`.`ACOPLADO` (
+  `idAcoplado` INT NOT NULL AUTO_INCREMENT,
+  `Marca` VARCHAR(45) NULL,
+  `Patente` VARCHAR(45) NULL,
+  `ChasisNumero` VARCHAR(17) NULL,
+  PRIMARY KEY (`idAcoplado`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `modelofinal`.`REMITO_HAS_ACOPLADO`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `modelofinal`.`REMITO_HAS_ACOPLADO` (
+  `Remito_idRemito` INT NOT NULL,
+  `Acoplado_idAcoplado` INT NOT NULL,
+  PRIMARY KEY (`Remito_idRemito`, `Acoplado_idAcoplado`),
+  INDEX `fk_Remito_has_Acoplado_Acoplado1_idx` (`Acoplado_idAcoplado` ASC),
+  INDEX `fk_Remito_has_Acoplado_Remito1_idx` (`Remito_idRemito` ASC),
+  CONSTRAINT `fk_Remito_has_Acoplado_Remito1`
+    FOREIGN KEY (`Remito_idRemito`)
+    REFERENCES `modelofinal`.`VIAJE` (`idRemito`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Remito_has_Acoplado_Acoplado1`
+    FOREIGN KEY (`Acoplado_idAcoplado`)
+    REFERENCES `modelofinal`.`ACOPLADO` (`idAcoplado`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `modelofinal`.`TIPO_LIQUIDACION`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `modelofinal`.`TIPO_LIQUIDACION` (
+  `CATEGORIA_EMPLEADO_idCategoriaEmpleado` INT NOT NULL,
+  `CONCEPTO_SUELDO_idCodigoConcepto` INT NOT NULL,
+  PRIMARY KEY (`CATEGORIA_EMPLEADO_idCategoriaEmpleado`, `CONCEPTO_SUELDO_idCodigoConcepto`),
+  INDEX `fk_CATEGORIA_EMPLEADO_has_CONCEPTO_SUELDO_CONCEPTO_SUELDO1_idx` (`CONCEPTO_SUELDO_idCodigoConcepto` ASC),
+  INDEX `fk_CATEGORIA_EMPLEADO_has_CONCEPTO_SUELDO_CATEGORIA_EMPLEAD_idx` (`CATEGORIA_EMPLEADO_idCategoriaEmpleado` ASC),
+  CONSTRAINT `fk_CATEGORIA_EMPLEADO_has_CONCEPTO_SUELDO_CATEGORIA_EMPLEADO1`
+    FOREIGN KEY (`CATEGORIA_EMPLEADO_idCategoriaEmpleado`)
+    REFERENCES `modelofinal`.`CATEGORIA_EMPLEADO` (`idCategoriaEmpleado`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_CATEGORIA_EMPLEADO_has_CONCEPTO_SUELDO_CONCEPTO_SUELDO1`
+    FOREIGN KEY (`CONCEPTO_SUELDO_idCodigoConcepto`)
+    REFERENCES `modelofinal`.`CONCEPTO_SUELDO` (`idCodigoConcepto`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

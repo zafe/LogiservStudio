@@ -111,7 +111,7 @@ public class EmpleadoEditDialogController {
 
 	public void setPerson(Empleado empleado) {
 		this.empleado = empleado;
-		Domicilio domicilio = domicilioRepository.getDomicilioById(empleado.getDomicile());;
+		Domicilio domicilio = domicilioRepository.getDomicilioById(empleado.getDomicilio().getIdDomicilio());;
 
 		nombreField.setText(empleado.getNombre());
 		apellidoField.setText(empleado.getApellido());

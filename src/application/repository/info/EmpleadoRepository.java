@@ -35,7 +35,7 @@ public class EmpleadoRepository {
 			empleado.setCuit(resultSet.getString("CUIT"));
 			empleado.setNacimiento(resultSet.getString("FechaNacimiento"));
 			empleado.setCategoria(resultSet.getString("NombreCategoria"));
-			empleado.setDomicile(resultSet.getInt("DOMICILIO_idDomicilio"));
+			empleado.setDomicilio(resultSet.getInt("DOMICILIO_idDomicilio"));
 			System.out.println("Empleado " + empleado.getNombre() + " " + empleado.getApellido());
 			empleados.add(empleado); }
 			} catch (SQLException e) {
