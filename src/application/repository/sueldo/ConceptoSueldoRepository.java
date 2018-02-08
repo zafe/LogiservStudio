@@ -1,5 +1,6 @@
 package application.repository.sueldo;
 
+import application.comunes.Alerta;
 import application.database.JDBCConnection;
 import application.model.sueldo.ConceptoSueldo;
 import javafx.collections.FXCollections;
@@ -37,25 +38,27 @@ public class ConceptoSueldoRepository {
                     "UPDATE CONCEPTO_SUELDO" +
                     "   SET descripcion=?, cantidad=?, tipo_concepto=?," +
                     " tipo_cantidad=?" +
-                    "WHERE idCodigoConcepto=?");
+                    " WHERE idCodigoConcepto=?");
             preparedStatement.setString(1,conceptoSueldo.getDescripcion());
             preparedStatement.setDouble(2,conceptoSueldo.getCantidad());
             preparedStatement.setString(3,conceptoSueldo.getTipoConcepto());
             preparedStatement.setString(4,conceptoSueldo.getTipoCantidad());
             preparedStatement.setInt(5, conceptoSueldo.getIdConceptoSueldo());
             preparedStatement.executeUpdate();
+            String headerMsj="Actualización: Concepto salarial actualizado";
+            String cuerpoMsj = "Concepto Salarial: " + conceptoSueldo.getDescripcion() + " modificado correctamente.";
+            Alerta.alertaInfo("Conceptos salariales", headerMsj, cuerpoMsj);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
-    public void delete(ConceptoSueldo conceptoSueldo){
+    public void delete(int idConceptoSueldo){
         try {
             connection = JDBCConnection.getInstanceConnection();
             preparedStatement= connection.prepareStatement("DELETE FROM CONCEPTO_SUELDO WHERE idCodigoConcepto=?");
-            preparedStatement.setInt(1,conceptoSueldo.getIdConceptoSueldo());
+            preparedStatement.setInt(1,idConceptoSueldo);
             preparedStatement.executeUpdate();
-            preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
