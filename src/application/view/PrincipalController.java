@@ -314,7 +314,7 @@ public class PrincipalController {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/sueldo/Liquidaciones.fxml"));
+            loader.setLocation(Main.class.getResource("application/view/sueldo/Liquidaciones.fxml"));
             AnchorPane anchorPane = (AnchorPane) loader.load();
 
             // Set person overview into the center of root layout.
@@ -323,6 +323,7 @@ public class PrincipalController {
             // Give the controller access to the main app.
             LiquidacionesController controller = loader.getController();
             controller.setOwner(primaryStage);
+            controller.buscarLiquidaciones();
 
         } catch (IOException e) {
             e.printStackTrace();

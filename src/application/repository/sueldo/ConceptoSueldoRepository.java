@@ -88,7 +88,7 @@ public class ConceptoSueldoRepository {
             preparedStatement=connection.prepareStatement("SELECT\n" +
                     "CONCEPTO_SUELDO.idCodigoConcepto,\n" +
                     "CONCEPTO_SUELDO.descripcion,\n" +
-                    "CONCEPTO_SUELDO.cantidad,\n" +
+                    "CONCEPTO_SUELDO.factor,\n" +
                     "CONCEPTO_SUELDO.tipo_concepto,\n" +
                     "        CONCEPTO_SUELDO.tipo_cantidad\n" +
                     "FROM \n" +

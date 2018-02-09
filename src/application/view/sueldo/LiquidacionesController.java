@@ -3,6 +3,8 @@ package application.view.sueldo;
 import application.Main;
 import application.model.info.Empleado;
 import application.model.sueldo.LiquidacionEmpleado;
+import application.model.sueldo.Liquidaciones;
+import application.repository.sueldo.LiquidacionesRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,25 +26,23 @@ public class LiquidacionesController implements Initializable{
 
 
     @FXML
-    private TableView<LiquidacionEmpleado> liquidacionTable;
+    private TableView<Liquidaciones> liquidacionTable;
+    @FXML
+    private TableColumn<Liquidaciones, String> idLiquidacion;
+    @FXML
+    private TableColumn<Liquidaciones, String> hrColumn;
+    @FXML
+    private  TableColumn<Liquidaciones, String> hnrColumn;
+    @FXML
+    private TableColumn<Liquidaciones, String> retencionesColumn;
     @FXML
     private  TableView<Empleado> empleadosTable;
-    @FXML
-    private Button nuevaLiquidacionButton;
-    @FXML
-    private Button reportesButton;
     @FXML
     private TableColumn<LiquidacionEmpleado, String> codigoColumn;
     @FXML
     private TableColumn<LiquidacionEmpleado, String> desdeColumn;
     @FXML
     private TableColumn<LiquidacionEmpleado, String> hastaColumn;
-    //    @FXML
-//    private TableColumn<, String> hrColumn;
-//    @FXML
-//    private  TableColumn<, String> hnrColumn;
-//    @FXML
-//    private TableColumn<, String> retencionesColumn;
     @FXML
     private  TableColumn<Empleado, String> legajoColumn;
     @FXML
@@ -57,6 +57,13 @@ public class LiquidacionesController implements Initializable{
     private TableColumn<LiquidacionEmpleado, String> hnrEmpleadoColumn;
     @FXML
     private TableColumn<LiquidacionEmpleado, String> retencionesEmpleadoColumn;
+    @FXML
+    private Button nuevaLiquidacionButton;
+    @FXML
+    private Button reportesButton;
+
+
+
 
 
     private Stage owner;
@@ -69,6 +76,12 @@ public class LiquidacionesController implements Initializable{
         this.owner = owner;
 
     }
+    private ObservableList<Liquidaciones> liquidaciones = FXCollections.observableArrayList();
+
+    public void buscarLiquidaciones(){
+        this.liquidaciones = LiquidacionesRepository.buscarLiquidaciones();
+        liquidacionTable.setItems(liquidaciones);
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -76,9 +89,9 @@ public class LiquidacionesController implements Initializable{
         codigoColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty().asString());
         desdeColumn.setCellValueFactory(cellData -> cellData.getValue().inicioPeriodoProperty());
         hastaColumn.setCellValueFactory(cellData -> cellData.getValue().finPeriodoProperty());
-//        hrColumn.setCellValueFactory(cellData -> cellData.getValue().totalHaberesRemunerativosProperty().asString());
-//        hnrColumn.setCellValueFactory(cellData -> cellData.getValue().totalHaberesNoRemunerativosProperty().asString());
-//        retencionesColumn.setCellValueFactory(cellData -> cellData.getValue().totalRetencionesProperty().asString());
+        hrColumn.setCellValueFactory(cellData -> cellData.getValue().totalHaberesRemunerativosProperty().asString());
+        hnrColumn.setCellValueFactory(cellData -> cellData.getValue().totalHaberesNoRemunerativosProperty().asString());
+        retencionesColumn.setCellValueFactory(cellData -> cellData.getValue().totalRetencionesProperty().asString());
 
         legajoColumn.setCellValueFactory(cellData -> cellData.getValue().idEmpleadoProperty().asString());
         apellidoColumn.setCellValueFactory(cellData -> cellData.getValue().apellidoProperty());
@@ -116,4 +129,11 @@ public class LiquidacionesController implements Initializable{
             e.printStackTrace();
         }
     }
+
+//    @FXML
+//    private void cargarLiquidaciones(){
+//        if (liquidacionTable.getSelectionModel().getSelectedItem() != null){
+//
+//        }
+//    }
 }
