@@ -1,17 +1,17 @@
 package application.model.sueldo;
 
-public class ConceptoCalculado {
+public class ConceptoCalculado extends ConceptoSueldo{
+
     private double montoCalculado;
-    private ConceptoSueldo conceptoSueldo;
 
-    private double factor;
-
-    public double getFactor() {
-        return factor;
-    }
-
-    public void setFactor(double factor) {
-        this.factor = factor;
+    public ConceptoCalculado (ConceptoSueldo conceptoSueldo){
+        super.setIdConceptoSueldo(conceptoSueldo.getIdConceptoSueldo());
+        super.setDescripcion(conceptoSueldo.getDescripcion());
+        super.setCantidad(conceptoSueldo.getCantidad());
+        super.setTipoConcepto(conceptoSueldo.getTipoConcepto());
+        super.setTipoCantidad(conceptoSueldo.getTipoCantidad());
+        super.setFactor(conceptoSueldo.getFactor());
+        super.setSelect(conceptoSueldo.getSelect().isSelected());
     }
 
     public double getMontoCalculado() {
@@ -22,11 +22,17 @@ public class ConceptoCalculado {
         this.montoCalculado = montoCalculado;
     }
 
-    public ConceptoSueldo getConceptoSueldo() {
-        return conceptoSueldo;
-    }
-
-    public void setConceptoSueldo(ConceptoSueldo conceptoSueldo) {
-        this.conceptoSueldo = conceptoSueldo;
+    public void calcularMontoCalculado(){
+        switch (super.getTipoConcepto()){
+            case "FIJO":
+                this.montoCalculado = super.getCantidad();
+                break;
+            case "UNIDAD":
+                this.montoCalculado = super.getCantidad() * super.getFactor();
+                break;
+            case "PORCENTAJE":
+                this.montoCalculado = (super.getCantidad() * super.getFactor()) / 100;
+                break;
+        }
     }
 }

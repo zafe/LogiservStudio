@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -13,7 +16,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="615.0" prefWidth="673.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.sueldo.cruds.LiquidacionSueldoController">
+<AnchorPane prefHeight="615.0" prefWidth="673.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.sueldo.cruds.LiquidacionSueldoController">
    <children>
       <GridPane layoutX="33.0" layoutY="14.0" prefHeight="498.0" prefWidth="653.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
         <columnConstraints>
@@ -75,7 +78,7 @@
             <Button fx:id="addEmpleadoButton" mnemonicParsing="false" onAction="#agregarEmpleadoALiquidar" prefHeight="25.0" prefWidth="106.0" text="&gt;&gt;" GridPane.columnIndex="3" GridPane.rowIndex="6" />
             <Button fx:id="subsEmpleadoButton" mnemonicParsing="false" onAction="#quitarEmpleadoALiquidar" prefHeight="25.0" prefWidth="111.0" text="&lt;&lt;" GridPane.columnIndex="3" GridPane.rowIndex="7" />
             <Label text="Novedades" GridPane.rowIndex="10" />
-            <TableView fx:id="novedadesTableView" editable="true" prefHeight="200.0" prefWidth="441.0" GridPane.columnSpan="7" GridPane.rowIndex="11" GridPane.rowSpan="6">
+            <TableView fx:id="novedadesTableView" editable="true" onMouseClicked="#cargarFactor" prefHeight="200.0" prefWidth="441.0" GridPane.columnSpan="7" GridPane.rowIndex="11" GridPane.rowSpan="6">
               <columns>
                 <TableColumn fx:id="checkLiquidacionColumn" prefWidth="53.77774906158447" text="Liquidar" />
                   <TableColumn fx:id="codigoColumn" prefWidth="51.111083984375" text="Código" />
@@ -97,7 +100,7 @@
       </GridPane>
       <HBox alignment="CENTER" layoutX="5.0" layoutY="508.0" prefHeight="100.0" prefWidth="310.0" spacing="20.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
          <children>
-            <Button fx:id="liquidarButton" defaultButton="true" mnemonicParsing="false" text="Liquidar" />
+            <Button fx:id="liquidarButton" defaultButton="true" mnemonicParsing="false" onAction="#liquidarEmpleados" text="Liquidar" />
             <Button fx:id="cancelButton" cancelButton="true" mnemonicParsing="false" text="Cancelar" />
          </children>
       </HBox>

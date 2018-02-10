@@ -2,7 +2,9 @@ package application.view.sueldo.cruds;
 
 import application.model.info.CategoriaEmpleado;
 import application.model.info.Empleado;
+import application.model.sueldo.ConceptoCalculado;
 import application.model.sueldo.ConceptoSueldo;
+import application.model.sueldo.LiquidacionEmpleado;
 import application.repository.info.CategoriaEmpleadoRepository;
 import application.repository.sueldo.ConceptoSueldoRepository;
 import application.repository.info.EmpleadoRepository;
@@ -204,15 +206,32 @@ public class LiquidacionSueldoController implements Initializable {
 
     @FXML
     private void cargarNovedades(){
-      if (liquidarEmpleadoTableView.getSelectionModel().getSelectedItem() != null) {
-            novedadesTableView.setItems(liquidarEmpleados.get(getEmpleadoALiquidarById(liquidarEmpleadoTableView.getSelectionModel().getSelectedItem().getIdEmpleado())).getConceptos());
-        }
+      if (liquidarEmpleadoTableView.getSelectionModel().getSelectedItem() != null)
+            novedadesTableView.setItems(liquidarEmpleados.get(getEmpleadoALiquidarById(
+                    liquidarEmpleadoTableView.getSelectionModel().getSelectedItem().getIdEmpleado())).getConceptos());
+
     }
 
+    @FXML
+    private void cargarFactor(){
+        if(novedadesTableView.getSelectionModel().getSelectedItem() != null) {
+            factorTextField.setText(String.valueOf(novedadesTableView.getSelectionModel().getSelectedItem()
+                    .getFactor()));
+            liquidarEmpleados.get(getEmpleadoALiquidarById(liquidarEmpleadoTableView.getSelectionModel().
+                    getSelectedItem().getIdEmpleado())).getConceptos().get(novedadesTableView.getItems().indexOf(
+                            novedadesTableView.getSelectionModel().getSelectedItem())).setSelect(novedadesTableView.
+                    getSelectionModel().getSelectedItem().getSelect().isSelected());
+
+        }
+
+    }
 
     @FXML
     private void agregarFactor(){
-
+        if(novedadesTableView.getSelectionModel().getSelectedItem() != null)
+            novedadesTableView.getSelectionModel().getSelectedItem().setFactor(
+                    Double.parseDouble(factorTextField.getText())
+            );
     }
 
     private int getEmpleadoALiquidarById(int idEmpleadoALiquidar){
@@ -233,12 +252,92 @@ public class LiquidacionSueldoController implements Initializable {
 
     }
 
+    @FXML
+    private void liquidarEmpleados(){
+        separarConceptosByTipoConcepto();
+        //Liquidacion de Empleados
+        for (EmpleadoALiquidar empleadoALiquidar : liquidarEmpleados)
+        {
+            List<ConceptoCalculado> remCalculados = new ArrayList<>();
+            List<ConceptoCalculado> noRemCalculados = new ArrayList<>();
+            List<ConceptoCalculado> retCalculados = new ArrayList<>();
 
-    private void actualizarEmpleadosALiquidar() {
+            //Liquidacion de Haberes Remunerativos
+            for (ConceptoSueldo conceptoSueldo : empleadoALiquidar.getRemunerativos())
+                remCalculados.add(new ConceptoCalculado(conceptoSueldo));
 
+            //Liquidacion de Haberes No Remunerativos
+            for (ConceptoSueldo conceptoSueldo : empleadoALiquidar.getNoRemunerativos())
+                noRemCalculados.add(new ConceptoCalculado(conceptoSueldo));
+
+            //Calcular suma de Haberes Remunerativos
+            double totalRemunerativos = 0;
+
+            for (ConceptoCalculado remCalculado : remCalculados)
+                totalRemunerativos += remCalculado.getMontoCalculado();
+
+            //Actualizar factor de las retenciones y
+            // Liquidacion de Retenciones
+            for (ConceptoSueldo retencion : empleadoALiquidar.getRetenciones()) {
+                retencion.setFactor(totalRemunerativos);
+                retCalculados.add(new ConceptoCalculado(retencion));
+            }
+
+            //Calcular suma de Haberes No Remunerativos
+            double totalNoRemunerativos = 0;
+
+            for (ConceptoCalculado noRemCalculado : noRemCalculados)
+                totalNoRemunerativos += noRemCalculado.getMontoCalculado();
+
+            //Calcular suma de Retenciones
+            double totalRetenciones = 0;
+
+            for (ConceptoCalculado retCalculado : retCalculados)
+                totalRetenciones += retCalculado.getMontoCalculado();
+
+            //Crear nueva Liquidacion de Empleado y establecer los datos
+            LiquidacionEmpleado liquidacionEmpleado = new LiquidacionEmpleado();
+            liquidacionEmpleado.setTotalHaberesRemunerativos(totalRemunerativos);
+            liquidacionEmpleado.setTotalHaberesNoRemunerativos(totalNoRemunerativos);
+            liquidacionEmpleado.setTotalRetenciones(totalRetenciones);
+
+        }
 
     }
 
+    private void separarConceptosByTipoConcepto(){
+        System.out.println("------- separaConceptosByid -------");
+        if (!liquidarEmpleados.isEmpty()){
+
+            for (EmpleadoALiquidar empleadoALiquidar : liquidarEmpleados){
+
+                System.out.printf("Empleado a Liquidar: %s %s %n", empleadoALiquidar.getEmpleado().getNombre(),
+                        empleadoALiquidar.getEmpleado().getApellido());
+
+                for(ConceptoSueldo conceptoSueldo : empleadoALiquidar.getConceptos()) {
+
+                    System.out.printf("Concepto a Liquidar: %s %n Seleccionado: %s %n Tipo Concepto: %s %n ", conceptoSueldo.getDescripcion(),
+                            conceptoSueldo.getSelect().isSelected(), conceptoSueldo.getTipoConcepto());
+
+                    if (conceptoSueldo.getSelect().isSelected()) {
+
+                        switch (conceptoSueldo.getTipoConcepto()) {
+                            case "REMUNERATIVO":
+                                empleadoALiquidar.getRemunerativos().add(conceptoSueldo);
+                                break;
+                            case "NO REMUNERATIVO":
+                                empleadoALiquidar.getNoRemunerativos().add(conceptoSueldo);
+                                break;
+                            case "RETENCION":
+                                empleadoALiquidar.getRetenciones().add(conceptoSueldo);
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
 
 
 }
