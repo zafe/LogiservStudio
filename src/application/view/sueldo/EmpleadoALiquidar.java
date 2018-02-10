@@ -2,13 +2,14 @@ package application.view.sueldo;
 
 import application.model.info.Empleado;
 import application.model.sueldo.ConceptoSueldo;
-
-import java.util.List;
+import application.repository.sueldo.ConceptoSueldoRepository;
+import javafx.collections.ObservableList;
 
 public class EmpleadoALiquidar {
 
     private Empleado empleado;
-    private List<ConceptoSueldo> conceptoSueldos;
+    private ObservableList<ConceptoSueldo> conceptoSueldos;
+    private ConceptoSueldoRepository repository = new ConceptoSueldoRepository();
 
     public Empleado getEmpleado() {
         return empleado;
@@ -18,8 +19,14 @@ public class EmpleadoALiquidar {
         this.empleado = empleado;
     }
 
-    public EmpleadoALiquidar(Empleado empleado, List<ConceptoSueldo> conceptoSueldos) {
+    public EmpleadoALiquidar(Empleado empleado) {
         this.empleado = empleado;
-        this.conceptoSueldos = conceptoSueldos;
+        this.conceptoSueldos = repository.getConceptosByEmpleadoId(empleado.getIdEmpleado());
     }
+
+    public ObservableList<ConceptoSueldo> getConceptos(){
+        return this.conceptoSueldos;
+
+    }
+
 }

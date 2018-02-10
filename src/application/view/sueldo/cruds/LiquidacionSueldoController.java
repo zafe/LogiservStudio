@@ -6,6 +6,7 @@ import application.model.sueldo.ConceptoSueldo;
 import application.repository.info.CategoriaEmpleadoRepository;
 import application.repository.sueldo.ConceptoSueldoRepository;
 import application.repository.info.EmpleadoRepository;
+import application.view.sueldo.EmpleadoALiquidar;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,8 +19,7 @@ import javax.xml.soap.Text;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class LiquidacionSueldoController implements Initializable {
     @FXML
@@ -82,7 +82,7 @@ public class LiquidacionSueldoController implements Initializable {
     private ConceptoSueldoRepository conceptoSueldoRepository=new ConceptoSueldoRepository();
     private ObservableList<CategoriaEmpleado> categorias = FXCollections.observableArrayList();
     private ObservableList<Empleado> empleados = FXCollections.observableArrayList();
-    private ObservableList<Empleado> liquidarEmpleados = FXCollections.observableArrayList();
+    private ObservableList<EmpleadoALiquidar> liquidarEmpleados = FXCollections.observableArrayList();
     private ObservableList<ConceptoSueldo> conceptoSueldos = FXCollections.observableArrayList();
 
     public void setOwner(Stage owner){
@@ -151,50 +151,91 @@ public class LiquidacionSueldoController implements Initializable {
     @FXML
     private void agregarEmpleadoALiquidar(){
 
-        if(totalEmpleadoTableView.getSelectionModel().getSelectedItem() != null)
+        if(totalEmpleadoTableView.getSelectionModel().getSelectedItem() != null) {
             liquidarEmpleadoTableView.getItems().add(totalEmpleadoTableView.getSelectionModel().getSelectedItem());
-
+            liquidarEmpleados.add(new EmpleadoALiquidar(totalEmpleadoTableView.getSelectionModel().getSelectedItem()));
+        }
         cargarTablaEmpleados();
-
+        System.out.println("Lista Empleados a Liquidar: [agregarEmpleadoALiquidar] ");
+        for (EmpleadoALiquidar empleadoALiquidar : liquidarEmpleados )
+            System.out.printf("Empleado a Liquidar : %s %s%n", empleadoALiquidar.getEmpleado().getNombre(),
+                    empleadoALiquidar.getEmpleado().getApellido() );
     }
 
     @FXML
     private void agregarTodos(){
 
         if(!totalEmpleadoTableView.getItems().isEmpty())
-        for(Empleado empleado : totalEmpleadoTableView.getItems())
+        for(Empleado empleado : totalEmpleadoTableView.getItems()) {
             liquidarEmpleadoTableView.getItems().add(empleado);
-
+            liquidarEmpleados.add(new EmpleadoALiquidar(empleado));
+        }
         cargarTablaEmpleados();
     }
 
     @FXML
     private void quitarEmpleadoALiquidar(){
 
-        if(liquidarEmpleadoTableView.getSelectionModel().getSelectedItem() != null)
-            liquidarEmpleadoTableView.getItems().remove(liquidarEmpleadoTableView.getSelectionModel().getSelectedItem());
-
+        if(liquidarEmpleadoTableView.getSelectionModel().getSelectedItem() != null) {
+            System.out.println("ID EMPLEADO A LIQUIDAR: " + liquidarEmpleadoTableView.getSelectionModel().getSelectedItem().getIdEmpleado());
+            removeEmpleadoALiquidarById(liquidarEmpleadoTableView.getSelectionModel().getSelectedItem().getIdEmpleado());
+           liquidarEmpleadoTableView.getItems().remove(liquidarEmpleadoTableView.getSelectionModel().getSelectedItem());
+        }
         cargarTablaEmpleados();
+        novedadesTableView.getItems().clear();
+        System.out.println("Lista Empleados a Liquidar: [quitarEmpleadoALiquidar] ");
+        for (EmpleadoALiquidar empleadoALiquidar : liquidarEmpleados )
+            System.out.printf("Empleado a Liquidar : %s %s%n", empleadoALiquidar.getEmpleado().getNombre(),
+                    empleadoALiquidar.getEmpleado().getApellido() );
     }
 
     @FXML
     private void quitarTodos(){
 
-        if(!liquidarEmpleadoTableView.getItems().isEmpty())
+        if(!liquidarEmpleadoTableView.getItems().isEmpty()) {
             liquidarEmpleadoTableView.getItems().removeAll(liquidarEmpleadoTableView.getItems());
-
+            liquidarEmpleados.removeAll(liquidarEmpleados);
+        }
+        novedadesTableView.getItems().clear();
         cargarTablaEmpleados();
 
     }
+
+
     @FXML
     private void cargarNovedades(){
-        if (liquidarEmpleadoTableView.getSelectionModel().getSelectedItem() != null){
-            conceptoSueldos = conceptoSueldoRepository.getConceptosByEmpleadoId(liquidarEmpleadoTableView.getSelectionModel().getSelectedItem().getIdEmpleado());
-            novedadesTableView.setItems(conceptoSueldos);
+      if (liquidarEmpleadoTableView.getSelectionModel().getSelectedItem() != null) {
+            novedadesTableView.setItems(liquidarEmpleados.get(getEmpleadoALiquidarById(liquidarEmpleadoTableView.getSelectionModel().getSelectedItem().getIdEmpleado())).getConceptos());
         }
     }
+
+
     @FXML
     private void agregarFactor(){
+
+    }
+
+    private int getEmpleadoALiquidarById(int idEmpleadoALiquidar){
+        for(EmpleadoALiquidar empleadoALiquidar : liquidarEmpleados)
+            if (empleadoALiquidar.getEmpleado().getIdEmpleado() == idEmpleadoALiquidar)
+                return liquidarEmpleados.indexOf(empleadoALiquidar);
+
+        return 0;
+    }
+
+    private void removeEmpleadoALiquidarById(int idEmpleadoALiquidar){
+
+        for (EmpleadoALiquidar empleadoALiquidar : liquidarEmpleados)
+            if (empleadoALiquidar.getEmpleado().getIdEmpleado() == idEmpleadoALiquidar) {
+                liquidarEmpleados.remove(empleadoALiquidar);
+                break;
+            }
+
+    }
+
+
+    private void actualizarEmpleadosALiquidar() {
+
 
     }
 
