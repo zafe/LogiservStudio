@@ -91,18 +91,45 @@ public class ArticuloRepository {
         return list;
     }
 
-    public void search(Articulo articulo){
+    public ObservableList<Articulo>  getArticulosByCategoria(int idCategoria){
+        ObservableList<Articulo> list = FXCollections.observableArrayList();
         try {
             connection= JDBCConnection.getInstanceConnection();
-            preparedStatement=connection.prepareStatement("SELECT * FROM ARTICULO where idArticulo=?");
-            preparedStatement.setInt(1,articulo.getIdArticulo());
-            preparedStatement.executeUpdate();
-            preparedStatement.close();
-            connection.close();
+            preparedStatement=connection.prepareStatement("SELECT a.idArticulo, a.Marca, a.Modelo, "  +
+                    "a.Descripcion, ca.idCategoriaArticulo, ca.NombreCategoria, a.stock " +
+                    "FROM ARTICULO a, CATEGORIA_ARTICULO ca " +
+                    "WHERE a.CATEGORIA_ARTICULO_idCategoriaArticulo = ca.idCategoriaArticulo AND CATEGORIA_ARTICULO_idCategoriaArticulo=?");
+            preparedStatement.setInt(1, idCategoria);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                Articulo articulo = new Articulo(resultSet.getInt(1), resultSet.getString(2),
+                        resultSet.getString(3), resultSet.getString(4),
+                        new CategoriaArticulo(resultSet.getInt(5),resultSet.getString(6)),
+                        resultSet.getInt(7));
+                list.add(articulo);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return list;
 
+    }
+    public void updateStock(Articulo articulo){
+        try {
+            connection = JDBCConnection.getInstanceConnection();
+            preparedStatement= connection.prepareStatement(
+                    "UPDATE ARTICULO " +
+                            "SET stock=? " +
+                            "WHERE idArticulo=?");
+            preparedStatement.setInt(1,articulo.getStock());
+            preparedStatement.setInt(2,articulo.getIdArticulo());
+            preparedStatement.execute();
+            String headerMsj="Actualización: Stock Articulo actualizado";
+            String cuerpoMsj = "Stock Artículo: " + articulo.getDescripcion() + " actualizado correctamente.";
+            Alerta.alertaInfo("Stock de Artículos", headerMsj, cuerpoMsj);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 

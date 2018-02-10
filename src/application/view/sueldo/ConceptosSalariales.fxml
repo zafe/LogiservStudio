@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -34,8 +38,8 @@
                         <HBox alignment="CENTER" prefHeight="152.0" prefWidth="600.0" spacing="10.0">
                            <children>
                               <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleNew" text="Nuevo Concepto" />
-                              <Button alignment="CENTER" mnemonicParsing="false" text="Editar Concepto" />
-                              <Button alignment="CENTER" mnemonicParsing="false" text="Eliminar Concepto" />
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleEdit" text="Editar Concepto" />
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleDelete" text="Eliminar Concepto" />
                            </children>
                            <VBox.margin>
                               <Insets />

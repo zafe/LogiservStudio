@@ -56,6 +56,7 @@
                                     <Button mnemonicParsing="false" onAction="#showProveedorOverview" prefHeight="27.0" prefWidth="204.0" text="Proveedores" />
                                     <Button mnemonicParsing="false" onAction="#showArticuloOverview" prefHeight="27.0" prefWidth="204.0" text="Articulos" />
                                     <Button mnemonicParsing="false" onAction="#showCategoriaArticuloOverview" prefHeight="27.0" prefWidth="204.0" text="Categorias Articulos" />
+                                    <Button mnemonicParsing="false" onAction="#showControlStock" prefHeight="27.0" prefWidth="204.0" text="Control de Stock" />
                                  </children>
                               </VBox>
                            </children></AnchorPane>

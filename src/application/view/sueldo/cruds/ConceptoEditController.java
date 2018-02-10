@@ -5,7 +5,7 @@ import application.model.enums.TipoCantidad;
 import application.model.info.CategoriaEmpleado;
 import application.model.sueldo.ConceptoSueldo;
 import application.repository.info.CategoriaEmpleadoRepository;
-import application.repository.info.TipoLiquidacionRepository;
+import application.repository.sueldo.TipoLiquidacionRepository;
 import application.repository.sueldo.ConceptoSueldoRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -60,7 +60,6 @@ public class ConceptoEditController implements Initializable{
     @FXML
     public void handleOk(){
         if (isInputValid()){
-            ConceptoSueldo conceptoSueldo = new ConceptoSueldo();
             conceptoSueldo.setDescripcion(descripcionColField.getText());
             conceptoSueldo.setCantidad(Float.parseFloat(cantidadTextField.getText()));
             conceptoSueldo.setTipoCantidad(tipoCantidadComboBox.getSelectionModel().getSelectedItem());
@@ -73,12 +72,14 @@ public class ConceptoEditController implements Initializable{
             if (isNew){
                 repository.save(conceptoSueldo);
                 int last = repository.getLastId();
-                for (int idCategoria : obtenerIDs()){
+                for (int idCategoria : obtenerIDs())
                     tipoLiquidacionRepository.save(idCategoria,last);
-                }
             }
             else {
                 repository.update(conceptoSueldo);
+                tipoLiquidacionRepository.delete(conceptoSueldo.getIdConceptoSueldo());
+                for (int idCategoria : obtenerIDs())
+                    tipoLiquidacionRepository.save(idCategoria,conceptoSueldo.getIdConceptoSueldo());
             }
             okClicked=true;
             dialogStage.close();
@@ -121,6 +122,16 @@ public class ConceptoEditController implements Initializable{
             }
             cantidadTextField.setText(String.valueOf(conceptoSueldo.getCantidad()));
             tipoCantidadComboBox.getSelectionModel().select(conceptoSueldo.getTipoCantidad());
+            ObservableList<CategoriaEmpleado> categoriasDelConcepto = tipoLiquidacionRepository.getCategoriasByConcepto(conceptoSueldo.getIdConceptoSueldo());
+            for (CategoriaEmpleado categoriaEmpleado :
+                    categorias) {
+                for (CategoriaEmpleado categoriaSeleccionada :
+                        categoriasDelConcepto) {
+                    if (categoriaEmpleado.getNombre().equals(categoriaSeleccionada.getNombre()))
+                        categoriaEmpleado.getSelect().setSelected(true);
+                    }
+            }
+            categoriaEmpleadoTableView.setItems(categorias);
         }
     }
     public boolean isOkClicked(){
