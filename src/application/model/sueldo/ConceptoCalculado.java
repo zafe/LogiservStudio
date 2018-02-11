@@ -1,5 +1,7 @@
 package application.model.sueldo;
 
+import java.math.BigDecimal;
+
 public class ConceptoCalculado extends ConceptoSueldo{
 
     private double montoCalculado;
@@ -12,6 +14,7 @@ public class ConceptoCalculado extends ConceptoSueldo{
         super.setTipoCantidad(conceptoSueldo.getTipoCantidad());
         super.setFactor(conceptoSueldo.getFactor());
         super.setSelect(conceptoSueldo.getSelect().isSelected());
+        calcularMontoCalculado();
     }
 
     public double getMontoCalculado() {
@@ -22,16 +25,24 @@ public class ConceptoCalculado extends ConceptoSueldo{
         this.montoCalculado = montoCalculado;
     }
 
-    public void calcularMontoCalculado(){
-        switch (super.getTipoConcepto()){
+    private void calcularMontoCalculado(){
+        BigDecimal cantidad = BigDecimal.valueOf(super.getCantidad());
+        BigDecimal factor = BigDecimal.valueOf(super.getFactor());
+
+        switch (super.getTipoCantidad()){
             case "FIJO":
-                this.montoCalculado = super.getCantidad();
+                this.montoCalculado = cantidad.doubleValue();
                 break;
             case "UNIDAD":
-                this.montoCalculado = super.getCantidad() * super.getFactor();
+                //No hagan esto en casa
+                cantidad = cantidad.multiply(factor);
+                this.montoCalculado = cantidad.doubleValue();
                 break;
             case "PORCENTAJE":
-                this.montoCalculado = (super.getCantidad() * super.getFactor()) / 100;
+                //Esto tampoco
+                cantidad = cantidad.multiply(factor);
+                cantidad = cantidad.divide(BigDecimal.valueOf(100.0));
+                this.montoCalculado = cantidad.doubleValue();
                 break;
         }
     }
