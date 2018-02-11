@@ -314,7 +314,7 @@ public class PrincipalController {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("application/view/sueldo/Liquidaciones.fxml"));
+            loader.setLocation(Main.class.getResource("view/sueldo/Liquidaciones.fxml"));
             AnchorPane anchorPane = (AnchorPane) loader.load();
 
             // Set person overview into the center of root layout.
@@ -324,12 +324,33 @@ public class PrincipalController {
             LiquidacionesController controller = loader.getController();
             controller.setOwner(primaryStage);
             controller.buscarLiquidaciones();
+            controller.cargarEmpleadosLiquidados();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    @FXML
+    private void showEmpleadosLiquidadosOverview() {
+        try {
+            // Load person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/sueldo/Liquidaciones.fxml"));
+            AnchorPane anchorPane = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(anchorPane);
+
+            // Give the controller access to the main app.
+            LiquidacionesController controller = loader.getController();
+            controller.setOwner(primaryStage);
+            controller.cargarEmpleadosLiquidados();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
     private void showConceptosSalarialesOverview() {
         try {

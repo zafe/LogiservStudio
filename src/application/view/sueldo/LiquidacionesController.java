@@ -24,33 +24,31 @@ import java.util.ResourceBundle;
 
 public class LiquidacionesController implements Initializable{
 
-
+    //Declaracion de la tabla y columnas de la clase Liquidaciones
     @FXML
     private TableView<Liquidaciones> liquidacionTable;
     @FXML
     private TableColumn<Liquidaciones, String> idLiquidacion;
+    @FXML
+    private TableColumn<Liquidaciones, String> fechaColumn;
     @FXML
     private TableColumn<Liquidaciones, String> hrColumn;
     @FXML
     private  TableColumn<Liquidaciones, String> hnrColumn;
     @FXML
     private TableColumn<Liquidaciones, String> retencionesColumn;
+
+    //Declaracion de la tabla y columnas de la clase LiquidacionEmpleado
     @FXML
-    private  TableView<Empleado> empleadosTable;
+    private  TableView<LiquidacionEmpleado> empleadosTable;
     @FXML
-    private TableColumn<LiquidacionEmpleado, String> codigoColumn;
+    private TableColumn<LiquidacionEmpleado, String> legajoColumn;
     @FXML
-    private TableColumn<LiquidacionEmpleado, String> desdeColumn;
+    private TableColumn<LiquidacionEmpleado, String> apellidoColumn;
     @FXML
-    private TableColumn<LiquidacionEmpleado, String> hastaColumn;
+    private TableColumn<LiquidacionEmpleado, String> nombreColumn;
     @FXML
-    private  TableColumn<Empleado, String> legajoColumn;
-    @FXML
-    private TableColumn<Empleado, String> apellidoColumn;
-    @FXML
-    private TableColumn<Empleado, String> nombreColumn;
-    @FXML
-    private TableColumn<Empleado, String> categoriaColumn;
+    private TableColumn<LiquidacionEmpleado, String> categoriaColumn;
     @FXML
     private TableColumn<LiquidacionEmpleado, String> hrEmpleadoColumn;
     @FXML
@@ -72,6 +70,10 @@ public class LiquidacionesController implements Initializable{
 
     private ObservableList<Empleado> empleados = FXCollections.observableArrayList();
 
+    private LiquidacionesRepository liquidacionesRepository = new LiquidacionesRepository();
+
+    private ObservableList<LiquidacionEmpleado> empleadosLiquidados = FXCollections.observableArrayList();
+
     public void setOwner(Stage owner){
         this.owner = owner;
 
@@ -86,17 +88,16 @@ public class LiquidacionesController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        codigoColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty().asString());
-        desdeColumn.setCellValueFactory(cellData -> cellData.getValue().inicioPeriodoProperty());
-        hastaColumn.setCellValueFactory(cellData -> cellData.getValue().finPeriodoProperty());
+        idLiquidacion.setCellValueFactory(cellData -> cellData.getValue().idProperty().asString());
+        fechaColumn.setCellValueFactory(cellData -> cellData.getValue().fechaLiquidacionProperty());
         hrColumn.setCellValueFactory(cellData -> cellData.getValue().totalHaberesRemunerativosProperty().asString());
         hnrColumn.setCellValueFactory(cellData -> cellData.getValue().totalHaberesNoRemunerativosProperty().asString());
         retencionesColumn.setCellValueFactory(cellData -> cellData.getValue().totalRetencionesProperty().asString());
 
-        legajoColumn.setCellValueFactory(cellData -> cellData.getValue().idEmpleadoProperty().asString());
-        apellidoColumn.setCellValueFactory(cellData -> cellData.getValue().apellidoProperty());
-        nombreColumn.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
-        categoriaColumn.setCellValueFactory(cellData -> cellData.getValue().categoriaProperty());
+        legajoColumn.setCellValueFactory(cellData -> cellData.getValue().getEmpleado().idEmpleadoProperty().asString());
+        apellidoColumn.setCellValueFactory(cellData -> cellData.getValue().getEmpleado().apellidoProperty());
+        nombreColumn.setCellValueFactory(cellData -> cellData.getValue().getEmpleado().nombreProperty());
+        categoriaColumn.setCellValueFactory(cellData -> cellData.getValue().getEmpleado().categoriaProperty());
         hrEmpleadoColumn.setCellValueFactory(cellData -> cellData.getValue().totalHaberesRemunerativosProperty().asString());
         hnrEmpleadoColumn.setCellValueFactory(cellData -> cellData.getValue().totalHaberesNoRemunerativosProperty().asString());
         retencionesEmpleadoColumn.setCellValueFactory(cellData -> cellData.getValue().totalRetencionesProperty().asString());
@@ -127,6 +128,14 @@ public class LiquidacionesController implements Initializable{
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void cargarEmpleadosLiquidados(){
+        if (liquidacionTable.getSelectionModel().getSelectedItem() != null){
+            empleadosLiquidados = liquidacionesRepository.getEmpleadosLiquidadosByidLiquidacion(liquidacionTable.getSelectionModel().getSelectedItem().getId());
+            empleadosTable.setItems(empleadosLiquidados);
         }
     }
 
