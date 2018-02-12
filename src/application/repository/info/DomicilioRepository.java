@@ -103,21 +103,43 @@
 	    	Domicilio domicilio = new Domicilio();
 	        try {
 	            connection= JDBCConnection.getInstanceConnection();
-	            preparedStatement=connection.prepareStatement("SELECT d.Calle, d.Numero, l.NombreLocalidad, p.NombreProvincia "
-	            		+ "FROM DOMICILIO d, LOCALIDAD l, PROVINCIA p WHERE d.LOCALIDAD_idLocalidad = l.idLocalidad"
-	            		+ " AND l.PROVINCIA_idProvincia = p.idProvincia AND d.idDomicilio=?");
+	            preparedStatement=connection.prepareStatement("SELECT d.idDomicilio, d.Calle, d.Numero\n" +
+						"FROM DOMICILIO d\n" +
+						"WHERE d.idDomicilio = ?;");
 	            preparedStatement.setInt(1,idDomicilio);
 	            resultSet = preparedStatement.executeQuery();
 	            if(resultSet.next()){
 	           //TODO Revisar esto domicilio.setIdDomicilio(resultSet.getInt("idDomicilio"));
+				domicilio.setIdDomicilio(resultSet.getInt("idDomicilio"));
 	            domicilio.setCalle(resultSet.getString("Calle"));
 	            domicilio.setNumero(resultSet.getString("Numero"));
-//	            domicilio.setNombre_provincia(resultSet.getString("NombreProvincia"));
-//	            domicilio.setNombre_localidad(resultSet.getString("NombreLocalidad"));
 	            }
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
 	        return domicilio;
 	    }
+
+	    public Domicilio getDomicilioByEmpleadoId(int idEmpleado){
+			Domicilio domicilio = new Domicilio();
+			try {
+				connection= JDBCConnection.getInstanceConnection();
+				preparedStatement=connection.prepareStatement("SELECT d.idDomicilio, d.Calle, d.Numero\n" +
+						"FROM DOMICILIO d\n" +
+						"INNER JOIN EMPLEADO e ON d.idDomicilio = e.DOMICILIO_idDomicilio\n" +
+						"WHERE e.idEmpleado = ?");
+				preparedStatement.setInt(1,idEmpleado);
+				resultSet = preparedStatement.executeQuery();
+				if(resultSet.next()){
+					//TODO Revisar esto domicilio.setIdDomicilio(resultSet.getInt("idDomicilio"));
+					domicilio.setIdDomicilio(resultSet.getInt("idDomicilio"));
+					domicilio.setCalle(resultSet.getString("Calle"));
+					domicilio.setNumero(resultSet.getString("Numero"));
+					domicilio.setLocalidad();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return domicilio;
+		}
 	}

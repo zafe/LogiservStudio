@@ -71,4 +71,27 @@
 
 			return provincia;
 		}
+
+		public Provincia getProviniciaByIdLocalidad(int idLocalidad){
+			Provincia provincia = new Provincia();
+			try {
+				connection= JDBCConnection.getInstanceConnection();
+				preparedStatement=connection.prepareStatement("SELECT p.idProvincia, p.NombreProvincia\n" +
+						"FROM PROVINCIA p\n" +
+						"INNER JOIN LOCALIDAD l ON p.idProvincia = l.PROVINCIA_idProvincia\n" +
+						"WHERE l.idLocalidad = ?;");
+				preparedStatement.setInt(1, idLocalidad );
+				resultSet=preparedStatement.executeQuery();
+				while(resultSet.next()){
+					provincia.setIdProvincia(resultSet.getInt(1));
+					provincia.setNombre(resultSet.getString(2));
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			return provincia;
+
+		}
 	}

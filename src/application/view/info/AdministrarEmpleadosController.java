@@ -3,6 +3,7 @@ package application.view.info;
 import java.io.IOException;
 
 import application.view.info.cruds.EmpleadoEditDialogController;
+import javafx.beans.property.StringProperty;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -28,7 +29,13 @@ public class AdministrarEmpleadosController {
 	@FXML
 	private TableColumn<Empleado, String> apellidoColumn;
 	@FXML
-	private TableColumn<Empleado, String> domicilioColumn;
+	private TableColumn<Empleado, String> calleColumn;
+	@FXML
+	private TableColumn<Empleado, String> numeroColumn;
+	@FXML
+	private TableColumn<Empleado, String> localidadColumn;
+	@FXML
+	private TableColumn<Empleado, String> provinciaColumn;
 	@FXML
 	private TableColumn<Empleado, String> nacimientoColumn;
 	@FXML
@@ -52,7 +59,10 @@ public class AdministrarEmpleadosController {
 		nombreColumn.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
 		apellidoColumn.setCellValueFactory(cellData -> cellData.getValue().apellidoProperty());
 		nacimientoColumn.setCellValueFactory(cellData -> cellData.getValue().nacimientoProperty());
-		//domicilioColumn.setCellValueFactory(cellData -> cellData.getValue().domicileProperty());
+		calleColumn.setCellValueFactory(cellData -> cellData.getValue().getDomicilio().calleProperty());
+		numeroColumn.setCellValueFactory(cellData -> cellData.getValue().getDomicilio().numeroProperty());
+		localidadColumn.setCellValueFactory(cellData -> cellData.getValue().getDomicilio().getLocalidad().nombreProperty());
+		provinciaColumn.setCellValueFactory(cellData -> cellData.getValue().getDomicilio().getLocalidad().getProvincia().nombreProperty());
 		hijosColumn.setCellValueFactory(cellData -> cellData.getValue().hijosProperty().asString());
 		cuitColumn.setCellValueFactory(cellData -> cellData.getValue().cuitProperty());
 		categoriaColumn.setCellValueFactory(cellData -> cellData.getValue().categoriaProperty());
@@ -80,7 +90,7 @@ public class AdministrarEmpleadosController {
 		this.owner = owner;
 		
 	}
-	public boolean showEmpleadoEditDialog(Empleado empleado) {
+	public boolean showEmpleadoEditDialog(Empleado empleado, boolean isNew) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
@@ -89,8 +99,12 @@ public class AdministrarEmpleadosController {
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Editar Empleado");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
+            if (isNew)
+				dialogStage.setTitle("Nuevo Empleado");
+			else
+			dialogStage.setTitle("Editar Empleado");
+
+			dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(owner);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
@@ -98,6 +112,7 @@ public class AdministrarEmpleadosController {
             // Set the person into the controller.
             EmpleadoEditDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
+            controller.setIsNew(isNew);
             controller.setPerson(empleado);
 
             // Show the dialog and wait until the user closes it
@@ -116,7 +131,7 @@ public class AdministrarEmpleadosController {
 	@FXML
 	private void handleNewEmpleado() {
 		Empleado tempEmpleado = new Empleado();
-		boolean okClicked = this.showEmpleadoEditDialog(tempEmpleado);
+		boolean okClicked = this.showEmpleadoEditDialog(tempEmpleado, true);
 		if (okClicked) {
 			empleadoData.add(tempEmpleado);
 		}
@@ -129,8 +144,9 @@ public class AdministrarEmpleadosController {
 	@FXML
 	private void handleEditPerson() {
 		Empleado selectedEmpleado = empleadoTable.getSelectionModel().getSelectedItem();
+		System.out.println("idDomicilio selectedEmpleado to edit: " + selectedEmpleado.getDomicilio().getIdDomicilio());
 		if (selectedEmpleado != null) {
-			this.showEmpleadoEditDialog(selectedEmpleado);
+ 			this.showEmpleadoEditDialog(selectedEmpleado, false);
 		} else {
 			// Nothing selected.
 			Alert alert = new Alert(AlertType.WARNING);

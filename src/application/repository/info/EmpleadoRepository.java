@@ -36,7 +36,7 @@ public class EmpleadoRepository {
 			empleado.setNacimiento(resultSet.getString("FechaNacimiento"));
 			empleado.setCategoria(resultSet.getString("NombreCategoria"));
 			empleado.setDomicilio(resultSet.getInt("DOMICILIO_idDomicilio"));
-			System.out.println("Empleado " + empleado.getNombre() + " " + empleado.getApellido());
+			System.out.println("Empleado " + empleado.getNombre() + " " + empleado.getApellido() + " idDomicilio :" + empleado.getDomicilio().getIdDomicilio());
 			empleados.add(empleado); }
 			} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -54,29 +54,37 @@ public class EmpleadoRepository {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
             preparedStatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         
 	}
 	
-	public static void EditEmpleadoById(Empleado empleado, int categoria, int domicilio){
+	public static void edit(Empleado empleado){
 		try {
             Connection connection= JDBCConnection.getInstanceConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(
-                    "UPDATE EMPLEADO SET Nombre=?, Apellido=?, CUIT=?, hijos=?, FechaNacimiento=?, CATEGORIA_EMPLEADO_idCategoriaEmpleado=?"
-                    + ", DOMICILIO_idDomicilio=?, WHERE idEmpleado=?");
-            preparedStatement.setString(1, empleado.getNombre());
-            preparedStatement.setString(2, empleado.getApellido());
-            preparedStatement.setString(3, empleado.getCuit());
-            preparedStatement.setInt(4, empleado.getHijos());
-            preparedStatement.setString(5, empleado.getNacimiento());
-            preparedStatement.setInt(6, categoria);
-            preparedStatement.setInt(7, domicilio);
+                    "UPDATE DOMICILIO SET Calle = ? , Numero = ?, LOCALIDAD_idLocalidad = ? WHERE idDomicilio = ?;");
+            //UPDATE del Domicilio
+            preparedStatement.setString(1, empleado.getDomicilio().getCalle());
+            preparedStatement.setString(2, empleado.getDomicilio().getNumero());
+            preparedStatement.setInt(3, empleado.getDomicilio().getLocalidad().getIdLocalidad());
+            preparedStatement.setInt(4, empleado.getDomicilio().getIdDomicilio());
+            System.out.println("DOMICILIO UPDATE SQL: " + preparedStatement.toString());
             preparedStatement.executeUpdate();
+            //UPDATE del Empleado
+			preparedStatement = connection.prepareStatement(
+					"UPDATE EMPLEADO SET CUIT = ?, hijos = ?, Nombre = ?, Apellido = ?, FechaNacimiento = ?, " +
+					"CATEGORIA_EMPLEADO_idCategoriaEmpleado = ? WHERE idEmpleado = ?;");
+            preparedStatement.setString(1, empleado.getCuit());
+            preparedStatement.setInt(2, empleado.getHijos());
+            preparedStatement.setString(3, empleado.getNombre());
+			preparedStatement.setString(4, empleado.getApellido());
+			preparedStatement.setString(5, empleado.getNacimiento());
+			preparedStatement.setInt(6, empleado.getCategoriaEmpleado().getIdCategoriaEmpleado());
+			preparedStatement.setInt(7, empleado.getIdEmpleado());
+			preparedStatement.executeUpdate();
             preparedStatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -134,4 +142,45 @@ public class EmpleadoRepository {
 			return list;
 		}
 
+		public void save(Empleado empleado){
+			try {
+				Connection connection= JDBCConnection.getInstanceConnection();
+				//Inserta primero el Domicilio, luego retiene el idDomicilio para usarlo en la inserción del Empleado
+				PreparedStatement preparedStatement=connection.prepareStatement("INSERT INTO DOMICILIO " +
+						"(Calle, Numero, LOCALIDAD_idLocalidad) " +
+						"VALUES (?,?,?); " , Statement.RETURN_GENERATED_KEYS);
+				//Inserta el Domicilio
+				preparedStatement.setString(1,empleado.getDomicilio().getCalle());
+				preparedStatement.setString(2,empleado.getDomicilio().getNumero());
+				preparedStatement.setInt(3, empleado.getDomicilio().getLocalidad().getIdLocalidad());
+				preparedStatement.executeUpdate();
+				ResultSet rs = preparedStatement.getGeneratedKeys();
+				int last_inserted_id = 0;
+				if(rs.next())
+					last_inserted_id = rs.getInt(1);
+
+
+				//Conseguir el idDomicilio recientemente ingresado
+				preparedStatement = connection.prepareStatement("INSERT INTO EMPLEADO " +
+						"(CUIT, hijos, Nombre, Apellido, FechaNacimiento, CATEGORIA_EMPLEADO_idCategoriaEmpleado, " +
+						"DOMICILIO_idDomicilio)" +
+						" VALUES (?,?,?,?,?,?,?)");
+				//Inserta el Empleado
+				preparedStatement.setString(1, empleado.getCuit());
+				preparedStatement.setInt(2, empleado.getHijos());
+				preparedStatement.setString(3, empleado.getNombre());
+				preparedStatement.setString(4, empleado.getApellido());
+				preparedStatement.setString(5, empleado.getNacimiento());
+				preparedStatement.setInt(6, empleado.getCategoriaEmpleado().getIdCategoriaEmpleado());
+				preparedStatement.setInt(7, last_inserted_id);
+				System.out.println("I SQL: " + preparedStatement.toString());
+				preparedStatement.executeUpdate();
+
+				System.out.printf("Empleado %s %s agregado correctamente", empleado.getNombre(), empleado.getApellido());
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
 }
