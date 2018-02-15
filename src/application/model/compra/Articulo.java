@@ -11,9 +11,17 @@ public class Articulo {
 	private final StringProperty marca;
 	private final StringProperty modelo;
 	private final StringProperty descripcion;
-	private final CategoriaArticulo categoria;
+	private CategoriaArticulo categoria;
 	private final IntegerProperty stock;
-	
+
+	public CategoriaArticulo getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(CategoriaArticulo categoria) {
+		this.categoria = categoria;
+	}
+
 	public Articulo(){
 		this(0, null, null, null, null,0);
 	}
@@ -73,10 +81,6 @@ public class Articulo {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion.set(descripcion);
-	}
-
-	public CategoriaArticulo getCategoria() {
-		return categoria;
 	}
 
 	public int getStock() {

@@ -102,7 +102,9 @@ public class FacturaEditController implements Initializable {
         if (!lineasTableView.getItems().isEmpty()){
             for (DetalleCompra linea :
                     lineasTableView.getItems()) {
-                    articuloComboBox.getItems().remove(linea.getArticulo());
+                    for (Articulo articuloDuplicado: articuloComboBox.getItems())
+                        if (linea.getArticulo().getIdArticulo() == articuloDuplicado.getIdArticulo())
+                            articuloComboBox.getItems().remove(articuloDuplicado);
             }
         }
     }
@@ -151,15 +153,26 @@ public class FacturaEditController implements Initializable {
             lineasTableView.setItems(lineas);
             calcularTotal(linea);
             borrarElementos(linea.getArticulo());
-
         }else
             Alerta.alertaError("Error al seleccionar un articulo", "Por Favor seleccione un Articulo");
 
     }
+    @FXML
+    public void handleQuitLine(){
+        
+            Alerta.alertaError("Error al seleccionar un articulo", "Por Favor seleccione un Articulo");
 
+    }
     private void calcularTotal(DetalleCompra linea) {
         subtotal = linea.getCantidad()*linea.getPrecioUnitario();
         costoTotal += subtotal;
+        totalLabel.setText(String.valueOf(costoTotal));
+    }
+    private void calcularTotal(){
+        for (DetalleCompra linea : lineasTableView.getItems()){
+            subtotal = linea.getCantidad() * linea.getPrecioUnitario();
+            costoTotal += subtotal;
+        }
         totalLabel.setText(String.valueOf(costoTotal));
     }
 
@@ -204,8 +217,11 @@ public class FacturaEditController implements Initializable {
     public void setDatos(FacturaCompra facturaSeleccionada) {
         this.factura = facturaSeleccionada;
         if(!isNew){
+            idFacturaLabel.setText(String.valueOf(facturaSeleccionada.getIdFacturaCompra()));
             lineas = lineaRepository.view(factura.getIdFacturaCompra());
             lineasTableView.setItems(lineas);
+            proveedorComboBox.getSelectionModel().select(facturaSeleccionada.getProveedor());
+            calcularTotal();
         }
     }
 
@@ -228,10 +244,10 @@ public class FacturaEditController implements Initializable {
             errorMessage += "Proveedor no seleccionado.\n";
         if(lineasTableView.getItems().isEmpty())
             errorMessage += "No se agregó linea de compra de articulos.\n";
-        if (precioField.getText()== null || precioField.getText().length() ==0 || !NumberUtils.isParsable(precioField.getText()))
+/*        if (precioField.getText()== null || precioField.getText().length() ==0 || !NumberUtils.isParsable(precioField.getText()))
             errorMessage += "El precio ingresado no corresponde a un número válido.\n";
         if (cantidadField.getText()== null || cantidadField.getText().length() ==0 || !NumberUtils.isParsable(cantidadField.getText()))
-            errorMessage += "La cantidad ingresada no corresponde a un número válido.\n";
+            errorMessage += "La cantidad ingresada no corresponde a un número válido.\n";*/
 
         if (errorMessage.length() == 0) {
             return true;
@@ -247,18 +263,20 @@ public class FacturaEditController implements Initializable {
             factura.setFecha(fechaDatePicker.getValue().toString());
             factura.setProveedor(proveedorComboBox.getValue());
             factura.setTotal(Double.parseDouble(totalLabel.getText()));
-            lineas = lineasTableView.getItems();
             if (isNew){
-                //todo: impactar cantidades en el stock de los articulos
                 facturaCompraRepository.save(factura);
+                factura.setIdFacturaCompra(facturaCompraRepository.getLastID());
+                for (DetalleCompra linea : lineasTableView.getItems())
+                    linea.setFacturaCompra(factura);
                 for (DetalleCompra linea :
-                        lineas) {
+                        lineasTableView.getItems()) {
                     lineaRepository.save(linea);
+                    articuloRepository.addStock(linea.getCantidad(), linea.getArticulo().getIdArticulo());
                 }
             }else {
                 facturaCompraRepository.update(factura);
                 for (DetalleCompra linea :
-                        lineas) {
+                        lineasTableView.getItems()) {
                     lineaRepository.update(linea);
                 }
             }
@@ -267,5 +285,9 @@ public class FacturaEditController implements Initializable {
         }
     }
 
+    @FXML
+    private void handleCancel(){
+        dialogStage.close();
+    }
 
 }
