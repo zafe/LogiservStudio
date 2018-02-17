@@ -1,10 +1,10 @@
-package application.view.venta;
+package application.view.calculo;
 
 import application.Main;
 import application.comunes.Alerta;
 import application.model.calculo.Acoplado;
 import application.repository.calculo.AcopladoRepository;
-import application.view.venta.cruds.AcopladoEditController;
+import application.view.calculo.cruds.AcopladoEditController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

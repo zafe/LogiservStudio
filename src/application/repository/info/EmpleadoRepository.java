@@ -46,12 +46,15 @@ public class EmpleadoRepository {
 		return empleados;
 		
 	}
-	public static void deleteEmpleadoById(int id){
+	//todo hace deleteEmpleado
+	public static void deleteEmpleadoById(Empleado empleado){
 		try {
-            Connection connection= JDBCConnection.getInstanceConnection();
+            Connection connection = JDBCConnection.getInstanceConnection();
+			//Elimina el usuario del empleado si tiene un usuario asociado
             PreparedStatement preparedStatement = connection.prepareStatement(
-                    "DELETE FROM EMPLEADO WHERE idEmpleado=?");
-            preparedStatement.setInt(1, id);
+                    "DELETE FROM USUARIO WHERE idUsuario=?");
+           // preparedStatement.setInt(1, id);
+			preparedStatement.setInt(1, empleado.getDomicilio().getIdDomicilio());
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException e) {

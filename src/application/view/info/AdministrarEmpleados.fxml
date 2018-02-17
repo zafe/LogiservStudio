@@ -40,7 +40,7 @@
                            <children>
                               <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleNewEmpleado" text="Nuevo Empleado" />
                               <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleEditPerson" text="Editar Empleado" />
-                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleDeleteEmpleado" text="Eliminar Empleado" />
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleDeleteEmpleado" text="Dar de Baja Empleado" />
                            </children>
                            <VBox.margin>
                               <Insets />

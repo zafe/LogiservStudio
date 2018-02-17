@@ -1,4 +1,4 @@
-package application.view.venta.cruds;
+package application.view.calculo.cruds;
 
 import application.comunes.Alerta;
 import application.model.calculo.Acoplado;

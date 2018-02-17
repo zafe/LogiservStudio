@@ -1,18 +1,26 @@
 package application.model.venta;
 
+import application.model.calculo.Camion;
+import application.model.calculo.Finca;
+import application.model.calculo.Ingenio;
+import application.model.info.Empleado;
 import javafx.beans.property.*;
 
 public class Viaje {
+
     private IntegerProperty idRemito;
     private StringProperty fecha;
     private StringProperty horaEntrada;
     private DoubleProperty bruto;
     private DoubleProperty tara;
+    private DoubleProperty monto;
+    private DoubleProperty pesoNeto;
     private StringProperty distanciaRecorrida;
     private StringProperty fincaOrigen;
     private StringProperty ingenioDestino;
-    private StringProperty camion;
+    private StringProperty camionNombre;
     private StringProperty facturaVenta;
+    private Empleado conductor;
 
     public int getIdRemito() {
         return idRemito.get();
@@ -110,16 +118,16 @@ public class Viaje {
         this.ingenioDestino.set(ingenioDestino);
     }
 
-    public String getCamion() {
-        return camion.get();
+    public String getCamionNombre() {
+        return camionNombre.get();
     }
 
-    public StringProperty camionProperty() {
-        return camion;
+    public StringProperty camionNombreProperty() {
+        return camionNombre;
     }
 
-    public void setCamion(String camion) {
-        this.camion.set(camion);
+    public void setCamionNombre(String camionNombre) {
+        this.camionNombre.set(camionNombre);
     }
 
     public String getFacturaVenta() {
@@ -134,10 +142,42 @@ public class Viaje {
         this.facturaVenta.set(facturaVenta);
     }
 
+    public double getMonto() {
+        return monto.get();
+    }
+
+    public DoubleProperty montoProperty() {
+        return monto;
+    }
+
+    public void setMonto(double monto) {
+        this.monto.set(monto);
+    }
+
+    public Empleado getConductor() {
+        return conductor;
+    }
+
+    public void setConductor(Empleado conductor) {
+        this.conductor = conductor;
+    }
+
+    public double getPesoNeto() {
+        return pesoNeto.get();
+    }
+
+    public DoubleProperty pesoNetoProperty() {
+        return pesoNeto;
+    }
+
+    public void setPesoNeto(double pesoNeto) {
+        this.pesoNeto.set(pesoNeto);
+    }
+
     public Viaje(Integer idRemito, String fecha, String horaEntrada,
                  Double bruto, Double tara, String distanciaRecorrida,
-                 String fincaOrigen, String ingenioDestino, String camion,
-                 String facturaVenta) {
+                 String fincaOrigen, String ingenioDestino, String camionNombre,
+                 String facturaVenta, Empleado conductor) {
         this.idRemito = new SimpleIntegerProperty(idRemito);
         this.fecha = new SimpleStringProperty(fecha);
         this.horaEntrada = new SimpleStringProperty(horaEntrada);
@@ -146,12 +186,13 @@ public class Viaje {
         this.distanciaRecorrida = new SimpleStringProperty(distanciaRecorrida);
         this.fincaOrigen = new SimpleStringProperty(fincaOrigen);
         this.ingenioDestino = new SimpleStringProperty(ingenioDestino);
-        this.camion = new SimpleStringProperty(camion);
+        this.camionNombre = new SimpleStringProperty(camionNombre);
         this.facturaVenta = new SimpleStringProperty(facturaVenta);
+        this.conductor = conductor;
     }
 
     public Viaje() {
         this(0,null,null,0.0,0.0,
-                null,null,null,null,null);
+                null,null,null,null,null, null);
     }
 }
