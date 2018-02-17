@@ -36,17 +36,13 @@ public class ArticuloRepository {
     public void update(Articulo articulo){
         try {
             connection = JDBCConnection.getInstanceConnection();
-            preparedStatement= connection.prepareStatement(
-                    "UPDATE ARTICULO " +
-                        "SET Marca=?, Modelo=?, Descripcion=?, CATEGORIA_ARTICULO_idCategoriaArticulo=?, stock=? " +
-                    "WHERE idArticulo=?");
+            preparedStatement= connection.prepareStatement("UPDATE ARTICULO SET Marca=?, Modelo=?, Descripcion=?, CATEGORIA_ARTICULO_idCategoriaArticulo=? WHERE idArticulo=?");
             preparedStatement.setString(1,articulo.getMarca());
             preparedStatement.setString(2,articulo.getModelo());
             preparedStatement.setString(3,articulo.getDescripcion());
             preparedStatement.setInt(4,articulo.getCategoria().getIdCategoriaArticulo());
-            preparedStatement.setInt(5,articulo.getStock());
-            preparedStatement.setInt(6,articulo.getIdArticulo());
-            preparedStatement.execute();
+            preparedStatement.setInt(5,articulo.getIdArticulo());
+            preparedStatement.executeUpdate();
             String headerMsj="Actualización: artículo actualizado";
             String cuerpoMsj = "Artículo: " + articulo.getDescripcion() + " modificado correctamente.";
             Alerta.alertaInfo("Artículos", headerMsj, cuerpoMsj);
@@ -123,10 +119,22 @@ public class ArticuloRepository {
                             "WHERE idArticulo=?");
             preparedStatement.setInt(1,articulo.getStock());
             preparedStatement.setInt(2,articulo.getIdArticulo());
-            preparedStatement.execute();
+            preparedStatement.executeUpdate();
             String headerMsj="Actualización: Stock Articulo actualizado";
             String cuerpoMsj = "Stock Artículo: " + articulo.getDescripcion() + " actualizado correctamente.";
             Alerta.alertaInfo("Stock de Artículos", headerMsj, cuerpoMsj);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void addStock(int cantidad, int idArticulo){
+        try {
+            connection = JDBCConnection.getInstanceConnection();
+            preparedStatement= connection.prepareStatement(
+                    "UPDATE ARTICULO SET stock = stock + ? WHERE idArticulo = ?");
+            preparedStatement.setInt(1, cantidad);
+            preparedStatement.setInt(2, idArticulo);
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
