@@ -76,7 +76,7 @@
                            <children>
                               <VBox layoutX="9.0" prefHeight="433.0" prefWidth="217.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#showSueldosOverview" prefHeight="27.0" prefWidth="223.0" text="Liquidar Empleado" />
+                                    <Button mnemonicParsing="false" onAction="#showSueldosOverview" prefHeight="27.0" prefWidth="223.0" text="Liquidaciones" />
                                     <Button mnemonicParsing="false" onAction="#showConceptosSalarialesOverview" prefHeight="27.0" prefWidth="223.0" text="Conceptos" />
                                  </children>
                               </VBox>
@@ -93,7 +93,6 @@
                                     <Button mnemonicParsing="false" onAction="#showCategoriaEmpleadosOverview" prefHeight="27.0" prefWidth="223.0" text="Categorías de Empleados" />
                                           <Button mnemonicParsing="false" onAction="#showUsuarioOverview" prefHeight="27.0" prefWidth="222.0" text="Usuarios" />
                                           <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="253.0" text="Domicilios" />
-                                    <Button mnemonicParsing="false" onAction="#showGPSOverview" prefHeight="27.0" prefWidth="208.0" text="GPS" />
                                        </children>
                                     </VBox>
                                  </children>

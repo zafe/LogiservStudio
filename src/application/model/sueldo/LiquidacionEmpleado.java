@@ -1,5 +1,6 @@
 package application.model.sueldo;
 
+import application.model.info.Empleado;
 import javafx.beans.property.*;
 import javafx.collections.ObservableList;
 
@@ -16,6 +17,15 @@ public class LiquidacionEmpleado {
     private StringProperty nombre;
     private StringProperty inicioPeriodo;
     private StringProperty finPeriodo;
+    private Empleado empleado;
+
+    public Empleado getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
+    }
 
     public List<ConceptoCalculado> getConceptosLiquidados() {
         return conceptosLiquidados;
@@ -150,7 +160,7 @@ public class LiquidacionEmpleado {
     public LiquidacionEmpleado(Integer id, String fechaLiquidacion, Double importeNeto,
                                Double totalHaberesRemunerativos, Double totalHaberesNoRemunerativos,
                                Double totalRetenciones, Double totalBruto,
-                               String nombre, String inicioPeriodo, String finPeriodo) {
+                               String nombre, String inicioPeriodo, String finPeriodo, Empleado empleado) {
         this.id = new SimpleIntegerProperty(id);
         this.fechaLiquidacion = new SimpleStringProperty(fechaLiquidacion);
         this.importeNeto = new SimpleDoubleProperty(importeNeto);
@@ -161,13 +171,14 @@ public class LiquidacionEmpleado {
         this.nombre = new SimpleStringProperty(nombre);
         this.inicioPeriodo = new SimpleStringProperty(inicioPeriodo);
         this.finPeriodo = new SimpleStringProperty(finPeriodo);
+        this.empleado = empleado;
     }
 
     public LiquidacionEmpleado() {
         this(0,null,0.0,
                 0.0,0.0,
                 0.0,0.0,null,
-                null,null);
+                null,null,null);
     }
 
 }

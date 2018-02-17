@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ad24a087-34e9-4c0a-89a3-9d660d897332" name="Default" comment="Merge branch 'master' of https://github.com/zafe/LogiservStudio&#10;&#10;# Conflicts:&#10;#&#9;src/application/repository/info/ArticuloRepository.java&#10;#&#9;src/application/repository/info/CategoriaArticuloReporsitory.java&#10;#&#9;src/application/repository/info/DetalleCompraRepository.java&#10;#&#9;src/application/repository/info/FacturaCompraRepository.java&#10;#&#9;src/application/repository/info/ProveedorRepository.java">
+    <list default="true" id="ad24a087-34e9-4c0a-89a3-9d660d897332" name="Default" comment="Agregadas Ventanas de Liquidaciones (Historico) y demas Funcionalidades">
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/application/model/sueldo/Liquidaciones.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/application/repository/sueldo/LiquidacionesRepository.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/application/view/sueldo/Liquidaciones.fxml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/application/view/sueldo/LiquidacionesController.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/LogiservStudio.iml" afterPath="$PROJECT_DIR$/LogiservStudio.iml" />
-      <change beforePath="$PROJECT_DIR$/src/application/model/sueldo/HaberNoRemunerativo.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/application/model/sueldo/HaberesRemunerativos.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/application/model/sueldo/Retencion.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/application/view/EditarCompraDialog.fxml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/application/view/GPSWebView.fxml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/application/view/GPSWebViewController.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/application/model/sueldo/Calculeable.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/application/model/sueldo/LiquidacionEmpleado.java" afterPath="$PROJECT_DIR$/src/application/model/sueldo/LiquidacionEmpleado.java" />
+      <change beforePath="$PROJECT_DIR$/src/application/view/Principal.fxml" afterPath="$PROJECT_DIR$/src/application/view/Principal.fxml" />
       <change beforePath="$PROJECT_DIR$/src/application/view/PrincipalController.java" afterPath="$PROJECT_DIR$/src/application/view/PrincipalController.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/view/PruebaEdita.fxml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/application/view/sueldo/SueldoLiquidarSueldo.fxml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/application/view/sueldo/SueldoLiquidarSueldoController.java" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,20 +27,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CompraComprasController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/application/view/compra/CompraComprasController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1190">
-              <caret line="92" column="0" lean-forward="false" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="FacturaEditController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/application/view/compra/cruds/FacturaEditController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1479">
+            <state relative-caret-position="0">
               <caret line="110" column="0" lean-forward="false" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
               <folding />
             </state>
@@ -50,7 +41,7 @@
         <entry file="file://$PROJECT_DIR$/src/application/view/compra/cruds/StockEditController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="254">
-              <caret line="59" column="0" lean-forward="true" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+              <caret line="59" column="0" lean-forward="false" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -58,13 +49,126 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PrincipalController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PrincipalController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/application/view/PrincipalController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="357" column="0" lean-forward="false" selection-start-line="357" selection-start-column="0" selection-end-line="357" selection-end-column="0" />
+            <state relative-caret-position="118">
+              <caret line="373" column="46" lean-forward="true" selection-start-line="373" selection-start-column="46" selection-end-line="373" selection-end-column="46" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/application/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="18" column="43" lean-forward="true" selection-start-line="18" selection-start-column="43" selection-end-line="18" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Liquidaciones.fxml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/application/view/sueldo/Liquidaciones.fxml">
+          <provider editor-type-id="JavaFX-Scene-Builder">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="276">
+              <caret line="68" column="88" lean-forward="false" selection-start-line="68" selection-start-column="88" selection-end-line="68" selection-end-column="88" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LiquidacionesController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/application/view/sueldo/LiquidacionesController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="101">
+              <caret line="136" column="73" lean-forward="false" selection-start-line="136" selection-start-column="73" selection-end-line="136" selection-end-column="73" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LiquidacionEmpleado.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/application/model/sueldo/LiquidacionEmpleado.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="935">
+              <caret line="83" column="51" lean-forward="false" selection-start-line="83" selection-start-column="45" selection-end-line="83" selection-end-column="51" />
+              <folding>
+                <element signature="e#702#703#0" expanded="true" />
+                <element signature="e#733#734#0" expanded="true" />
+                <element signature="e#783#784#0" expanded="true" />
+                <element signature="e#823#824#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LiquidacionesRepository.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/application/repository/sueldo/LiquidacionesRepository.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="203">
+              <caret line="72" column="73" lean-forward="true" selection-start-line="72" selection-start-column="73" selection-end-line="72" selection-end-column="73" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Empleado.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/application/model/info/Empleado.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1129">
+              <caret line="141" column="47" lean-forward="false" selection-start-line="141" selection-start-column="41" selection-end-line="141" selection-end-column="47" />
+              <folding>
+                <element signature="e#3118#3119#0" expanded="true" />
+                <element signature="e#3164#3165#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Liquidaciones.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/application/model/sueldo/Liquidaciones.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="427">
+              <caret line="89" column="0" lean-forward="false" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1051#1052#0" expanded="true" />
+                <element signature="e#1082#1083#0" expanded="true" />
+                <element signature="e#1125#1126#0" expanded="true" />
+                <element signature="e#1150#1151#0" expanded="true" />
+                <element signature="e#1183#1184#0" expanded="true" />
+                <element signature="e#1214#1215#0" expanded="true" />
+                <element signature="e#1257#1258#0" expanded="true" />
+                <element signature="e#1302#1303#0" expanded="true" />
+                <element signature="e#1358#1359#0" expanded="true" />
+                <element signature="e#1397#1398#0" expanded="true" />
+                <element signature="e#1461#1462#0" expanded="true" />
+                <element signature="e#1520#1521#0" expanded="true" />
+                <element signature="e#1572#1573#0" expanded="true" />
+                <element signature="e#1626#1627#0" expanded="true" />
+                <element signature="e#1691#1692#0" expanded="true" />
+                <element signature="e#1739#1740#0" expanded="true" />
+                <element signature="e#1952#1953#0" expanded="true" />
+                <element signature="e#2008#2009#0" expanded="true" />
+                <element signature="e#2075#2076#0" expanded="true" />
+                <element signature="e#2125#2126#0" expanded="true" />
+                <element signature="e#2335#2336#0" expanded="true" />
+                <element signature="e#2380#2381#0" expanded="true" />
+                <element signature="e#2436#2437#0" expanded="true" />
+                <element signature="e#2475#2476#0" expanded="true" />
+                <element signature="e#2539#2540#0" expanded="true" />
+                <element signature="e#2598#2599#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -84,8 +188,8 @@
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
-        <option value="isaias &lt;isamed92@gmail.com&gt;" />
         <option value="Isaias &lt;isamed92@gmail.com&gt;" />
+        <option value="isaias &lt;isamed92@gmail.com&gt;" />
         <option value="isaias" />
       </list>
     </option>
@@ -108,18 +212,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/application/database/JDBCConnection.java" />
-        <option value="$PROJECT_DIR$/src/application/comunes/Alertas.java" />
-        <option value="$PROJECT_DIR$/src/application/model/compra/DetalleCompra.java" />
-        <option value="$PROJECT_DIR$/src/application/model/compra/FacturaCompra.java" />
-        <option value="$PROJECT_DIR$/src/application/repository/info/FacturaCompraRepository.java" />
-        <option value="$PROJECT_DIR$/src/application/repository/info/Camion.java" />
         <option value="$PROJECT_DIR$/src/application/repository/info/AcopladoRepository.java" />
         <option value="$PROJECT_DIR$/src/application/model/calculo/Finca.java" />
         <option value="$PROJECT_DIR$/src/application/repository/info/FincaRepository.java" />
         <option value="$PROJECT_DIR$/src/application/repository/info/IngenioRepository.java" />
         <option value="$PROJECT_DIR$/src/application/repository/info/OrigenDestinoRepository.java" />
-        <option value="$PROJECT_DIR$/src/application/model/info/Empleado.java" />
         <option value="$PROJECT_DIR$/src/application/repository/info/DetalleCompraRepository.java" />
         <option value="$PROJECT_DIR$/src/application/repository/info/ConceptoSueldoRepository.java" />
         <option value="$PROJECT_DIR$/src/application/repository/info/DetalleLiquidacionEmpleadoRepository.java" />
@@ -158,7 +255,14 @@
         <option value="$PROJECT_DIR$/src/application/view/venta/CargarCamionController.java" />
         <option value="$PROJECT_DIR$/src/application/repository/info/CamionRepository.java" />
         <option value="$PROJECT_DIR$/src/application/view/compra/cruds/StockEditController.java" />
+        <option value="$PROJECT_DIR$/src/application/view/sueldo/SueldoLiquidarSueldo.fxml" />
+        <option value="$PROJECT_DIR$/src/application/view/sueldo/SueldoLiquidarSueldoController.java" />
+        <option value="$PROJECT_DIR$/src/application/model/sueldo/Liquidaciones.java" />
+        <option value="$PROJECT_DIR$/src/application/model/sueldo/LiquidacionEmpleado.java" />
         <option value="$PROJECT_DIR$/src/application/view/PrincipalController.java" />
+        <option value="$PROJECT_DIR$/src/application/view/sueldo/LiquidacionesController.java" />
+        <option value="$PROJECT_DIR$/src/application/model/info/Empleado.java" />
+        <option value="$PROJECT_DIR$/src/application/repository/sueldo/LiquidacionesRepository.java" />
       </list>
     </option>
   </component>
@@ -202,13 +306,35 @@
               <item name="LogiservStudio" type="58d84e3e:PackageViewProjectNode" />
               <item name="LogiservStudio" type="616d4139:PackageViewModuleNode" />
               <item name="application" type="1f31426a:PackageElementNode" />
-              <item name="model" type="1f31426a:PackageElementNode" />
+              <item name="repository" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="LogiservStudio" type="58d84e3e:PackageViewProjectNode" />
+              <item name="LogiservStudio" type="616d4139:PackageViewModuleNode" />
+              <item name="application" type="1f31426a:PackageElementNode" />
+              <item name="repository" type="1f31426a:PackageElementNode" />
+              <item name="sueldo" type="1f31426a:PackageElementNode" />
             </path>
             <path>
               <item name="LogiservStudio" type="58d84e3e:PackageViewProjectNode" />
               <item name="LogiservStudio" type="616d4139:PackageViewModuleNode" />
               <item name="application" type="1f31426a:PackageElementNode" />
               <item name="view" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="LogiservStudio" type="58d84e3e:PackageViewProjectNode" />
+              <item name="LogiservStudio" type="616d4139:PackageViewModuleNode" />
+              <item name="application" type="1f31426a:PackageElementNode" />
+              <item name="view" type="1f31426a:PackageElementNode" />
+              <item name="sueldo" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="LogiservStudio" type="58d84e3e:PackageViewProjectNode" />
+              <item name="LogiservStudio" type="616d4139:PackageViewModuleNode" />
+              <item name="application" type="1f31426a:PackageElementNode" />
+              <item name="view" type="1f31426a:PackageElementNode" />
+              <item name="sueldo" type="1f31426a:PackageElementNode" />
+              <item name="cruds" type="1f31426a:PackageElementNode" />
             </path>
           </expand>
           <select />
@@ -527,7 +653,14 @@
       <option name="project" value="LOCAL" />
       <updated>1503776979319</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="limpieza de clases">
+      <created>1518904241830</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1518904241830</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TodoView">
@@ -550,7 +683,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.50303954" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4194079" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4194079" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.4969605" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -598,7 +731,9 @@
     <MESSAGE value="avances de repositorio" />
     <MESSAGE value="agregadas clases repository para modulo compras" />
     <MESSAGE value="Merge branch 'master' of https://github.com/zafe/LogiservStudio&#10;&#10;# Conflicts:&#10;#&#9;src/application/repository/info/ArticuloRepository.java&#10;#&#9;src/application/repository/info/CategoriaArticuloReporsitory.java&#10;#&#9;src/application/repository/info/DetalleCompraRepository.java&#10;#&#9;src/application/repository/info/FacturaCompraRepository.java&#10;#&#9;src/application/repository/info/ProveedorRepository.java" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'master' of https://github.com/zafe/LogiservStudio&#10;&#10;# Conflicts:&#10;#&#9;src/application/repository/info/ArticuloRepository.java&#10;#&#9;src/application/repository/info/CategoriaArticuloReporsitory.java&#10;#&#9;src/application/repository/info/DetalleCompraRepository.java&#10;#&#9;src/application/repository/info/FacturaCompraRepository.java&#10;#&#9;src/application/repository/info/ProveedorRepository.java" />
+    <MESSAGE value="limpieza de clases" />
+    <MESSAGE value="Agregadas Ventanas de Liquidaciones (Historico) y demas Funcionalidades" />
+    <option name="LAST_COMMIT_MESSAGE" value="Agregadas Ventanas de Liquidaciones (Historico) y demas Funcionalidades" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -611,18 +746,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/application/repository/info/ConceptoSueldoRepository.java" />
-    <entry file="file://$PROJECT_DIR$/src/application/repository/info/DetalleCompraRepository.java" />
-    <entry file="file://$PROJECT_DIR$/src/application/repository/info/LiquidacionEmpleadoRepository.java" />
-    <entry file="file://$PROJECT_DIR$/src/application/repository/info/DetalleLiquidacionEmpleadoRepository.java" />
-    <entry file="file://$PROJECT_DIR$/src/application/repository/info/ReciboSueldoRepository.java" />
-    <entry file="file://$PROJECT_DIR$/src/application/comunes/Alerta.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="38" column="24" lean-forward="false" selection-start-line="38" selection-start-column="24" selection-end-line="38" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/application/view/UsuarioEditDialogController.java" />
     <entry file="file://$PROJECT_DIR$/src/application/view/compra/CategoriaArticulos.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder">
@@ -658,13 +781,6 @@
     <entry file="file://$PROJECT_DIR$/src/application/view/AdministrarUsuariosController.java" />
     <entry file="file://$PROJECT_DIR$/src/application/view/EmpleadoEditDialogController.java" />
     <entry file="file://$PROJECT_DIR$/src/application/view/AdministrarEmpleadosController.java" />
-    <entry file="file://$PROJECT_DIR$/src/application/model/sueldo/LiquidacionEmpleado.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="37" lean-forward="false" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/application/model/info/Provincia.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -700,13 +816,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="21" column="25" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -809,6 +918,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="279">
           <caret line="94" column="36" lean-forward="false" selection-start-line="94" selection-start-column="13" selection-end-line="94" selection-end-column="36" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -824,6 +934,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="13" column="18" lean-forward="false" selection-start-line="13" selection-start-column="18" selection-end-line="13" selection-end-column="18" />
+          <folding>
+            <element signature="e#414#415#0" expanded="false" />
+            <element signature="e#445#446#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -865,17 +979,124 @@
     <entry file="file://$PROJECT_DIR$/src/application/view/compra/cruds/StockEditController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="254">
-          <caret line="59" column="0" lean-forward="true" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+          <caret line="59" column="0" lean-forward="false" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="18" column="43" lean-forward="true" selection-start-line="18" selection-start-column="43" selection-end-line="18" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/model/sueldo/Liquidaciones.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="427">
+          <caret line="89" column="0" lean-forward="false" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1051#1052#0" expanded="true" />
+            <element signature="e#1082#1083#0" expanded="true" />
+            <element signature="e#1125#1126#0" expanded="true" />
+            <element signature="e#1150#1151#0" expanded="true" />
+            <element signature="e#1183#1184#0" expanded="true" />
+            <element signature="e#1214#1215#0" expanded="true" />
+            <element signature="e#1257#1258#0" expanded="true" />
+            <element signature="e#1302#1303#0" expanded="true" />
+            <element signature="e#1358#1359#0" expanded="true" />
+            <element signature="e#1397#1398#0" expanded="true" />
+            <element signature="e#1461#1462#0" expanded="true" />
+            <element signature="e#1520#1521#0" expanded="true" />
+            <element signature="e#1572#1573#0" expanded="true" />
+            <element signature="e#1626#1627#0" expanded="true" />
+            <element signature="e#1691#1692#0" expanded="true" />
+            <element signature="e#1739#1740#0" expanded="true" />
+            <element signature="e#1952#1953#0" expanded="true" />
+            <element signature="e#2008#2009#0" expanded="true" />
+            <element signature="e#2075#2076#0" expanded="true" />
+            <element signature="e#2125#2126#0" expanded="true" />
+            <element signature="e#2335#2336#0" expanded="true" />
+            <element signature="e#2380#2381#0" expanded="true" />
+            <element signature="e#2436#2437#0" expanded="true" />
+            <element signature="e#2475#2476#0" expanded="true" />
+            <element signature="e#2539#2540#0" expanded="true" />
+            <element signature="e#2598#2599#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/view/sueldo/Liquidaciones.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="68" column="88" lean-forward="false" selection-start-line="68" selection-start-column="88" selection-end-line="68" selection-end-column="88" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/application/view/PrincipalController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="357" column="0" lean-forward="false" selection-start-line="357" selection-start-column="0" selection-end-line="357" selection-end-column="0" />
+        <state relative-caret-position="118">
+          <caret line="373" column="46" lean-forward="true" selection-start-line="373" selection-start-column="46" selection-end-line="373" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/view/sueldo/LiquidacionesController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="101">
+          <caret line="136" column="73" lean-forward="false" selection-start-line="136" selection-start-column="73" selection-end-line="136" selection-end-column="73" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/view/compra/CompraComprasController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1190">
+          <caret line="92" column="0" lean-forward="false" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/model/info/Empleado.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1129">
+          <caret line="141" column="47" lean-forward="false" selection-start-line="141" selection-start-column="41" selection-end-line="141" selection-end-column="47" />
+          <folding>
+            <element signature="e#3118#3119#0" expanded="true" />
+            <element signature="e#3164#3165#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/model/sueldo/LiquidacionEmpleado.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="935">
+          <caret line="83" column="51" lean-forward="false" selection-start-line="83" selection-start-column="45" selection-end-line="83" selection-end-column="51" />
+          <folding>
+            <element signature="e#702#703#0" expanded="true" />
+            <element signature="e#733#734#0" expanded="true" />
+            <element signature="e#783#784#0" expanded="true" />
+            <element signature="e#823#824#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/repository/sueldo/LiquidacionesRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="72" column="73" lean-forward="true" selection-start-line="72" selection-start-column="73" selection-end-line="72" selection-end-column="73" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
