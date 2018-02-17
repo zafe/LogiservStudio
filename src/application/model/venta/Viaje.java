@@ -6,6 +6,8 @@ import application.model.calculo.Ingenio;
 import application.model.info.Empleado;
 import javafx.beans.property.*;
 
+import java.math.BigDecimal;
+
 public class Viaje {
 
     private IntegerProperty idRemito;
@@ -21,6 +23,9 @@ public class Viaje {
     private StringProperty camionNombre;
     private StringProperty facturaVenta;
     private Empleado conductor;
+    private Finca finca;
+    private Ingenio ingenio;
+    private Camion camion;
 
     public int getIdRemito() {
         return idRemito.get();
@@ -173,6 +178,31 @@ public class Viaje {
     public void setPesoNeto(double pesoNeto) {
         this.pesoNeto.set(pesoNeto);
     }
+
+    public Finca getFinca() {
+        return finca;
+    }
+
+    public void setFinca(Finca finca) {
+        this.finca = finca;
+    }
+
+    public Ingenio getIngenio() {
+        return ingenio;
+    }
+
+    public void setIngenio(Ingenio ingenio) {
+        this.ingenio = ingenio;
+    }
+
+    public Camion getCamion() {
+        return camion;
+    }
+
+    public void setCamion(Camion camion) {
+        this.camion = camion;
+    }
+
 
     public Viaje(Integer idRemito, String fecha, String horaEntrada,
                  Double bruto, Double tara, String distanciaRecorrida,

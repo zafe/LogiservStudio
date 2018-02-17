@@ -101,4 +101,29 @@ public class IngenioRepository {
         }
         return list;
     }
+
+    public Ingenio getIngenioById(int idIngenio){
+        Ingenio ingenio = new Ingenio();
+        try {
+            connection= JDBCConnection.getInstanceConnection();
+            preparedStatement=connection.prepareStatement("SELECT idIngenio, x(coordenada), y(coordenada)," +
+                    " Nombre, Arranque, Tarifa FROM INGENIO WHERE idIngenio=?;");
+
+            preparedStatement.setInt(1,idIngenio);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                ingenio.setIdIngenio(resultSet.getInt(1));
+                ingenio.setLongitud(resultSet.getDouble(2));
+                ingenio.setLatitud(resultSet.getDouble(3));
+                ingenio.setNombre(resultSet.getString(4));
+                ingenio.setArranque(resultSet.getDouble(5));
+                ingenio.setTarifa(resultSet.getDouble(6));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return ingenio;
+
+    }
 }

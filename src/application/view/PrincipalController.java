@@ -51,7 +51,7 @@ public class PrincipalController {
             // Give the controller access to the main app.
             AdministrarViajesController controller = loader.getController();
             controller.setOwner(primaryStage);
-          //  controller.;
+            controller.buscarViajes();
 
 
         }catch (IOException e){

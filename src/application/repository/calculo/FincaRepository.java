@@ -97,4 +97,25 @@ public class FincaRepository {
                 return list;
             }
 
+    public Finca getFincaById(int idFinca){
+        Finca finca = new Finca();
+        try {
+            connection= JDBCConnection.getInstanceConnection();
+            preparedStatement=connection.prepareStatement("SELECT idFinca,x(coordenada), y(coordenada),nombre FROM FINCA WHERE idFinca=?");
+            preparedStatement.setInt(1,idFinca);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                finca.setIdFinca(resultSet.getInt(1));
+                finca.setLongitud(resultSet.getDouble(2));
+                finca.setLatitud(resultSet.getDouble(3));
+                finca.setNombre(resultSet.getString(4));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return finca;
+
+    }
+
 }

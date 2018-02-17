@@ -2,10 +2,19 @@
 
 	import application.comunes.Alerta;
 	import application.database.JDBCConnection;
+	import application.model.calculo.Camion;
+	import application.model.calculo.Finca;
+	import application.model.calculo.Ingenio;
+	import application.model.info.Empleado;
 	import application.model.venta.Viaje;
+	import application.repository.calculo.CamionRepository;
+	import application.repository.calculo.FincaRepository;
+	import application.repository.calculo.IngenioRepository;
+	import application.repository.info.EmpleadoRepository;
 	import javafx.collections.FXCollections;
 	import javafx.collections.ObservableList;
 
+	import java.math.BigDecimal;
 	import java.sql.Connection;
 	import java.sql.PreparedStatement;
 	import java.sql.ResultSet;
@@ -18,6 +27,10 @@
 	    Connection connection;
 	    PreparedStatement preparedStatement;
 	    ResultSet resultSet;
+	    FincaRepository fincaRepository = new FincaRepository();
+	    IngenioRepository ingenioRepository = new IngenioRepository();
+	    EmpleadoRepository empleadoRepository = new EmpleadoRepository();
+	    CamionRepository camionRepository = new CamionRepository();
 	    
 	    public void save(Viaje viaje, int idOrigenDestino,  int idEmpleado, int idCamion, int idFacturaVenta){
 	        try {
@@ -116,28 +129,40 @@
 	        ObservableList<Viaje> list = FXCollections.observableArrayList();
 	        try {
 	            connection= JDBCConnection.getInstanceConnection();
-	            preparedStatement=connection.prepareStatement("SELECT * FROM VIAJE INNER JOIN"
-	            		+ "FROM VIAJE v, ORIGEN_DESTINO o, EMPLEADO e, CAMION c, FACTURA_VENTA f"
-	            		+ "WHERE v.Origen_Destino_idOrigen_Destino = o.idOrigen_Destino"
-	            		+ "AND v.Empleado_idEmpleado = e.idEmpleado"
-	            		+ "AND v.Camion_idCamion = c.idCamion"
-	            		+ "AND v.FACTURA_VENTA_idFactura_VENTA = f.idFactura_Venta");
+	            preparedStatement=connection.prepareStatement("SELECT v.idRemito, v.Fecha, v.HoraEntrada, v.Bruto," +
+						" v.Tara, v.Empleado_idEmpleado, v.CAMION_idCamion, od.DistanciaKM, od.FINCA_idFinca, " +
+						"od.INGENIO_idIngenio FROM VIAJE v " +
+						"INNER JOIN ORIGEN_DESTINO od ON Origen_Destino_idOrigen_Destino= od.idOrigen_Destino;");
 	            resultSet = preparedStatement.executeQuery();
 	            while (resultSet.next()){
 	                Viaje viaje = new Viaje();
 	                viaje.setIdRemito(resultSet.getInt("idRemito"));
 	                viaje.setFecha(resultSet.getDate("Fecha").toString());
+	                viaje.setHoraEntrada(resultSet.getTime("HoraEntrada").toString());
 	                viaje.setBruto(resultSet.getDouble("Bruto"));
 	                viaje.setTara(resultSet.getDouble("Tara"));
-	                viaje.setFincaOrigen(resultSet.getString("Finca"));
-	                viaje.setIngenioDestino(resultSet.getString("Ingenio"));
-	                viaje.setCamionNombre(resultSet.getString("Marca")+" "+resultSet.getString("Modelo"));
-	                viaje.setFacturaVenta(resultSet.getString("idFacturaVenta"));
+	                viaje.setDistanciaRecorrida(resultSet.getString("DistanciaKM"));
+					Finca finca = fincaRepository.getFincaById(resultSet.getInt("FINCA_idFinca"));
+					viaje.setFinca(finca);
+					Ingenio ingenio = ingenioRepository.getIngenioById(resultSet.getInt("INGENIO_idIngenio"));
+					viaje.setIngenio(ingenio);
+					Camion camion = camionRepository.getCamionById(resultSet.getInt("CAMION_idCamion"));
+					Empleado conductor = empleadoRepository.getEmpleadoById(resultSet.getInt("EMPLEADO_idEmpleado"));
+					viaje.setConductor(conductor);
+					viaje.setCamion(camion);
 	                list.add(viaje);
+	                System.out.printf("Viaje agregado%n" +
+							"idRemito: %s %n" +
+							"Fecha   : %s %n" +
+							"Bruto   : %s %n" +
+							"Tara    : %s %n",
+							viaje.getIdRemito(),
+							viaje.getFecha(),
+							viaje.getBruto(),
+							viaje.getTara());
 	            }
 	            preparedStatement.close();
 	            resultSet.close();
-	            connection.close();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }

@@ -37,9 +37,9 @@ public class AdministrarViajesController {
 	@FXML
 	private TableColumn<Viaje, String> horaEntradaColumn;
 	@FXML
-	private TableColumn<Viaje, String> montoColumn;
+	private TableColumn<Viaje, String> brutoColumn;
 	@FXML
-	private TableColumn<Viaje, String> pesoNetoColumn;
+	private TableColumn<Viaje, String> taraColumn;
 
 
 	private Stage owner;
@@ -48,20 +48,20 @@ public class AdministrarViajesController {
 	
 	public void buscarViajes(){
 		this.viajeData = repository.view();
-		viajeTable.setItems(viajeData);
+			viajeTable.setItems(viajeData);
 	}
 
 
 	@FXML
 	private void initialize() {
+		ingenioColumn.setCellValueFactory(cellData -> cellData.getValue().getIngenio().nombreProperty());
 		nombreConductorColumn.setCellValueFactory(cellData -> cellData.getValue().getConductor().nombreProperty());
 		apellidoConductorColumn.setCellValueFactory(cellData -> cellData.getValue().getConductor().apellidoProperty());
-		ingenioColumn.setCellValueFactory(cellData -> cellData.getValue().ingenioDestinoProperty());
 		distanciaColumn.setCellValueFactory(cellData -> cellData.getValue().distanciaRecorridaProperty());
 		diaColumn.setCellValueFactory(cellData -> cellData.getValue().fechaProperty());
 		horaEntradaColumn.setCellValueFactory(cellData -> cellData.getValue().horaEntradaProperty());
-		montoColumn.setCellValueFactory(cellData -> cellData.getValue().montoProperty().asString());
-		pesoNetoColumn.setCellValueFactory(cellData -> cellData.getValue().pesoNetoProperty().asString());
+		brutoColumn.setCellValueFactory(cellData -> cellData.getValue().brutoProperty().asString());
+		taraColumn.setCellValueFactory(cellData -> cellData.getValue().taraProperty().asString());
 	}
 
 	public void setOwner(Stage owner){
