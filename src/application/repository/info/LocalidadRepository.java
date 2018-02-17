@@ -108,21 +108,67 @@
 	    }
 	    
 	    public Localidad search(String nombreLocalidad){
-	    	Localidad localidad = new Localidad();
-	        try {
-	            connection= JDBCConnection.getInstanceConnection();
-	            preparedStatement=connection.prepareStatement("SELECT * FROM LOCALIDAD where NombreLocalidad LIKE ?");
-	            preparedStatement.setString(1,nombreLocalidad+ '%');
+			Localidad localidad = new Localidad();
+			try {
+				connection= JDBCConnection.getInstanceConnection();
+				preparedStatement=connection.prepareStatement("SELECT * FROM LOCALIDAD where NombreLocalidad LIKE ?");
+				preparedStatement.setString(1,nombreLocalidad+ '%');
 				resultSet=preparedStatement.executeQuery();
 
 				while(resultSet.next()){
 					localidad.setIdLocalidad(resultSet.getInt(1));
 					localidad.setNombre(resultSet.getString(2));
 				}
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	        return localidad;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return localidad;
 
-	    }
+		}
+
+		public Localidad getLocalidadByIdDomicilio(int idDomicilio){
+			Localidad localidad = new Localidad();
+			try {
+				connection= JDBCConnection.getInstanceConnection();
+				preparedStatement=connection.prepareStatement("SELECT l.idLocalidad, l.NombreLocalidad\n" +
+						"FROM LOCALIDAD l\n" +
+						"INNER JOIN DOMICILIO d ON l.idLocalidad = d.LOCALIDAD_idLocalidad\n" +
+						"WHERE d.idDomicilio = ?;");
+				preparedStatement.setInt(1,idDomicilio);
+				resultSet=preparedStatement.executeQuery();
+
+				while(resultSet.next()){
+					localidad.setIdLocalidad(resultSet.getInt(1));
+					localidad.setNombre(resultSet.getString(2));
+					localidad.setProvincia();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return localidad;
+
+		}
+
+		public Localidad getLocalidadById(int idLocalidad){
+			Localidad localidad = new Localidad();
+			try {
+				connection= JDBCConnection.getInstanceConnection();
+				preparedStatement=connection.prepareStatement("SELECT l.idLocalidad, l.NombreLocalidad\n" +
+						"FROM LOCALIDAD l\n" +
+						"WHERE l.idLocalidad = ?;");
+				preparedStatement.setInt(1,idLocalidad);
+				resultSet=preparedStatement.executeQuery();
+
+				while(resultSet.next()){
+					localidad.setIdLocalidad(resultSet.getInt(1));
+					localidad.setNombre(resultSet.getString(2));
+					localidad.setProvincia();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return localidad;
+
+
+		}
 	}

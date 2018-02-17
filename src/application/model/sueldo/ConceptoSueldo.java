@@ -16,8 +16,8 @@ public class ConceptoSueldo {
         return select;
     }
 
-    public void setSelect(CheckBox select) {
-        this.select = select;
+    public void setSelect(boolean select) {
+        this.select.setSelected(select);
     }
 
     public double getFactor() {

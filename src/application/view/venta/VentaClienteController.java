@@ -104,6 +104,7 @@ public class VentaClienteController implements Initializable{
     public void setOwner(Stage owner){
         this.owner = owner;
     }
+
     private boolean showEdit(Cliente temp, boolean b) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
@@ -123,7 +124,7 @@ public class VentaClienteController implements Initializable{
             CamionEditController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setIsNew(b);
-            controller.setCamion(temp);
+            controller.setCamionNombre(temp);
 */
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
