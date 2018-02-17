@@ -19,7 +19,7 @@ public class DetalleCompraRepository {
     public void save(DetalleCompra detalleCompra){
         try {
             connection = JDBCConnection.getInstanceConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO COMPRA_ARTICULO" +
+            preparedStatement = connection.prepareStatement("INSERT INTO DETALLE_COMPRA " +
                     "values(?,?,?,?,?)");
             preparedStatement.setString(1,null);
             preparedStatement.setInt(2,detalleCompra.getCantidad());
@@ -35,15 +35,13 @@ public class DetalleCompraRepository {
         try {
             connection= JDBCConnection.getInstanceConnection();
             preparedStatement = connection.prepareStatement("" +
-                    "UPDATE COMPRA_ARTICULO" +
+                    "UPDATE DETALLE_COMPRA" +
                     "   SET cantidad=?, precioUnitario=?, articulo_idArticulo=?," +
-                    " facturaCompraArticulo_idFacturaCompraArticulo=?" +
                     "   WHERE idCompraArticulo=?");
             preparedStatement.setInt(1,detalleCompra.getCantidad());
             preparedStatement.setDouble(2,detalleCompra.getPrecioUnitario());
             preparedStatement.setInt(3,detalleCompra.getArticulo().getIdArticulo());
-            preparedStatement.setInt(4,detalleCompra.getFacturaCompra().getIdFacturaCompra());
-            preparedStatement.setInt(5, detalleCompra.getIdDetalleCompra());
+            preparedStatement.setInt(4, detalleCompra.getIdDetalleCompra());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -53,7 +51,7 @@ public class DetalleCompraRepository {
     public void delete(DetalleCompra detalleCompra){
         try {
             connection = JDBCConnection.getInstanceConnection();
-            preparedStatement= connection.prepareStatement("DELETE FROM COMPRA_ARTICULO WHERE idCompraArticulo=?");
+            preparedStatement= connection.prepareStatement("DELETE FROM COMPRA_ARTICULO  WHERE idCompraArticulo=?");
             preparedStatement.setInt(1,detalleCompra.getIdDetalleCompra());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

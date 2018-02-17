@@ -21,11 +21,11 @@ public class FacturaCompraRepository {
         try {
             connection= JDBCConnection.getInstanceConnection();
             preparedStatement = connection.prepareStatement("" +
-                    "INSERT INTO FACTURA_COMPRA_ARTICULO VALUES(?,?,?,?)");//TODO: ver nombre tabla en BD
+                    "INSERT INTO COMPRA_ARTICULO VALUES(?,?,?,?)");
             preparedStatement.setString(1,null);
-            preparedStatement.setString(2,facturaCompra.getFecha());//TODO: revisar esto
-//            preparedStatement.setInt(3,facturaCompra.getProveedorId());
-            preparedStatement.setDouble(4, facturaCompra.getTotal());
+            preparedStatement.setString(2,facturaCompra.getFecha());
+            preparedStatement.setDouble(3, facturaCompra.getTotal());
+            preparedStatement.setInt(4, facturaCompra.getProveedor().getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -36,11 +36,11 @@ public class FacturaCompraRepository {
         try {
             connection = JDBCConnection.getInstanceConnection();
             preparedStatement = connection.prepareStatement("UPDATE COMPRA_ARTICULO" +
-                    "SET fecha=?, empresa_idEmpresa=?, total=?" +
+                    "SET fecha=?, Total=?, PROVEEDOR_idPROVEEDOR=?" +
                     "WHERE idFacturaCompraArticulo=?");
             preparedStatement.setString(1, facturaCompra.getFecha());
-//            preparedStatement.setInt(2, facturaCompra.getProveedorId());
-            preparedStatement.setDouble(3,facturaCompra.getTotal());
+            preparedStatement.setDouble(2,facturaCompra.getTotal());
+            preparedStatement.setInt(3, facturaCompra.getProveedor().getId());
             preparedStatement.setInt(4, facturaCompra.getIdFacturaCompra());
             Alerta.alertaInfo("Factura Compra", "Factura Actualizada correctamente");
         } catch (SQLException e) {
@@ -48,11 +48,12 @@ public class FacturaCompraRepository {
         }
 
     }
-    public void delete(FacturaCompra facturaCompra){
+    public void delete(int idFactura){
         try {
             connection = JDBCConnection.getInstanceConnection();
-            preparedStatement=connection.prepareStatement("DELETE FROM COMPRA_ARTICULO where idFacturaCompraArticulo=?");
-            preparedStatement.setInt(1,facturaCompra.getIdFacturaCompra());
+            preparedStatement=connection.prepareStatement("DELETE a1, a2 FROM COMPRA_ARTICULO AS a1 INNER JOIN DETALLE_COMPRA AS a2 " +
+                    "WHERE a1.idFacturaCompraArticulo=a2.FacturaCompraArticulo_idFacturaCompraArticulo AND a1.idFacturaCompraArticulo LIKE ?");
+            preparedStatement.setInt(1,idFactura);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
