@@ -1,17 +1,20 @@
 package application.model.sueldo;
 
-public class ConceptoCalculado {
+import java.math.BigDecimal;
+
+public class ConceptoCalculado extends ConceptoSueldo{
+
     private double montoCalculado;
-    private ConceptoSueldo conceptoSueldo;
 
-    private double factor;
-
-    public double getFactor() {
-        return factor;
-    }
-
-    public void setFactor(double factor) {
-        this.factor = factor;
+    public ConceptoCalculado (ConceptoSueldo conceptoSueldo){
+        super.setIdConceptoSueldo(conceptoSueldo.getIdConceptoSueldo());
+        super.setDescripcion(conceptoSueldo.getDescripcion());
+        super.setCantidad(conceptoSueldo.getCantidad());
+        super.setTipoConcepto(conceptoSueldo.getTipoConcepto());
+        super.setTipoCantidad(conceptoSueldo.getTipoCantidad());
+        super.setFactor(conceptoSueldo.getFactor());
+        super.setSelect(conceptoSueldo.getSelect().isSelected());
+        calcularMontoCalculado();
     }
 
     public double getMontoCalculado() {
@@ -22,11 +25,25 @@ public class ConceptoCalculado {
         this.montoCalculado = montoCalculado;
     }
 
-    public ConceptoSueldo getConceptoSueldo() {
-        return conceptoSueldo;
-    }
+    private void calcularMontoCalculado(){
+        BigDecimal cantidad = BigDecimal.valueOf(super.getCantidad());
+        BigDecimal factor = BigDecimal.valueOf(super.getFactor());
 
-    public void setConceptoSueldo(ConceptoSueldo conceptoSueldo) {
-        this.conceptoSueldo = conceptoSueldo;
+        switch (super.getTipoCantidad()){
+            case "FIJO":
+                this.montoCalculado = cantidad.doubleValue();
+                break;
+            case "UNIDAD":
+                //No hagan esto en casa
+                cantidad = cantidad.multiply(factor);
+                this.montoCalculado = cantidad.doubleValue();
+                break;
+            case "PORCENTAJE":
+                //Esto tampoco
+                cantidad = cantidad.multiply(factor);
+                cantidad = cantidad.divide(BigDecimal.valueOf(100.0));
+                this.montoCalculado = cantidad.doubleValue();
+                break;
+        }
     }
 }

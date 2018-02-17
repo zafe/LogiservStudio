@@ -1,9 +1,11 @@
 package application.model.info;
 
+import application.repository.info.LocalidadRepository;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import application.repository.info.LocalidadRepository;
 
 public class Domicilio {
 	
@@ -11,6 +13,7 @@ public class Domicilio {
 	private Localidad localidad;
 	private StringProperty calle;
 	private StringProperty numero;
+
 	
 	public Domicilio(Integer id, Localidad localidad, String calle, String numero){
 		this.idDomicilio = new SimpleIntegerProperty(id);
@@ -22,6 +25,7 @@ public class Domicilio {
 
 	public Domicilio(){
 		this(0, null,null, null);
+		this.localidad = new Localidad();
 	}
 
 	public int getIdDomicilio() {
@@ -42,6 +46,12 @@ public class Domicilio {
 
 	public void setLocalidad(Localidad localidad) {
 		this.localidad = localidad;
+	}
+
+	public void setLocalidad() {
+		LocalidadRepository localidadRepository = new LocalidadRepository();
+
+		this.localidad = localidadRepository.getLocalidadByIdDomicilio(idDomicilio.intValue());
 	}
 
 	public String getCalle() {

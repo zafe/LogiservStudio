@@ -18,11 +18,9 @@ import java.util.Optional;
 
 import application.Main;
 import application.comunes.Alerta;
-import application.model.calculo.Acoplado;
 import application.model.info.CategoriaEmpleado;
 import application.repository.info.CategoriaEmpleadoRepository;
 import application.view.info.cruds.CategoriaEmpleadoEditController;
-import application.view.venta.cruds.AcopladoEditController;
 
 public class InfoCategoriaEmpleadoController {
 
