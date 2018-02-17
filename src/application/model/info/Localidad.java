@@ -1,5 +1,6 @@
 package application.model.info;
 
+import application.repository.info.ProvinciaRepository;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -20,6 +21,7 @@ public class Localidad {
 	
 	public Localidad(){
 		this(0, null, null);
+		this.provincia = new Provincia();
 	}
 
 	public int getIdLocalidad() {
@@ -52,6 +54,12 @@ public class Localidad {
 
 	public void setProvincia(Provincia provincia) {
 		this.provincia = provincia;
+	}
+
+	public void setProvincia() {
+		ProvinciaRepository provinciaRepository  = new ProvinciaRepository();
+
+		this.provincia = provinciaRepository.getProviniciaByIdLocalidad(idLocalidad.intValue());
 	}
 	@Override
 	public String toString() {

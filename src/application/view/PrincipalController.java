@@ -12,7 +12,9 @@ import application.view.info.InfoCategoriaEmpleadoController;
 import application.view.calculo.CargarCamionController;
 import application.view.sueldo.ConceptosSalarialesController;
 import application.view.sueldo.cruds.LiquidacionSueldoController;
-import application.view.venta.CargarAcopladoController;
+import application.view.venta.AdministrarViajesController;
+import application.view.calculo.CargarAcopladoController;
+import application.view.venta.VentaClienteController;
 import javafx.fxml.FXML;
 import application.Main;
 import javafx.fxml.FXMLLoader;
@@ -33,7 +35,53 @@ public class PrincipalController {
 		this.primaryStage = primary;
 	}
 
-	//---------------MODULO INFORMACION------------------------//
+    //---------------MODULO VENTAS------------------------//
+
+    @FXML
+    private void showViajesOverview(){
+        try{
+            // Load category overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/venta/AdministrarViajes.fxml"));
+            AnchorPane viajesOverview = loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(viajesOverview);
+
+            // Give the controller access to the main app.
+            AdministrarViajesController controller = loader.getController();
+            controller.setOwner(primaryStage);
+          //  controller.;
+
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void showClientesOverview(){
+        try{
+            // Load category overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/venta/VentaCliente.fxml"));
+            AnchorPane clientesOverview = loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(clientesOverview);
+
+            // Give the controller access to the main app.
+            VentaClienteController controller = loader.getController();
+            controller.setOwner(primaryStage);
+            controller.buscarClientes();
+
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    //---------------MODULO INFORMACION------------------------//
 
 	@FXML
     private void showCategoriaEmpleadosOverview(){
@@ -307,25 +355,7 @@ public class PrincipalController {
               e.printStackTrace();
           }
       }
-    
-    @FXML
-  	private void showGPSOverview() {
-      	try {
-              // Load person overview.
-              FXMLLoader loaderusuario = new FXMLLoader();
-              loaderusuario.setLocation(Main.class.getResource("view/GPSWebView.fxml"));
-              AnchorPane usuarioOverview = (AnchorPane) loaderusuario.load();
 
-              // Set person overview into the center of root layout.
-              rootLayout.setCenter(usuarioOverview);
-
-              // Give the controller access to the main app.
-              GPSWebViewController usercontroller = loaderusuario.getController();
-              usercontroller.setOwner(primaryStage);
-          } catch (IOException e) {
-              e.printStackTrace();
-          }
-      }
     //---------------MODULO Sueldos-------------------//
     @FXML
     private void showSueldosOverview() {

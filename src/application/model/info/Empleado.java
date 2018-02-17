@@ -18,11 +18,13 @@ public class Empleado {
 	private StringProperty nacimiento;
 	private StringProperty categoria;
 	private Domicilio domicilio;//TODO borrar esto
+	private CategoriaEmpleado categoriaEmpleado;
     private  DomicilioRepository domicilioRepository = new DomicilioRepository();
 
 
 	public Empleado(){
 		this(0, null, null, 0, null, null, null, null);
+		this.domicilio = new Domicilio();
 	}
 
 	/**
@@ -41,6 +43,7 @@ public class Empleado {
 		this.nacimiento = new SimpleStringProperty(nacimiento);
 		this.categoria = new SimpleStringProperty(categoria);
 		this.domicilio = new Domicilio();
+		this.categoriaEmpleado = new CategoriaEmpleado();
 	}
 
 	public String getNombre(){
@@ -146,6 +149,26 @@ public class Empleado {
 
 	public void setDomicilio(int idDomicilio){
 	    this.domicilio = domicilioRepository.getDomicilioById(idDomicilio);
+	    this.domicilio.setLocalidad();
     }
+
+	public void setDomicilio(){
+
+		this.domicilio = domicilioRepository.getDomicilioByEmpleadoId(idEmpleado.intValue());
+	}
+
+	public void setDomicilio(Domicilio domicilio){
+
+		this.domicilio = domicilio;
+	}
+
+	public CategoriaEmpleado getCategoriaEmpleado() {
+		return categoriaEmpleado;
+	}
+
+	public void setCategoriaEmpleado(CategoriaEmpleado categoriaEmpleado) {
+		this.categoriaEmpleado = categoriaEmpleado;
+	}
+
 
 }

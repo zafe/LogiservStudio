@@ -64,5 +64,44 @@ public class UsuarioRepository {
 		}
 		
 	}
-	
+
+	public static void edit(Usuario usuario, int idEmpleado){
+		PreparedStatement preparedstatement;
+
+		try {
+			preparedstatement = JDBCConnection.getInstanceConnection().prepareStatement(
+					"UPDATE USUARIO SET NombreUsuario=?, Password=?, Empleado_idEmpleado=? WHERE idUsuario=?)");
+			preparedstatement.setString(1, usuario.getNombre_usuario());
+			preparedstatement.setString(2, usuario.getPassword());
+			preparedstatement.setInt(3, idEmpleado);
+			preparedstatement.setInt(4, usuario.getIdUsuario());
+			preparedstatement.executeUpdate();
+			preparedstatement.close();
+
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+
+	public static void delete(Usuario usuario){
+		PreparedStatement preparedstatement;
+
+		try {
+			preparedstatement = JDBCConnection.getInstanceConnection().prepareStatement(
+					"DELETE FROM USUARIO WHERE idUsuario=?");
+			preparedstatement.setInt(1, usuario.getIdUsuario());
+			preparedstatement.executeUpdate();
+			preparedstatement.close();
+
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 }
