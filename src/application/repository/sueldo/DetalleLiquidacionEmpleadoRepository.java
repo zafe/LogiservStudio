@@ -18,7 +18,7 @@ public class DetalleLiquidacionEmpleadoRepository {
     public void save(DetalleLiquidacionEmpleado detalleLiquidacionEmpleado){
         try {
             connection = JDBCConnection.getInstanceConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO detalle_liquidacion_empleado" +
+            preparedStatement = connection.prepareStatement("INSERT INTO detalle_liquidacion_EMPLEADO" +
                     "values(?,?,?,?,?)");
             preparedStatement.setString(1,null);
             preparedStatement.setDouble(2,detalleLiquidacionEmpleado.getCantidad());

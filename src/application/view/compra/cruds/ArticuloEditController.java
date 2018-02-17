@@ -9,6 +9,7 @@ import application.repository.compra.CategoriaArticuloRepository;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -19,8 +20,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class ArticuloEditController {
+public class ArticuloEditController implements Initializable{
     @FXML
     private TextField marcaTextField;
     @FXML
@@ -63,17 +66,15 @@ public class ArticuloEditController {
             descripcionTextArea.setText(articulo.getDescripcion());
             categoriaComboBox.getSelectionModel().select(articulo.getCategoria());
             stockTextField.setText(String.valueOf(articulo.getStock()));
-        }
+        }else
+            stockTextField.setText("0");
 
     }
 
     public boolean isOkClicked() {
         return okClicked;
     }
-    @FXML
-    private	void initialize(){
-        refreshComboBox();
-    }
+
 
     private void refreshComboBox(){
         ObservableList<CategoriaArticulo> categoriaArticulos = categoriaArticuloRepository.view();
@@ -83,9 +84,11 @@ public class ArticuloEditController {
 
     @FXML
     public void handleOk() {
-        articulo = new Articulo(0,marcaTextField.getText(), modeloTextField.getText(),
-                descripcionTextArea.getText(),categoriaComboBox.getValue(), Integer.parseInt(stockTextField.getText()));
         if (isInputValid()) {
+            articulo.setMarca(marcaTextField.getText());
+            articulo.setModelo(modeloTextField.getText());
+            articulo.setDescripcion(descripcionTextArea.getText());
+            articulo.setCategoria(categoriaComboBox.getValue());
             if (isNew) {
                 repository.save(articulo);
             } else {
@@ -159,5 +162,10 @@ public class ArticuloEditController {
         }
 
         return false;
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        refreshComboBox();
     }
 }

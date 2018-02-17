@@ -1,6 +1,7 @@
 package application.view.compra;
 
 import application.Main;
+import application.comunes.Alerta;
 import application.model.compra.DetalleCompra;
 import application.model.compra.FacturaCompra;
 import application.repository.compra.DetalleCompraRepository;
@@ -12,12 +13,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class CompraComprasController {
 
@@ -77,9 +80,11 @@ public class CompraComprasController {
 
 	@FXML
 	public void showLinea(){
-		FacturaCompra facturaCompra = comprasTable.getSelectionModel().getSelectedItem();
-		lineas=lineasRepository.view(facturaCompra.getIdFacturaCompra());
-		lineaCompraTableView.setItems(lineas);
+	    if (!comprasTable.getSelectionModel().isEmpty()){
+            FacturaCompra facturaCompra = comprasTable.getSelectionModel().getSelectedItem();
+            lineas=lineasRepository.view(facturaCompra.getIdFacturaCompra());
+            lineaCompraTableView.setItems(lineas);
+        }
 	}
 
 	@FXML
@@ -87,7 +92,8 @@ public class CompraComprasController {
 		FacturaCompra temp = new FacturaCompra();
 		boolean okClicked = this.showEdit(temp,true);
 		if(okClicked)
-			compras.add(temp);
+			obtenerCompras();
+
 	}
 
 
@@ -121,6 +127,30 @@ public class CompraComprasController {
 		}
 		return false;
 	}
+	@FXML
+	public void handleEdit(){
+		FacturaCompra selectedItem = comprasTable.getSelectionModel().getSelectedItem();
+		if(selectedItem!=null)
+			this.showEdit(selectedItem,false);
+		else
+			Alerta.alertaError("Seleccionar Factura",
+					"Por favor seleccione una Distancia en la lista.");
 
+	}
+	@FXML
+	public void handleEliminar(){
+		FacturaCompra selectedItem = comprasTable.getSelectionModel().getSelectedItem();
+		if(selectedItem!=null){
+			Optional<ButtonType> resultado = Alerta.alertaConfirmacion("Eliminar Factura de Compra",null,
+					"Esta seguro de querer borrar la Factura seleccionada? \nPara confirmar presione Aceptar.");
+			if(resultado.isPresent() && resultado.get() == ButtonType.OK){
+				comprasTable.getItems().remove(
+						comprasTable.getSelectionModel().getSelectedIndex());
+				facturaCompraRepository.delete(selectedItem.getIdFacturaCompra());
+			}
+		}else{
+			Alerta.alertaError("Seleccionar Ingenio","Por favor selecciona un Ingenio en la lista");
+		}
+	}
 
 }

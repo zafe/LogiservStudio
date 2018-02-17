@@ -1,5 +1,6 @@
 package application.model.sueldo;
 
+import application.model.info.Empleado;
 import javafx.beans.property.*;
 import javafx.collections.ObservableList;
 
@@ -16,6 +17,17 @@ public class LiquidacionEmpleado {
     private StringProperty nombre;
     private StringProperty inicioPeriodo;
     private StringProperty finPeriodo;
+    private Empleado empleado;
+
+    public Empleado getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
+    }
+
+
 
     public List<ConceptoCalculado> getConceptosLiquidados() {
         return conceptosLiquidados;
@@ -169,39 +181,5 @@ public class LiquidacionEmpleado {
                 0.0,0.0,null,
                 null,null);
     }
-    private double calcularSumaRemunerativos(List<HaberesRemunerativos> haberesRemunerativos){
-        double total =0;
-        for (HaberesRemunerativos remunerativo : haberesRemunerativos){
-            total+=remunerativo.getMontoCalculado();
-        }
-        return total;
-    }
-    private double calcularRetenciones(List<Retencion> retenciones){
-        double total =0;
-        for (Retencion retencion : retenciones){
-            total+= retencion.getMontoCalculado();
-        }
-        return total;
-    }
-    private double calcularSumaNoRemunerativos(List<HaberNoRemunerativo> haberNoRemunerativos){
-        double total =0;
-        for (HaberNoRemunerativo noRemunerativo : haberNoRemunerativos){
-            total+=noRemunerativo.getMontoCalculado();
-        }
-        return total;
-    }
-    private double calcularSueldoBlanco(List<HaberesRemunerativos> haberesRemunerativos,List<Retencion> retenciones){
-        double sueldoBlanco = calcularSumaRemunerativos(haberesRemunerativos) - calcularRetenciones(retenciones);
-        return sueldoBlanco;
-    }
-    public double calcularSueldoTotal(List<HaberNoRemunerativo> haberNoRemunerativos,
-                                      List<HaberesRemunerativos> haberesRemunerativos,
-                                      List<Retencion> retenciones){
-        double sueldoTotal = calcularSueldoBlanco(haberesRemunerativos, retenciones)
-                + calcularSumaNoRemunerativos(haberNoRemunerativos);
-        return sueldoTotal;
-
-    }
-
 
 }

@@ -48,22 +48,18 @@
                <content>
                   <TableView fx:id="liquidacionTable" pickOnBounds="false" prefHeight="157.0" prefWidth="677.0">
                     <columns>
-                      <TableColumn fx:id="codigoColumn" prefWidth="28.5" resizable="false" text="Nro" />
-                      <TableColumn fx:id="desdeColumn" minWidth="0.0" prefWidth="52.0" text="Desde" />
-                        <TableColumn fx:id="hastaColumn" prefWidth="67.5" text="Hasta" />
-                        <TableColumn fx:id="hrColumn" prefWidth="147.33334350585938" text="Haberes Remunerativos" />
-                        <TableColumn fx:id="hnrColumn" maxWidth="180.0" minWidth="-1.0" prefWidth="177.33331298828125" text="Haberes No Remunerativos" />
-                        <TableColumn fx:id="retencionesEmpleadoColumn" maxWidth="269.0" minWidth="-1.0" prefWidth="201.66668701171875" text="Retenciones" />
+                      <TableColumn fx:id="idLiquidacion" prefWidth="60.5" resizable="false" text="Nro" />
+                      <TableColumn fx:id="fechaColumn" minWidth="0.0" prefWidth="138.5" text="Fecha" />
+                        <TableColumn fx:id="hrColumn" prefWidth="155.0" text="Haberes Remunerativos" />
+                        <TableColumn fx:id="hnrColumn" maxWidth="330.5" minWidth="-1.0" prefWidth="190.5" text="Haberes No Remunerativos" />
+                        <TableColumn fx:id="retencionesColumn" maxWidth="283.0" minWidth="-1.0" prefWidth="132.5" text="Retenciones" />
                     </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
                   </TableView>
                </content>
             </ScrollPane>
             <ScrollPane prefHeight="109.0" prefWidth="695.0" GridPane.columnSpan="3" GridPane.rowIndex="3" GridPane.rowSpan="2">
                <content>
-                  <TableView fx:id="empleadosTable" prefHeight="164.0" prefWidth="678.0">
+                  <TableView fx:id="empleadosTable" onMouseClicked="#cargarEmpleadosLiquidados" prefHeight="164.0" prefWidth="678.0">
                      <columns>
                         <TableColumn fx:id="legajoColumn" prefWidth="312.0" text="Legajo" />
                         <TableColumn fx:id="apellidoColumn" prefWidth="105.0" text="Apellido" />
@@ -71,7 +67,7 @@
                         <TableColumn fx:id="categoriaColumn" prefWidth="64.0" text="Categoria" />
                         <TableColumn fx:id="hrEmpleadoColumn" prefWidth="75.0" text="HR" />
                         <TableColumn fx:id="hnrEmpleadoColumn" prefWidth="75.0" text="HNR" />
-                        <TableColumn fx:id="retencionesEmleadoColumn" prefWidth="75.0" text="Rentenciones" />
+                        <TableColumn fx:id="retencionesEmpleadoColumn" prefWidth="75.0" text="Rentenciones" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -3,6 +3,8 @@ package application.view.sueldo;
 import application.Main;
 import application.model.info.Empleado;
 import application.model.sueldo.LiquidacionEmpleado;
+import application.model.sueldo.Liquidaciones;
+import application.repository.sueldo.LiquidacionesRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -22,41 +24,44 @@ import java.util.ResourceBundle;
 
 public class LiquidacionesController implements Initializable{
 
+    //Declaracion de la tabla y columnas de la clase Liquidaciones
+    @FXML
+    private TableView<Liquidaciones> liquidacionTable;
+    @FXML
+    private TableColumn<Liquidaciones, String> idLiquidacion;
+    @FXML
+    private TableColumn<Liquidaciones, String> fechaColumn;
+    @FXML
+    private TableColumn<Liquidaciones, String> hrColumn;
+    @FXML
+    private  TableColumn<Liquidaciones, String> hnrColumn;
+    @FXML
+    private TableColumn<Liquidaciones, String> retencionesColumn;
 
+    //Declaracion de la tabla y columnas de la clase LiquidacionEmpleado
     @FXML
-    private TableView<LiquidacionEmpleado> liquidacionTable;
+    private  TableView<LiquidacionEmpleado> empleadosTable;
     @FXML
-    private  TableView<Empleado> empleadosTable;
+    private TableColumn<LiquidacionEmpleado, String> legajoColumn;
     @FXML
-    private Button nuevaLiquidacionButton;
+    private TableColumn<LiquidacionEmpleado, String> apellidoColumn;
     @FXML
-    private Button reportesButton;
+    private TableColumn<LiquidacionEmpleado, String> nombreColumn;
     @FXML
-    private TableColumn<LiquidacionEmpleado, String> codigoColumn;
-    @FXML
-    private TableColumn<LiquidacionEmpleado, String> desdeColumn;
-    @FXML
-    private TableColumn<LiquidacionEmpleado, String> hastaColumn;
-    //    @FXML
-//    private TableColumn<, String> hrColumn;
-//    @FXML
-//    private  TableColumn<, String> hnrColumn;
-//    @FXML
-//    private TableColumn<, String> retencionesColumn;
-    @FXML
-    private  TableColumn<Empleado, String> legajoColumn;
-    @FXML
-    private TableColumn<Empleado, String> apellidoColumn;
-    @FXML
-    private TableColumn<Empleado, String> nombreColumn;
-    @FXML
-    private TableColumn<Empleado, String> categoriaColumn;
+    private TableColumn<LiquidacionEmpleado, String> categoriaColumn;
     @FXML
     private TableColumn<LiquidacionEmpleado, String> hrEmpleadoColumn;
     @FXML
     private TableColumn<LiquidacionEmpleado, String> hnrEmpleadoColumn;
     @FXML
     private TableColumn<LiquidacionEmpleado, String> retencionesEmpleadoColumn;
+    @FXML
+    private Button nuevaLiquidacionButton;
+    @FXML
+    private Button reportesButton;
+
+
+
 
 
     private Stage owner;
@@ -65,25 +70,34 @@ public class LiquidacionesController implements Initializable{
 
     private ObservableList<Empleado> empleados = FXCollections.observableArrayList();
 
+    private LiquidacionesRepository liquidacionesRepository = new LiquidacionesRepository();
+
+    private ObservableList<LiquidacionEmpleado> empleadosLiquidados = FXCollections.observableArrayList();
+
     public void setOwner(Stage owner){
         this.owner = owner;
 
+    }
+    private ObservableList<Liquidaciones> liquidaciones = FXCollections.observableArrayList();
+
+    public void buscarLiquidaciones(){
+        this.liquidaciones = LiquidacionesRepository.buscarLiquidaciones();
+        liquidacionTable.setItems(liquidaciones);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        codigoColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty().asString());
-        desdeColumn.setCellValueFactory(cellData -> cellData.getValue().inicioPeriodoProperty());
-        hastaColumn.setCellValueFactory(cellData -> cellData.getValue().finPeriodoProperty());
-//        hrColumn.setCellValueFactory(cellData -> cellData.getValue().totalHaberesRemunerativosProperty().asString());
-//        hnrColumn.setCellValueFactory(cellData -> cellData.getValue().totalHaberesNoRemunerativosProperty().asString());
-//        retencionesColumn.setCellValueFactory(cellData -> cellData.getValue().totalRetencionesProperty().asString());
+        idLiquidacion.setCellValueFactory(cellData -> cellData.getValue().idProperty().asString());
+        fechaColumn.setCellValueFactory(cellData -> cellData.getValue().fechaLiquidacionProperty());
+        hrColumn.setCellValueFactory(cellData -> cellData.getValue().totalHaberesRemunerativosProperty().asString());
+        hnrColumn.setCellValueFactory(cellData -> cellData.getValue().totalHaberesNoRemunerativosProperty().asString());
+        retencionesColumn.setCellValueFactory(cellData -> cellData.getValue().totalRetencionesProperty().asString());
 
-        legajoColumn.setCellValueFactory(cellData -> cellData.getValue().idEmpleadoProperty().asString());
-        apellidoColumn.setCellValueFactory(cellData -> cellData.getValue().apellidoProperty());
-        nombreColumn.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
-        categoriaColumn.setCellValueFactory(cellData -> cellData.getValue().categoriaProperty());
+        legajoColumn.setCellValueFactory(cellData -> cellData.getValue().getEmpleado().idEmpleadoProperty().asString());
+        apellidoColumn.setCellValueFactory(cellData -> cellData.getValue().getEmpleado().apellidoProperty());
+        nombreColumn.setCellValueFactory(cellData -> cellData.getValue().getEmpleado().nombreProperty());
+        categoriaColumn.setCellValueFactory(cellData -> cellData.getValue().getEmpleado().categoriaProperty());
         hrEmpleadoColumn.setCellValueFactory(cellData -> cellData.getValue().totalHaberesRemunerativosProperty().asString());
         hnrEmpleadoColumn.setCellValueFactory(cellData -> cellData.getValue().totalHaberesNoRemunerativosProperty().asString());
         retencionesEmpleadoColumn.setCellValueFactory(cellData -> cellData.getValue().totalRetencionesProperty().asString());
@@ -116,4 +130,19 @@ public class LiquidacionesController implements Initializable{
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public void cargarEmpleadosLiquidados(){
+        if (liquidacionTable.getSelectionModel().getSelectedItem() != null){
+            empleadosLiquidados = liquidacionesRepository.getEmpleadosLiquidadosByidLiquidacion(liquidacionTable.getSelectionModel().getSelectedItem().getId());
+            empleadosTable.setItems(empleadosLiquidados);
+        }
+    }
+
+//    @FXML
+//    private void cargarLiquidaciones(){
+//        if (liquidacionTable.getSelectionModel().getSelectedItem() != null){
+//
+//        }
+//    }
 }

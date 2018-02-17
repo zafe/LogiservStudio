@@ -14,9 +14,7 @@
 	import java.text.ParseException;
 	import java.text.SimpleDateFormat;
 
-import com.sun.prism.ResourceFactoryListener;
-
-	public class ViajeRepository {
+    public class ViajeRepository {
 	    Connection connection;
 	    PreparedStatement preparedStatement;
 	    ResultSet resultSet;
@@ -133,7 +131,7 @@ import com.sun.prism.ResourceFactoryListener;
 	                viaje.setTara(resultSet.getDouble("Tara"));
 	                viaje.setFincaOrigen(resultSet.getString("Finca"));
 	                viaje.setIngenioDestino(resultSet.getString("Ingenio"));
-	                viaje.setCamion(resultSet.getString("Marca")+" "+resultSet.getString("Modelo"));
+	                viaje.setCamionNombre(resultSet.getString("Marca")+" "+resultSet.getString("Modelo"));
 	                viaje.setFacturaVenta(resultSet.getString("idFacturaVenta"));
 	                list.add(viaje);
 	            }
@@ -162,7 +160,7 @@ import com.sun.prism.ResourceFactoryListener;
 	            resultSet = preparedStatement.executeQuery();
 	            viaje.setIdRemito(resultSet.getInt("idRemito"));
 	            viaje.setBruto(resultSet.getDouble("Bruto"));
-	            viaje.setCamion(resultSet.getString("Marca") +  " " + resultSet.getString("Modelo") );
+	            viaje.setCamionNombre(resultSet.getString("Marca") +  " " + resultSet.getString("Modelo") );
 	            viaje.setFecha(resultSet.getString("Fecha"));
 	            viaje.setDistanciaRecorrida(resultSet.getString("DistanciaKM"));
 	            
