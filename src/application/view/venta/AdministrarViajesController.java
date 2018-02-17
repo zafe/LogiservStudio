@@ -14,6 +14,7 @@ import javafx.scene.Group;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -116,7 +117,7 @@ public class AdministrarViajesController {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("view/venta/cruds/ViajeEdit.fxml"));
-			Group page = loader.load();
+			AnchorPane page = loader.load();
 
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();

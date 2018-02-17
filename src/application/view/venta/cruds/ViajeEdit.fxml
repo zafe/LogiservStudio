@@ -6,7 +6,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane prefHeight="440.0" prefWidth="674.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.venta.cruds.ViajeEditController">
    <children>
       <Pane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -18,9 +17,9 @@
                         <Label text="Día:" textAlignment="CENTER" />
                         <DatePicker fx:id="diaPicker" />
                         <Label text="Hora" />
-                        <ComboBox fx:id="horaCombo" prefHeight="26.0" prefWidth="50.0" />
+                        <ComboBox fx:id="horaCombo" prefHeight="27.0" prefWidth="95.0" />
                         <Label text=" : " />
-                        <ComboBox fx:id="minutosCombo" prefHeight="26.0" prefWidth="50.0" />
+                        <ComboBox fx:id="minutosCombo" prefHeight="27.0" prefWidth="94.0" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="600.0">
@@ -83,7 +82,7 @@
                   <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="674.0">
                      <children>
                         <Label text="Conductor:" />
-                        <ComboBox fx:id="conductorCombo" prefWidth="150.0" />
+                        <ComboBox fx:id="conductorCombo" prefHeight="27.0" prefWidth="261.0" />
                         <Label text="Precio del Viaje: " />
                         <Label fx:id="montoLabel" disable="true" text="\$PRECIO_VIAJE" />
                      </children>
