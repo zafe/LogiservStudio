@@ -112,4 +112,9 @@ public class Empleado {
 	public void setCategoriaEmpleado(CategoriaEmpleado categoriaEmpleado) {
 		this.categoriaEmpleado = categoriaEmpleado;
 	}
+
+	@Override
+	public String toString() {
+		return getIdEmpleado() + "- " + getApellido() + ", "+ getNombre();
+	}
 }
