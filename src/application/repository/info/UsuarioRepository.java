@@ -1,5 +1,6 @@
 package application.repository.info;
 
+import application.model.info.Empleado;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -28,15 +29,10 @@ public class UsuarioRepository {
 			usuario.setIdUsuario(resultSet.getInt("idUsuario"));
 			usuario.setNombre_usuario(resultSet.getString("NombreUsuario"));
 			usuario.setPassword(resultSet.getString("Password"));
-			usuario.setEmpleado(resultSet.getInt("Empleado_idEmpleado"));
-			System.out.println("USUARIO ID!!!!! ->" + usuario.getIdUsuario());
+			usuario.setEmpleado(new Empleado());
+			usuario.getEmpleado().setIdEmpleado(resultSet.getInt("Empleado_idEmpleado"));
 			usuarios.add(usuario);
 			}
-			
-			System.out.println(usuarios.get(0).getNombre_usuario());
-			
-			
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

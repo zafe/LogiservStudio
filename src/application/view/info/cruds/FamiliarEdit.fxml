@@ -3,8 +3,8 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -12,23 +12,35 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<Group xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.compra.cruds.ArticuloEditController">
+<Group xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.info.cruds.FamiliarEditController">
   <children>
     <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="387.0" prefWidth="473.0">
       <children>
         <GridPane layoutY="14.0" prefHeight="300.0" prefWidth="442.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="16.0">
           <children>
-            <Label text="Marca:" />
-            <Label text="Modelo:" GridPane.rowIndex="2" />
-            <Label text="Descripcion:" GridPane.rowIndex="4" />
-            <TextField fx:id="marcaTextField" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-            <TextField fx:id="modeloTextField" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-            <TextArea fx:id="descripcionTextArea" prefHeight="90.0" prefWidth="395.0" GridPane.columnSpan="2" GridPane.rowIndex="5" GridPane.rowSpan="3" />
-            <Label text="Categoria" GridPane.rowIndex="8" />
-            <ComboBox fx:id="categoriaComboBox" prefHeight="25.0" prefWidth="440.0" GridPane.columnSpan="2" GridPane.rowIndex="9" />
-            <Button mnemonicParsing="false" onAction="#handleNuevaCategoria" prefHeight="25.0" prefWidth="67.0" text="+" GridPane.columnIndex="2" GridPane.rowIndex="9" />
-            <Label text="Stock:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
-            <TextField fx:id="stockTextField" disable="true" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="11" />
+            <Label text="Nombre:" GridPane.rowIndex="4" />
+            <Label text="Apellido:" GridPane.rowIndex="6" />
+            <Label text="Fecha Nacimiento:" GridPane.rowIndex="8" />
+            <TextField fx:id="nombreTextField" GridPane.columnSpan="2" GridPane.rowIndex="5" />
+            <TextField fx:id="apellidoTextField" GridPane.columnSpan="2" GridPane.rowIndex="7" />
+            <Label text="Parentesco:" GridPane.rowIndex="10" />
+            <ComboBox fx:id="parentescoComboBox" prefHeight="25.0" prefWidth="226.0" GridPane.columnSpan="2" GridPane.rowIndex="11" />
+                  <DatePicker fx:id="nacimientoPicker" editable="false" prefHeight="25.0" prefWidth="219.0" GridPane.rowIndex="9" />
+                  <Label text="Persona a cargo:" GridPane.rowIndex="3" />
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Legajo Empleado:" />
+                        <Label fx:id="legajoEmpleadoLabel" prefHeight="17.0" prefWidth="96.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+                     <children>
+                        <Label text="Nombre Empleado:" />
+                        <Label fx:id="apellidoEmpleadoLabel" prefHeight="17.0" />
+                        <Label text="," />
+                        <Label fx:id="nombreEmpleadoLabel" prefHeight="17.0" />
+                     </children>
+                  </HBox>
           </children>
           <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="226.0" minWidth="10.0" prefWidth="205.0" />
