@@ -134,7 +134,7 @@ public class CompraComprasController {
 			this.showEdit(selectedItem,false);
 		else
 			Alerta.alertaError("Seleccionar Factura",
-					"Por favor seleccione una Distancia en la lista.");
+					"Por favor seleccione una Factura en la lista.");
 
 	}
 	@FXML

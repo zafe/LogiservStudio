@@ -28,7 +28,6 @@
                                     <TableColumn fx:id="provinciaColumn" prefWidth="75.0" text="Provincia" />
                                  </columns></TableColumn>
                               <TableColumn fx:id="nacimientoColumn" prefWidth="90.0" text="Nacimiento" />
-                              <TableColumn fx:id="hijosColumn" prefWidth="75.0" text="Hijos" />
                               <TableColumn fx:id="cuitColumn" prefWidth="75.0" text="CUIT" />
                               <TableColumn fx:id="categoriaColumn" prefWidth="75.0" text="Categoria" />
                           </columns>
@@ -38,7 +37,7 @@
                         </TableView>
                         <HBox alignment="CENTER" prefHeight="152.0" prefWidth="600.0" spacing="10.0">
                            <children>
-                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleNewEmpleado" text="Nuevo Empleado" />
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleNew" text="Nuevo Empleado" />
                               <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleEditPerson" text="Editar Empleado" />
                               <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleDeleteEmpleado" text="Dar de Baja Empleado" />
                            </children>
