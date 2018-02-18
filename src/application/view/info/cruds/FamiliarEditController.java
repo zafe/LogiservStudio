@@ -4,37 +4,43 @@ import application.Main;
 import application.comunes.Alerta;
 import application.model.compra.Articulo;
 import application.model.compra.CategoriaArticulo;
+import application.model.compra.FacturaCompra;
+import application.model.info.Familiar;
 import application.repository.compra.ArticuloRepository;
 import application.repository.compra.CategoriaArticuloRepository;
+import application.repository.info.FamiliarRepository;
 import application.view.compra.cruds.CategoriaArticuloEditController;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class FamiliarEditController implements Initializable{
     @FXML
-    private TextField marcaTextField;
+    private TextField nombreTextField;
     @FXML
-    private TextField modeloTextField;
+    private TextField apellidoTextField;
     @FXML
-    private TextField stockTextField;
+    private DatePicker nacimientoPicker;
     @FXML
-    private TextArea descripcionTextArea;
+    private ComboBox<String> parentescoComboBox;
     @FXML
-    private ComboBox<CategoriaArticulo> categoriaComboBox;
+    private Label nombreEmpleadoLabel;
+    @FXML
+    private Label apellidoEmpleadoLabel;
+    @FXML
+    private Label legajoEmpleadoLabel;
     @FXML
     private Button btnOk;
     @FXML
@@ -43,10 +49,9 @@ public class FamiliarEditController implements Initializable{
 
     private Stage dialogStage;
     private boolean isNew;
-    private Articulo articulo;
+    private Familiar familiar;
     private boolean okClicked = false;
-    private ArticuloRepository repository = new ArticuloRepository();
-    private CategoriaArticuloRepository categoriaArticuloRepository = new CategoriaArticuloRepository();
+    private FamiliarRepository repository = new FamiliarRepository();
 
 
 
@@ -59,17 +64,17 @@ public class FamiliarEditController implements Initializable{
     }
 
 
-    public void setDatos(Articulo datos) {
-        articulo = datos;
+    public void setDatos(Familiar datos) {
+        familiar = datos;
+        legajoEmpleadoLabel.setText(String.valueOf(familiar.getEmpleado().getIdEmpleado()));
+        apellidoEmpleadoLabel.setText(familiar.getEmpleado().getApellido());
+        nombreEmpleadoLabel.setText(familiar.getEmpleado().getNombre());
         if (!isNew){
-            marcaTextField.setText(articulo.getMarca());
-            modeloTextField.setText(articulo.getModelo());
-            descripcionTextArea.setText(articulo.getDescripcion());
-            categoriaComboBox.getSelectionModel().select(articulo.getCategoria());
-            stockTextField.setText(String.valueOf(articulo.getStock()));
-        }else
-            stockTextField.setText("0");
-
+            nombreTextField.setText(familiar.getNombre());
+            apellidoTextField.setText(familiar.getApellido());
+            nacimientoPicker.setValue(LocalDate.parse(familiar.getFechaNacimiento()));
+            parentescoComboBox.getSelectionModel().select(familiar.getParentesco());
+        }
     }
 
     public boolean isOkClicked() {
@@ -77,23 +82,23 @@ public class FamiliarEditController implements Initializable{
     }
 
 
-    private void refreshComboBox(){
-        ObservableList<CategoriaArticulo> categoriaArticulos = categoriaArticuloRepository.view();
-        categoriaComboBox.setItems(categoriaArticulos);
+    private void cargarComboBox(){
+        ObservableList<String> parentescos = FXCollections.observableArrayList("Esposo/a", "Hijo/a", "Otro");
+        parentescoComboBox.setItems(parentescos);
 }
 
 
     @FXML
     public void handleOk() {
         if (isInputValid()) {
-            articulo.setMarca(marcaTextField.getText());
-            articulo.setModelo(modeloTextField.getText());
-            articulo.setDescripcion(descripcionTextArea.getText());
-            articulo.setCategoria(categoriaComboBox.getValue());
+            familiar.setNombre(nombreTextField.getText());
+            familiar.setApellido(apellidoTextField.getText());
+            familiar.setFechaNacimiento(nacimientoPicker.getValue().toString());
+            familiar.setParentesco(parentescoComboBox.getSelectionModel().getSelectedItem());
             if (isNew) {
-                repository.save(articulo);
+                repository.save(familiar);
             } else {
-                repository.update(articulo);
+                repository.update(familiar);
             }
             okClicked = true;
             dialogStage.close();
@@ -107,18 +112,17 @@ public class FamiliarEditController implements Initializable{
     }
     public boolean isInputValid() {
         String errorMessage = "";
-        if (marcaTextField.getText() == null || marcaTextField.getText().length() == 0) {
-            errorMessage += "No valid brand name!\n";
+        if (nombreTextField.getText() == null || nombreTextField.getText().length() == 0) {
+            errorMessage += "Nombre no ingresado.\n";
         }
-        if (modeloTextField.getText() == null || modeloTextField.getText().length() == 0) {
-            errorMessage += "No valid model name!\n";
+        if (apellidoTextField.getText() == null || apellidoTextField.getText().length() == 0) {
+            errorMessage += "Apellido no ingresado.\n";
         }
-        if (descripcionTextArea.getText() == null || descripcionTextArea.getText().length() == 0) {
-            errorMessage += "No valid description!\n";
+        if (nacimientoPicker.getValue().toString() == null || nacimientoPicker.getValue().toString().length() == 0) {
+            errorMessage += "Fecha no ingresada.\n";
         }
-       /* if (categoriaComboBox.is == null || modeloTextField.getText().length() == 0) {
-            errorMessage += "No valid model name!\n";
-        }*/
+        if (parentescoComboBox.getSelectionModel().isEmpty())
+            errorMessage += "Parentesco no ingresado.\n";
         if (errorMessage.length() == 0) {
             return true;
         } else {
@@ -126,47 +130,9 @@ public class FamiliarEditController implements Initializable{
             return false;
         }
     }
-    @FXML
-    public void handleNuevaCategoria(){
-        CategoriaArticulo tempCategoria = new CategoriaArticulo();
-        this.showCategoriaEdit(tempCategoria,true);
-        refreshComboBox();
-    }
-
-    private boolean showCategoriaEdit(CategoriaArticulo tempCategoria, boolean b) {
-        try {
-            // Load the fxml file and create a new stage for the popup dialog.
-
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/compra/cruds/CategoriaArticuloEdit.fxml"));
-            Group page = loader.load();
-
-            // Create the dialog Stage.
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Nueva Categoria");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(this.dialogStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-
-
-            CategoriaArticuloEditController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setIsNew(b);
-            controller.setCategoriaArticulo(tempCategoria);
-
-            // Show the dialog and wait until the user closes it
-            dialogStage.showAndWait();
-            return controller.isOkClicked();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return false;
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        refreshComboBox();
+        cargarComboBox();
     }
 }

@@ -91,6 +91,6 @@ public class Familiar {
     }
 
     public Familiar() {
-        this(null,null,null,null,null,null);
+        this(0,null,null,null,null,null);
     }
 }

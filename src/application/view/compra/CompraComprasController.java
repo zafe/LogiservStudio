@@ -106,7 +106,10 @@ public class CompraComprasController {
 
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Nueva Compra");
+			if (b)
+				dialogStage.setTitle("Nueva Compra");
+			else
+				dialogStage.setTitle("Editar Compra");
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(owner);
 			Scene scene = new Scene(page);
@@ -142,14 +145,14 @@ public class CompraComprasController {
 		FacturaCompra selectedItem = comprasTable.getSelectionModel().getSelectedItem();
 		if(selectedItem!=null){
 			Optional<ButtonType> resultado = Alerta.alertaConfirmacion("Eliminar Factura de Compra",null,
-					"Esta seguro de querer borrar la Factura seleccionada? \nPara confirmar presione Aceptar.");
+					"¿Esta seguro de querer borrar la Factura seleccionada? \nPara confirmar presione Aceptar.");
 			if(resultado.isPresent() && resultado.get() == ButtonType.OK){
 				comprasTable.getItems().remove(
 						comprasTable.getSelectionModel().getSelectedIndex());
 				facturaCompraRepository.delete(selectedItem.getIdFacturaCompra());
 			}
 		}else{
-			Alerta.alertaError("Seleccionar Ingenio","Por favor selecciona un Ingenio en la lista");
+			Alerta.alertaError("Seleccionar Factura","Por favor selecciona una Factura en la lista");
 		}
 	}
 

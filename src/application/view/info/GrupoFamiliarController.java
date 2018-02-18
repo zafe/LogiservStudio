@@ -7,6 +7,7 @@ import application.model.info.Familiar;
 import application.repository.info.EmpleadoRepository;
 import application.repository.info.FamiliarRepository;
 import application.view.compra.cruds.FacturaEditController;
+import application.view.info.cruds.FamiliarEditController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -56,7 +57,8 @@ public class GrupoFamiliarController implements Initializable{
 	public void setOwner(Stage owner){
 		this.owner = owner;
 	}
-	public void obtenerFamiliares(){
+    @FXML
+    public void obtenerFamiliares(){
 		if (!empleadoComboBox.getSelectionModel().isEmpty()){
 			familiares = familiarRepository.view(empleadoComboBox.getSelectionModel().getSelectedItem().getIdEmpleado());
 			familiaresTable.setItems(familiares);
@@ -69,10 +71,15 @@ public class GrupoFamiliarController implements Initializable{
 	}
 	@FXML
 	public void handleNew(){
-		Familiar temp = new Familiar();
-		boolean okClicked = this.showEdit(temp,true);
-		if(okClicked)
-			obtenerFamiliares();
+		if (!empleadoComboBox.getSelectionModel().isEmpty()){
+			Familiar temp = new Familiar();
+			temp.setEmpleado(empleadoComboBox.getValue());
+			boolean okClicked = this.showEdit(temp,true);
+			if(okClicked)
+				obtenerFamiliares();
+		}
+		else
+			Alerta.alertaInfo("Seleccione un empleado", "Por favor seleccione un empleado para asignar su grupo familiar.");
 
 	}
 
@@ -81,22 +88,25 @@ public class GrupoFamiliarController implements Initializable{
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("view/compra/cruds/FacturaEdit.fxml"));
+			loader.setLocation(Main.class.getResource("view/info/cruds/FamiliarEdit.fxml"));
 			Group page = loader.load();
 
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Nueva Compra");
+			if (isNew)
+			    dialogStage.setTitle("Familiar Nuevo");
+			else
+			    dialogStage.setTitle("Editar Familiar de " + familiar.getEmpleado().getApellido() + ", " + familiar.getEmpleado().getNombre());
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(owner);
 			Scene scene = new Scene(page);
 			dialogStage.setScene(scene);
 
 
-			FacturaEditController controller = loader.getController();
+			FamiliarEditController controller = loader.getController();
 			controller.setDialogStage(dialogStage);
 			controller.setIsNew(isNew);
-//			controller.setDatos(familiar);
+			controller.setDatos(familiar);
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
@@ -109,13 +119,18 @@ public class GrupoFamiliarController implements Initializable{
 	}
 	@FXML
 	public void handleEdit(){
-		Familiar selectedItem = familiaresTable.getSelectionModel().getSelectedItem();
-		if(selectedItem!=null)
-			this.showEdit(selectedItem,false);
-		else
-			Alerta.alertaError("Seleccionar Familiar",
-					"Por favor seleccione un Familiar en la lista.");
-
+        if (!empleadoComboBox.getSelectionModel().isEmpty()){
+            Familiar selectedItem = familiaresTable.getSelectionModel().getSelectedItem();
+            selectedItem.setEmpleado(empleadoComboBox.getValue());
+            if(selectedItem!=null)
+                this.showEdit(selectedItem,false);
+            else
+                Alerta.alertaError("Seleccionar Familiar",
+                        "Por favor seleccione un Familiar en la lista.");
+            obtenerFamiliares();
+        }
+        else
+            Alerta.alertaInfo("Seleccione un empleado", "Por favor seleccione un empleado para asignar su grupo familiar.");
 	}
 	@FXML
 	public void handleEliminar(){
@@ -133,10 +148,10 @@ public class GrupoFamiliarController implements Initializable{
 		}
 	}
 
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		cargarEmpleados();
-
 		nombreColumn.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
 		apellidoColumn.setCellValueFactory(cellData -> cellData.getValue().apellidoProperty());
 		nacimientoColumn.setCellValueFactory(cellData -> cellData.getValue().fechaNacimientoProperty());
