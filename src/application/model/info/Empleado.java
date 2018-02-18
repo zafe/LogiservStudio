@@ -13,18 +13,12 @@ public class Empleado {
 	private IntegerProperty idEmpleado;
 	private StringProperty nombre;
 	private StringProperty apellido;
-	private IntegerProperty hijos;
 	private StringProperty cuit;
 	private StringProperty nacimiento;
-	private StringProperty categoria;
-	private Domicilio domicilio;//TODO borrar esto
+	private Domicilio domicilio;
 	private CategoriaEmpleado categoriaEmpleado;
-    private  DomicilioRepository domicilioRepository = new DomicilioRepository();
-
-
 	public Empleado(){
-		this(0, null, null, 0, null, null, null, null);
-		this.domicilio = new Domicilio();
+		this(0, null, null, null,  null, null, null);
 	}
 
 	/**
@@ -33,132 +27,81 @@ public class Empleado {
 	 * @param surname
 	 */
 
-	public Empleado(Integer id, String name, String surname, Integer hijos,
-			String cuit, String nacimiento, String categoria, Domicilio idDomicilio) {
+	public Empleado(Integer id, String name, String surname, String cuit, String nacimiento, Domicilio domicilio, CategoriaEmpleado categoriaEmpleado) {
 		this.idEmpleado = new SimpleIntegerProperty(id);
 		this.nombre = new SimpleStringProperty(name);
 		this.apellido = new SimpleStringProperty(surname);
-		this.hijos = new SimpleIntegerProperty(hijos);
 		this.cuit = new SimpleStringProperty(cuit);
 		this.nacimiento = new SimpleStringProperty(nacimiento);
-		this.categoria = new SimpleStringProperty(categoria);
-		this.domicilio = new Domicilio();
-		this.categoriaEmpleado = new CategoriaEmpleado();
+		this.domicilio = domicilio;
+		this.categoriaEmpleado = categoriaEmpleado;
 	}
 
-	public String getNombre(){
+	public int getIdEmpleado() {
+		return idEmpleado.get();
+	}
+
+	public IntegerProperty idEmpleadoProperty() {
+		return idEmpleado;
+	}
+
+	public void setIdEmpleado(int idEmpleado) {
+		this.idEmpleado.set(idEmpleado);
+	}
+
+	public String getNombre() {
 		return nombre.get();
-	}
-
-	public void setNombre(String nombre){
-		this.nombre.set(nombre);
 	}
 
 	public StringProperty nombreProperty() {
 		return nombre;
 	}
 
-	public String getApellido(){
+	public void setNombre(String nombre) {
+		this.nombre.set(nombre);
+	}
+
+	public String getApellido() {
 		return apellido.get();
 	}
 
-	public void setApellido(String apellido){
-		this.apellido.set(apellido);
-	}
-
-	public StringProperty apellidoProperty(){
+	public StringProperty apellidoProperty() {
 		return apellido;
 	}
 
-	public final IntegerProperty idEmpleadoProperty() {
-		return this.idEmpleado;
+	public void setApellido(String apellido) {
+		this.apellido.set(apellido);
 	}
 
-
-	public final int getIdEmpleado() {
-		return this.idEmpleadoProperty().get();
+	public String getCuit() {
+		return cuit.get();
 	}
 
-
-	public final void setIdEmpleado(final int idEmpleado) {
-		this.idEmpleadoProperty().set(idEmpleado);
+	public StringProperty cuitProperty() {
+		return cuit;
 	}
 
-	public final IntegerProperty hijosProperty() {
-		return this.hijos;
+	public void setCuit(String cuit) {
+		this.cuit.set(cuit);
 	}
 
-
-	public final int getHijos() {
-		return this.hijosProperty().get();
+	public String getNacimiento() {
+		return nacimiento.get();
 	}
 
-
-	public final void setHijos(final int hijos) {
-		this.hijosProperty().set(hijos);
+	public StringProperty nacimientoProperty() {
+		return nacimiento;
 	}
 
-
-	public final StringProperty cuitProperty() {
-		return this.cuit;
-	}
-
-
-	public final String getCuit() {
-		return this.cuitProperty().get();
-	}
-
-
-	public final void setCuit(final String cuit) {
-		this.cuitProperty().set(cuit);
-	}
-
-
-	public final StringProperty nacimientoProperty() {
-		return this.nacimiento;
-	}
-
-
-	public final String getNacimiento() {
-		return this.nacimientoProperty().get();
-	}
-
-
-	public final void setNacimiento(final String nacimiento) {
-		this.nacimientoProperty().set(nacimiento);
-	}
-
-
-	public final StringProperty categoriaProperty() {
-		return this.categoria;
-	}
-
-
-	public final String getCategoria() {
-		return this.categoriaProperty().get();
-	}
-
-
-	public final void setCategoria(final String categoria) {
-		this.categoriaProperty().set(categoria);
+	public void setNacimiento(String nacimiento) {
+		this.nacimiento.set(nacimiento);
 	}
 
 	public Domicilio getDomicilio() {
 		return domicilio;
 	}
 
-	public void setDomicilio(int idDomicilio){
-	    this.domicilio = domicilioRepository.getDomicilioById(idDomicilio);
-	    this.domicilio.setLocalidad();
-    }
-
-	public void setDomicilio(){
-
-		this.domicilio = domicilioRepository.getDomicilioByEmpleadoId(idEmpleado.intValue());
-	}
-
-	public void setDomicilio(Domicilio domicilio){
-
+	public void setDomicilio(Domicilio domicilio) {
 		this.domicilio = domicilio;
 	}
 
@@ -169,6 +112,4 @@ public class Empleado {
 	public void setCategoriaEmpleado(CategoriaEmpleado categoriaEmpleado) {
 		this.categoriaEmpleado = categoriaEmpleado;
 	}
-
-
 }

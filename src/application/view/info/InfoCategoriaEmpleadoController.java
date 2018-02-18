@@ -89,7 +89,7 @@ public class InfoCategoriaEmpleadoController {
         this.owner = owner;
 
     }
-    private boolean showCategoriaEmpleadoEdit(CategoriaEmpleado tempAcoplado, boolean b) {
+    public boolean showCategoriaEmpleadoEdit(CategoriaEmpleado tempAcoplado, boolean b) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();

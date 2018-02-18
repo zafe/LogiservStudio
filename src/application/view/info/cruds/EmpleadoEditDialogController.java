@@ -1,5 +1,6 @@
 package application.view.info.cruds;
 
+import application.view.info.InfoCategoriaEmpleadoController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -46,14 +47,14 @@ public class EmpleadoEditDialogController {
 	@FXML
 	private DatePicker nacimientoPicker;
 	@FXML
-	private ComboBox<String> categoriaComboBox;
+	private ComboBox<CategoriaEmpleado> categoriaComboBox;
 	@FXML
-	private ComboBox<String> provinciaComboBox;
+	private ComboBox<Provincia> provinciaComboBox;
 	@FXML
-	private ComboBox<String> localidadComboBox;
+	private ComboBox<Localidad> localidadComboBox;
 	@FXML
-	
 	private Button aceptarButton;
+
 	private boolean isNew;
 	private EmpleadoRepository empleadoRepository = new EmpleadoRepository();
 	private CategoriaEmpleadoRepository categoriaEmpleadoRepository = new CategoriaEmpleadoRepository();
@@ -61,10 +62,6 @@ public class EmpleadoEditDialogController {
 	private LocalidadRepository localidadRepository =  new LocalidadRepository();
 	private DomicilioRepository domicilioRepository = new DomicilioRepository();
 
-	List<CategoriaEmpleado>	categoriaEmpleadoList = categoriaEmpleadoRepository.view();
-	List<Provincia> provinciaList = provinciaRepository.view2();//luego cambiar view2() por view()
-	List<Localidad> localidadList = new ArrayList<>();
-	
 	private Stage dialogStage;
 	private Empleado empleado;
 	private boolean okClicked = false;
@@ -79,34 +76,24 @@ public class EmpleadoEditDialogController {
 		setProvinciaComboBox();
 		localidadComboBox.setDisable(true);
 		provinciaComboBox.setOnAction((event) -> {
-			Integer indexProvincia = provinciaComboBox.getSelectionModel().getSelectedIndex();
-			Provincia selectedProvincia = provinciaList.get(indexProvincia);
-			setLocalidadChoiceBox(selectedProvincia.getIdProvincia());
 			localidadComboBox.setDisable(false);
+			setLocalidadChoiceBox();
 		});
 
 	}
 	
 	
 	public void setCategoriaComboBox(){
-		ObservableList<String> ceList = FXCollections.observableArrayList();
-		for(CategoriaEmpleado ce : categoriaEmpleadoList) ceList.add(ce.getNombre());
-		categoriaComboBox.setItems(ceList);
+		categoriaComboBox.setItems(categoriaEmpleadoRepository.view());
 	}
 	
 	public void setProvinciaComboBox(){
-		ObservableList<String> pList = FXCollections.observableArrayList();
-		for(Provincia p : provinciaList) pList.add(p.getNombre());
-		provinciaComboBox.setItems(pList);
+		provinciaComboBox.setItems(provinciaRepository.view());
 	}
 	
-	public void setLocalidadChoiceBox(int idProvincia){
-		ObservableList<String> lList = FXCollections.observableArrayList();
-		localidadList = localidadRepository.view2(idProvincia);
-		
-		for(Localidad l : localidadList) lList.add(l.getNombre());
-		localidadComboBox.setItems(lList);
-		
+	public void setLocalidadChoiceBox(){
+        Provincia provinciaSeleccionada = provinciaComboBox.getSelectionModel().getSelectedItem();
+        localidadComboBox.setItems(localidadRepository.view(provinciaSeleccionada.getIdProvincia()));
 	}
 	
 
@@ -121,41 +108,19 @@ public class EmpleadoEditDialogController {
 
 	public void setPerson(Empleado empleado) {
 		this.empleado = empleado;
-		Domicilio domicilio = domicilioRepository.getDomicilioById(empleado.getDomicilio().getIdDomicilio());;
-
-		nombreField.setText(empleado.getNombre());
-		apellidoField.setText(empleado.getApellido());
-		hijosField.setText(String.valueOf(empleado.getHijos()));
-		cuitField.setText(empleado.getCuit());
-		calleNombreField.setText(domicilio.getCalle());
-		calleNumeroField.setText(domicilio.getNumero());
-		categoriaComboBox.setValue(empleado.getCategoria());
-		provinciaComboBox.setValue(empleado.getDomicilio().getLocalidad().getProvincia().getNombre());
-
-		if (empleado.getNacimiento() != null){
-			//Seteo del dia de Nacimiento del Empleado
-
-			//Adapto el formato a la forma en que se ven las fechas en la base de datos
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
-			String nacimiento = empleado.getNacimiento();
-
-			//convert String to LocalDate
-			LocalDate diaNacimiento = LocalDate.parse(nacimiento, formatter);
-
-			nacimientoPicker.setValue(diaNacimiento);
-		}
-
-		if (provinciaComboBox.getSelectionModel().getSelectedItem() != null)
+		if (!isNew){
+			nombreField.setText(empleado.getNombre());
+			apellidoField.setText(empleado.getApellido());
+			cuitField.setText(empleado.getCuit());
+			calleNombreField.setText(empleado.getDomicilio().getCalle());
+			calleNumeroField.setText(empleado.getDomicilio().getNumero());
+			categoriaComboBox.setValue(empleado.getCategoriaEmpleado());
+			provinciaComboBox.setValue(empleado.getDomicilio().getLocalidad().getProvincia());
+			nacimientoPicker.setValue(LocalDate.parse(empleado.getNacimiento()));
 			localidadComboBox.setDisable(false);
-		setLocalidadChoiceBox(empleado.getDomicilio().getLocalidad().getProvincia().getIdProvincia());
-		localidadComboBox.setValue(empleado.getDomicilio().getLocalidad().getNombre());
-
-	}
-	
-	//Antes de crear un Empleado es necesario crear el Domicilio donde reside
-	public void setDomicilio(String calle, String numero, int idLocaliad){
-		Domicilio domicilio = new Domicilio(0, new Localidad(), calle, numero);
-		domicilioRepository.save(domicilio);
+			setLocalidadChoiceBox();
+			localidadComboBox.getSelectionModel().select(empleado.getDomicilio().getLocalidad());
+		}
 	}
 
 	public boolean isOkClicked(){
@@ -167,61 +132,28 @@ public class EmpleadoEditDialogController {
 	private void handleOk() {
 		if (isInputValid()) {
 			//Nuevo Empleado
-
 			empleado.setNombre(nombreField.getText());
 			empleado.setApellido(apellidoField.getText());
-			empleado.setHijos(Integer.parseInt(hijosField.getText()));
 			empleado.setCuit(cuitField.getText());
 			//Set de la categoria empleado
-			Integer indexCategoria = categoriaComboBox.getSelectionModel().getSelectedIndex();
-			CategoriaEmpleado selectedCategoriaEmpleado = categoriaEmpleadoList.get(indexCategoria);
-			//empleado.getCategoriaEmpleado().setIdCategoriaEmpleado(selectedCategoriaEmpleado.getIdCategoriaEmpleado());
-			empleado.setCategoriaEmpleado(selectedCategoriaEmpleado);
-			//Domicilio del Empleado
-			empleado.getDomicilio().setCalle(calleNombreField.getText());
-			empleado.getDomicilio().setNumero(calleNumeroField.getText());
+			empleado.setCategoriaEmpleado(categoriaComboBox.getSelectionModel().getSelectedItem());
 			//Set Localidad
-			Integer indexLocalidad = localidadComboBox.getSelectionModel().getSelectedIndex();
-			Localidad localidadEmpleado = localidadList.get(indexLocalidad);
+			empleado.setDomicilio(new Domicilio());
+			Localidad localidadEmpleado =  localidadComboBox.getSelectionModel().getSelectedItem();
 			empleado.getDomicilio().setLocalidad(localidadEmpleado);
 			//Set Provincia
-			Integer indexProvincia = provinciaComboBox.getSelectionModel().getSelectedIndex();
-			Provincia provinciaEmpleado = provinciaList.get(indexProvincia);
-			empleado.getDomicilio().getLocalidad().setProvincia(provinciaEmpleado);
+			localidadEmpleado.setProvincia(provinciaComboBox.getSelectionModel().getSelectedItem());
+
 			//Set Fecha de Nacimiento del Empleado
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
-			empleado.setNacimiento(nacimientoPicker.getValue().format(formatter));
-			System.out.println("Informacion del empleado a guardar: ");
-			System.out.printf("Nombre: %s %n " +
-					"Apellido: %s %n" +
-					"Hijos: %s %n" +
-					"CUIT: %s %n" +
-					"Categoria Emp: %s %n" +
-					"Nacimiento: %s %n" +
-					"Domicilio id: %s %n" +
-					"  Calle: %s %n" +
-					"  Numero: %s %n" +
-					"  Localidad: %s %n" +
-					"  Provincia: %s %n",
-					empleado.getNombre(),
-					empleado.getApellido(),
-					empleado.getHijos(),
-					empleado.getCuit(),
-					empleado.getCategoriaEmpleado().getNombre(),
-					empleado.getNacimiento(),
-					empleado.getDomicilio().getIdDomicilio(),
-					empleado.getDomicilio().getCalle(),
-					empleado.getDomicilio().getNumero(),
-					empleado.getDomicilio().getLocalidad().getNombre(),
-					empleado.getDomicilio().getLocalidad().getProvincia().getNombre());
+			empleado.setNacimiento(nacimientoPicker.getValue().toString());
+
 			if (isNew){
-					empleadoRepository.save(empleado);
-			} else{
-					empleadoRepository.edit(empleado);
-			}
-
-
-
+				//Domicilio del Empleado
+				empleado.setDomicilio(new Domicilio(0, localidadEmpleado, calleNombreField.getText(),calleNumeroField.getText()));
+				domicilioRepository.save(empleado.getDomicilio());
+				empleadoRepository.save(empleado);
+			} else
+				empleadoRepository.edit(empleado);
 			okClicked = true;
 			dialogStage.close();
 		}
@@ -257,6 +189,12 @@ public class EmpleadoEditDialogController {
 
 			return false;
 		}
+	}
+	@FXML
+	private void handleNewCategoriaEmpleado(){
+		InfoCategoriaEmpleadoController controller = new InfoCategoriaEmpleadoController();
+		controller.showCategoriaEmpleadoEdit(new CategoriaEmpleado(), true);
+		setCategoriaComboBox();
 	}
 
 }

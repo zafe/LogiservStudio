@@ -68,7 +68,7 @@ public class LiquidacionesRepository {
                 empleado.setIdEmpleado(resultSet.getInt(1));
                 empleado.setApellido(resultSet.getString(2));
                 empleado.setNombre(resultSet.getString(3));
-                empleado.setCategoria(resultSet.getString(4));
+//                empleado.setCategoria(resultSet.getString(4));
                 empleadosLiquidados.setEmpleado(empleado);
                 empleadosLiquidados.setTotalHaberesRemunerativos(resultSet.getDouble(5));
                 empleadosLiquidados.setTotalHaberesNoRemunerativos(resultSet.getDouble(6));
