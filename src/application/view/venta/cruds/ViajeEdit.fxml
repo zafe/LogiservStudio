@@ -25,9 +25,9 @@
                   <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="600.0">
                      <children>
                         <Label text="Peso Bruto:" />
-                        <TextField fx:id="brutoTextField" prefHeight="27.0" prefWidth="142.0" />
+                        <TextField fx:id="brutoTextField" onDragDetected="#setPesoNetoLabel" onInputMethodTextChanged="#setPesoNetoLabel" prefHeight="27.0" prefWidth="142.0" />
                         <Label text="Tara:" />
-                        <TextField fx:id="taraTextField" prefHeight="27.0" prefWidth="137.0" />
+                        <TextField fx:id="taraTextField" onDragDetected="#setPesoNetoLabel" onInputMethodTextChanged="#setPesoNetoLabel" prefHeight="27.0" prefWidth="137.0" />
                         <Label text="Peso Neto:" />
                         <Label fx:id="pesoNetoLabel" disable="true" text="\$PESO_NETO" />
                      </children>
@@ -51,7 +51,7 @@
                                           </TableView>
                                        </children>
                                     </VBox>
-                                    <Separator orientation="VERTICAL" prefHeight="134.0" prefWidth="17.0" />
+                                    <Separator orientation="VERTICAL" prefHeight="154.0" prefWidth="23.0" />
                                     <VBox prefHeight="167.0" prefWidth="351.0">
                                        <children>
                                           <Label text="Destino:" />
@@ -69,25 +69,31 @@
                                     </VBox>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                              <HBox alignment="CENTER" prefHeight="4.0" prefWidth="674.0">
                                  <children>
                                     <Label alignment="CENTER" contentDisplay="CENTER" text="Distancia:" />
-                                    <Label fx:id="distanciaLabel" alignment="CENTER" disable="true" text="\$DISTANCIA" />
+                                    <Label fx:id="distanciaLabel" alignment="CENTER" disable="true" text="0" />
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="674.0">
+                  <HBox alignment="CENTER" prefHeight="42.0" prefWidth="674.0">
                      <children>
                         <Label text="Conductor:" />
-                        <ComboBox fx:id="conductorCombo" prefHeight="27.0" prefWidth="261.0" />
+                        <ComboBox fx:id="conductorCombo" prefHeight="27.0" prefWidth="210.0" />
+                        <Label text="Camión" />
+                        <ComboBox fx:id="camionCombo" prefHeight="27.0" prefWidth="306.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="38.0" prefWidth="674.0">
+                     <children>
                         <Label text="Precio del Viaje: " />
                         <Label fx:id="montoLabel" disable="true" text="\$PRECIO_VIAJE" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="CENTER" prefHeight="53.0" prefWidth="674.0">
                      <children>
                         <Button defaultButton="true" mnemonicParsing="false" onAction="#handleOk" text="Guardar Viaje" />
                         <Button cancelButton="true" mnemonicParsing="false" onAction="#handleCancel" text="Cancelar" />

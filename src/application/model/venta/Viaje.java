@@ -219,10 +219,16 @@ public class Viaje {
         this.camionNombre = new SimpleStringProperty(camionNombre);
         this.facturaVenta = new SimpleStringProperty(facturaVenta);
         this.conductor = conductor;
+        this.ingenio = new Ingenio();
+        this.conductor = new Empleado();
+        this.finca = new Finca();
     }
 
     public Viaje() {
         this(0,null,null,0.0,0.0,
                 null,null,null,null,null, null);
+        this.setDistanciaRecorrida("0");
+        this.setBruto(0);
+        this.setTara(0);
     }
 }

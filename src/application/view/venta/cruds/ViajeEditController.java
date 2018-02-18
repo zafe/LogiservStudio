@@ -1,12 +1,17 @@
 package application.view.venta.cruds;
 
+import application.model.calculo.Camion;
 import application.model.calculo.Finca;
 import application.model.calculo.Ingenio;
 import application.model.info.Empleado;
 import application.model.venta.Viaje;
+import application.repository.calculo.CamionRepository;
 import application.repository.calculo.FincaRepository;
 import application.repository.calculo.IngenioRepository;
+import application.repository.calculo.OrigenDestinoRepository;
 import application.repository.info.EmpleadoRepository;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,9 +19,11 @@ import javafx.stage.Stage;
 import javafx.scene.control.*;
 
 import javax.xml.crypto.dom.DOMCryptoContext;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.function.BiFunction;
 
 
 public class ViajeEditController {
@@ -46,6 +53,8 @@ public class ViajeEditController {
     @FXML
     private ComboBox<String> conductorCombo;
     @FXML
+    private ComboBox<String> camionCombo;
+    @FXML
     private Label pesoNetoLabel;
     @FXML
     private Label distanciaLabel;
@@ -56,6 +65,8 @@ public class ViajeEditController {
     private FincaRepository fincaRepository = new FincaRepository();
     private IngenioRepository ingenioRepository = new IngenioRepository();
     private EmpleadoRepository conductorRepository = new EmpleadoRepository();
+    private OrigenDestinoRepository origenDestinoRepository = new OrigenDestinoRepository();
+    private CamionRepository camionRepository = new CamionRepository();
     private Viaje viaje;
 
     private Stage dialogStage;
@@ -64,11 +75,14 @@ public class ViajeEditController {
     private ObservableList<Finca> fincaData = FXCollections.observableArrayList();
     private ObservableList<Ingenio> ingenioData = FXCollections.observableArrayList();
     private ObservableList<Empleado> conductorData = FXCollections.observableArrayList();
+    private ObservableList<Camion> camionData = FXCollections.observableArrayList();
 
     List<Empleado> conductoresList = conductorRepository.getEmpleadosByCategoriaEmpleado(2);// todo Hardcodeado
     List<Finca> fincasList = fincaRepository.view();
     List<Ingenio> ingeniosList = ingenioRepository.view();
     public void setIsNew(boolean aNew){this.isNew = aNew;}
+
+
 
     @FXML
     private void initialize(){
@@ -77,7 +91,38 @@ public class ViajeEditController {
         ingenioNombreColumn.setCellValueFactory(cellData->cellData.getValue().nombreProperty());
         arranqueColumn.setCellValueFactory(cellData->cellData.getValue().arranqueProperty().asString());
         tarifaColumn.setCellValueFactory(cellData->cellData.getValue().tarifaProperty().asString());
+        brutoTextField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                setPesoNetoLabel();
+                setMontoLabel();
+            }
+        });
+        taraTextField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                setPesoNetoLabel();
+                setMontoLabel();
+            }
+        });
+
+        origenTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                actualizarIngenioFinca();
+                setDistanciaLabel();
+                setMontoLabel();
+            }
+        });
+
+        destinoTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                actualizarIngenioFinca();
+                setDistanciaLabel();
+                setMontoLabel();
+            }
+        });
         setConductorComboBox();
+        setCamionComboBox();
         setFincaTabla();
         setIngenioTabla();
     }
@@ -100,6 +145,14 @@ public class ViajeEditController {
         conductorCombo.setItems(conList);
     }
 
+    private void setCamionComboBox(){
+        ObservableList<String> camionList = FXCollections.observableArrayList();
+        camionData = camionRepository.view();
+        for (Camion camion : camionData)
+            camionList.add(camion.getMarca() + " " + camion.getModelo() + " - Patente: " + camion.getPatente());
+        camionCombo.setItems(camionList);
+    }
+
    public void setHoraCombo(){
         ObservableList<String> horaList = FXCollections.observableArrayList();
         for(int i = 0; i < 24 ; i++)
@@ -120,9 +173,10 @@ public class ViajeEditController {
 
     public void setViaje(Viaje viaje){
         this.viaje = viaje;
-
-        horaCombo.getSelectionModel().select(10);//todo hardcodeado
-        minutosCombo.getSelectionModel().select(11);//todo harcodeado
+        String s = (viaje.getHoraEntrada() != null ? viaje.getHoraEntrada() : "00:00");
+        String[] tokens = s.split(":");
+        horaCombo.getSelectionModel().select(tokens[0]);//todo hardcodeado
+        minutosCombo.getSelectionModel().select(tokens[1]);//todo harcodeado
         brutoTextField.setText(String.valueOf(viaje.getBruto()));
         taraTextField.setText(String.valueOf(viaje.getTara()));
 
@@ -162,7 +216,73 @@ public class ViajeEditController {
                 break;
             }
 
-        distanciaLabel.setText(viaje.getDistanciaRecorrida() + " km");
+        //Seleccionar Camion
+        if (viaje.getCamion() != null)
+            for (int camionIndex = 0; camionIndex < camionData.size() ; camionIndex++)
+                if(camionData.get(camionIndex).getId()  == viaje.getCamion().getId()){
+                camionCombo.getSelectionModel().select(camionIndex);
+                break;
+                }
+
+        distanciaLabel.setText(viaje.getDistanciaRecorrida().isEmpty() ? "0" : viaje.getDistanciaRecorrida() + " km");
+
+    }
+
+    public void setPesoNetoLabel() {
+        if(!brutoTextField.getText().isEmpty() && Double.parseDouble(brutoTextField.getText()) > 0 &&
+           !taraTextField.getText().isEmpty()  && Double.parseDouble(taraTextField.getText()) > 0 &&
+           Double.parseDouble(brutoTextField.getText()) > Double.parseDouble(taraTextField.getText()) ) {
+            BigDecimal bruto = BigDecimal.valueOf(Double.parseDouble(brutoTextField.getText()));
+            BigDecimal tara = BigDecimal.valueOf(Double.parseDouble(taraTextField.getText()));
+            BigDecimal neto = bruto.subtract(tara);
+            this.pesoNetoLabel.setText(String.valueOf(neto));
+        }else {
+            this.pesoNetoLabel.setText("");
+        }
+    }
+
+    public void setMontoLabel(){
+
+            if ( !pesoNetoLabel.getText().isEmpty() &&  Double.parseDouble(pesoNetoLabel.getText()) > 0){
+
+            BigDecimal distancia = BigDecimal.valueOf(Double.valueOf(viaje.getDistanciaRecorrida()));
+            BigDecimal pesoNeto = BigDecimal.valueOf(Double.parseDouble(pesoNetoLabel.getText()));
+            BigDecimal precioKm = BigDecimal.valueOf(viaje.getIngenio().getTarifa());//todo cambiar metodo p/ cambiar ingenio automat...
+            BigDecimal arranque = BigDecimal.valueOf(viaje.getIngenio().getArranque());
+            BigDecimal precioUnitario = distancia.multiply(precioKm).add(arranque);
+            BigDecimal montoViaje = precioUnitario.multiply(pesoNeto).multiply(BigDecimal.valueOf(0.001));
+            montoLabel.setText("$ " + String.valueOf(montoViaje));
+        }
+
+    }
+
+    public void setDistanciaLabel(){//todo crear metodo para actualizar los objetos ingenio y finca cada vez que se seleccione uno de la tabla
+
+        if (origenTable.getSelectionModel().getSelectedItem() != null &&
+            destinoTable.getSelectionModel().getSelectedItem() != null){
+            Double distancia = origenDestinoRepository.getDistanciaByIds(viaje.getFinca().getIdFinca(),
+                    viaje.getIngenio().getIdIngenio());
+            this.distanciaLabel.setText(String.valueOf(distancia));
+            viaje.setDistanciaRecorrida(String.valueOf(distancia));
+        }
+
+    }
+
+    /**
+     * Metodo que actualiza las instancias de ingenio y finca cada vez que el usuario selecciona
+     * un elemento en la tabla origen (Finca) o destino (Ingenio)
+     */
+    private void actualizarIngenioFinca(){
+
+        //Actualización de la finca
+        if (origenTable.getSelectionModel().getSelectedItem() != null)
+            viaje.setFinca(fincaData.get(origenTable.getSelectionModel().getSelectedIndex()));
+
+        //Actualización del Ingenio
+        if (destinoTable.getSelectionModel().getSelectedItem() != null)
+            viaje.setIngenio(ingenioData.get(destinoTable.getSelectionModel().getSelectedIndex()));
+
+
 
     }
 
@@ -170,6 +290,7 @@ public class ViajeEditController {
 
     @FXML
     private void handleOk(){
+        setPesoNetoLabel();
 
     }
 

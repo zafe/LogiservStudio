@@ -88,4 +88,28 @@ public class OrigenDestinoRepository {
         e.printStackTrace();
     }
   }
+
+  public double getDistanciaByIds(int idFinca, int idIngenio){
+
+       Double distancia = 0.0;
+
+      try {
+          connection= JDBCConnection.getInstanceConnection();
+          preparedStatement=connection.prepareStatement("" +
+                  " SELECT od.DistanciaKM FROM ORIGEN_DESTINO od " +
+                  "WHERE od.FINCA_idFinca = ? AND od.INGENIO_idIngenio = ?;");
+          preparedStatement.setInt(1,idFinca);
+          preparedStatement.setInt(2, idIngenio);
+          resultSet = preparedStatement.executeQuery();
+
+          if (resultSet.next())
+              distancia = resultSet.getDouble(1);
+
+
+      } catch (SQLException e) {
+          e.printStackTrace();
+      }
+
+      return distancia;
+  }
 }

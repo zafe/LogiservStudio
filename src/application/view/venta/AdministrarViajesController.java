@@ -135,7 +135,7 @@ public class AdministrarViajesController {
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
-			return true;//controller.isOkClicked();
+			return controller.isOkClicked();
 
 		} catch (IOException e) {
 			e.printStackTrace();
