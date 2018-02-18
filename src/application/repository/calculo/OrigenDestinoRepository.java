@@ -112,4 +112,26 @@ public class OrigenDestinoRepository {
 
       return distancia;
   }
+
+  public int getIdByFincaIngenio(int idFinca, int idIngenio){
+        int idOrigenDestino = 0;
+
+      try {
+          connection= JDBCConnection.getInstanceConnection();
+          preparedStatement=connection.prepareStatement("SELECT od.IdOrigen_Destino " +
+                  "FROM ORIGEN_DESTINO od WHERE od.FINCA_idFinca = ? AND od.INGENIO_idIngenio = ?;");
+          preparedStatement.setInt(1,idFinca);
+          preparedStatement.setInt(2, idIngenio);
+          resultSet = preparedStatement.executeQuery();
+
+          if (resultSet.next())
+              idOrigenDestino = resultSet.getInt(1);
+
+
+      } catch (SQLException e) {
+          e.printStackTrace();
+      }
+
+        return idOrigenDestino;
+  }
 }

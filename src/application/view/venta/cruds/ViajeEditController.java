@@ -10,6 +10,7 @@ import application.repository.calculo.FincaRepository;
 import application.repository.calculo.IngenioRepository;
 import application.repository.calculo.OrigenDestinoRepository;
 import application.repository.info.EmpleadoRepository;
+import application.repository.venta.ViajeRepository;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -67,6 +68,7 @@ public class ViajeEditController {
     private EmpleadoRepository conductorRepository = new EmpleadoRepository();
     private OrigenDestinoRepository origenDestinoRepository = new OrigenDestinoRepository();
     private CamionRepository camionRepository = new CamionRepository();
+    private ViajeRepository viajeRepository = new ViajeRepository();
     private Viaje viaje;
 
     private Stage dialogStage;
@@ -80,6 +82,7 @@ public class ViajeEditController {
     List<Empleado> conductoresList = conductorRepository.getEmpleadosByCategoriaEmpleado(2);// todo Hardcodeado
     List<Finca> fincasList = fincaRepository.view();
     List<Ingenio> ingeniosList = ingenioRepository.view();
+    List<Camion> camionList = camionRepository.view();
     public void setIsNew(boolean aNew){this.isNew = aNew;}
 
 
@@ -290,17 +293,38 @@ public class ViajeEditController {
 
     @FXML
     private void handleOk(){
-        setPesoNetoLabel();
+        if (isInputValid()){
+            viaje.setBruto(Double.parseDouble(brutoTextField.getText()));
+            viaje.setTara(Double.parseDouble(taraTextField.getText()));
+            viaje.setHoraEntrada(horaCombo.getSelectionModel().getSelectedItem().concat(":").
+                    concat(minutosCombo.getSelectionModel().getSelectedItem()));
+            //Set Fecha de Nacimiento del Empleado
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+            viaje.setFecha(diaPicker.getValue().format(formatter));
+            //Set Conductor
+            viaje.setConductor(conductoresList.get(conductorCombo.getSelectionModel().getSelectedIndex()));
+            //Set Camion
+            viaje.setCamion(camionList.get(camionCombo.getSelectionModel().getSelectedIndex()));
+            //Set idOrigen_Destino
+            int origenDestino = origenDestinoRepository.getIdByFincaIngenio(viaje.getFinca().getIdFinca(),
+                    viaje.getIngenio().getIdIngenio());
+            if (isNew)
+                viajeRepository.save2(viaje,origenDestino);
+            else
+                viajeRepository.update2(viaje, origenDestino);
 
+            okClicked = true;
+            dialogStage.close();
+        }
     }
 
     @FXML
     private void handleCancel(){
-
+        dialogStage.close();
     }
 
     private boolean isInputValid(){
-        return false;
+        return true;
     }
 
 }
