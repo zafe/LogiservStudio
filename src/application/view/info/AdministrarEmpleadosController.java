@@ -1,7 +1,12 @@
 package application.view.info;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.Optional;
 
+import application.comunes.Alerta;
 import application.model.info.CategoriaEmpleado;
 import application.view.info.cruds.CategoriaEmpleadoEditController;
 import application.view.info.cruds.EmpleadoEditDialogController;
@@ -9,6 +14,7 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -47,6 +53,7 @@ public class AdministrarEmpleadosController {
 	private Stage owner;
 	private ObservableList<Empleado> empleadoData = FXCollections.observableArrayList();
 	EmpleadoRepository empleadoRepository = new EmpleadoRepository();
+	Empleado empleado = new Empleado();
 	
 	public void buscarEmpleados(){
 		this.empleadoData = empleadoRepository.buscarEmpleados();
@@ -69,21 +76,22 @@ public class AdministrarEmpleadosController {
 	}
 
 	/**
-	 * Called when the user clicks on the delete button.
+	 * Called when the user clicks on the logicDelete button.
 	 */
 	@FXML
 	private void handleDeleteEmpleado() {
-		int selectedIndex = empleadoTable.getSelectionModel().getSelectedIndex();
-		if (selectedIndex >= 0) {
-			empleadoTable.getItems().remove(selectedIndex);
-		} else {
-			// Nothing selected.
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.setTitle("Seleccionar Empleado");
-			alert.setHeaderText(null);
-			alert.setContentText("Por favor selecciona un empleado en la tabla");
-			alert.showAndWait();
-		}
+		Empleado empleadoSeleccionado = empleadoTable.getSelectionModel().getSelectedItem();
+		empleado = ponerFechaBaja(empleadoSeleccionado);
+
+		Optional<ButtonType> resultado = Alerta.alertaConfirmacion("Eliminar Empleado",
+				null,"¿Desea eliminar el empleado seleccionado?");
+		if (resultado.isPresent() && resultado.get()==ButtonType.OK){
+			empleadoTable.getItems().remove(
+					empleadoTable.getSelectionModel().getSelectedIndex());
+			empleadoRepository.logicDelete(empleado);
+			empleadoTable.getItems().remove(empleado);
+		}else
+			Alerta.alertaError("Seleccionar Empleado", "Por favor selecciona un empleado en la tabla");
 	}
 	
 	public void setOwner(Stage owner){
@@ -156,6 +164,11 @@ public class AdministrarEmpleadosController {
 			alert.showAndWait();
 		}
 	}
-
+	private Empleado ponerFechaBaja(Empleado empleado){
+		java.util.Date input = new Date();
+		LocalDate date = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		empleado.setFechaBaja(date.toString());
+		return empleado;
+	}
 
 }

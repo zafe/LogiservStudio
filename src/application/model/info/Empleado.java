@@ -17,8 +17,13 @@ public class Empleado {
 	private StringProperty nacimiento;
 	private Domicilio domicilio;
 	private CategoriaEmpleado categoriaEmpleado;
+	private StringProperty fechaAlta;
+	private StringProperty fechaBaja;
+
 	public Empleado(){
-		this(0, null, null, null,  null, null, null);
+		this(0, null, null,
+				null,  null, null,
+				null, null, null);
 	}
 
 	/**
@@ -27,7 +32,9 @@ public class Empleado {
 	 * @param surname
 	 */
 
-	public Empleado(Integer id, String name, String surname, String cuit, String nacimiento, Domicilio domicilio, CategoriaEmpleado categoriaEmpleado) {
+	public Empleado(Integer id, String name, String surname, String cuit,
+					String nacimiento, Domicilio domicilio, CategoriaEmpleado categoriaEmpleado,
+					String alta, String baja) {
 		this.idEmpleado = new SimpleIntegerProperty(id);
 		this.nombre = new SimpleStringProperty(name);
 		this.apellido = new SimpleStringProperty(surname);
@@ -35,6 +42,8 @@ public class Empleado {
 		this.nacimiento = new SimpleStringProperty(nacimiento);
 		this.domicilio = domicilio;
 		this.categoriaEmpleado = categoriaEmpleado;
+		this.fechaAlta = new SimpleStringProperty(alta);
+		this.fechaBaja = new SimpleStringProperty(baja);
 	}
 
 	public int getIdEmpleado() {
@@ -112,6 +121,31 @@ public class Empleado {
 	public void setCategoriaEmpleado(CategoriaEmpleado categoriaEmpleado) {
 		this.categoriaEmpleado = categoriaEmpleado;
 	}
+
+	public String getFechaAlta() {
+		return fechaAlta.get();
+	}
+
+	public StringProperty fechaAltaProperty() {
+		return fechaAlta;
+	}
+
+	public void setFechaAlta(String fechaAlta) {
+		this.fechaAlta.set(fechaAlta);
+	}
+
+	public String getFechaBaja() {
+		return fechaBaja.get();
+	}
+
+	public StringProperty fechaBajaProperty() {
+		return fechaBaja;
+	}
+
+	public void setFechaBaja(String fechaBaja) {
+		this.fechaBaja.set(fechaBaja);
+	}
+
 
 	@Override
 	public String toString() {

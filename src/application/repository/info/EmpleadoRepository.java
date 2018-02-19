@@ -29,6 +29,7 @@ public class EmpleadoRepository {
 					"\t\tWHERE e.CATEGORIA_EMPLEADO_idCategoriaEmpleado = c.idCategoriaEmpleado \n" +
 					"\t\t\tAND e.DOMICILIO_idDomicilio = d.idDomicilio\n" +
 					"\t\t\tAND d.LOCALIDAD_idLocalidad=l.idLocalidad \n" +
+					" AND e.FechaBaja IS null " +  //aqui traemos a los empleados cuya fecha de baja no fue ingresada
 					"            AND l.PROVINCIA_idProvincia=p.idProvincia");
 			resultSet = preparedStatement.executeQuery();
 			
@@ -51,20 +52,22 @@ public class EmpleadoRepository {
 		}
 		return empleados;
 	}
-	public static void deleteEmpleadoById(Empleado empleado){
+
+	/**
+	 * this method make a logic logicDelete
+	 * @param empleado
+	 */
+	public void logicDelete(Empleado empleado){
 		try {
             Connection connection = JDBCConnection.getInstanceConnection();
-			//Elimina el usuario del empleado si tiene un usuario asociado
             PreparedStatement preparedStatement = connection.prepareStatement(
-                    "DELETE FROM USUARIO WHERE idUsuario=?");
-           // preparedStatement.setInt(1, id);
-			preparedStatement.setInt(1, empleado.getDomicilio().getIdDomicilio());
+                    "UPDATE EMPLEADO SET FechaBaja=? where idEmpleado=?");
+			preparedStatement.setString(1, empleado.getFechaBaja());
+			preparedStatement.setInt(2, empleado.getIdEmpleado());
             preparedStatement.executeUpdate();
-            preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
 	}
 	
 	public void edit(Empleado empleado){
@@ -99,7 +102,6 @@ public class EmpleadoRepository {
 		
 		try {
 			statement = JDBCConnection.getInstanceConnection().createStatement();
-			System.out.println("EL ID DEL EMPLEADO ES " + id);
 			resultSet = statement.executeQuery("SELECT * FROM EMPLEADO e, CATEGORIA_EMPLEADO c, DOMICILIO d "
 					+ "WHERE e.CATEGORIA_EMPLEADO_idCategoriaEmpleado = c.idCategoriaEmpleado "
 					+ "AND e.DOMICILIO_idDomicilio = d.idDomicilio "
@@ -125,7 +127,8 @@ public class EmpleadoRepository {
 				PreparedStatement preparedStatement=connection.prepareStatement("select idEmpleado, " +
 						"Apellido, Nombre " +
 						"from Empleado " +
-						"where CATEGORIA_EMPLEADO_idCategoriaEmpleado = ?");
+						"where CATEGORIA_EMPLEADO_idCategoriaEmpleado = ?" +
+						" AND FechaBaja IS null");
 				preparedStatement.setInt(1,idCategoria);
 				ResultSet resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()){
@@ -141,17 +144,21 @@ public class EmpleadoRepository {
 
 			return list;
 		}
-
+	/**
+	 * @Isa: El empleado siempre se guarda con una fecha de baja null
+	 */
 		public void save(Empleado empleado){
 				try {
 					connection = JDBCConnection.getInstanceConnection();
-					preparedStatement= connection.prepareStatement("INSERT INTO EMPLEADO VALUES(?,?,?,?,?,?,LAST_INSERT_ID())");
+					preparedStatement= connection.prepareStatement("INSERT INTO EMPLEADO VALUES(?,?,?,?,?,?,LAST_INSERT_ID(),?,?)");
 					preparedStatement.setString(1,null);
 					preparedStatement.setString(2, empleado.getCuit());
 					preparedStatement.setInt(3, empleado.getCategoriaEmpleado().getIdCategoriaEmpleado());
 					preparedStatement.setString(4, empleado.getNombre());
 					preparedStatement.setString(5, empleado.getApellido());
 					preparedStatement.setString(6, empleado.getNacimiento());
+					preparedStatement.setString(7, empleado.getFechaAlta());
+					preparedStatement.setString(8, null); //fecha de baja
 					preparedStatement.executeUpdate();
 					String cuerpoMsj = "Empleado  " + empleado.getNombre() + " agregado correctamente.\n";
 					Alerta.alertaInfo("Empleados",cuerpoMsj);
@@ -159,6 +166,41 @@ public class EmpleadoRepository {
 					e.printStackTrace();
 				}
 			}
+	public ObservableList<Empleado> buscarEmpleadosDadosDeBaja(){
+		ObservableList<Empleado> empleados = FXCollections.observableArrayList();
+		try {
+			connection = JDBCConnection.getInstanceConnection();
+			preparedStatement = connection.prepareStatement("SELECT e.idEmpleado, e.CUIT, e.Nombre, e.Apellido, " +
+					"e.FechaNacimiento, c.idCategoriaEmpleado, c.NombreCategoria,\n" +
+					"\t\td.idDomicilio, d.Calle, d.Numero, l.idLocalidad, l.NombreLocalidad, p.*, e.FechaBaja\n" +
+					"\tFROM EMPLEADO e, CATEGORIA_EMPLEADO c, DOMICILIO d, LOCALIDAD AS l, PROVINCIA AS p \n" +
+					"\t\tWHERE e.CATEGORIA_EMPLEADO_idCategoriaEmpleado = c.idCategoriaEmpleado \n" +
+					"\t\t\tAND e.DOMICILIO_idDomicilio = d.idDomicilio\n" +
+					"\t\t\tAND d.LOCALIDAD_idLocalidad=l.idLocalidad \n" +
+					" AND e.FechaBaja IS NOT null " +  //aqui traemos a los empleados cuya fecha de baja fue ingresada
+					"            AND l.PROVINCIA_idProvincia=p.idProvincia");
+			resultSet = preparedStatement.executeQuery();
+
+			while(resultSet.next()){
+				Empleado empleado = new Empleado();
+				empleado.setIdEmpleado(resultSet.getInt(1));
+				empleado.setCuit(resultSet.getString(2));
+				empleado.setNombre(resultSet.getString(3));
+				empleado.setApellido(resultSet.getString(4));
+				empleado.setNacimiento(resultSet.getString(5));
+				empleado.setCategoriaEmpleado(new CategoriaEmpleado(resultSet.getInt(6), resultSet.getString(7)));
+				empleado.setDomicilio(new Domicilio(resultSet.getInt(8),
+						new Localidad(resultSet.getInt(11), resultSet.getString(12),
+								new Provincia(resultSet.getInt(13), resultSet.getString(14))),
+						resultSet.getString(9), resultSet.getString(10)));
+				empleado.setFechaBaja(resultSet.getString(15));
+				empleados.add(empleado);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return empleados;
+	}
 		public Empleado getEmpleadoById(int idEmpleado){
 			Empleado empleado = new Empleado();
 			try {
