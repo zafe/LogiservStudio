@@ -6,6 +6,7 @@ import application.model.info.Domicilio;
 import application.model.info.Localidad;
 import application.model.info.Provincia;
 import application.model.venta.Cliente;
+import application.repository.info.DomicilioRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -18,7 +19,9 @@ public class ClienteRepository {
     Connection connection;
     PreparedStatement preparedStatement;
     ResultSet resultSet;
-    
+
+    DomicilioRepository domicilioRepository = new DomicilioRepository();
+
     public void save(Cliente cliente){
         try {
             connection = JDBCConnection.getInstanceConnection();
@@ -98,5 +101,27 @@ public class ClienteRepository {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public Cliente getClienteById(int idCliente){
+        Cliente cliente = new Cliente();
+        try {
+            connection = JDBCConnection.getInstanceConnection();
+            preparedStatement = connection.prepareStatement(
+                    "SELECT * FROM CLIENTE WHERE idCLIENTE=?;");
+            preparedStatement.setInt(1, idCliente);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                        cliente.setIdCliente(resultSet.getInt("idCLIENTE"));
+                        cliente.setNombre(resultSet.getString("Nombre"));
+                        cliente.setCuit(resultSet.getString("CUIT"));
+                        Domicilio domicilio = domicilioRepository.getDomicilioById(resultSet.getInt("DOMICILIO_idDomicilio"));
+                        cliente.setDomicilio(domicilio);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cliente;
     }
 }

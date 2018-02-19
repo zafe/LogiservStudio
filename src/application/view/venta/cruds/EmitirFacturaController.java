@@ -96,6 +96,12 @@ public class EmitirFacturaController {
         viajeTableView.setItems(viajeData);
     }
 
+
+    private void buscarViajesByIngenioId(){//TODO: Hacer que recupere viajes por Ingenio
+        viajeData = viajeRepository.view();
+        viajeTableView.setItems(viajeData);
+    }
+
     public void setClienteComboBox() {
         ObservableList<String> clienteList = FXCollections.observableArrayList();
         clienteData = clienteRepository.view();

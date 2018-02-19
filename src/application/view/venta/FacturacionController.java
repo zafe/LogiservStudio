@@ -78,7 +78,7 @@ public class FacturacionController {
 		idFacturacion.setCellValueFactory(cellData -> cellData.getValue().idFacturaVentaProperty().asString());
 		fechaColumn.setCellValueFactory(cellData -> cellData.getValue().fechaEmisionProperty());
 		clienteColumn.setCellValueFactory(cellData -> cellData.getValue().getCliente().nombreProperty());
-		montoTotal.setCellValueFactory(cellData -> cellData.getValue().montoFacturaProperty().asString());
+		//montoTotal.setCellValueFactory(cellData -> cellData.getValue().montoFacturaProperty().asString());
 
 		fincaColumn.setCellValueFactory(cellData -> cellData.getValue().getFinca().nombreProperty());
 		ingenioColumn.setCellValueFactory(cellData -> cellData.getValue().getIngenio().nombreProperty());

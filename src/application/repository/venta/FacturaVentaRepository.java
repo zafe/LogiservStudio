@@ -2,7 +2,9 @@
 
 	import application.comunes.Alerta;
 	import application.database.JDBCConnection;
+	import application.model.venta.Cliente;
 	import application.model.venta.FacturaVenta;
+	import application.model.venta.Organizacion;
 	import javafx.collections.FXCollections;
 	import javafx.collections.ObservableList;
 
@@ -14,6 +16,8 @@
 	import java.text.SimpleDateFormat;
 
 	public class FacturaVentaRepository {
+		ClienteRepository clienteRepository = new ClienteRepository();
+		OrganizacionRepository organizacionRepository = new OrganizacionRepository();
 	    Connection connection;
 	    PreparedStatement preparedStatement;
 	    ResultSet resultSet;
@@ -21,7 +25,7 @@
 	    public void save(FacturaVenta facturaVenta, int idCliente){
 	        try {
 	            connection= JDBCConnection.getInstanceConnection();
-	            preparedStatement = connection.prepareStatement("INSERT INTO F (NombreEmpre, CUIT, FechaEmision, CLIENTE_idCliente ) "
+	            preparedStatement = connection.prepareStatement("INSERT INTO FACTURA_VENTA (NombreEmpre, CUIT, FechaEmision, CLIENTE_idCliente ) "
 	            		+ "values(?,?,?,?)");
 	            preparedStatement.setString(1,facturaVenta.getNombreEmpresa());
 	            preparedStatement.setString(2, facturaVenta.getCuit());
@@ -92,10 +96,11 @@
 	            while (resultSet.next()){
 	                FacturaVenta facturaVenta = new FacturaVenta();
 	                facturaVenta.setIdFacturaVenta(resultSet.getInt("idFACTURA_VENTA"));
-	                facturaVenta.setNombreEmpresa(resultSet.getString("NombreEmpresa"));
-	                facturaVenta.setCuit(resultSet.getString("CUIT"));
-	                facturaVenta.setCuitCliente(resultSet.getString("Nombre"));
-	                facturaVenta.setFechaEmision(resultSet.getDate("FechaEmision").toString());//TODO PUEDE HABER ERROR AQUI
+	                facturaVenta.setFechaEmision(resultSet.getString("FechaEmision"));
+					Cliente cliente = clienteRepository.getClienteById(resultSet.getInt("CLIENTE_idCLIENTE"));
+					facturaVenta.setCliente(cliente);
+ 					Organizacion organizacion = organizacionRepository.getOrganizacionById(resultSet.getInt("ORGANIZACION_idORGANIZACION"));
+					facturaVenta.setOrganizacion(organizacion);
 	                list.add(facturaVenta);
 	            }
 	            preparedStatement.close();
