@@ -4,6 +4,7 @@ import application.Main;
 import application.comunes.Alerta;
 import application.model.venta.Cliente;
 import application.repository.venta.ClienteRepository;
+import application.view.venta.cruds.ClienteEditController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -41,7 +42,11 @@ public class VentaClienteController implements Initializable{
     @FXML
     private TableColumn<Cliente, String> calleColumn;
     @FXML
+    private TableColumn<Cliente, String> numeroColumn;
+    @FXML
     private TableColumn<Cliente, String> localidadColumn;
+    @FXML
+    private TableColumn<Cliente, String> domicilioColumn;
 
     private Stage owner;
     private ObservableList<Cliente> clienteData = FXCollections.observableArrayList();
@@ -53,13 +58,13 @@ public class VentaClienteController implements Initializable{
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        buscarClientes();
         idColumn.setCellValueFactory(cellData -> cellData.getValue().idClienteProperty().asString());
         nombreColumn.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
         cuitColumn.setCellValueFactory(cellData -> cellData.getValue().cuitProperty());
-
         calleColumn.setCellValueFactory(cellData -> cellData.getValue().getDomicilio().calleProperty());
-        calleColumn.setCellValueFactory(cellData -> cellData.getValue().getDomicilio().numeroProperty());
-//        localidadColumn.setCellValueFactory(cellData -> cellData.getValue().getDomicilio().nombre_localidadProperty());
+        numeroColumn.setCellValueFactory(cellData -> cellData.getValue().getDomicilio().numeroProperty());
+        localidadColumn.setCellValueFactory(cellData -> cellData.getValue().getDomicilio().getLocalidad().nombreProperty());
     }
 
     @FXML
@@ -67,7 +72,7 @@ public class VentaClienteController implements Initializable{
         Cliente temp = new Cliente();
         boolean okClicked = this.showEdit(temp,true);
         if(okClicked)
-            clienteData.add(temp);
+            buscarClientes();
     }
 
 
@@ -109,23 +114,21 @@ public class VentaClienteController implements Initializable{
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/calculo/cruds/CamionEdit.fxml"));
+            loader.setLocation(Main.class.getResource("view/venta/cruds/ClienteEdit.fxml"));
             Group page = loader.load();
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Nuevo Camion");
+            dialogStage.setTitle("Nuevo cliente");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(owner);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-/*
-            CamionEditController controller = loader.getController();
+            ClienteEditController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setIsNew(b);
-            controller.setCamionNombre(temp);
-*/
+            controller.setDatos(temp);
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
             return true;//controller.isOkClicked();

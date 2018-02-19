@@ -3,6 +3,8 @@ package application.repository.venta;
 import application.comunes.Alerta;
 import application.database.JDBCConnection;
 import application.model.info.Domicilio;
+import application.model.info.Localidad;
+import application.model.info.Provincia;
 import application.model.venta.Cliente;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,17 +22,10 @@ public class ClienteRepository {
     public void save(Cliente cliente){
         try {
             connection = JDBCConnection.getInstanceConnection();
-            preparedStatement= connection.prepareStatement("INSERT INTO domicilio " +
-                    "values (?, SELECT idLocalidad from localidad WHERE nombre=?, ?, ?); " +
-                    "INSERT INTO cliente " +
-                    "values (?, ?, ?, LAST_INSERT_ID())");
-            preparedStatement.setString(1, null);
-//            preparedStatement.setString(2, cliente.getDomicilio().getNombre_localidad());
-            preparedStatement.setString(3, cliente.getDomicilio().getCalle());
-            preparedStatement.setString(4, cliente.getDomicilio().getNumero());
-            preparedStatement.setString(5, null);
-            preparedStatement.setString(6, cliente.getNombre());
-            preparedStatement.setString(7, cliente.getCuit());
+            preparedStatement= connection.prepareStatement("INSERT INTO Cliente VALUES(?,?,?,LAST_INSERT_ID() )");
+            preparedStatement.setString(1,null);
+            preparedStatement.setString(2,cliente.getNombre());
+            preparedStatement.setString(3,cliente.getCuit());
             preparedStatement.executeUpdate();
 
             String cuerpoMsj = "Cliente  " + cliente.getNombre() + " agregado correctamente.\n";
@@ -40,18 +35,20 @@ public class ClienteRepository {
         }
 
     }
-    public void update(Cliente cliente, int idDomicilio){
+    public void update(Cliente cliente){
         try {
             connection = JDBCConnection.getInstanceConnection();
-            preparedStatement=connection.prepareStatement("" +
-                    "UPDATE CLIENTE " +
-                    "SET Nombre=?, CUIT=?, DOMICILIO_idDomicilio=?" +
-                    "WHERE idEmpresa=?");
+            preparedStatement=connection.prepareStatement("UPDATE CLIENTE as p " +
+                    "    INNER JOIN DOMICILIO as d ON p.DOMICILIO_idDomicilio = idDomicilio " +
+                            "    SET p.NOMBRE = ?, p.CUIT=?, d.calle =?, d.numero=?, d.LOCALIDAD_idLocalidad=?" +
+                            "    WHERE p.idCLIENTE = ?");
             preparedStatement.setString(1,cliente.getNombre());
             preparedStatement.setString(2,cliente.getCuit());
-            preparedStatement.setInt(3,idDomicilio);
-            preparedStatement.close();
-            connection.close();
+            preparedStatement.setString(3,cliente.getDomicilio().getCalle());
+            preparedStatement.setString(4,cliente.getDomicilio().getNumero());
+            preparedStatement.setInt(5, cliente.getDomicilio().getLocalidad().getIdLocalidad());
+            preparedStatement.setInt(6,cliente.getIdCliente());
+            preparedStatement.executeUpdate();
             String headerMsj="Actualización: cliente actualizado";
             String cuerpoMsj = "Cliente: " + cliente.getNombre() + "modificado correctamente.";
             Alerta.alertaInfo("Clientes", headerMsj, cuerpoMsj);
@@ -63,7 +60,8 @@ public class ClienteRepository {
     public void delete(int idCliente){
         try {
             connection= JDBCConnection.getInstanceConnection();
-            preparedStatement=connection.prepareStatement("DELETE FROM CLIENTE WHERE idCliente=?");
+            preparedStatement=connection.prepareStatement("DELETE a1, a2 FROM CLIENTE AS a1 INNER JOIN domicilio AS a2\n" +
+                            "WHERE a1.DOMICILIO_idDomicilio=a2.idDomicilio AND a1.idCliente=?");
             preparedStatement.setInt(1, idCliente);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -76,19 +74,23 @@ public class ClienteRepository {
         try {
             connection = JDBCConnection.getInstanceConnection();
             preparedStatement = connection.prepareStatement(
-                    "SELECT c.idCliente, c.nombre, c.cuit, d.calle, d.numero, l.NombreLocalidad " +
-                    "FROM cliente AS c, domicilio AS d, localidad AS l " +
-                    "WHERE c.DOMICILIO_idDomicilio = d.idDomicilio AND d.LOCALIDAD_idLocalidad = l.idLocalidad");
+                    "SELECT p.idCLIENTE, p.Nombre, p.CUIT, d.idDomicilio, "+
+                            "                           l.idLocalidad, l.NombreLocalidad, d.Calle, d.Numero, c.* \n" +
+                            "                  FROM CLIENTE AS p, DOMICILIO AS d, LOCALIDAD AS l, PROVINCIA AS c \n" +
+                            "          WHERE p.DOMICILIO_idDomicilio=d.idDomicilio \n" +
+                            "     AND d.LOCALIDAD_idLocalidad=l.idLocalidad " +
+                            "  AND l.PROVINCIA_idProvincia=c.idProvincia");
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
-                Cliente cliente = new Cliente();
-                cliente.setIdCliente(resultSet.getInt(1));
-                cliente.setNombre(resultSet.getString(2));
-                cliente.setCuit(resultSet.getString(3));
-                cliente.setDomicilio(new Domicilio());
-                cliente.getDomicilio().setCalle(resultSet.getString(4));
-                cliente.getDomicilio().setNumero(resultSet.getString(5));
-//                cliente.getDomicilio().setNombre_localidad(resultSet.getString(6));
+                Cliente cliente = new Cliente(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        new Domicilio(resultSet.getInt(4),
+                                new Localidad(resultSet.getInt(5), resultSet.getString(6),
+                                        new Provincia(resultSet.getInt(9),resultSet.getString(10))),
+                                resultSet.getString(7),
+                                resultSet.getString(8)));
                 list.add(cliente);
 
             }
