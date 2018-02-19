@@ -245,4 +245,52 @@
 	        }	
 	    	return viaje;
 	    }
+
+	    public ObservableList<Viaje> getViajesByIdFactura(int idFactura){
+	    	ObservableList<Viaje> list = FXCollections.observableArrayList();
+
+			try {
+				connection= JDBCConnection.getInstanceConnection();
+				preparedStatement=connection.prepareStatement("SELECT v.idRemito, v.Fecha, v.HoraEntrada, v.Bruto," +
+						" v.Tara, v.Empleado_idEmpleado, v.CAMION_idCamion, od.DistanciaKM, od.FINCA_idFinca," +
+						" od.INGENIO_idIngenio FROM VIAJE v INNER JOIN ORIGEN_DESTINO od " +
+						"ON Origen_Destino_idOrigen_Destino= od.idOrigen_Destino " +
+						"WHERE FACTURA_VENTA_idFACTURA_VENTA=?;");//TODO cambiar esto cuando se actualice la base de datos
+				preparedStatement.setInt(1 ,idFactura);
+				resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()){
+					Viaje viaje = new Viaje();
+					viaje.setIdRemito(resultSet.getInt("idRemito"));
+					viaje.setFecha(resultSet.getDate("Fecha").toString());
+					viaje.setHoraEntrada(resultSet.getTime("HoraEntrada").toString());
+					viaje.setBruto(resultSet.getDouble("Bruto"));
+					viaje.setTara(resultSet.getDouble("Tara"));
+					viaje.setDistanciaRecorrida(resultSet.getString("DistanciaKM"));
+					Finca finca = fincaRepository.getFincaById(resultSet.getInt("FINCA_idFinca"));
+					viaje.setFinca(finca);
+					Ingenio ingenio = ingenioRepository.getIngenioById(resultSet.getInt("INGENIO_idIngenio"));
+					viaje.setIngenio(ingenio);
+					Camion camion = camionRepository.getCamionById(resultSet.getInt("CAMION_idCamion"));
+					Empleado conductor = empleadoRepository.getEmpleadoById(resultSet.getInt("EMPLEADO_idEmpleado"));
+					viaje.setConductor(conductor);
+					viaje.setCamion(camion);
+					list.add(viaje);
+					System.out.printf("Viaje agregado%n" +
+									"idRemito: %s %n" +
+									"Fecha   : %s %n" +
+									"Bruto   : %s %n" +
+									"Tara    : %s %n",
+							viaje.getIdRemito(),
+							viaje.getFecha(),
+							viaje.getBruto(),
+							viaje.getTara());
+				}
+				preparedStatement.close();
+				resultSet.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			return list;
+		}
 	}
