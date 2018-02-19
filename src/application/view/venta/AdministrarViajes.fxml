@@ -15,26 +15,26 @@
                   <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Label text="Viajes" />
-                        <TableView fx:id="usuarioTable" pickOnBounds="false" prefHeight="233.0" prefWidth="600.0">
+                        <TableView fx:id="viajeTable" pickOnBounds="false" prefHeight="233.0" prefWidth="600.0">
                           <columns>
                               <TableColumn prefWidth="75.0" text="Fecha">
                                  <columns>
-                                  <TableColumn prefWidth="75.0" text="Dia" />
-                                  <TableColumn prefWidth="75.0" text="Hora Entrada" />
+                                  <TableColumn fx:id="diaColumn" prefWidth="75.0" text="Dia" />
+                                  <TableColumn fx:id="horaEntradaColumn" prefWidth="75.0" text="Hora Entrada" />
                                  </columns>
                               </TableColumn>
                               <TableColumn prefWidth="75.0" text="Viaje">
                                  <columns>
-                                    <TableColumn prefWidth="75.0" text="Peso Neto" />
-                                    <TableColumn prefWidth="75.0" text="Distancia" />
-                                    <TableColumn prefWidth="75.0" text="Ingenio" />
-                                    <TableColumn prefWidth="75.0" text="Monto" />
+                                    <TableColumn fx:id="brutoColumn" prefWidth="75.0" text="Peso Bruto" />
+                                    <TableColumn fx:id="taraColumn" prefWidth="75.0" text="Tara" />
+                                    <TableColumn fx:id="distanciaColumn" prefWidth="75.0" text="Distancia" />
+                                    <TableColumn fx:id="ingenioColumn" prefWidth="75.0" text="Ingenio" />
                                  </columns>
                               </TableColumn>
                               <TableColumn prefWidth="75.0" text="Conductor">
                                  <columns>
-                                    <TableColumn prefWidth="75.0" text="Apellido" />
-                                    <TableColumn prefWidth="75.0" text="Nombre" />
+                                    <TableColumn fx:id="nombreConductorColumn" prefWidth="75.0" text="Nombre" />
+                                    <TableColumn fx:id="apellidoConductorColumn" prefWidth="75.0" text="Apellido" />
                                  </columns>
                               </TableColumn>
                           </columns>

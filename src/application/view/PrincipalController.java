@@ -16,6 +16,7 @@ import application.view.sueldo.LiquidacionesController;
 import application.view.sueldo.cruds.LiquidacionSueldoController;
 import application.view.venta.AdministrarViajesController;
 import application.view.calculo.CargarAcopladoController;
+import application.view.venta.FacturacionController;
 import application.view.venta.VentaClienteController;
 import javafx.fxml.FXML;
 import application.Main;
@@ -53,7 +54,29 @@ public class PrincipalController {
             // Give the controller access to the main app.
             AdministrarViajesController controller = loader.getController();
             controller.setOwner(primaryStage);
-          //  controller.;
+            controller.buscarViajes();
+
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void showFacturacionOverview(){
+        try{
+            // Load category overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/venta/Facturacion.fxml"));
+            AnchorPane viajesOverview = loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(viajesOverview);
+
+            // Give the controller access to the main app.
+            FacturacionController controller = loader.getController();
+            controller.setOwner(primaryStage);
+            controller.buscarFacturaciones();
 
 
         }catch (IOException e){

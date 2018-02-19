@@ -1,9 +1,6 @@
 package application.model.venta;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 public class FacturaVenta {
     private IntegerProperty idFacturaVenta;
@@ -12,6 +9,10 @@ public class FacturaVenta {
     private StringProperty fechaEmision;
     private StringProperty nombreCliente;
     private StringProperty cuitCliente;
+    private DoubleProperty montoFactura;
+    private Cliente cliente;
+    private Organizacion organizacion;
+
 
     public int getIdFacturaVenta() {
         return idFacturaVenta.get();
@@ -84,6 +85,35 @@ public class FacturaVenta {
     public void setCuitCliente(String cuitCliente) {
         this.cuitCliente.set(cuitCliente);
     }
+
+    public double getMontoFactura() {
+        return montoFactura.get();
+    }
+
+    public DoubleProperty montoFacturaProperty() {
+        return montoFactura;
+    }
+
+    public void setMontoFactura(double montoFactura) {
+        this.montoFactura.set(montoFactura);
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Organizacion getOrganizacion() {
+        return organizacion;
+    }
+
+    public void setOrganizacion(Organizacion organizacion) {
+        this.organizacion = organizacion;
+    }
+
 
     public FacturaVenta(Integer idFacturaVenta, String cuit, String nombreEmpresa,
                         String fechaEmision, String nombreCliente, String cuitCliente) {

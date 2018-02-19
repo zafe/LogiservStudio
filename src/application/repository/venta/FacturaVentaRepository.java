@@ -50,7 +50,7 @@
 	            preparedStatement= connection.prepareStatement("" +
 	                    "UPDATE CLIENTE " +
 	                    "SET NombreEmpresa=?, CUIT=?, FechaEmision=?, CLIENTE_idCliente=? " + 
-	                    "WHERE idFacturaVenta=?");
+	                    "WHERE idFACTURA_VENTA=?");
 	            preparedStatement.setString(1,facturaVenta.getNombreEmpresa());
 	            preparedStatement.setString(2,facturaVenta.getCuit());
 	            SimpleDateFormat dateFormat  = new SimpleDateFormat("dd/MM/yyyy");
@@ -75,7 +75,7 @@
 	        try {
 	            connection= JDBCConnection.getInstanceConnection();
 	            preparedStatement = connection.prepareStatement(
-	                    "DELETE FROM FACTURA_VENTA WHERE idFacturaVenta=?");
+	                    "DELETE FROM FACTURA_VENTA WHERE idFACTURA_VENTA=?");
 	            preparedStatement.setInt(1, facturaVenta.getIdFacturaVenta());
 	            preparedStatement.executeUpdate();
 	            preparedStatement.close();
@@ -94,7 +94,7 @@
 	            resultSet = preparedStatement.executeQuery();
 	            while (resultSet.next()){
 	                FacturaVenta facturaVenta = new FacturaVenta();
-	                facturaVenta.setIdFacturaVenta(resultSet.getInt("idFacturaVenta"));
+	                facturaVenta.setIdFacturaVenta(resultSet.getInt("idFACTURA_VENTA"));
 	                facturaVenta.setNombreEmpresa(resultSet.getString("NombreEmpresa"));
 	                facturaVenta.setCuit(resultSet.getString("CUIT"));
 	                facturaVenta.setCuitCliente(resultSet.getString("Nombre"));
@@ -113,7 +113,7 @@
 	    public void search(FacturaVenta facturaVenta){
 	        try {
 	            connection= JDBCConnection.getInstanceConnection();
-	            preparedStatement=connection.prepareStatement("SELECT * FROM FACTURA_VENTA where idFacturaVenta=?");
+	            preparedStatement=connection.prepareStatement("SELECT * FROM FACTURA_VENTA where idFACTURA_VENTA=?");
 	            preparedStatement.setInt(1,facturaVenta.getIdFacturaVenta());
 	            preparedStatement.executeUpdate();
 	            preparedStatement.close();
