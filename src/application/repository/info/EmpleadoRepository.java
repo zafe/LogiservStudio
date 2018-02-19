@@ -201,4 +201,24 @@ public class EmpleadoRepository {
 		}
 		return empleados;
 	}
+		public Empleado getEmpleadoById(int idEmpleado){
+			Empleado empleado = new Empleado();
+			try {
+				Connection connection= JDBCConnection.getInstanceConnection();
+				PreparedStatement preparedStatement =connection.prepareStatement("SELECT idEmpleado, CUIT, Nombre," +
+						" Apellido, FechaNacimiento FROM EMPLEADO WHERE idEmpleado=?;");
+				preparedStatement.setInt(1,idEmpleado);
+				ResultSet resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()){
+					empleado.setIdEmpleado(resultSet.getInt(1));
+					empleado.setCuit(resultSet.getString(2));
+					empleado.setNombre(resultSet.getString(3));
+					empleado.setApellido(resultSet.getString(4));
+					empleado.setNacimiento(resultSet.getString(5));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return empleado;
+		}
 }

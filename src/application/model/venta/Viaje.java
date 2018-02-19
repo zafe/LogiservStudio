@@ -6,6 +6,8 @@ import application.model.calculo.Ingenio;
 import application.model.info.Empleado;
 import javafx.beans.property.*;
 
+import java.math.BigDecimal;
+
 public class Viaje {
 
     private IntegerProperty idRemito;
@@ -21,6 +23,9 @@ public class Viaje {
     private StringProperty camionNombre;
     private StringProperty facturaVenta;
     private Empleado conductor;
+    private Finca finca;
+    private Ingenio ingenio;
+    private Camion camion;
 
     public int getIdRemito() {
         return idRemito.get();
@@ -174,6 +179,31 @@ public class Viaje {
         this.pesoNeto.set(pesoNeto);
     }
 
+    public Finca getFinca() {
+        return finca;
+    }
+
+    public void setFinca(Finca finca) {
+        this.finca = finca;
+    }
+
+    public Ingenio getIngenio() {
+        return ingenio;
+    }
+
+    public void setIngenio(Ingenio ingenio) {
+        this.ingenio = ingenio;
+    }
+
+    public Camion getCamion() {
+        return camion;
+    }
+
+    public void setCamion(Camion camion) {
+        this.camion = camion;
+    }
+
+
     public Viaje(Integer idRemito, String fecha, String horaEntrada,
                  Double bruto, Double tara, String distanciaRecorrida,
                  String fincaOrigen, String ingenioDestino, String camionNombre,
@@ -189,10 +219,16 @@ public class Viaje {
         this.camionNombre = new SimpleStringProperty(camionNombre);
         this.facturaVenta = new SimpleStringProperty(facturaVenta);
         this.conductor = conductor;
+        this.ingenio = new Ingenio();
+        this.conductor = new Empleado();
+        this.finca = new Finca();
     }
 
     public Viaje() {
         this(0,null,null,0.0,0.0,
                 null,null,null,null,null, null);
+        this.setDistanciaRecorrida("0");
+        this.setBruto(0);
+        this.setTara(0);
     }
 }

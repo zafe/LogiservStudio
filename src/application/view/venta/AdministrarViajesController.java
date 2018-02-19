@@ -14,6 +14,7 @@ import javafx.scene.Group;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -37,9 +38,9 @@ public class AdministrarViajesController {
 	@FXML
 	private TableColumn<Viaje, String> horaEntradaColumn;
 	@FXML
-	private TableColumn<Viaje, String> montoColumn;
+	private TableColumn<Viaje, String> brutoColumn;
 	@FXML
-	private TableColumn<Viaje, String> pesoNetoColumn;
+	private TableColumn<Viaje, String> taraColumn;
 
 
 	private Stage owner;
@@ -48,20 +49,20 @@ public class AdministrarViajesController {
 	
 	public void buscarViajes(){
 		this.viajeData = repository.view();
-		viajeTable.setItems(viajeData);
+			viajeTable.setItems(viajeData);
 	}
 
 
 	@FXML
 	private void initialize() {
+		ingenioColumn.setCellValueFactory(cellData -> cellData.getValue().getIngenio().nombreProperty());
 		nombreConductorColumn.setCellValueFactory(cellData -> cellData.getValue().getConductor().nombreProperty());
 		apellidoConductorColumn.setCellValueFactory(cellData -> cellData.getValue().getConductor().apellidoProperty());
-		ingenioColumn.setCellValueFactory(cellData -> cellData.getValue().ingenioDestinoProperty());
 		distanciaColumn.setCellValueFactory(cellData -> cellData.getValue().distanciaRecorridaProperty());
 		diaColumn.setCellValueFactory(cellData -> cellData.getValue().fechaProperty());
 		horaEntradaColumn.setCellValueFactory(cellData -> cellData.getValue().horaEntradaProperty());
-		montoColumn.setCellValueFactory(cellData -> cellData.getValue().montoProperty().asString());
-		pesoNetoColumn.setCellValueFactory(cellData -> cellData.getValue().pesoNetoProperty().asString());
+		brutoColumn.setCellValueFactory(cellData -> cellData.getValue().brutoProperty().asString());
+		taraColumn.setCellValueFactory(cellData -> cellData.getValue().taraProperty().asString());
 	}
 
 	public void setOwner(Stage owner){
@@ -116,7 +117,7 @@ public class AdministrarViajesController {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("view/venta/cruds/ViajeEdit.fxml"));
-			Group page = loader.load();
+			AnchorPane page = loader.load();
 
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
@@ -134,7 +135,7 @@ public class AdministrarViajesController {
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
-			return true;//controller.isOkClicked();
+			return controller.isOkClicked();
 
 		} catch (IOException e) {
 			e.printStackTrace();

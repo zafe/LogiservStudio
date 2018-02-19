@@ -99,6 +99,25 @@ public class AcopladoRepository {
 
     }
 
+    public Acoplado getAcopladoById(int idAcoplado){
+        Acoplado acoplado = new Acoplado();
+        try {
+            connection= JDBCConnection.getInstanceConnection();
+            preparedStatement=connection.prepareStatement("SELECT * FROM ACOPLADO where idAcoplado=?");
+            preparedStatement.setInt(1,idAcoplado);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                acoplado.setId(resultSet.getInt("idAcoplado"));
+                acoplado.setMarca(resultSet.getString("Marca"));
+                acoplado.setPatente(resultSet.getString("Patente"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return acoplado;
+
+    }
 
 
 }
