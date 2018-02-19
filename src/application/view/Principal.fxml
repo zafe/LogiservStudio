@@ -93,7 +93,7 @@
                                     <Button mnemonicParsing="false" onAction="#showFamiliares" prefHeight="27.0" prefWidth="253.0" text="Grupo Familiar" />
                                     <Button mnemonicParsing="false" onAction="#showCategoriaEmpleadosOverview" prefHeight="27.0" prefWidth="223.0" text="Categorías de Empleados" />
                                           <Button mnemonicParsing="false" onAction="#showUsuarioOverview" prefHeight="27.0" prefWidth="222.0" text="Usuarios" />
-                                          <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="253.0" text="Domicilios" />
+                                          <Button mnemonicParsing="false" onAction="#showDesempleados" prefHeight="27.0" prefWidth="253.0" text="Desempleados" />
                                        </children>
                                     </VBox>
                                  </children>
