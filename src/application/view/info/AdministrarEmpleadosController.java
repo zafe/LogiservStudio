@@ -2,6 +2,8 @@ package application.view.info;
 
 import java.io.IOException;
 
+import application.model.info.CategoriaEmpleado;
+import application.view.info.cruds.CategoriaEmpleadoEditController;
 import application.view.info.cruds.EmpleadoEditDialogController;
 import javafx.beans.property.StringProperty;
 import javafx.scene.Scene;
@@ -39,16 +41,15 @@ public class AdministrarEmpleadosController {
 	@FXML
 	private TableColumn<Empleado, String> nacimientoColumn;
 	@FXML
-	private TableColumn<Empleado, String> hijosColumn;
-	@FXML
 	private TableColumn<Empleado, String> cuitColumn;
 	@FXML
 	private TableColumn<Empleado, String> categoriaColumn;
 	private Stage owner;
 	private ObservableList<Empleado> empleadoData = FXCollections.observableArrayList();
+	EmpleadoRepository empleadoRepository = new EmpleadoRepository();
 	
 	public void buscarEmpleados(){
-		this.empleadoData = EmpleadoRepository.buscarEmpleados();
+		this.empleadoData = empleadoRepository.buscarEmpleados();
 		empleadoTable.setItems(empleadoData);
 	}
 
@@ -63,9 +64,8 @@ public class AdministrarEmpleadosController {
 		numeroColumn.setCellValueFactory(cellData -> cellData.getValue().getDomicilio().numeroProperty());
 		localidadColumn.setCellValueFactory(cellData -> cellData.getValue().getDomicilio().getLocalidad().nombreProperty());
 		provinciaColumn.setCellValueFactory(cellData -> cellData.getValue().getDomicilio().getLocalidad().getProvincia().nombreProperty());
-		hijosColumn.setCellValueFactory(cellData -> cellData.getValue().hijosProperty().asString());
 		cuitColumn.setCellValueFactory(cellData -> cellData.getValue().cuitProperty());
-		categoriaColumn.setCellValueFactory(cellData -> cellData.getValue().categoriaProperty());
+		categoriaColumn.setCellValueFactory(cellData -> cellData.getValue().getCategoriaEmpleado().nombreProperty());
 	}
 
 	/**
@@ -129,11 +129,11 @@ public class AdministrarEmpleadosController {
 	 * details for a new person.
 	 */
 	@FXML
-	private void handleNewEmpleado() {
+	private void handleNew() {
 		Empleado tempEmpleado = new Empleado();
 		boolean okClicked = this.showEmpleadoEditDialog(tempEmpleado, true);
 		if (okClicked) {
-			empleadoData.add(tempEmpleado);
+			buscarEmpleados();
 		}
 	}
 
@@ -143,10 +143,10 @@ public class AdministrarEmpleadosController {
 	 */
 	@FXML
 	private void handleEditPerson() {
-		Empleado selectedEmpleado = empleadoTable.getSelectionModel().getSelectedItem();
-		System.out.println("idDomicilio selectedEmpleado to edit: " + selectedEmpleado.getDomicilio().getIdDomicilio());
-		if (selectedEmpleado != null) {
- 			this.showEmpleadoEditDialog(selectedEmpleado, false);
+		if (!empleadoTable.getSelectionModel().isEmpty()) {
+			Empleado selectedEmpleado = empleadoTable.getSelectionModel().getSelectedItem();
+			this.showEmpleadoEditDialog(selectedEmpleado, false);
+			buscarEmpleados();
 		} else {
 			// Nothing selected.
 			Alert alert = new Alert(AlertType.WARNING);
@@ -156,4 +156,6 @@ public class AdministrarEmpleadosController {
 			alert.showAndWait();
 		}
 	}
+
+
 }

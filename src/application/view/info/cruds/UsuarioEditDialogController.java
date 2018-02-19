@@ -33,10 +33,12 @@ public class UsuarioEditDialogController {
 	@FXML
 	private Button aceptarButton;
 
-	private ObservableList<Empleado> empleadoList = EmpleadoRepository.buscarEmpleados();
 	private Stage dialogStage;
 	private Usuario usuario;
 	private boolean okClicked = false;
+
+	EmpleadoRepository empleadoRepository = new EmpleadoRepository();
+	private ObservableList<Empleado> empleadoList = empleadoRepository.buscarEmpleados();
 
 	@FXML
 	private	void initialize(){

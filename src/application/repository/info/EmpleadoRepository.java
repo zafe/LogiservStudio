@@ -1,6 +1,7 @@
 package application.repository.info;
 
-import application.model.info.Empleado;
+import application.comunes.Alerta;
+import application.model.info.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -13,40 +14,43 @@ import java.sql.Statement;
 import application.database.JDBCConnection;
 
 public class EmpleadoRepository {
-	
-	public static ObservableList<Empleado> buscarEmpleados(){
-		
-		
+	Connection connection;
+	PreparedStatement preparedStatement;
+	ResultSet resultSet;
+
+	public ObservableList<Empleado> buscarEmpleados(){
 		ObservableList<Empleado> empleados = FXCollections.observableArrayList();
-		Statement statement = null;
-		ResultSet resultSet = null;
 		try {
-			statement = JDBCConnection.getInstanceConnection().createStatement();
-			resultSet = statement.executeQuery("SELECT * FROM EMPLEADO e, CATEGORIA_EMPLEADO c, DOMICILIO d "
-					+ "WHERE e.CATEGORIA_EMPLEADO_idCategoriaEmpleado = c.idCategoriaEmpleado "
-					+ "AND e.DOMICILIO_idDomicilio = d.idDomicilio;");
+			connection = JDBCConnection.getInstanceConnection();
+			preparedStatement = connection.prepareStatement("SELECT e.idEmpleado, e.CUIT, e.Nombre, e.Apellido, " +
+					"e.FechaNacimiento, c.idCategoriaEmpleado, c.NombreCategoria,\n" +
+					"\t\td.idDomicilio, d.Calle, d.Numero, l.idLocalidad, l.NombreLocalidad, p.*\n" +
+					"\tFROM EMPLEADO e, CATEGORIA_EMPLEADO c, DOMICILIO d, LOCALIDAD AS l, PROVINCIA AS p \n" +
+					"\t\tWHERE e.CATEGORIA_EMPLEADO_idCategoriaEmpleado = c.idCategoriaEmpleado \n" +
+					"\t\t\tAND e.DOMICILIO_idDomicilio = d.idDomicilio\n" +
+					"\t\t\tAND d.LOCALIDAD_idLocalidad=l.idLocalidad \n" +
+					"            AND l.PROVINCIA_idProvincia=p.idProvincia");
+			resultSet = preparedStatement.executeQuery();
 			
 			while(resultSet.next()){
-			Empleado empleado = new Empleado();
-			empleado.setIdEmpleado(resultSet.getInt("idEmpleado"));
-			empleado.setNombre(resultSet.getString("Nombre"));
-			empleado.setApellido(resultSet.getString("Apellido"));
-			empleado.setHijos(resultSet.getInt("hijos"));
-			empleado.setCuit(resultSet.getString("CUIT"));
-			empleado.setNacimiento(resultSet.getString("FechaNacimiento"));
-			empleado.setCategoria(resultSet.getString("NombreCategoria"));
-			empleado.setDomicilio(resultSet.getInt("DOMICILIO_idDomicilio"));
-			System.out.println("Empleado " + empleado.getNombre() + " " + empleado.getApellido() + " idDomicilio :" + empleado.getDomicilio().getIdDomicilio());
-			empleados.add(empleado); }
+				Empleado empleado = new Empleado();
+				empleado.setIdEmpleado(resultSet.getInt(1));
+				empleado.setCuit(resultSet.getString(2));
+				empleado.setNombre(resultSet.getString(3));
+				empleado.setApellido(resultSet.getString(4));
+				empleado.setNacimiento(resultSet.getString(5));
+				empleado.setCategoriaEmpleado(new CategoriaEmpleado(resultSet.getInt(6), resultSet.getString(7)));
+				empleado.setDomicilio(new Domicilio(resultSet.getInt(8),
+						new Localidad(resultSet.getInt(11), resultSet.getString(12),
+								new Provincia(resultSet.getInt(13), resultSet.getString(14))),
+						resultSet.getString(9), resultSet.getString(10)));
+				empleados.add(empleado);
+			}
 			} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		return empleados;
-		
 	}
-	//todo hace deleteEmpleado
 	public static void deleteEmpleadoById(Empleado empleado){
 		try {
             Connection connection = JDBCConnection.getInstanceConnection();
@@ -63,35 +67,28 @@ public class EmpleadoRepository {
         
 	}
 	
-	public static void edit(Empleado empleado){
+	public void edit(Empleado empleado){
 		try {
-            Connection connection= JDBCConnection.getInstanceConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(
-                    "UPDATE DOMICILIO SET Calle = ? , Numero = ?, LOCALIDAD_idLocalidad = ? WHERE idDomicilio = ?;");
-            //UPDATE del Domicilio
-            preparedStatement.setString(1, empleado.getDomicilio().getCalle());
-            preparedStatement.setString(2, empleado.getDomicilio().getNumero());
-            preparedStatement.setInt(3, empleado.getDomicilio().getLocalidad().getIdLocalidad());
-            preparedStatement.setInt(4, empleado.getDomicilio().getIdDomicilio());
-            System.out.println("DOMICILIO UPDATE SQL: " + preparedStatement.toString());
-            preparedStatement.executeUpdate();
-            //UPDATE del Empleado
-			preparedStatement = connection.prepareStatement(
-					"UPDATE EMPLEADO SET CUIT = ?, hijos = ?, Nombre = ?, Apellido = ?, FechaNacimiento = ?, " +
-					"CATEGORIA_EMPLEADO_idCategoriaEmpleado = ? WHERE idEmpleado = ?;");
-            preparedStatement.setString(1, empleado.getCuit());
-            preparedStatement.setInt(2, empleado.getHijos());
-            preparedStatement.setString(3, empleado.getNombre());
+			connection = JDBCConnection.getInstanceConnection();
+			preparedStatement=connection.prepareStatement(" UPDATE EMPLEADO as e " +
+					"    INNER JOIN DOMICILIO as d ON e.DOMICILIO_idDomicilio = d.idDomicilio " +
+					"    SET e.CUIT = ?, e.CATEGORIA_EMPLEADO_idCategoriaEmpleado=?, " +
+					"			e.Nombre=?, e.Apellido =?, e.FechaNacimiento=?, d.LOCALIDAD_idLocalidad=?" +
+					"    WHERE e.idEmpleado = ?");
+			preparedStatement.setString(1, empleado.getCuit());
+			preparedStatement.setInt(2, empleado.getCategoriaEmpleado().getIdCategoriaEmpleado());
+			preparedStatement.setString(3, empleado.getNombre());
 			preparedStatement.setString(4, empleado.getApellido());
 			preparedStatement.setString(5, empleado.getNacimiento());
-			preparedStatement.setInt(6, empleado.getCategoriaEmpleado().getIdCategoriaEmpleado());
+			preparedStatement.setInt(6, empleado.getDomicilio().getLocalidad().getIdLocalidad());
 			preparedStatement.setInt(7, empleado.getIdEmpleado());
 			preparedStatement.executeUpdate();
-            preparedStatement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        
+			String headerMsj="Actualización: Empleado actualizado";
+			String cuerpoMsj = "Empleado: " + empleado.getNombre() + " modificado correctamente.";
+			Alerta.alertaInfo("Empleados", headerMsj, cuerpoMsj);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static Empleado buscarEmpleadoById(Integer id){
@@ -146,55 +143,28 @@ public class EmpleadoRepository {
 		}
 
 		public void save(Empleado empleado){
-			try {
-				Connection connection= JDBCConnection.getInstanceConnection();
-				//Inserta primero el Domicilio, luego retiene el idDomicilio para usarlo en la inserción del Empleado
-				PreparedStatement preparedStatement=connection.prepareStatement("INSERT INTO DOMICILIO " +
-						"(Calle, Numero, LOCALIDAD_idLocalidad) " +
-						"VALUES (?,?,?); " , Statement.RETURN_GENERATED_KEYS);
-				//Inserta el Domicilio
-				preparedStatement.setString(1,empleado.getDomicilio().getCalle());
-				preparedStatement.setString(2,empleado.getDomicilio().getNumero());
-				preparedStatement.setInt(3, empleado.getDomicilio().getLocalidad().getIdLocalidad());
-				preparedStatement.executeUpdate();
-				ResultSet rs = preparedStatement.getGeneratedKeys();
-				int last_inserted_id = 0;
-				if(rs.next())
-					last_inserted_id = rs.getInt(1);
-
-
-				//Conseguir el idDomicilio recientemente ingresado
-				preparedStatement = connection.prepareStatement("INSERT INTO EMPLEADO " +
-						"(CUIT, hijos, Nombre, Apellido, FechaNacimiento, CATEGORIA_EMPLEADO_idCategoriaEmpleado, " +
-						"DOMICILIO_idDomicilio)" +
-						" VALUES (?,?,?,?,?,?,?)");
-				//Inserta el Empleado
-				preparedStatement.setString(1, empleado.getCuit());
-				preparedStatement.setInt(2, empleado.getHijos());
-				preparedStatement.setString(3, empleado.getNombre());
-				preparedStatement.setString(4, empleado.getApellido());
-				preparedStatement.setString(5, empleado.getNacimiento());
-				preparedStatement.setInt(6, empleado.getCategoriaEmpleado().getIdCategoriaEmpleado());
-				preparedStatement.setInt(7, last_inserted_id);
-				System.out.println("I SQL: " + preparedStatement.toString());
-				preparedStatement.executeUpdate();
-
-				System.out.printf("Empleado %s %s agregado correctamente", empleado.getNombre(), empleado.getApellido());
-
-			} catch (SQLException e) {
-				e.printStackTrace();
+				try {
+					connection = JDBCConnection.getInstanceConnection();
+					preparedStatement= connection.prepareStatement("INSERT INTO EMPLEADO VALUES(?,?,?,?,?,?,LAST_INSERT_ID())");
+					preparedStatement.setString(1,null);
+					preparedStatement.setString(2, empleado.getCuit());
+					preparedStatement.setInt(3, empleado.getCategoriaEmpleado().getIdCategoriaEmpleado());
+					preparedStatement.setString(4, empleado.getNombre());
+					preparedStatement.setString(5, empleado.getApellido());
+					preparedStatement.setString(6, empleado.getNacimiento());
+					preparedStatement.executeUpdate();
+					String cuerpoMsj = "Empleado  " + empleado.getNombre() + " agregado correctamente.\n";
+					Alerta.alertaInfo("Empleados",cuerpoMsj);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
-
-		}
-
-
 		public Empleado getEmpleadoById(int idEmpleado){
 			Empleado empleado = new Empleado();
 			try {
 				Connection connection= JDBCConnection.getInstanceConnection();
 				PreparedStatement preparedStatement =connection.prepareStatement("SELECT idEmpleado, CUIT, Nombre," +
 						" Apellido, FechaNacimiento FROM EMPLEADO WHERE idEmpleado=?;");
-
 				preparedStatement.setInt(1,idEmpleado);
 				ResultSet resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()){
@@ -207,9 +177,6 @@ public class EmpleadoRepository {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-
 			return empleado;
-
 		}
-
 }

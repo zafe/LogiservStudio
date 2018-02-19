@@ -8,6 +8,7 @@ import application.view.calculo.InfoOrigenDestinoController;
 import application.view.compra.*;
 import application.view.info.AdministrarEmpleadosController;
 import application.view.info.AdministrarUsuariosController;
+import application.view.info.GrupoFamiliarController;
 import application.view.info.InfoCategoriaEmpleadoController;
 import application.view.calculo.CargarCamionController;
 import application.view.sueldo.ConceptosSalarialesController;
@@ -128,7 +129,27 @@ public class PrincipalController {
             e.printStackTrace();
         }
         }
+    @FXML
+    private void showFamiliares(){
+        try{
+            // Load category overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/info/GrupoFamiliar.fxml"));
+            AnchorPane anchorPane = loader.load();
 
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(anchorPane);
+
+            // Give the controller access to the main app.
+            GrupoFamiliarController controller = loader.getController();
+            controller.setOwner(primaryStage);
+            controller.obtenerFamiliares();
+
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
 
     //---------------MODULO CALCULO------------------------//
     @FXML

@@ -27,8 +27,6 @@ public class AdministrarUsuariosController {
 	@FXML
 	private TableColumn<Usuario, String> usuarioColumn;
 	@FXML
-	private TableColumn<Usuario, String> passwordColumn;
-	@FXML
 	private TableColumn<Usuario, String> nombreColumn;
 	@FXML
 	private TableColumn<Usuario, String> apellidoColumn;
@@ -45,9 +43,8 @@ public class AdministrarUsuariosController {
 	@FXML
 	private void initialize(){
 		usuarioColumn.setCellValueFactory(cellData -> cellData.getValue().nombre_usuarioProperty());
-		passwordColumn.setCellValueFactory(cellData -> cellData.getValue().passwordProperty());
-		nombreColumn.setCellValueFactory(cellData -> cellData.getValue().empleadoProperty().getValue().nombreProperty());
-		apellidoColumn.setCellValueFactory(cellData -> cellData.getValue().empleadoProperty().getValue().apellidoProperty());
+		nombreColumn.setCellValueFactory(cellData -> cellData.getValue().getEmpleado().nombreProperty());
+		apellidoColumn.setCellValueFactory(cellData -> cellData.getValue().getEmpleado().apellidoProperty());
 		}
 	
 	@FXML
