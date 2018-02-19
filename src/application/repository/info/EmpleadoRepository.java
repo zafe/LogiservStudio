@@ -102,7 +102,6 @@ public class EmpleadoRepository {
 		
 		try {
 			statement = JDBCConnection.getInstanceConnection().createStatement();
-			System.out.println("EL ID DEL EMPLEADO ES " + id);
 			resultSet = statement.executeQuery("SELECT * FROM EMPLEADO e, CATEGORIA_EMPLEADO c, DOMICILIO d "
 					+ "WHERE e.CATEGORIA_EMPLEADO_idCategoriaEmpleado = c.idCategoriaEmpleado "
 					+ "AND e.DOMICILIO_idDomicilio = d.idDomicilio "
@@ -128,7 +127,8 @@ public class EmpleadoRepository {
 				PreparedStatement preparedStatement=connection.prepareStatement("select idEmpleado, " +
 						"Apellido, Nombre " +
 						"from Empleado " +
-						"where CATEGORIA_EMPLEADO_idCategoriaEmpleado = ?");
+						"where CATEGORIA_EMPLEADO_idCategoriaEmpleado = ?" +
+						" AND FechaBaja IS null");
 				preparedStatement.setInt(1,idCategoria);
 				ResultSet resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()){
