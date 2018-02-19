@@ -94,7 +94,7 @@ public class AdministrarViajesController {
 	}
 
 	/**
-	 * Called when the user clicks on the delete button.
+	 * Called when the user clicks on the logicDelete button.
 	 */
 	@FXML
 	private void handleDeleteViaje() {

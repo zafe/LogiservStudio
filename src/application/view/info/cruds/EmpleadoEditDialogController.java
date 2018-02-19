@@ -14,7 +14,9 @@ import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.time.format.DateTimeFormatter;
 
@@ -37,8 +39,6 @@ public class EmpleadoEditDialogController {
 	private TextField nombreField;
 	@FXML
 	private TextField apellidoField;
-	@FXML
-	private TextField hijosField;
 	@FXML
 	private TextField cuitField;
 	@FXML
@@ -148,6 +148,8 @@ public class EmpleadoEditDialogController {
 			//Set Provincia
 			localidadEmpleado.setProvincia(provinciaComboBox.getSelectionModel().getSelectedItem());
 
+			//Set fecha de alta
+			ponerFechaAlta();
 			//Set Fecha de Nacimiento del Empleado
 			empleado.setNacimiento(nacimientoPicker.getValue().toString());
 
@@ -203,5 +205,11 @@ public class EmpleadoEditDialogController {
 	@FXML
 	private void mostrarFamiliares(){
 		//todo: hacer metodo
+	}
+
+	private void ponerFechaAlta(){
+		java.util.Date input = new Date();
+		LocalDate date = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		empleado.setFechaAlta(date.toString());
 	}
 }
