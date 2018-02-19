@@ -93,7 +93,7 @@ public class FacturacionController {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("view/venta/cruds/NuevaFacturacion.fxml"));
+			loader.setLocation(Main.class.getResource("view/venta/cruds/EmitirFactura.fxml"));
 			AnchorPane page = loader.load();
 
 			// Create the dialog Stage.

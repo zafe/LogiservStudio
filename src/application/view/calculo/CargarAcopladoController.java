@@ -47,7 +47,7 @@ public class CargarAcopladoController {
      */
     @FXML
     private void initialize(){
-        //idAcopladoTableColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty().asString());
+        idAcopladoTableColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty().asString());
         marcaTableColumn.setCellValueFactory(cellData -> cellData.getValue().marcaProperty());
         patenteTableColumn.setCellValueFactory(cellData -> cellData.getValue().patenteProperty());
 
@@ -96,7 +96,7 @@ public class CargarAcopladoController {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/venta/cruds/AcopladoEdit.fxml"));
+            loader.setLocation(Main.class.getResource("view/calculo/cruds/AcopladoEdit.fxml"));
             Group page = loader.load();
 
             // Create the dialog Stage.

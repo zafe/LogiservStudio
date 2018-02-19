@@ -35,7 +35,6 @@
 	            preparedStatement.setInt(4, idCliente);
 	            preparedStatement.executeUpdate();
 	            preparedStatement.close();
-	            connection.close();
 	            String cuerpoMsj = "Factura Venta " + facturaVenta.getIdFacturaVenta()+ " agregada correctamente.\n";
 	            Alerta.alertaInfo("Facturas de Venta",cuerpoMsj);
 	        } catch (SQLException e) {
@@ -63,7 +62,6 @@
 	            preparedStatement.setInt(4, idCliente);
 	            preparedStatement.setInt(5, facturaVenta.getIdFacturaVenta());
 	            preparedStatement.close();
-	            connection.close();
 	            String headerMsj="Actualización: Factura venta actualizada";
 	            String cuerpoMsj = "Factura Venta: " + facturaVenta.getIdFacturaVenta() + " modificada correctamente.";
 	            Alerta.alertaInfo("Factura Venta", headerMsj, cuerpoMsj);
@@ -79,7 +77,6 @@
 	            preparedStatement.setInt(1, facturaVenta.getIdFacturaVenta());
 	            preparedStatement.executeUpdate();
 	            preparedStatement.close();
-	            connection.close();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
@@ -103,7 +100,6 @@
 	            }
 	            preparedStatement.close();
 	            resultSet.close();
-	            connection.close();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
@@ -117,7 +113,6 @@
 	            preparedStatement.setInt(1,facturaVenta.getIdFacturaVenta());
 	            preparedStatement.executeUpdate();
 	            preparedStatement.close();
-	            connection.close();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }

@@ -25,10 +25,13 @@
                         <Label text="Acoplados" />
                         <TableView fx:id="acopladoTableView" pickOnBounds="false" prefHeight="233.0" prefWidth="600.0">
                           <columns>
-                            <TableColumn fx:id="idCamionTableColumn" minWidth="0.0" prefWidth="0.0" text="id" />
+                            <TableColumn fx:id="idAcopladoTableColumn" minWidth="0.0" prefWidth="0.0" text="id" />
                             <TableColumn fx:id="marcaTableColumn" prefWidth="203.20001220703125" text="Marca" />
                               <TableColumn fx:id="patenteTableColumn" prefWidth="192.79998779296875" text="Patente" />
                           </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
                         </TableView>
                         <HBox alignment="CENTER" prefHeight="152.0" prefWidth="600.0" spacing="10.0">
                            <children>

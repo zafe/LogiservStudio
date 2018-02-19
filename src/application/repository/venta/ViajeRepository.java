@@ -77,8 +77,8 @@
 			try {
 				connection= JDBCConnection.getInstanceConnection();
 				preparedStatement = connection.prepareStatement("INSERT INTO VIAJE (Fecha, HoraEntrada, Bruto, Tara,"
-						+ "Origen_Destino_idOrigen_Destino, Empleado_idEmpleado, CAMION_idCamion, FACTURA_VENTA_idFACTURA_VENTA)"
-						+ " values(?,?,?,?,?,?,?,?)");
+						+ "Origen_Destino_idOrigen_Destino, Empleado_idEmpleado, CAMION_idCamion)"
+						+ " values(?,?,?,?,?,?,?);");
 				preparedStatement.setString(1, viaje.getFecha());
 				preparedStatement.setString(2, viaje.getHoraEntrada());
 				preparedStatement.setDouble(3, viaje.getBruto());
@@ -86,7 +86,6 @@
 				preparedStatement.setInt(5, idOrigenDestino);
 				preparedStatement.setInt(6, viaje.getConductor().getIdEmpleado());
 				preparedStatement.setInt(7, viaje.getCamion().getId());
-				preparedStatement.setInt(8, 1);//TODO Borrar esto cuando se actualice la base de datos
 				preparedStatement.executeUpdate();
 				preparedStatement.close();
 				String cuerpoMsj = "Viaje " + viaje.getIdRemito()+ " agregado correctamente.\n";
@@ -102,8 +101,8 @@
 			try {
 				connection= JDBCConnection.getInstanceConnection();
 				preparedStatement = connection.prepareStatement("UPDATE VIAJE SET Fecha=?, HoraEntrada=?, Bruto=?," +
-						" Tara=?, Origen_Destino_idOrigen_Destino=?, Empleado_idEmpleado=?, CAMION_idCamion=?," +
-						" FACTURA_VENTA_idFACTURA_VENTA=? WHERE idRemito=?;");
+						" Tara=?, Origen_Destino_idOrigen_Destino=?, Empleado_idEmpleado=?, CAMION_idCamion=?" +
+						" WHERE idRemito=?;");
 				preparedStatement.setString(1, viaje.getFecha());
 				preparedStatement.setString(2, viaje.getHoraEntrada());
 				preparedStatement.setDouble(3, viaje.getBruto());
@@ -111,8 +110,7 @@
 				preparedStatement.setInt(5, idOrigenDestino);
 				preparedStatement.setInt(6, viaje.getConductor().getIdEmpleado());
 				preparedStatement.setInt(7, viaje.getCamion().getId());
-				preparedStatement.setInt(8, 1);//TODO Borrar esto cuando se actualice la base de datos
-				preparedStatement.setInt(9,viaje.getIdRemito());
+				preparedStatement.setInt(8,viaje.getIdRemito());
 				System.out.println("UPDATE VIAJE QUERY: " + preparedStatement);
 				preparedStatement.executeUpdate();
 				preparedStatement.close();
