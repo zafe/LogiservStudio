@@ -123,8 +123,8 @@ public class OrganizacionRepository {
                 organizacion.setNombreOrg(resultSet.getString("Nombre"));
                 organizacion.setCuitOrg(resultSet.getString("CUIT"));
 
-                Empleado apoderado = empleadoRepository.getEmpleadoById(resultSet.getInt("APODERADO_idEmpleado"));
-                organizacion.setApoderadoOrg(apoderado);
+//                Empleado apoderado = empleadoRepository.getEmpleadoById(resultSet.getInt("APODERADO_idEmpleado"));
+//                organizacion.setApoderadoOrg(apoderado);
 
                 Domicilio domicilio = domicilioRepository.getDomicilioById(resultSet.getInt("DOMICILIO_idDomicilio"));
                 organizacion.setDomicilioOrg(domicilio);

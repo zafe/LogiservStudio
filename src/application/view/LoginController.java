@@ -39,6 +39,8 @@ public class LoginController implements Initializable {
 
     private String nombreUsuario;
     private String password;
+
+    Usuario usuario = new Usuario();
     UsuarioRepository usuarioRepository = new UsuarioRepository();
 
     public void initialize(URL url, ResourceBundle rb) {
@@ -56,7 +58,9 @@ public class LoginController implements Initializable {
     private void btnLogin(ActionEvent event){
         nombreUsuario = usuarioField.getText();
         password = passwordField.getText();
-        boolean okLogin = usuarioRepository.login(nombreUsuario,password);
+
+        String passMD5 = usuario.encryptMD5(password);
+        boolean okLogin = usuarioRepository.login(nombreUsuario,passMD5);
         if (okLogin){
             System.out.println("Login: "+ okLogin);
             try {

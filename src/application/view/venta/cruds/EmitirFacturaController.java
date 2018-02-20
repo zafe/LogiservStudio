@@ -30,7 +30,7 @@ public class EmitirFacturaController {
     @FXML
     private TableColumn<Viaje, String> idRemitoColumn;
     @FXML
-    private TableColumn<ConceptoSueldo, String> checkColumn;
+    private TableColumn<Viaje, String> checkColumn;
     @FXML
     private TableColumn<Viaje, String> fechaColumn;
     @FXML
@@ -87,7 +87,7 @@ public class EmitirFacturaController {
         ingenioColumn.setCellValueFactory(cellData -> cellData.getValue().getIngenio().nombreProperty());
         //montoColumn.setCellValueFactory(cellData -> cellData.getValue().montoProperty().asString());
 
-        checkColumn.setCellValueFactory(new PropertyValueFactory<ConceptoSueldo, String>("select"));
+        checkColumn.setCellValueFactory(new PropertyValueFactory<Viaje, String>("select"));
         checkColumn.setStyle( "-fx-alignment: CENTER;");
     }
 
