@@ -48,7 +48,7 @@ public class CategoriaArticuloController {
         CategoriaArticulo tempCategoria = new CategoriaArticulo();
         boolean okClicked = this.showCategoriaEdit(tempCategoria,true);
         if(okClicked)
-            categoriaArticulosData.add(tempCategoria);
+            buscarCategorias();
     }
     @FXML
     public void handleEditCategoria(){

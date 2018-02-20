@@ -4,6 +4,7 @@ import application.Main;
 import application.comunes.Alerta;
 import application.model.compra.DetalleCompra;
 import application.model.compra.FacturaCompra;
+import application.repository.compra.ArticuloRepository;
 import application.repository.compra.DetalleCompraRepository;
 import application.repository.compra.FacturaCompraRepository;
 import application.view.compra.cruds.FacturaEditController;
@@ -51,6 +52,7 @@ public class CompraComprasController {
 	private ObservableList<DetalleCompra> lineas = FXCollections.observableArrayList();
 	private FacturaCompraRepository facturaCompraRepository = new FacturaCompraRepository();
 	private DetalleCompraRepository lineasRepository = new DetalleCompraRepository();
+	private ArticuloRepository articuloRepository = new ArticuloRepository();
 
 	@FXML
 	private void initialize(){
@@ -133,12 +135,14 @@ public class CompraComprasController {
 	@FXML
 	public void handleEdit(){
 		FacturaCompra selectedItem = comprasTable.getSelectionModel().getSelectedItem();
-		if(selectedItem!=null)
+		if(selectedItem!=null){
 			this.showEdit(selectedItem,false);
-		else
+		}
+		else {
 			Alerta.alertaError("Seleccionar Factura",
 					"Por favor seleccione una Factura en la lista.");
-
+		}
+		obtenerCompras();
 	}
 	@FXML
 	public void handleEliminar(){
@@ -149,7 +153,14 @@ public class CompraComprasController {
 			if(resultado.isPresent() && resultado.get() == ButtonType.OK){
 				comprasTable.getItems().remove(
 						comprasTable.getSelectionModel().getSelectedIndex());
+				for (DetalleCompra linea :
+						lineaCompraTableView.getItems()) {
+					articuloRepository.minusStock(linea.getCantidad(),linea.getArticulo().getIdArticulo());
+				}
+				lineaCompraTableView.getItems().removeAll(lineas);
+				lineasRepository.delete(selectedItem.getIdFacturaCompra());
 				facturaCompraRepository.delete(selectedItem.getIdFacturaCompra());
+
 			}
 		}else{
 			Alerta.alertaError("Seleccionar Factura","Por favor selecciona una Factura en la lista");
