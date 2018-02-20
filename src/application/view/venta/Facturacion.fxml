@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="450.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.venta.FacturacionController">
+   <children>
+      <VBox prefHeight="450.0" prefWidth="740.0">
+         <children>
+            <Label text="Histórico Facturaciones" />
+            <HBox alignment="CENTER" prefHeight="174.0" prefWidth="740.0">
+               <children>
+                  <TableView fx:id="facturacionesTable" prefHeight="100.0" prefWidth="713.0">
+                    <columns>
+                      <TableColumn fx:id="idFacturacion" prefWidth="117.0" text="Código Factura" />
+                      <TableColumn fx:id="fechaColumn" prefWidth="110.0" text="Fecha" />
+                        <TableColumn fx:id="clienteColumn" prefWidth="75.0" text="Cliente" />
+                        <TableColumn fx:id="montoTotal" prefWidth="75.0" text="Monto Total" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </children>
+            </HBox>
+            <Label text="Viajes Facturados" />
+            <HBox prefHeight="209.0" prefWidth="740.0">
+               <children>
+                  <TableView fx:id="viajeTableView" prefHeight="148.0" prefWidth="729.0">
+                     <columns>
+                        <TableColumn fx:id="fincaColumn" prefWidth="312.0" text="Finca" />
+                        <TableColumn fx:id="ingenioColumn" prefWidth="105.0" text="Ingenio" />
+                        <TableColumn fx:id="fechaViajeColumn" prefWidth="118.0" text="Fecha" />
+                        <TableColumn fx:id="montoViajeColumn" prefWidth="64.0" text="Monto" />
+                        <TableColumn prefWidth="75.0" text="Conductor">
+                           <columns>
+                              <TableColumn fx:id="conductorNombreColumn" prefWidth="75.0" text="Nombre" />
+                              <TableColumn fx:id="conductorApellidoColumn" prefWidth="75.0" text="Apellido" />
+                           </columns>
+                        </TableColumn>
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="72.0" prefWidth="740.0">
+               <children>
+                  <Button fx:id="nuevaFacturaButton" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#handleNew" prefHeight="31.0" prefWidth="145.0" text="Emitir Factura" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

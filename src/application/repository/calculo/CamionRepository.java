@@ -93,4 +93,25 @@ public class CamionRepository {
         }
 
     }
+
+    public Camion getCamionById(int idCamion){
+        Camion camion = new Camion();
+        try {
+            connection= JDBCConnection.getInstanceConnection();
+            preparedStatement=connection.prepareStatement("SELECT * FROM CAMION where idCamion=?");
+            preparedStatement.setInt(1,idCamion);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                camion.setId(resultSet.getInt("idCamion"));
+                camion.setMarca(resultSet.getString("Marca"));
+                camion.setModelo(resultSet.getString("Modelo"));
+                camion.setPatente(resultSet.getString("PATENTE"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return camion;
+
+    }
 }
