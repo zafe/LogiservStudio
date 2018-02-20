@@ -17,8 +17,9 @@ public class EmpleadoRepository {
 	Connection connection;
 	PreparedStatement preparedStatement;
 	ResultSet resultSet;
+    private int lastID;
 
-	public ObservableList<Empleado> buscarEmpleados(){
+    public ObservableList<Empleado> buscarEmpleados(){
 		ObservableList<Empleado> empleados = FXCollections.observableArrayList();
 		try {
 			connection = JDBCConnection.getInstanceConnection();
@@ -201,24 +202,19 @@ public class EmpleadoRepository {
 		}
 		return empleados;
 	}
-		public Empleado getEmpleadoById(int idEmpleado){
-			Empleado empleado = new Empleado();
-			try {
-				Connection connection= JDBCConnection.getInstanceConnection();
-				PreparedStatement preparedStatement =connection.prepareStatement("SELECT idEmpleado, CUIT, Nombre," +
-						" Apellido, FechaNacimiento FROM EMPLEADO WHERE idEmpleado=?;");
-				preparedStatement.setInt(1,idEmpleado);
-				ResultSet resultSet = preparedStatement.executeQuery();
-				while (resultSet.next()){
-					empleado.setIdEmpleado(resultSet.getInt(1));
-					empleado.setCuit(resultSet.getString(2));
-					empleado.setNombre(resultSet.getString(3));
-					empleado.setApellido(resultSet.getString(4));
-					empleado.setNacimiento(resultSet.getString(5));
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			return empleado;
-		}
+
+    public int getLastID() {
+		int lastId=0;
+        try {
+            connection = JDBCConnection.getInstanceConnection();
+            preparedStatement=connection.prepareStatement("SELECT MAX(idEmpleado) FROM EMPLEADO");
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next())
+                lastId= resultSet.getInt(1);
+            return lastId;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lastId;
+    }
 }
