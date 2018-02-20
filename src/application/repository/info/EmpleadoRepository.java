@@ -17,8 +17,9 @@ public class EmpleadoRepository {
 	Connection connection;
 	PreparedStatement preparedStatement;
 	ResultSet resultSet;
+    private int lastID;
 
-	public ObservableList<Empleado> buscarEmpleados(){
+    public ObservableList<Empleado> buscarEmpleados(){
 		ObservableList<Empleado> empleados = FXCollections.observableArrayList();
 		try {
 			connection = JDBCConnection.getInstanceConnection();
@@ -201,4 +202,19 @@ public class EmpleadoRepository {
 		}
 		return empleados;
 	}
+
+    public int getLastID() {
+		int lastId=0;
+        try {
+            connection = JDBCConnection.getInstanceConnection();
+            preparedStatement=connection.prepareStatement("SELECT MAX(idEmpleado) FROM EMPLEADO");
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next())
+                lastId= resultSet.getInt(1);
+            return lastId;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lastId;
+    }
 }

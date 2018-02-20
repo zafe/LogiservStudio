@@ -14,17 +14,21 @@ public class Usuario {
 	private final StringProperty nombre_usuario;
 	private final StringProperty password;
 	private Empleado empleado;
-	
-	public Usuario(Integer id, String nombre, String password, Integer empleadoId, Empleado empleado){
+	private IntegerProperty root;
+
+
+
+	public Usuario(Integer id, String nombre, String password, Empleado empleado, Integer root){
 		this.idUsuario = new SimpleIntegerProperty(id);
 		this.nombre_usuario = new SimpleStringProperty(nombre);
 		this.password = new SimpleStringProperty(password);
 		this.empleado = empleado;
+		this.root = new SimpleIntegerProperty(root);
 		
 	}
 
 	public Usuario(){
-		this(0, null, null, null, null);
+		this(0, null, null,  null,0);
 	}
 
 	public int getIdUsuario() {
@@ -69,5 +73,16 @@ public class Usuario {
 
 	public void setEmpleado(Empleado empleado) {
 		this.empleado = empleado;
+	}
+	public int getRoot() {
+		return root.get();
+	}
+
+	public IntegerProperty rootProperty() {
+		return root;
+	}
+
+	public void setRoot(int root) {
+		this.root.set(root);
 	}
 }

@@ -210,7 +210,7 @@ public class PrincipalController {
         try{
             // Load category overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/venta/CargarAcoplado.fxml"));
+            loader.setLocation(Main.class.getResource("view/calculo/CargarAcoplado.fxml"));
             AnchorPane acopladoOverview = loader.load();
 
             // Set person overview into the center of root layout.
