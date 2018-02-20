@@ -47,7 +47,7 @@ public class CargarAcopladoController {
      */
     @FXML
     private void initialize(){
-        //idAcopladoTableColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty().asString());
+        idAcopladoTableColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty().asString());
         marcaTableColumn.setCellValueFactory(cellData -> cellData.getValue().marcaProperty());
         patenteTableColumn.setCellValueFactory(cellData -> cellData.getValue().patenteProperty());
 

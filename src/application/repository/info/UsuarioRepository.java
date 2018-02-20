@@ -46,7 +46,7 @@ public class UsuarioRepository {
 	public void create(Usuario usuario){
 		PreparedStatement preparedstatement;
 		try {
-			preparedstatement = JDBCConnection.getInstanceConnection().prepareStatement("INSERT INTO USUARIO VALUES (?,?,?,?,?)");
+			preparedstatement = JDBCConnection.getInstanceConnection().prepareStatement("INSERT INTO USUARIO VALUES (?,?,MD5(?),?,?)");
 			preparedstatement.setString(1, null);
 			preparedstatement.setString(2, usuario.getNombre_usuario());
 			preparedstatement.setString(3, usuario.getPassword());

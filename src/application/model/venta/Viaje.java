@@ -5,6 +5,7 @@ import application.model.calculo.Finca;
 import application.model.calculo.Ingenio;
 import application.model.info.Empleado;
 import javafx.beans.property.*;
+import javafx.scene.control.CheckBox;
 
 import java.math.BigDecimal;
 
@@ -26,6 +27,15 @@ public class Viaje {
     private Finca finca;
     private Ingenio ingenio;
     private Camion camion;
+    private CheckBox select;
+
+    public CheckBox getSelect() {
+        return select;
+    }
+
+    public void setSelect(CheckBox select) {
+        this.select = select;
+    }
 
     public int getIdRemito() {
         return idRemito.get();
@@ -222,6 +232,7 @@ public class Viaje {
         this.ingenio = new Ingenio();
         this.conductor = new Empleado();
         this.finca = new Finca();
+        this.select = new CheckBox();
     }
 
     public Viaje() {

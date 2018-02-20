@@ -3,10 +3,13 @@ package application.repository.venta;
 import application.comunes.Alerta;
 import application.database.JDBCConnection;
 import application.model.info.Domicilio;
+import application.model.info.Empleado;
 import application.model.info.Localidad;
 import application.model.info.Provincia;
 import application.model.venta.Cliente;
+import application.model.venta.Organizacion;
 import application.repository.info.DomicilioRepository;
+import application.repository.info.EmpleadoRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -15,12 +18,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ClienteRepository {
+public class OrganizacionRepository {
+
     Connection connection;
     PreparedStatement preparedStatement;
     ResultSet resultSet;
 
     DomicilioRepository domicilioRepository = new DomicilioRepository();
+    EmpleadoRepository empleadoRepository = new EmpleadoRepository();
 
     public void save(Cliente cliente){
         try {
@@ -43,8 +48,8 @@ public class ClienteRepository {
             connection = JDBCConnection.getInstanceConnection();
             preparedStatement=connection.prepareStatement("UPDATE CLIENTE as p " +
                     "    INNER JOIN DOMICILIO as d ON p.DOMICILIO_idDomicilio = idDomicilio " +
-                            "    SET p.NOMBRE = ?, p.CUIT=?, d.calle =?, d.numero=?, d.LOCALIDAD_idLocalidad=?" +
-                            "    WHERE p.idCLIENTE = ?");
+                    "    SET p.NOMBRE = ?, p.CUIT=?, d.calle =?, d.numero=?, d.LOCALIDAD_idLocalidad=?" +
+                    "    WHERE p.idCLIENTE = ?");
             preparedStatement.setString(1,cliente.getNombre());
             preparedStatement.setString(2,cliente.getCuit());
             preparedStatement.setString(3,cliente.getDomicilio().getCalle());
@@ -64,7 +69,7 @@ public class ClienteRepository {
         try {
             connection= JDBCConnection.getInstanceConnection();
             preparedStatement=connection.prepareStatement("DELETE a1, a2 FROM CLIENTE AS a1 INNER JOIN domicilio AS a2\n" +
-                            "WHERE a1.DOMICILIO_idDomicilio=a2.idDomicilio AND a1.idCliente=?");
+                    "WHERE a1.DOMICILIO_idDomicilio=a2.idDomicilio AND a1.idCliente=?");
             preparedStatement.setInt(1, idCliente);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -103,25 +108,30 @@ public class ClienteRepository {
         return list;
     }
 
-    public Cliente getClienteById(int idCliente){
-        Cliente cliente = new Cliente();
+    public Organizacion getOrganizacionById(int idOrganizacion){
+        Organizacion organizacion = new Organizacion();
         try {
             connection = JDBCConnection.getInstanceConnection();
             preparedStatement = connection.prepareStatement(
-                    "SELECT * FROM CLIENTE WHERE idCLIENTE=?;");
-            preparedStatement.setInt(1, idCliente);
+                    "SELECT idORGANIZACION, Nombre, CUIT, APODERADO_idEmpleado, DOMICILIO_idDomicilio" +
+                            " FROM ORGANIZACION WHERE idORGANIZACION=?;");
+            preparedStatement.setInt(1, idOrganizacion);
+            System.out.println("SQL QUERY: " + preparedStatement);
             resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
-                        cliente.setIdCliente(resultSet.getInt("idCLIENTE"));
-                        cliente.setNombre(resultSet.getString("Nombre"));
-                        cliente.setCuit(resultSet.getString("CUIT"));
-                        Domicilio domicilio = domicilioRepository.getDomicilioById(resultSet.getInt("DOMICILIO_idDomicilio"));
-                        cliente.setDomicilio(domicilio);
+            if (resultSet.next()){
+                organizacion.setIdOrganizacion(resultSet.getInt("idORGANIZACION"));
+                organizacion.setNombreOrg(resultSet.getString("Nombre"));
+                organizacion.setCuitOrg(resultSet.getString("CUIT"));
 
+//                Empleado apoderado = empleadoRepository.getEmpleadoById(resultSet.getInt("APODERADO_idEmpleado"));
+//                organizacion.setApoderadoOrg(apoderado);
+
+                Domicilio domicilio = domicilioRepository.getDomicilioById(resultSet.getInt("DOMICILIO_idDomicilio"));
+                organizacion.setDomicilioOrg(domicilio);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return cliente;
+        return organizacion;
     }
 }

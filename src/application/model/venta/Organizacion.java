@@ -3,6 +3,8 @@ package application.model.venta;
 import application.model.info.Domicilio;
 import application.model.info.Empleado;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Organizacion {
@@ -66,14 +68,15 @@ public class Organizacion {
     }
 
     public Organizacion() {
+        this(0,null,null,null,null);
     }
 
-    public Organizacion(IntegerProperty idOrganizacion, StringProperty nombreOrg, StringProperty cuitOrg,
+    public Organizacion(Integer idOrganizacion, String nombreOrg, String cuitOrg,
                         Empleado apoderadoOrg, Domicilio domicilioOrg) {
-        this.idOrganizacion = idOrganizacion;
-        this.nombreOrg = nombreOrg;
-        this.cuitOrg = cuitOrg;
-        this.apoderadoOrg = apoderadoOrg;
-        this.domicilioOrg = domicilioOrg;
+        this.idOrganizacion = new SimpleIntegerProperty(idOrganizacion);
+        this.nombreOrg = new SimpleStringProperty(nombreOrg);
+        this.cuitOrg = new SimpleStringProperty(cuitOrg);
+        this.apoderadoOrg = new Empleado();
+        this.domicilioOrg = new Domicilio();
     }
 }

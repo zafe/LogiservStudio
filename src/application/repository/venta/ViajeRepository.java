@@ -1,6 +1,7 @@
 	package application.repository.venta;
 
 	import application.comunes.Alerta;
+	import application.comunes.Calculo;
 	import application.database.JDBCConnection;
 	import application.model.calculo.Camion;
 	import application.model.calculo.Finca;
@@ -22,8 +23,9 @@
 	import java.text.DateFormat;
 	import java.text.ParseException;
 	import java.text.SimpleDateFormat;
+	import java.util.List;
 
-    public class ViajeRepository {
+	public class ViajeRepository {
 	    Connection connection;
 	    PreparedStatement preparedStatement;
 	    ResultSet resultSet;
@@ -77,8 +79,8 @@
 			try {
 				connection= JDBCConnection.getInstanceConnection();
 				preparedStatement = connection.prepareStatement("INSERT INTO VIAJE (Fecha, HoraEntrada, Bruto, Tara,"
-						+ "Origen_Destino_idOrigen_Destino, Empleado_idEmpleado, CAMION_idCamion, FACTURA_VENTA_idFACTURA_VENTA)"
-						+ " values(?,?,?,?,?,?,?,?)");
+						+ "Origen_Destino_idOrigen_Destino, Empleado_idEmpleado, CAMION_idCamion)"
+						+ " values(?,?,?,?,?,?,?);");
 				preparedStatement.setString(1, viaje.getFecha());
 				preparedStatement.setString(2, viaje.getHoraEntrada());
 				preparedStatement.setDouble(3, viaje.getBruto());
@@ -86,7 +88,6 @@
 				preparedStatement.setInt(5, idOrigenDestino);
 				preparedStatement.setInt(6, viaje.getConductor().getIdEmpleado());
 				preparedStatement.setInt(7, viaje.getCamion().getId());
-				preparedStatement.setInt(8, 1);//TODO Borrar esto cuando se actualice la base de datos
 				preparedStatement.executeUpdate();
 				preparedStatement.close();
 				String cuerpoMsj = "Viaje " + viaje.getIdRemito()+ " agregado correctamente.\n";
@@ -102,8 +103,8 @@
 			try {
 				connection= JDBCConnection.getInstanceConnection();
 				preparedStatement = connection.prepareStatement("UPDATE VIAJE SET Fecha=?, HoraEntrada=?, Bruto=?," +
-						" Tara=?, Origen_Destino_idOrigen_Destino=?, Empleado_idEmpleado=?, CAMION_idCamion=?," +
-						" FACTURA_VENTA_idFACTURA_VENTA=? WHERE idRemito=?;");
+						" Tara=?, Origen_Destino_idOrigen_Destino=?, Empleado_idEmpleado=?, CAMION_idCamion=?" +
+						" WHERE idRemito=?;");
 				preparedStatement.setString(1, viaje.getFecha());
 				preparedStatement.setString(2, viaje.getHoraEntrada());
 				preparedStatement.setDouble(3, viaje.getBruto());
@@ -111,8 +112,7 @@
 				preparedStatement.setInt(5, idOrigenDestino);
 				preparedStatement.setInt(6, viaje.getConductor().getIdEmpleado());
 				preparedStatement.setInt(7, viaje.getCamion().getId());
-				preparedStatement.setInt(8, 1);//TODO Borrar esto cuando se actualice la base de datos
-				preparedStatement.setInt(9,viaje.getIdRemito());
+				preparedStatement.setInt(8,viaje.getIdRemito());
 				System.out.println("UPDATE VIAJE QUERY: " + preparedStatement);
 				preparedStatement.executeUpdate();
 				preparedStatement.close();
@@ -198,8 +198,8 @@
 					Ingenio ingenio = ingenioRepository.getIngenioById(resultSet.getInt("INGENIO_idIngenio"));
 					viaje.setIngenio(ingenio);
 					Camion camion = camionRepository.getCamionById(resultSet.getInt("CAMION_idCamion"));
-					Empleado conductor = empleadoRepository.getEmpleadoById(resultSet.getInt("EMPLEADO_idEmpleado"));
-					viaje.setConductor(conductor);
+//					Empleado conductor = empleadoRepository.getEmpleadoById(resultSet.getInt("EMPLEADO_idEmpleado"));
+//					viaje.setConductor(conductor);
 					viaje.setCamion(camion);
 	                list.add(viaje);
 	                System.out.printf("Viaje agregado%n" +
@@ -271,8 +271,8 @@
 					Ingenio ingenio = ingenioRepository.getIngenioById(resultSet.getInt("INGENIO_idIngenio"));
 					viaje.setIngenio(ingenio);
 					Camion camion = camionRepository.getCamionById(resultSet.getInt("CAMION_idCamion"));
-					Empleado conductor = empleadoRepository.getEmpleadoById(resultSet.getInt("EMPLEADO_idEmpleado"));
-					viaje.setConductor(conductor);
+//					Empleado conductor = empleadoRepository.getEmpleadoById(resultSet.getInt("EMPLEADO_idEmpleado"));
+//					viaje.setConductor(conductor);
 					viaje.setCamion(camion);
 					list.add(viaje);
 					System.out.printf("Viaje agregado%n" +
@@ -292,5 +292,58 @@
 			}
 
 			return list;
+		}
+
+		public void emitirFactura(List<Viaje> viajesALiquidar, int idCliente, int idOrg) {//TODO: Escribir este metodo en la clase que corresponda
+			//primero ingresar la factura
+
+			try {
+				connection = JDBCConnection.getInstanceConnection();
+				preparedStatement = connection.prepareStatement("INSERT INTO FACTURA_VENTA" +
+						" (FechaEmision,CLIENTE_idCLIENTE,ORGANIZACION_idORGANIZACION) " +
+						"VALUES (curdate(), ?, ?);");
+				preparedStatement.setInt(1, idCliente);
+				preparedStatement.setInt(2, idOrg);
+				preparedStatement.executeUpdate();
+				preparedStatement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			//luego obtener el idFactura recientemente ingresado
+			int idFactura = 0;
+
+			try {
+				connection = JDBCConnection.getInstanceConnection();
+				preparedStatement = connection.prepareStatement("select last_insert_id();");
+				resultSet = preparedStatement.executeQuery();
+				if (resultSet.next()) idFactura = resultSet.getInt(1);
+				preparedStatement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			//Ahora a crear por una Linea de Viaje por cada Viaje de la colección
+
+			for (Viaje viajeaLiquidar : viajesALiquidar) {
+				Calculo calculo  = new Calculo();
+				double pesoNeto = calculo.calcularPesoNeto(viajeaLiquidar.getBruto(), viajeaLiquidar.getTara());
+
+				double monto = calculo.calcularMonto(Double.parseDouble(viajeaLiquidar.getDistanciaRecorrida()),pesoNeto,
+						viajeaLiquidar.getIngenio().getTarifa(), viajeaLiquidar.getIngenio().getArranque());
+				try {
+					connection = JDBCConnection.getInstanceConnection();
+					preparedStatement = connection.prepareStatement("INSERT INTO LINEA_VIAJE (monto," +
+							" FACTURA_VENTA_idFACTURA_VENTA, VIAJE_idRemito) VALUES (?,?,?);");
+					preparedStatement.setDouble(1, monto);
+					preparedStatement.setInt(2, idFactura);
+					preparedStatement.setInt(3, viajeaLiquidar.getIdRemito() );
+					resultSet = preparedStatement.executeQuery();
+					if (resultSet.next()) idFactura = resultSet.getInt(1);
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}

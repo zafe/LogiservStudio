@@ -18,11 +18,13 @@ public class CamionRepository {
     public void save(Camion camion){
         try {
             connection= JDBCConnection.getInstanceConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO CAMION values(?,?,?,?)");
+            preparedStatement = connection.prepareStatement("INSERT INTO CAMION values(?,?,?,?,?,?)");
             preparedStatement.setString(1,null);
             preparedStatement.setString(2,camion.getMarca());
             preparedStatement.setString(3,camion.getModelo());
             preparedStatement.setString(4,camion.getPatente());
+            preparedStatement.setString(5, null);
+            preparedStatement.setString(6, null);
             preparedStatement.execute();
             String cuerpoMsj = "Camión: " + camion.getMarca() + " agregado correctamente.\n";
             Alerta.alertaInfo("Camiones",cuerpoMsj);

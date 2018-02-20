@@ -1,12 +1,10 @@
 package application.model.info;
 
-import application.repository.info.EmpleadoRepository;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import org.apache.commons.codec.digest.DigestUtils;
 
 public class Usuario {
 	
@@ -84,5 +82,10 @@ public class Usuario {
 
 	public void setRoot(int root) {
 		this.root.set(root);
+	}
+
+	public String encryptMD5(String password){
+		String passMD5= DigestUtils.md5Hex(password);
+		return passMD5;
 	}
 }
