@@ -1,12 +1,16 @@
 package application.view.venta.cruds;
 
+import application.comunes.Alerta;
 import application.model.calculo.Ingenio;
 import application.model.sueldo.ConceptoSueldo;
 import application.model.venta.Cliente;
+import application.model.venta.FacturaVenta;
 import application.model.venta.Organizacion;
 import application.model.venta.Viaje;
 import application.repository.calculo.IngenioRepository;
 import application.repository.venta.ClienteRepository;
+import application.repository.venta.FacturaVentaRepository;
+import application.repository.venta.OrganizacionRepository;
 import application.repository.venta.ViajeRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +20,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EmitirFacturaController {
 
@@ -30,7 +37,7 @@ public class EmitirFacturaController {
     @FXML
     private TableColumn<Viaje, String> idRemitoColumn;
     @FXML
-    private TableColumn<ConceptoSueldo, String> checkColumn;
+    private TableColumn<Viaje, String> checkColumn;
     @FXML
     private TableColumn<Viaje, String> fechaColumn;
     @FXML
@@ -45,9 +52,10 @@ public class EmitirFacturaController {
     private TableColumn<Viaje, String > montoColumn;
 
     private ClienteRepository clienteRepository = new ClienteRepository();
-    //private OrganizacionRepository organizacionRepository =  new OrganizacionRepository();
+    private OrganizacionRepository organizacionRepository =  new OrganizacionRepository();
     private IngenioRepository ingenioRepository = new IngenioRepository();
     private ViajeRepository viajeRepository = new ViajeRepository();
+    private FacturaVentaRepository facturaVentaRepository = new FacturaVentaRepository();
 
     private ObservableList<Viaje> viajeData = FXCollections.observableArrayList();
     private ObservableList<Organizacion> organizacionData = FXCollections.observableArrayList();
@@ -76,7 +84,7 @@ public class EmitirFacturaController {
     @FXML
     public void initialize(){
         setClienteComboBox();
-       // setOrganizacionComboBox();
+        setOrganizacionComboBox();
         setIngenioComboBox();
         buscarViajes();
         idRemitoColumn.setCellValueFactory(cellData -> cellData.getValue().idRemitoProperty().asString());
@@ -87,12 +95,12 @@ public class EmitirFacturaController {
         ingenioColumn.setCellValueFactory(cellData -> cellData.getValue().getIngenio().nombreProperty());
         //montoColumn.setCellValueFactory(cellData -> cellData.getValue().montoProperty().asString());
 
-        checkColumn.setCellValueFactory(new PropertyValueFactory<ConceptoSueldo, String>("select"));
+        checkColumn.setCellValueFactory(new PropertyValueFactory<Viaje, String>("select"));
         checkColumn.setStyle( "-fx-alignment: CENTER;");
     }
 
     private void buscarViajes(){
-        viajeData = viajeRepository.view();//TODO: Hacer que solo recupere viajes sin liquidar
+        viajeData = viajeRepository.getViajesSinLiquidar();
         viajeTableView.setItems(viajeData);
     }
 
@@ -111,7 +119,7 @@ public class EmitirFacturaController {
 
     public void setOrganizacionComboBox(){
         ObservableList<String> organizacionList = FXCollections.observableArrayList();
-       // organizacionData = organizacionRepository.view();
+        organizacionData = organizacionRepository.view();
         for (Organizacion organizacion : organizacionData) organizacionList.add(organizacion.getNombreOrg());
         organizacionComboBox.setItems(organizacionList);
     }
@@ -120,42 +128,74 @@ public class EmitirFacturaController {
         ObservableList<String> ingenioList = FXCollections.observableArrayList();
         ingenioData = ingenioRepository.view();
         for (Ingenio ingenio : ingenioData) ingenioList.add(ingenio.getNombre());
+        ingenioList.add("Todos");
         ingenioComboBox.setItems(ingenioList);
+    }
+
+    public void setViajeTableViewByIngenio(){
+        if (ingenioComboBox.getSelectionModel().getSelectedItem() == "Todos"){
+            buscarViajes();
+        }else{
+        viajeData = viajeRepository.getViajesSinLiqByIngenioId
+                (ingenioData.get(ingenioComboBox.getSelectionModel().getSelectedIndex()).getIdIngenio());
+        viajeTableView.setItems(viajeData);
+    }
+
     }
 
     @FXML
     public void handleOk(){
+        if (isInputValid()){
 
-    }
+            emitirFactura();
+            dialogStage.close();
+            okClicked = true;
+        }
+        }
 
     @FXML
     private void handleCancel(){
+        dialogStage.close();
+        okClicked = false;
+        dialogStage.close();
+    }
 
+    private void emitirFactura(){
+        int idCliente = clienteData.get(clienteComboBox.getSelectionModel().getSelectedIndex()).getIdCliente();
+        int idOrganizacion = organizacionData.get(organizacionComboBox.getSelectionModel().getSelectedIndex()).getIdOrganizacion();
+
+        List<Viaje> list = new ArrayList<>();
+
+        for (Viaje viaje : viajeTableView.getItems())
+            if (viaje.getSelect().isSelected())
+                list.add(viaje);
+
+        facturaVentaRepository.emitirFactura(list, idCliente, idOrganizacion);
     }
 
 
-/*
+
     private boolean isInputValid() {
         String errorMessage = "";
 
-        if (nombreTextField.getText() == null || nombreTextField.getText().length() == 0) {
-            errorMessage += "Nombre de cliente invalido\n";
+        if (clienteComboBox.getSelectionModel().getSelectedItem() == null) {
+            errorMessage += "Seleccione el cliente\n";
         }
-        if(cuitTextField.getText()==null || cuitTextField.getText().length() == 0){
-            errorMessage += "CUIT no ingresado correctamente.\n";
+        if (organizacionComboBox.getSelectionModel().getSelectedItem() == null) {
+            errorMessage += "Seleccione la organización.\n";
         }
-        if(calleTextField.getText()==null || calleTextField.getText().length() == 0){
-            errorMessage += "Calle no ingresada correctamente.\n";
-        }
-        if(numeroTextField.getText()==null || numeroTextField.getText().length() == 0){
-            errorMessage += "Numero no ingresado correctamente. \n";
-        }
+
+        for (Viaje viaje : viajeTableView.getItems())
+            if (viaje.getSelect().isSelected())
+                break;
+            else
+                errorMessage += "Al menos un viaje debe ser seleccionado";
 
         if (errorMessage.length() == 0) {
             return true;
         } else {
-            Alerta.alertaError("Datos inválidos", errorMessage);
+            Alerta.alertaError("Complete los datos", errorMessage);
             return false;
         }
-    }*/
+    }
 }

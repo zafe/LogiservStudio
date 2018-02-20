@@ -1,10 +1,12 @@
 	package application.repository.venta;
 
 	import application.comunes.Alerta;
+	import application.comunes.Calculo;
 	import application.database.JDBCConnection;
 	import application.model.venta.Cliente;
 	import application.model.venta.FacturaVenta;
 	import application.model.venta.Organizacion;
+	import application.model.venta.Viaje;
 	import javafx.collections.FXCollections;
 	import javafx.collections.ObservableList;
 
@@ -14,6 +16,7 @@
 	import java.sql.SQLException;
 	import java.text.ParseException;
 	import java.text.SimpleDateFormat;
+	import java.util.List;
 
 	public class FacturaVentaRepository {
 		ClienteRepository clienteRepository = new ClienteRepository();
@@ -123,4 +126,63 @@
 	        }
 
 	    }
+
+		public void emitirFactura(List<Viaje> viajesALiquidar, int idCliente, int idOrg) {//TODO: Escribir este metodo en la clase que corresponda
+			//primero ingresar la factura
+
+			try {
+				connection = JDBCConnection.getInstanceConnection();
+				preparedStatement = connection.prepareStatement("INSERT INTO FACTURA_VENTA" +
+						" (FechaEmision,CLIENTE_idCLIENTE,ORGANIZACION_idORGANIZACION) " +
+						"VALUES (curdate(), ?, ?);");
+				preparedStatement.setInt(1, idCliente);
+				preparedStatement.setInt(2, idOrg);
+				preparedStatement.executeUpdate();
+				preparedStatement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			//luego obtener el idFactura recientemente ingresado
+			int idFactura = 0;
+
+			try {
+				connection = JDBCConnection.getInstanceConnection();
+				preparedStatement = connection.prepareStatement("select last_insert_id();");
+				resultSet = preparedStatement.executeQuery();
+				if (resultSet.next()) idFactura = resultSet.getInt(1);
+				preparedStatement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			//Ahora a crear por una Linea de Viaje por cada Viaje de la colección
+
+			for (Viaje viajeaLiquidar : viajesALiquidar) {
+				Calculo calculo  = new Calculo();
+				double pesoNeto = calculo.calcularPesoNeto(viajeaLiquidar.getBruto(), viajeaLiquidar.getTara());
+
+				double monto = calculo.calcularMonto(Double.parseDouble(viajeaLiquidar.getDistanciaRecorrida()),pesoNeto,
+						viajeaLiquidar.getIngenio().getTarifa(), viajeaLiquidar.getIngenio().getArranque());
+				try {
+					connection = JDBCConnection.getInstanceConnection();
+					preparedStatement = connection.prepareStatement("INSERT INTO LINEA_VIAJE (monto," +
+							" FACTURA_VENTA_idFACTURA_VENTA, VIAJE_idRemito) VALUES (?,?,?);");
+					preparedStatement.setDouble(1, monto);
+					preparedStatement.setInt(2, idFactura);
+					preparedStatement.setInt(3, viajeaLiquidar.getIdRemito() );
+					preparedStatement.executeUpdate();
+					//if (resultSet.next()) idFactura = resultSet.getInt(1);
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+
+
+
+	    }
+
+
+
 	}

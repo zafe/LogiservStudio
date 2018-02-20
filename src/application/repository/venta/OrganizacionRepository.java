@@ -77,30 +77,23 @@ public class OrganizacionRepository {
         }
 
     }
-    public ObservableList<Cliente> view(){
-        ObservableList<Cliente> list = FXCollections.observableArrayList();
+    public ObservableList<Organizacion> view(){
+        ObservableList<Organizacion> list = FXCollections.observableArrayList();
         try {
             connection = JDBCConnection.getInstanceConnection();
             preparedStatement = connection.prepareStatement(
-                    "SELECT p.idCLIENTE, p.Nombre, p.CUIT, d.idDomicilio, "+
-                            "                           l.idLocalidad, l.NombreLocalidad, d.Calle, d.Numero, c.* \n" +
-                            "                  FROM CLIENTE AS p, DOMICILIO AS d, LOCALIDAD AS l, PROVINCIA AS c \n" +
-                            "          WHERE p.DOMICILIO_idDomicilio=d.idDomicilio \n" +
-                            "     AND d.LOCALIDAD_idLocalidad=l.idLocalidad " +
-                            "  AND l.PROVINCIA_idProvincia=c.idProvincia");
+                    "SELECT idORGANIZACION, Nombre, CUIT, APODERADO_idEmpleado, DOMICILIO_idDomicilio " +
+                            "FROM ORGANIZACION;");
             resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
-                Cliente cliente = new Cliente(
-                        resultSet.getInt(1),
-                        resultSet.getString(2),
-                        resultSet.getString(3),
-                        new Domicilio(resultSet.getInt(4),
-                                new Localidad(resultSet.getInt(5), resultSet.getString(6),
-                                        new Provincia(resultSet.getInt(9),resultSet.getString(10))),
-                                resultSet.getString(7),
-                                resultSet.getString(8)));
-                list.add(cliente);
-
+            while (resultSet.next()){;
+                Organizacion organizacion = new Organizacion();
+                organizacion.setIdOrganizacion(resultSet.getInt("idORGANIZACION"));
+                organizacion.setNombreOrg(resultSet.getString("Nombre"));
+                Empleado apoderado = empleadoRepository.getEmpleadoById(resultSet.getInt("APODERADO_idEmpleado"));
+                organizacion.setApoderadoOrg(apoderado);
+                Domicilio domicilio = domicilioRepository.getDomicilioById(resultSet.getInt("DOMICILIO_idDomicilio"));
+                organizacion.setDomicilioOrg(domicilio);
+                list.add(organizacion);
             }
         } catch (SQLException e) {
             e.printStackTrace();
