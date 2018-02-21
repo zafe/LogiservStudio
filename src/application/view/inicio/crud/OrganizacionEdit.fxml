@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.Group?>
+
+<Group xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.inicio.crud.OrganizacionEditController">
+   <children>
+      <AnchorPane prefHeight="548.0" prefWidth="528.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="44.0" prefWidth="511.0" text="Actualizar datos de la organización" />
+            <GridPane layoutX="51.0" layoutY="44.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="156.0" text="Nombre de la organización:" GridPane.columnSpan="2147483647" />
+                  <Label text="CUIT:" GridPane.rowIndex="2" />
+                  <Label text="Domicilio:" GridPane.rowIndex="8" />
+                  <TextField fx:id="nombreTextField" GridPane.columnSpan="3" GridPane.rowIndex="1" />
+                  <TextField fx:id="cuitTextField" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+                  <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="59.0" text="Calle:" GridPane.rowIndex="9" />
+                  <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="17.0" prefWidth="40.0" text="Nº:" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+                  <TextField fx:id="domicilioCalleField" prefHeight="25.0" prefWidth="124.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <TextField fx:id="domicilioNumeroField" prefHeight="25.0" prefWidth="103.0" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+                  <Label text="Localidad:" GridPane.rowIndex="10" />
+                  <ComboBox fx:id="localidadComboBox" prefHeight="25.0" prefWidth="238.0" GridPane.columnSpan="2" GridPane.rowIndex="11" />
+                  <Label text="Apoderado:" GridPane.rowIndex="6" />
+                  <ComboBox fx:id="apoderadoComboBox" prefHeight="25.0" prefWidth="271.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="7" />
+                  <Label text="Razón Social:" GridPane.rowIndex="4" />
+                  <TextField fx:id="razonSocialField" GridPane.columnSpan="2" GridPane.rowIndex="5" />
+                  <Label text="Telefono:" GridPane.rowIndex="12" />
+                  <TextField fx:id="telefonoField" GridPane.columnSpan="2" GridPane.rowIndex="13" />
+               </children>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="226.0" minWidth="10.0" prefWidth="86.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="226.0" minWidth="10.0" prefWidth="138.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="368.0" minWidth="10.0" prefWidth="52.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="368.0" minWidth="10.0" prefWidth="142.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+            </GridPane>
+            <HBox alignment="CENTER" layoutY="482.0" prefHeight="52.0" prefWidth="528.0" spacing="15.0">
+               <children>
+                  <Button fx:id="btnOk" defaultButton="true" layoutX="172.0" layoutY="273.0" mnemonicParsing="false" text="Aceptar" />
+                  <Button fx:id="btnCancel" cancelButton="true" layoutX="305.0" layoutY="273.0" mnemonicParsing="false" text="Cancelar" />
+               </children>
+            </HBox>
+         </children></AnchorPane>
+   </children>
+</Group>
