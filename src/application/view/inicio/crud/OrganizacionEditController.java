@@ -82,7 +82,7 @@ public class OrganizacionEditController implements Initializable{
     }
 
     private boolean isInputValid() {
-        String errorMessage = "";
+        /*String errorMessage = "";
 
         if (nombreTextField.getText() == null || nombreTextField.getText().length() == 0) {
             errorMessage += "No valid supplier name!\n";
@@ -102,7 +102,8 @@ public class OrganizacionEditController implements Initializable{
         } else {
             Alerta.alertaError("Datos inválidos", errorMessage);
             return false;
-        }
+        }*/
+        return true;
     }
 
     @FXML
