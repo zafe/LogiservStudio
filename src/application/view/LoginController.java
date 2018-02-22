@@ -18,6 +18,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -61,8 +64,9 @@ public class LoginController implements Initializable {
 
         String passMD5 = usuario.encryptMD5(password);
         boolean okLogin = usuarioRepository.login(nombreUsuario,passMD5);
+
+        System.out.println("Login: "+ okLogin);
         if (okLogin){
-            System.out.println("Login: "+ okLogin);
             try {
                 // Load root layout from fxml file.
                 FXMLLoader loader = new FXMLLoader();
@@ -74,6 +78,7 @@ public class LoginController implements Initializable {
                 adminPanelStage.setTitle("LogiServ app - usuario: " + nombreUsuario + " conectado.");
                 PrincipalController controller = loader.getController();
                 controller.setRootLayout(root);
+                controller.setHome();
                 // Show the scene containing the root layout.
                 Scene scene = new Scene(parent);
                 adminPanelStage.setScene(scene);

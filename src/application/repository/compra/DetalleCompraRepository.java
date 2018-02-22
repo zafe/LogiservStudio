@@ -48,11 +48,11 @@ public class DetalleCompraRepository {
         }
 
     }
-    public void delete(DetalleCompra detalleCompra){
+    public void delete(int idFactura){
         try {
             connection = JDBCConnection.getInstanceConnection();
-            preparedStatement= connection.prepareStatement("DELETE FROM COMPRA_ARTICULO  WHERE idCompraArticulo=?");
-            preparedStatement.setInt(1,detalleCompra.getIdDetalleCompra());
+            preparedStatement= connection.prepareStatement("DELETE FROM DETALLE_COMPRA  WHERE FacturaCompraArticulo_idFacturaCompraArticulo=?");
+            preparedStatement.setInt(1,idFactura);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -76,7 +76,7 @@ public class Organizacion {
         this.idOrganizacion = new SimpleIntegerProperty(idOrganizacion);
         this.nombreOrg = new SimpleStringProperty(nombreOrg);
         this.cuitOrg = new SimpleStringProperty(cuitOrg);
-        this.apoderadoOrg = new Empleado();
-        this.domicilioOrg = new Domicilio();
+        this.apoderadoOrg = apoderadoOrg;
+        this.domicilioOrg = domicilioOrg;
     }
 }
