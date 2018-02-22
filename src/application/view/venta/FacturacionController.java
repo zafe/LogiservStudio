@@ -1,14 +1,17 @@
 package application.view.venta;
 
 import application.Main;
+import application.comunes.Alerta;
 import application.model.venta.FacturaVenta;
 import application.model.venta.Viaje;
 import application.repository.venta.FacturaVentaRepository;
 import application.repository.venta.ViajeRepository;
+import application.view.venta.cruds.EmitirFacturaController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -78,7 +81,7 @@ public class FacturacionController {
 		idFacturacion.setCellValueFactory(cellData -> cellData.getValue().idFacturaVentaProperty().asString());
 		fechaColumn.setCellValueFactory(cellData -> cellData.getValue().fechaEmisionProperty());
 		clienteColumn.setCellValueFactory(cellData -> cellData.getValue().getCliente().nombreProperty());
-		//montoTotal.setCellValueFactory(cellData -> cellData.getValue().montoFacturaProperty().asString());
+		//montoTotal.setCellValueFactory(cellData -> cellData.getValue().montoFacturaProperty().asString());//TODO: inicializar este dato
 
 		fincaColumn.setCellValueFactory(cellData -> cellData.getValue().getFinca().nombreProperty());
 		ingenioColumn.setCellValueFactory(cellData -> cellData.getValue().getIngenio().nombreProperty());
@@ -90,6 +93,13 @@ public class FacturacionController {
 
 	@FXML
 	private void handleNew() {
+
+			this.showEdit();
+
+
+	}
+
+	private boolean showEdit() {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();
@@ -98,20 +108,27 @@ public class FacturacionController {
 
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Nueva Facturación");
+			dialogStage.setTitle("Nuevo cliente");
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(owner);
 			Scene scene = new Scene(page);
 			dialogStage.setScene(scene);
 
-
+			EmitirFacturaController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setIsNew(true);
+			//controller.setDatos(temp);
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
+			return true;//controller.isOkClicked();
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		return false;
 	}
+
 
 	private void cargarFacturas() {
 		facturaciones = facturacionesRepository.view();

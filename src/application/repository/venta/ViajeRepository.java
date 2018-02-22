@@ -220,6 +220,53 @@
 
 	        return list;
 	    }
+
+		public ObservableList<Viaje> getViajesSinLiquidar(){
+
+			ObservableList<Viaje> list = FXCollections.observableArrayList();
+			try {
+				connection= JDBCConnection.getInstanceConnection();
+				preparedStatement=connection.prepareStatement("SELECT v.idRemito, v.Fecha, v.HoraEntrada, v.Bruto," +
+						" v.Tara, v.Empleado_idEmpleado, v.CAMION_idCamion, od.DistanciaKM, od.FINCA_idFinca, " +
+						"od.INGENIO_idIngenio FROM VIAJE v INNER JOIN ORIGEN_DESTINO od ON " +
+						"Origen_Destino_idOrigen_Destino= od.idOrigen_Destino " +
+						"LEFT JOIN LINEA_VIAJE lv ON v.idRemito = lv.VIAJE_idRemito WHERE lv.idLINEA_VIAJE IS NULL;");
+				resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()){
+					Viaje viaje = new Viaje();
+					viaje.setIdRemito(resultSet.getInt("idRemito"));
+					viaje.setFecha(resultSet.getDate("Fecha").toString());
+					viaje.setHoraEntrada(resultSet.getTime("HoraEntrada").toString());
+					viaje.setBruto(resultSet.getDouble("Bruto"));
+					viaje.setTara(resultSet.getDouble("Tara"));
+					viaje.setDistanciaRecorrida(resultSet.getString("DistanciaKM"));
+					Finca finca = fincaRepository.getFincaById(resultSet.getInt("FINCA_idFinca"));
+					viaje.setFinca(finca);
+					Ingenio ingenio = ingenioRepository.getIngenioById(resultSet.getInt("INGENIO_idIngenio"));
+					viaje.setIngenio(ingenio);
+					Camion camion = camionRepository.getCamionById(resultSet.getInt("CAMION_idCamion"));
+					Empleado conductor = empleadoRepository.getEmpleadoById(resultSet.getInt("EMPLEADO_idEmpleado"));
+					viaje.setConductor(conductor);
+					viaje.setCamion(camion);
+					list.add(viaje);
+					System.out.printf("Viaje agregado%n" +
+									"idRemito: %s %n" +
+									"Fecha   : %s %n" +
+									"Bruto   : %s %n" +
+									"Tara    : %s %n",
+							viaje.getIdRemito(),
+							viaje.getFecha(),
+							viaje.getBruto(),
+							viaje.getTara());
+				}
+				preparedStatement.close();
+				resultSet.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			return list;
+		}
 	    
 	    public Viaje search(int idViaje){
 	    	Viaje viaje = new Viaje();
@@ -294,56 +341,108 @@
 			return list;
 		}
 
-		public void emitirFactura(List<Viaje> viajesALiquidar, int idCliente, int idOrg) {//TODO: Escribir este metodo en la clase que corresponda
-			//primero ingresar la factura
+		public ObservableList<Viaje> getViajesByIdIngenio(int idIngenio){
+			ObservableList<Viaje> list = FXCollections.observableArrayList();
 
 			try {
-				connection = JDBCConnection.getInstanceConnection();
-				preparedStatement = connection.prepareStatement("INSERT INTO FACTURA_VENTA" +
-						" (FechaEmision,CLIENTE_idCLIENTE,ORGANIZACION_idORGANIZACION) " +
-						"VALUES (curdate(), ?, ?);");
-				preparedStatement.setInt(1, idCliente);
-				preparedStatement.setInt(2, idOrg);
-				preparedStatement.executeUpdate();
-				preparedStatement.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-			//luego obtener el idFactura recientemente ingresado
-			int idFactura = 0;
-
-			try {
-				connection = JDBCConnection.getInstanceConnection();
-				preparedStatement = connection.prepareStatement("select last_insert_id();");
+				connection= JDBCConnection.getInstanceConnection();
+				preparedStatement=connection.prepareStatement("SELECT v.idRemito, v.Fecha, v.HoraEntrada, v.Bruto, v.Tara," +
+						" od.DistanciaKM, v.Origen_Destino_idOrigen_Destino, v.Empleado_idEmpleado, v.CAMION_idCamion, " +
+						"od.FINCA_idFinca, od.INGENIO_idIngenio FROM VIAJE v INNER JOIN ORIGEN_DESTINO od ON od.idOrigen_Destino = " +
+						"v.Origen_Destino_idOrigen_Destino WHERE od.INGENIO_idIngenio = ?;");
+				preparedStatement.setInt(1 ,idIngenio);
 				resultSet = preparedStatement.executeQuery();
-				if (resultSet.next()) idFactura = resultSet.getInt(1);
+				while (resultSet.next()){
+					Viaje viaje = new Viaje();
+					viaje.setIdRemito(resultSet.getInt("idRemito"));
+					viaje.setFecha(resultSet.getDate("Fecha").toString());
+					viaje.setHoraEntrada(resultSet.getTime("HoraEntrada").toString());
+					viaje.setBruto(resultSet.getDouble("Bruto"));
+					viaje.setTara(resultSet.getDouble("Tara"));
+					viaje.setDistanciaRecorrida(resultSet.getString("DistanciaKM"));
+					Finca finca = fincaRepository.getFincaById(resultSet.getInt("FINCA_idFinca"));
+					viaje.setFinca(finca);
+					Ingenio ingenio = ingenioRepository.getIngenioById(resultSet.getInt("INGENIO_idIngenio"));
+					viaje.setIngenio(ingenio);
+					Camion camion = camionRepository.getCamionById(resultSet.getInt("CAMION_idCamion"));
+					Empleado conductor = empleadoRepository.getEmpleadoById(resultSet.getInt("EMPLEADO_idEmpleado"));
+					viaje.setConductor(conductor);
+					viaje.setCamion(camion);
+					list.add(viaje);
+					System.out.printf("Viaje agregado%n" +
+									"idRemito: %s %n" +
+									"Fecha   : %s %n" +
+									"Bruto   : %s %n" +
+									"Tara    : %s %n",
+							viaje.getIdRemito(),
+							viaje.getFecha(),
+							viaje.getBruto(),
+							viaje.getTara());
+				}
 				preparedStatement.close();
+				resultSet.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 
-			//Ahora a crear por una Linea de Viaje por cada Viaje de la colección
-
-			for (Viaje viajeaLiquidar : viajesALiquidar) {
-				Calculo calculo  = new Calculo();
-				double pesoNeto = calculo.calcularPesoNeto(viajeaLiquidar.getBruto(), viajeaLiquidar.getTara());
-
-				double monto = calculo.calcularMonto(Double.parseDouble(viajeaLiquidar.getDistanciaRecorrida()),pesoNeto,
-						viajeaLiquidar.getIngenio().getTarifa(), viajeaLiquidar.getIngenio().getArranque());
-				try {
-					connection = JDBCConnection.getInstanceConnection();
-					preparedStatement = connection.prepareStatement("INSERT INTO LINEA_VIAJE (monto," +
-							" FACTURA_VENTA_idFACTURA_VENTA, VIAJE_idRemito) VALUES (?,?,?);");
-					preparedStatement.setDouble(1, monto);
-					preparedStatement.setInt(2, idFactura);
-					preparedStatement.setInt(3, viajeaLiquidar.getIdRemito() );
-					resultSet = preparedStatement.executeQuery();
-					if (resultSet.next()) idFactura = resultSet.getInt(1);
-					preparedStatement.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
+			return list;
 		}
+
+		/**
+		 * Devuelve una lista de todos lo viajes de un determinado Ingenio
+		 * que no han sido liquidados en alguna facturación
+		 *
+		 * @param idIngenio Identificador del Ingenio
+		 * @return Devuelve una Lista de Viajes de ese Ingenio que no fueron liquidados
+		 */
+
+		public ObservableList<Viaje> getViajesSinLiqByIngenioId(int idIngenio){
+			ObservableList<Viaje> list = FXCollections.observableArrayList();
+
+			try {
+				connection= JDBCConnection.getInstanceConnection();
+				preparedStatement=connection.prepareStatement("SELECT v.idRemito, v.Fecha, v.HoraEntrada, v.Bruto," +
+						" v.Tara, od.DistanciaKM, v.Origen_Destino_idOrigen_Destino, v.Empleado_idEmpleado, " +
+						"v.CAMION_idCamion, od.FINCA_idFinca, od.INGENIO_idIngenio FROM VIAJE v " +
+						"INNER JOIN ORIGEN_DESTINO od ON od.idOrigen_Destino = v.Origen_Destino_idOrigen_Destino " +
+						"LEFT JOIN LINEA_VIAJE lv ON v.idRemito = lv.VIAJE_idRemito " +
+						"WHERE lv.idLINEA_VIAJE IS NULL AND od.INGENIO_idIngenio = ?;");
+				preparedStatement.setInt(1 ,idIngenio);
+				resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()){
+					Viaje viaje = new Viaje();
+					viaje.setIdRemito(resultSet.getInt("idRemito"));
+					viaje.setFecha(resultSet.getDate("Fecha").toString());
+					viaje.setHoraEntrada(resultSet.getTime("HoraEntrada").toString());
+					viaje.setBruto(resultSet.getDouble("Bruto"));
+					viaje.setTara(resultSet.getDouble("Tara"));
+					viaje.setDistanciaRecorrida(resultSet.getString("DistanciaKM"));
+					Finca finca = fincaRepository.getFincaById(resultSet.getInt("FINCA_idFinca"));
+					viaje.setFinca(finca);
+					Ingenio ingenio = ingenioRepository.getIngenioById(resultSet.getInt("INGENIO_idIngenio"));
+					viaje.setIngenio(ingenio);
+					Camion camion = camionRepository.getCamionById(resultSet.getInt("CAMION_idCamion"));
+					Empleado conductor = empleadoRepository.getEmpleadoById(resultSet.getInt("EMPLEADO_idEmpleado"));
+					viaje.setConductor(conductor);
+					viaje.setCamion(camion);
+					list.add(viaje);
+					System.out.printf("Viaje agregado%n" +
+									"idRemito: %s %n" +
+									"Fecha   : %s %n" +
+									"Bruto   : %s %n" +
+									"Tara    : %s %n",
+							viaje.getIdRemito(),
+							viaje.getFecha(),
+							viaje.getBruto(),
+							viaje.getTara());
+				}
+				preparedStatement.close();
+				resultSet.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			return list;
+		}
+
 	}
