@@ -139,6 +139,18 @@ public class ArticuloRepository {
             e.printStackTrace();
         }
     }
+    public void minusStock(int cantidad, int idArticulo){
+        try {
+            connection = JDBCConnection.getInstanceConnection();
+            preparedStatement= connection.prepareStatement(
+                    "UPDATE ARTICULO SET stock = stock - ? WHERE idArticulo = ?");
+            preparedStatement.setInt(1, cantidad);
+            preparedStatement.setInt(2, idArticulo);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }

@@ -22,6 +22,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ConcurrentModificationException;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -72,6 +73,21 @@ public class FacturaEditController implements Initializable {
     @FXML
     private Button closeButton;
 
+    @FXML
+    private Label marcaTituloLabel;
+    @FXML
+    private Label modeloTituloLabel;
+    @FXML
+    private Label stockTituloLabel;
+    @FXML
+    private Label descripcionTituloLabel;
+    @FXML
+    private Label precioTituloLabel;
+    @FXML
+    private Label cantidadTituloLabel;
+    @FXML
+    private Label impedirUpdateLineasLabel;
+
     private Stage owner;
     private Stage dialogStage;
     private ObservableList<DetalleCompra> lineas = FXCollections.observableArrayList();
@@ -99,14 +115,18 @@ public class FacturaEditController implements Initializable {
     private void cargarArticulos(){
         articulos = articuloRepository.view();
         articuloComboBox.setItems(articulos);
+
+        ObservableList<Articulo> articulosDuplicados = FXCollections.observableArrayList();
         if (!lineasTableView.getItems().isEmpty()){
-            for (DetalleCompra linea :
-                    lineasTableView.getItems()) {
+            for (DetalleCompra linea : lineasTableView.getItems()) {
                     for (Articulo articuloDuplicado: articuloComboBox.getItems())
                         if (linea.getArticulo().getIdArticulo() == articuloDuplicado.getIdArticulo())
-                            articuloComboBox.getItems().remove(articuloDuplicado);
+                            articulosDuplicados.add(articuloDuplicado);
             }
+            articulos.removeAll(articulosDuplicados);
+            articuloComboBox.setItems(articulos);
         }
+
     }
 
     @FXML
@@ -144,7 +164,7 @@ public class FacturaEditController implements Initializable {
     }
     @FXML
     public void handleNewLine(){
-        if(isArticuloSetted()){
+        if(isArticuloSetted() && isFieldsSetted()){
             DetalleCompra linea = new DetalleCompra();
             linea.setCantidad(Integer.parseInt(cantidadField.getText()));
             linea.setPrecioUnitario(Float.parseFloat(precioField.getText()));
@@ -154,14 +174,17 @@ public class FacturaEditController implements Initializable {
             calcularTotal(linea);
             borrarElementos(linea.getArticulo());
         }else
-            Alerta.alertaError("Error al seleccionar un articulo", "Por Favor seleccione un Articulo");
+            Alerta.alertaError("Error al seleccionar un articulo", "Por Favor seleccione un Articulo " +
+                    "y complete todos sus campos");
 
     }
     @FXML
     public void handleQuitLine(){
-        
-            Alerta.alertaError("Error al seleccionar un articulo", "Por Favor seleccione un Articulo");
-
+        if(!lineasTableView.getSelectionModel().isEmpty()){
+            int lineaAQuitar = lineasTableView.getSelectionModel().getSelectedIndex();
+            lineasTableView.getItems().remove(lineaAQuitar);
+            cargarArticulos();
+        }else Alerta.alertaError("Seleccione una linea de compra", "Por favor Seleccione una linea de compra a quitar.");
     }
     private void calcularTotal(DetalleCompra linea) {
         subtotal = linea.getCantidad()*linea.getPrecioUnitario();
@@ -195,6 +218,7 @@ public class FacturaEditController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        impedirUpdateLineasLabel.setVisible(false);
         ponerFechaActual();
         cargarIdNuevo();
         cargarProveedores();
@@ -217,6 +241,21 @@ public class FacturaEditController implements Initializable {
     public void setDatos(FacturaCompra facturaSeleccionada) {
         this.factura = facturaSeleccionada;
         if(!isNew){
+            lineasTableView.setDisable(true);
+            precioField.setVisible(false);
+            cantidadField.setVisible(false);
+            articuloComboBox.setDisable(true);
+            newArticuloButton.setVisible(false);
+            agregarLineaButton.setVisible(false);
+            quitarLineaButton.setVisible(false);
+            descripcionTituloLabel.setVisible(false);
+            marcaTituloLabel.setVisible(false);
+            modeloTituloLabel.setVisible(false);
+            stockTituloLabel.setVisible(false);
+            precioTituloLabel.setVisible(false);
+            cantidadTituloLabel.setVisible(false);
+            impedirUpdateLineasLabel.setVisible(true);
+
             idFacturaLabel.setText(String.valueOf(facturaSeleccionada.getIdFacturaCompra()));
             lineas = lineaRepository.view(factura.getIdFacturaCompra());
             lineasTableView.setItems(lineas);
@@ -275,10 +314,6 @@ public class FacturaEditController implements Initializable {
                 }
             }else {
                 facturaCompraRepository.update(factura);
-                for (DetalleCompra linea :
-                        lineasTableView.getItems()) {
-                    lineaRepository.update(linea);
-                }
             }
             okClicked=true;
             dialogStage.close();
@@ -290,4 +325,10 @@ public class FacturaEditController implements Initializable {
         dialogStage.close();
     }
 
+    public boolean isFieldsSetted() {
+        boolean isFieldsSetted = false;
+        if (NumberUtils.isCreatable(cantidadField.getText()) && NumberUtils.isCreatable(precioField.getText()))
+                isFieldsSetted=true;
+        return isFieldsSetted;
+    }
 }

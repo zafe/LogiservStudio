@@ -198,8 +198,8 @@
 					Ingenio ingenio = ingenioRepository.getIngenioById(resultSet.getInt("INGENIO_idIngenio"));
 					viaje.setIngenio(ingenio);
 					Camion camion = camionRepository.getCamionById(resultSet.getInt("CAMION_idCamion"));
-					Empleado conductor = empleadoRepository.getEmpleadoById(resultSet.getInt("EMPLEADO_idEmpleado"));
-					viaje.setConductor(conductor);
+//					Empleado conductor = empleadoRepository.getEmpleadoById(resultSet.getInt("EMPLEADO_idEmpleado"));
+//					viaje.setConductor(conductor);
 					viaje.setCamion(camion);
 	                list.add(viaje);
 	                System.out.printf("Viaje agregado%n" +
@@ -318,8 +318,8 @@
 					Ingenio ingenio = ingenioRepository.getIngenioById(resultSet.getInt("INGENIO_idIngenio"));
 					viaje.setIngenio(ingenio);
 					Camion camion = camionRepository.getCamionById(resultSet.getInt("CAMION_idCamion"));
-					Empleado conductor = empleadoRepository.getEmpleadoById(resultSet.getInt("EMPLEADO_idEmpleado"));
-					viaje.setConductor(conductor);
+//					Empleado conductor = empleadoRepository.getEmpleadoById(resultSet.getInt("EMPLEADO_idEmpleado"));
+//					viaje.setConductor(conductor);
 					viaje.setCamion(camion);
 					list.add(viaje);
 					System.out.printf("Viaje agregado%n" +

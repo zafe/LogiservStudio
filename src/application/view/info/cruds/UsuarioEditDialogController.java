@@ -48,7 +48,7 @@ public class UsuarioEditDialogController {
 		//TODO cuitColumn.setCellValueFactory(cellData -> cellData.getValue().);
 		
 		}
-
+UsuarioRepository usuarioRepository = new UsuarioRepository();
 	/**
 	 * Sets the stage of this dialog.
 	 * 
@@ -79,7 +79,8 @@ public class UsuarioEditDialogController {
 		if (isInputValid() && empleado != null ) {
 			usuario.setNombre_usuario(usuarioField.getText());
 			usuario.setPassword(passwordField.getText());
-			UsuarioRepository.create(usuario.getNombre_usuario(), usuario.getPassword(), empleado.getIdEmpleado());
+			usuario.setEmpleado(empleado);
+			usuarioRepository.create(usuario);
 			okClicked = true;
 			dialogStage.close();
 		}else {
