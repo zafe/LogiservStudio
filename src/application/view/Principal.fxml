@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.PrincipalController">
+<BorderPane prefHeight="600.0" prefWidth="900.0" stylesheets="@css/theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.PrincipalController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -136,4 +136,7 @@
                </children>
             </AnchorPane>
    </left>
+   <center>
+      <Pane prefHeight="541.0" prefWidth="623.0" BorderPane.alignment="CENTER" />
+   </center>
       </BorderPane>

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.Group?>
 
-<Group xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.compra.cruds.CategoriaArticuloEditController">
+<Group stylesheets="@../../css/theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.compra.cruds.CategoriaArticuloEditController">
    <children>
       <AnchorPane prefHeight="201.0" prefWidth="436.0">
          <children>
@@ -28,7 +28,7 @@
             <HBox layoutX="210.0" layoutY="147.0" spacing="15.0">
                <children>
                   <Button fx:id="btnOk" defaultButton="true" mnemonicParsing="false" onAction="#handleOk" text="Aceptar" />
-                  <Button fx:id="btnCancel" layoutX="305.0" layoutY="273.0" mnemonicParsing="false" onAction="#handleCancel" text="Cancelar" />
+                  <Button fx:id="btnCancel" cancelButton="true" layoutX="305.0" layoutY="273.0" mnemonicParsing="false" onAction="#handleCancel" text="Cancelar" />
                </children>
             </HBox>
          </children></AnchorPane>

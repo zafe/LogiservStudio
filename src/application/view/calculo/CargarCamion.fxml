@@ -16,39 +16,31 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.calculo.CargarCamionController">
    <children>
-      <Pane prefHeight="400.0" prefWidth="600.0">
+      <VBox alignment="CENTER_LEFT" layoutX="17.0" layoutY="15.0" prefHeight="385.0" prefWidth="583.0" spacing="20.0">
          <children>
-            <AnchorPane prefHeight="400.0" prefWidth="600.0">
+            <Label text="Camiones" />
+            <TableView fx:id="camionTableView" pickOnBounds="false" prefHeight="233.0" prefWidth="600.0">
+              <columns>
+                <TableColumn fx:id="idCamionTableColumn" minWidth="0.0" prefWidth="0.0" text="id" />
+                <TableColumn fx:id="marcaTableColumn" prefWidth="203.20001220703125" text="Marca" />
+                  <TableColumn fx:id="modeloTableColumn" prefWidth="206.4000244140625" text="Modelo" />
+                  <TableColumn fx:id="patenteTableColumn" prefWidth="192.79998779296875" text="Patente" />
+              </columns>
+            </TableView>
+            <HBox alignment="CENTER" prefHeight="152.0" prefWidth="600.0" spacing="10.0">
                <children>
-                  <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <Label text="Camiones" />
-                        <TableView fx:id="camionTableView" pickOnBounds="false" prefHeight="233.0" prefWidth="600.0">
-                          <columns>
-                            <TableColumn fx:id="idCamionTableColumn" minWidth="0.0" prefWidth="0.0" text="id" />
-                            <TableColumn fx:id="marcaTableColumn" prefWidth="203.20001220703125" text="Marca" />
-                              <TableColumn fx:id="modeloTableColumn" prefWidth="206.4000244140625" text="Modelo" />
-                              <TableColumn fx:id="patenteTableColumn" prefWidth="192.79998779296875" text="Patente" />
-                          </columns>
-                        </TableView>
-                        <HBox alignment="CENTER" prefHeight="152.0" prefWidth="600.0" spacing="10.0">
-                           <children>
-                              <Button fx:id="btnNew" alignment="CENTER" mnemonicParsing="false" onAction="#handleNewCamion" text="Nuevo Camion" />
-                              <Button fx:id="btnEdit" alignment="CENTER" mnemonicParsing="false" onAction="#handleEditCamion" text="Editar Camion" />
-                              <Button fx:id="btnEliminar" alignment="CENTER" mnemonicParsing="false" onAction="#handleEliminarCamion" text="Eliminar Camion" />
-                           </children>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                           <padding>
-                              <Insets top="30.0" />
-                           </padding>
-                        </HBox>
-                     </children>
-                  </VBox>
+                  <Button fx:id="btnNew" alignment="CENTER" mnemonicParsing="false" onAction="#handleNewCamion" text="Nuevo Camion" />
+                  <Button fx:id="btnEdit" alignment="CENTER" mnemonicParsing="false" onAction="#handleEditCamion" text="Editar Camion" />
+                  <Button fx:id="btnEliminar" alignment="CENTER" mnemonicParsing="false" onAction="#handleEliminarCamion" text="Eliminar Camion" />
                </children>
-            </AnchorPane>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets top="30.0" />
+               </padding>
+            </HBox>
          </children>
-      </Pane>
+      </VBox>
    </children>
 </AnchorPane>
