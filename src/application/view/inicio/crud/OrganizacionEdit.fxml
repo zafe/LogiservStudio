@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.Group?>
 
-<Group xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.inicio.crud.OrganizacionEditController">
+<Group stylesheets="@../../css/theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.inicio.crud.OrganizacionEditController">
    <children>
       <AnchorPane prefHeight="548.0" prefWidth="528.0">
          <children>

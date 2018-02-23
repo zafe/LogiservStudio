@@ -21,7 +21,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<Group xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.RegisterController">
+<Group stylesheets="@css/theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.RegisterController">
   <children>
     <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="591.0" prefWidth="547.0">
       <children>
@@ -82,8 +82,8 @@
                   </GridPane>
                   <HBox alignment="CENTER" prefHeight="53.0" prefWidth="547.0" spacing="20.0">
                      <children>
-                        <Button fx:id="registrarButton" mnemonicParsing="false" onAction="#handleRegistro" text="Registrar" />
-                        <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancelar" />
+                        <Button fx:id="registrarButton" defaultButton="true" mnemonicParsing="false" onAction="#handleRegistro" text="Registrar" />
+                        <Button cancelButton="true" mnemonicParsing="false" onAction="#handleCancel" text="Cancelar" />
                      </children>
                   </HBox>
                   <Hyperlink fx:id="hlLogin" onAction="#handleLogin" prefHeight="43.0" prefWidth="165.0" text="¿Ya tienes una cuenta? Login " />

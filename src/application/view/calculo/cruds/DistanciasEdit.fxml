@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<Group xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.calculo.cruds.DistanciasEditController">
+<Group stylesheets="@../../css/theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.calculo.cruds.DistanciasEditController">
     <children>
         <AnchorPane prefHeight="550.0" prefWidth="528.0">
             <children>

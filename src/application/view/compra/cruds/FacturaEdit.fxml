@@ -21,7 +21,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<Group xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.compra.cruds.FacturaEditController">
+<Group stylesheets="@../../css/theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.compra.cruds.FacturaEditController">
   <children>
     <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="523.0" prefWidth="647.0">
       <children>
@@ -62,7 +62,7 @@
                   <TextField fx:id="cantidadField" onAction="#handleNewLine" GridPane.columnIndex="3" GridPane.rowIndex="10" />
                   <Button fx:id="agregarLineaButton" mnemonicParsing="false" onAction="#handleNewLine" text="+" GridPane.columnIndex="5" GridPane.rowIndex="12" />
                   <Button fx:id="quitarLineaButton" mnemonicParsing="false" onAction="#handleQuitLine" prefHeight="25.0" prefWidth="25.0" text="-" GridPane.columnIndex="5" GridPane.rowIndex="13" />
-                  <Label fx:id="impedirUpdateLineasLabel" prefHeight="17.0" prefWidth="441.0" text="Por Razones de integridad en los datos no se permite modificar lineas de compra" textFill="RED" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="9">
+                  <Label fx:id="impedirUpdateLineasLabel" prefHeight="17.0" prefWidth="441.0" text="Por Razones de integridad en los datos no se permite modificar lineas de compra" textFill="#f20000" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="9">
                      <font>
                         <Font name="System Italic" size="12.0" />
                      </font>
@@ -101,8 +101,8 @@
         </GridPane>
             <HBox alignment="CENTER" layoutY="444.0" prefHeight="79.0" prefWidth="647.0" spacing="20.0">
                <children>
-                  <Button fx:id="okButton" mnemonicParsing="false" onAction="#handleOK" text="Aceptar" />
-                  <Button fx:id="closeButton" mnemonicParsing="false" onAction="#handleCancel" text="Cancelar" />
+                  <Button fx:id="okButton" defaultButton="true" mnemonicParsing="false" onAction="#handleOK" text="Aceptar" />
+                  <Button fx:id="closeButton" cancelButton="true" mnemonicParsing="false" onAction="#handleCancel" text="Cancelar" />
                </children>
                <opaqueInsets>
                   <Insets />

@@ -1,8 +1,10 @@
 package application.view;
 
 import application.Main;
+import application.model.compra.Proveedor;
 import application.model.info.Usuario;
 import application.repository.info.UsuarioRepository;
+import com.sun.prism.paint.Color;
 import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +14,12 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Paint;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -19,6 +27,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LoginController implements Initializable {
     @FXML
@@ -56,6 +66,7 @@ public class LoginController implements Initializable {
 
         String passMD5 = usuario.encryptMD5(password);
         boolean okLogin = usuarioRepository.login(nombreUsuario,passMD5);
+
         System.out.println("Login: "+ okLogin);
         if (okLogin){
             try {
@@ -67,6 +78,7 @@ public class LoginController implements Initializable {
                 Parent parent = loader.getRoot();
                 Stage adminPanelStage = new Stage();
                 adminPanelStage.setTitle("LogiServ app - usuario: " + nombreUsuario + " conectado.");
+                adminPanelStage.setMaximized(true);
                 PrincipalController controller = loader.getController();
                 controller.setRootLayout(root);
                 controller.setHome();

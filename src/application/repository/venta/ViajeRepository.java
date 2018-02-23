@@ -245,7 +245,7 @@
 					Ingenio ingenio = ingenioRepository.getIngenioById(resultSet.getInt("INGENIO_idIngenio"));
 					viaje.setIngenio(ingenio);
 					Camion camion = camionRepository.getCamionById(resultSet.getInt("CAMION_idCamion"));
-					Empleado conductor = empleadoRepository.getEmpleadoById(resultSet.getInt("EMPLEADO_idEmpleado"));
+					Empleado conductor = empleadoRepository.buscarEmpleadoById(resultSet.getInt("EMPLEADO_idEmpleado"));
 					viaje.setConductor(conductor);
 					viaje.setCamion(camion);
 					list.add(viaje);
@@ -365,7 +365,7 @@
 					Ingenio ingenio = ingenioRepository.getIngenioById(resultSet.getInt("INGENIO_idIngenio"));
 					viaje.setIngenio(ingenio);
 					Camion camion = camionRepository.getCamionById(resultSet.getInt("CAMION_idCamion"));
-					Empleado conductor = empleadoRepository.getEmpleadoById(resultSet.getInt("EMPLEADO_idEmpleado"));
+					Empleado conductor = empleadoRepository.buscarEmpleadoById(resultSet.getInt("EMPLEADO_idEmpleado"));
 					viaje.setConductor(conductor);
 					viaje.setCamion(camion);
 					list.add(viaje);
@@ -422,7 +422,7 @@
 					Ingenio ingenio = ingenioRepository.getIngenioById(resultSet.getInt("INGENIO_idIngenio"));
 					viaje.setIngenio(ingenio);
 					Camion camion = camionRepository.getCamionById(resultSet.getInt("CAMION_idCamion"));
-					Empleado conductor = empleadoRepository.getEmpleadoById(resultSet.getInt("EMPLEADO_idEmpleado"));
+					Empleado conductor = empleadoRepository.buscarEmpleadoById(resultSet.getInt("EMPLEADO_idEmpleado"));
 					viaje.setConductor(conductor);
 					viaje.setCamion(camion);
 					list.add(viaje);

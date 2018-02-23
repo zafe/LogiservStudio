@@ -95,7 +95,7 @@ public class EmpleadoRepository {
 		}
 	}
 	
-	public static Empleado buscarEmpleadoById(Integer id){
+	public Empleado buscarEmpleadoById(Integer id){
 		
 		Empleado empleado = new Empleado();
 		Statement statement = null;

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -10,53 +14,45 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.compra.CompraComprasController">
+<AnchorPane prefHeight="418.0" prefWidth="637.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.compra.CompraComprasController">
    <children>
-      <Pane prefHeight="548.0" prefWidth="600.0">
+      <VBox alignment="CENTER_LEFT" layoutX="16.0" layoutY="13.0" prefHeight="387.0" prefWidth="584.0" spacing="10.0">
          <children>
-            <AnchorPane prefHeight="548.0" prefWidth="600.0">
+            <Label text="Compras" />
+            <TableView fx:id="comprasTable" onMouseClicked="#showLinea" pickOnBounds="false" prefHeight="172.0" prefWidth="600.0">
+              <columns>
+                <TableColumn fx:id="codigoFacturaColumn" prefWidth="75.0" text="Factura" />
+                <TableColumn fx:id="fechaColumn" prefWidth="75.0" text="Fecha" />
+                  <TableColumn fx:id="montoColumn" prefWidth="90.0" text="Monto" />
+                  <TableColumn fx:id="proveedorColumn" prefWidth="75.0" text="Proveedor" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <Pane prefHeight="49.0" prefWidth="600.0" />
+            <TableView fx:id="lineaCompraTableView" prefHeight="177.0" prefWidth="600.0">
+               <columns>
+                  <TableColumn fx:id="descripcionColumn" prefWidth="312.0" text="Descripción" />
+                  <TableColumn fx:id="cantidadColumn" prefWidth="105.0" text="Cantidad" />
+                  <TableColumn fx:id="precioUnitarioColumn" prefWidth="89.0" text="Precio Unitario" />
+                  <TableColumn fx:id="subTotalColumn" prefWidth="77.0" text="Subtotal" />
+               </columns>
+            </TableView>
+            <HBox alignment="CENTER" prefHeight="131.0" prefWidth="600.0" spacing="10.0">
                <children>
-                  <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <Label text="Compras" />
-                        <TableView fx:id="comprasTable" onMouseClicked="#showLinea" pickOnBounds="false" prefHeight="172.0" prefWidth="600.0">
-                          <columns>
-                            <TableColumn fx:id="codigoFacturaColumn" prefWidth="75.0" text="Factura" />
-                            <TableColumn fx:id="fechaColumn" prefWidth="75.0" text="Fecha" />
-                              <TableColumn fx:id="montoColumn" prefWidth="90.0" text="Monto" />
-                              <TableColumn fx:id="proveedorColumn" prefWidth="75.0" text="Proveedor" />
-                          </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
-                        <Pane prefHeight="49.0" prefWidth="600.0" />
-                        <TableView fx:id="lineaCompraTableView" prefHeight="177.0" prefWidth="600.0">
-                           <columns>
-                              <TableColumn fx:id="descripcionColumn" prefWidth="312.0" text="Descripción" />
-                              <TableColumn fx:id="cantidadColumn" prefWidth="105.0" text="Cantidad" />
-                              <TableColumn fx:id="precioUnitarioColumn" prefWidth="118.0" text="Precio Unitario" />
-                              <TableColumn fx:id="subTotalColumn" prefWidth="64.0" text="Subtotal" />
-                           </columns>
-                        </TableView>
-                        <HBox alignment="CENTER" prefHeight="131.0" prefWidth="600.0" spacing="10.0">
-                           <children>
-                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleNew" text="Nueva Compra" />
-                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleEdit" text="Editar Compra" />
-                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleEliminar" text="Eliminar Compra" />
-                           </children>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                           <padding>
-                              <Insets top="30.0" />
-                           </padding>
-                        </HBox>
-                     </children>
-                  </VBox>
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleNew" text="Nueva Compra" />
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleEdit" text="Editar Compra" />
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleEliminar" text="Eliminar Compra" />
                </children>
-            </AnchorPane>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets top="30.0" />
+               </padding>
+            </HBox>
          </children>
-      </Pane>
+      </VBox>
    </children>
 </AnchorPane>

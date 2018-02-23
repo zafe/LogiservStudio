@@ -146,7 +146,7 @@ public class RegisterController implements Initializable {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("get/Login.fxml"));
+            loader.setLocation(Main.class.getResource("view/Login.fxml"));
             BorderPane page = loader.load();
 
             // Create the dialog Stage.
