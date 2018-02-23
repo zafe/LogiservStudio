@@ -1,17 +1,18 @@
 package application.reports;
 
 import application.database.JDBCConnection;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.view.JasperViewer;
 
 import java.sql.Connection;
 
 public abstract class AbstractJasperReports {
     private static JasperReport report;
     private static JasperPrint reportFilled;
-    private static JasperViewer viewer;
-
+    private static JasperFX viewer;
     public static void createReport(String path){
         try {
             Connection connection = JDBCConnection.getInstanceConnection();
@@ -23,16 +24,7 @@ public abstract class AbstractJasperReports {
 
     }
     public static void showViewer(){
-        viewer = new JasperViewer(reportFilled,false);
-
-        viewer.setVisible(true);
-    }
-    public static void exportToPdf(String path){
-        try {
-            JasperExportManager.exportReportToPdfFile(reportFilled, path);
-        }catch (JRException e){
-            e.printStackTrace();
-        }
-
+        viewer = new JasperFX(reportFilled);
+        viewer.show();
     }
 }
