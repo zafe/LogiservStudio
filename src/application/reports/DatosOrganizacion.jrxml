@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DatosOrganizacion" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3951cce0-7cc9-48ce-935e-5dab107b81e7">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="logiserv"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT p.idOrganizacion, p.Nombre, p.CUIT, CONCAT(e.Apellido, ", ", e.nombre) AS nombreApoderado,
+  l.idLocalidad, l.NombreLocalidad, CONCAT(d.calle, " ", d.numero) AS direccion, c.* 
+    FROM ORGANIZACION AS p,EMPLEADO AS e, DOMICILIO AS d, LOCALIDAD AS l, PROVINCIA AS c 
+        WHERE p.DOMICILIO_idDomicilio=d.idDomicilio
+			AND e.idEmpleado = p.APODERADO_idEmpleado 
+           AND d.LOCALIDAD_idLocalidad=l.idLocalidad
+           AND l.PROVINCIA_idProvincia=c.idProvincia]]>
+	</queryString>
+	<field name="idOrganizacion" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="idOrganizacion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="organizacion"/>
+	</field>
+	<field name="Nombre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Nombre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="organizacion"/>
+	</field>
+	<field name="CUIT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CUIT"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="organizacion"/>
+	</field>
+	<field name="nombreApoderado" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nombreApoderado"/>
+	</field>
+	<field name="idLocalidad" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="idLocalidad"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="localidad"/>
+	</field>
+	<field name="NombreLocalidad" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NombreLocalidad"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="localidad"/>
+	</field>
+	<field name="direccion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="direccion"/>
+	</field>
+	<field name="idProvincia" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="idProvincia"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="provincia"/>
+	</field>
+	<field name="NombreProvincia" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NombreProvincia"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="provincia"/>
+	</field>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="121">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="140" backcolor="#006699" uuid="2a464480-7866-4aa1-87e4-1d953cafb4a8"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="0" y="0" width="360" height="90" forecolor="#FFFFFF" uuid="589cd6be-6cb4-4c58-b067-af24da0f1d3d">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9ef7ebef-557c-4eb9-a6f6-fd203f3d15a3"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font size="63"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="431" y="9" width="150" height="21" forecolor="#FFFFFF" uuid="9755d5f7-e87c-46db-8343-e9203adca05d">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6f8b35ff-2a96-4fab-af23-7689e034e597"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CUIT}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="428" y="26" width="161" height="20" forecolor="#FFFFFF" uuid="77557b0f-7e91-4d03-90b7-237331a28b22">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bdf93edd-7fd2-421a-aa9e-7b2094197432"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font size="13"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nombreApoderado}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="442" y="43" width="130" height="22" forecolor="#FFFFFF" uuid="08257133-8d42-471a-a0b1-da9b19f17140">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dfc5f143-78c5-43d8-a2c2-8359c8b3a532"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{direccion}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="431" y="57" width="159" height="20" forecolor="#FFFFFF" uuid="60dddd26-5924-402b-9b4d-4f0f33510b83">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3c6ce040-c370-40bb-bc7b-9f575e076019"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NombreLocalidad}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="440" y="70" width="140" height="20" forecolor="#FFFFFF" uuid="8b3f0a29-5d29-4e17-bdd9-11333b877f80">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a798d107-c3e5-44ca-9357-93a4547a34af"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NombreProvincia}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

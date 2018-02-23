@@ -4,6 +4,7 @@ import application.Main;
 import application.comunes.Alerta;
 import application.model.compra.Articulo;
 import application.model.compra.CategoriaArticulo;
+import application.reports.AbstractJasperReports;
 import application.repository.compra.ArticuloRepository;
 import application.repository.compra.CategoriaArticuloRepository;
 import application.view.compra.cruds.ArticuloEditController;
@@ -118,6 +119,7 @@ public class ControlStockController implements Initializable{
     }
     @FXML
     private void generarReporteStock(){
-        //todo: hacer reporte de stock
+        AbstractJasperReports.createReport("src\\application\\reports\\ControlStock.jasper");
+        AbstractJasperReports.showViewer();
     }
 }

@@ -36,7 +36,7 @@
     <HBox alignment="CENTER" prefHeight="152.0" prefWidth="600.0" spacing="10.0">
       <children>
         <Button fx:id="controlButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleControlStock" text="Control Stock" />
-                  <Button fx:id="reportButton" mnemonicParsing="false" text="Reporte de Stock" />
+                  <Button fx:id="reportButton" mnemonicParsing="false" onAction="#generarReporteStock" text="Reporte de Stock" />
       </children>
       <padding>
         <Insets top="30.0" />
