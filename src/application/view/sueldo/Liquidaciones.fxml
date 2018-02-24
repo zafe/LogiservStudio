@@ -2,23 +2,13 @@
 
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 
 <AnchorPane prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.sueldo.LiquidacionesController">
    <children>
-      <VBox alignment="CENTER_LEFT" layoutX="17.0" layoutY="14.0" prefHeight="476.0" prefWidth="683.0" spacing="10.0">
+      <VBox alignment="CENTER_LEFT" layoutX="17.0" layoutY="14.0" prefHeight="476.0" prefWidth="665.0" spacing="10.0">
          <children>
             <Label text="Liquidaciones" />
             <TableView fx:id="liquidacionTable" onMouseClicked="#cargarEmpleadosLiquidados" pickOnBounds="false" prefHeight="157.0" prefWidth="677.0">
@@ -26,10 +16,15 @@
                   <TableColumn fx:id="idLiquidacion" prefWidth="60.5" resizable="false" text="Nro" />
                   <TableColumn fx:id="fechaColumn" minWidth="0.0" prefWidth="138.5" text="Fecha" />
                   <TableColumn fx:id="hrColumn" prefWidth="155.0" text="Haberes Remunerativos" />
-                  <TableColumn fx:id="hnrColumn" maxWidth="330.5" minWidth="-1.0" prefWidth="190.5" text="Haberes No Remunerativos" />
-                  <TableColumn fx:id="retencionesColumn" maxWidth="283.0" minWidth="-1.0" prefWidth="153.0" text="Retenciones" />
+                  <TableColumn fx:id="hnrColumn" maxWidth="330.5" minWidth="-1.0" prefWidth="163.0" text="Haberes No Remunerativos" />
+                  <TableColumn fx:id="retencionesColumn" maxWidth="283.0" minWidth="-1.0" prefWidth="145.0" text="Retenciones" />
                </columns>
             </TableView>
+            <HBox alignment="CENTER_RIGHT" prefHeight="48.0" prefWidth="665.0">
+               <children>
+                  <Button fx:id="imprimirRecibos" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleImprimirRecibos" text="Imprimir recibos de sueldo" />
+               </children>
+            </HBox>
             <Label text="Empleados Liquidados" />
             <TableView fx:id="empleadosTable" onMouseClicked="#cargarEmpleadosLiquidados" prefHeight="164.0" prefWidth="678.0">
                <columns>
@@ -47,16 +42,12 @@
             </TableView>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Button fx:id="nuevaLiquidacionButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleNew" prefHeight="31.0" prefWidth="114.0" text="Nueva Liquidacion" textAlignment="CENTER">
+                  <Button fx:id="nuevaLiquidacionButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleNew" prefHeight="27.0" prefWidth="114.0" text="Nueva Liquidacion" textAlignment="CENTER">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="reportesButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="31.0" prefWidth="114.0" text="Reportes" textAlignment="CENTER">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Button>
+                  <Button fx:id="imprimirReciboDeEmpleado" mnemonicParsing="false" text="Imprimir recibo sueldo" />
                </children>
             </HBox>
          </children>

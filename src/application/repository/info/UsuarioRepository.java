@@ -1,14 +1,12 @@
 package application.repository.info;
 
+import application.database.JDBCConnection;
 import application.model.info.Empleado;
-import javafx.beans.property.StringProperty;
+import application.model.info.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
-
-import application.database.JDBCConnection;
-import application.model.info.Usuario;
 
 public class UsuarioRepository {
 	Connection connection;

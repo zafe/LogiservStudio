@@ -1,7 +1,6 @@
 package application.view.info.cruds;
 
 import application.comunes.Alerta;
-import application.model.compra.CategoriaArticulo;
 import application.model.info.CategoriaEmpleado;
 import application.repository.info.CategoriaEmpleadoRepository;
 import javafx.fxml.FXML;

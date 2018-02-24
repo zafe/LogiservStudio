@@ -2,8 +2,6 @@ package application.model.sueldo;
 
 import javafx.beans.property.*;
 
-import java.util.List;
-
 public class Liquidaciones {
     private IntegerProperty id;
     private StringProperty fechaLiquidacion;

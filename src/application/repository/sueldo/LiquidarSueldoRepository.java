@@ -1,15 +1,13 @@
 package application.repository.sueldo;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-
 import application.database.JDBCConnection;
 import application.model.info.Empleado;
 import application.model.venta.Viaje;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class LiquidarSueldoRepository {
 

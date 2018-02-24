@@ -1,17 +1,12 @@
 package application.repository.info;
 
 import application.comunes.Alerta;
+import application.database.JDBCConnection;
 import application.model.info.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-import application.database.JDBCConnection;
+import java.sql.*;
 
 public class EmpleadoRepository {
 	Connection connection;

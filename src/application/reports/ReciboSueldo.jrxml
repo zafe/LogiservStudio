@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReciboSueldo" pageWidth="420" pageHeight="595" columnWidth="380" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5b0bdcbb-b9c4-4981-b525-d1276281a4db">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="logiserv"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="idLiquidacion" class="java.lang.Integer">
+		<parameterDescription><![CDATA[idLiquidacion]]></parameterDescription>
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT modelofinal.liquidacion_empleado.total_bruto,
+	modelofinal.liquidacion_empleado.total_haberes_remunerativos,
+	modelofinal.liquidacion_empleado.importe_neto,
+	modelofinal.liquidacion_empleado.`idLiquidacionEmpleado`,
+	modelofinal.liquidacion_empleado.total_retenciones,
+	modelofinal.liquidacion_empleado.fin_periodo,
+	modelofinal.liquidacion_empleado.total_haberes_no_remunerativos,
+	modelofinal.liquidacion_empleado.fecha_liquidacion,
+	modelofinal.liquidacion_empleado.inicio_periodo,
+	modelofinal.detalle_liquidacion_empleado.monto, 
+	modelofinal.concepto_sueldo.descripcion,
+	modelofinal.concepto_sueldo.tipo_concepto,
+	CONCAT(modelofinal.empleado.`Apellido`, ", ",	modelofinal.empleado.`Nombre`) AS nombreCompleto,
+	modelofinal.empleado.`idEmpleado`,
+	modelofinal.categoria_empleado.`NombreCategoria` 
+FROM modelofinal.liquidacion_empleado,  modelofinal.detalle_liquidacion_empleado,  modelofinal.concepto_sueldo , modelofinal.empleado,   modelofinal.categoria_empleado 
+WHERE  modelofinal.detalle_liquidacion_empleado.`LiquidacionEmpleado_idLiquidacionEmpleado` = modelofinal.liquidacion_empleado.`idLiquidacionEmpleado` 
+AND  modelofinal.detalle_liquidacion_empleado.`CONCEPTO_SUELDO_idCodigoConcepto`=  modelofinal.concepto_sueldo.`idCodigoConcepto` 
+AND  modelofinal.liquidacion_empleado.`EMPLEADO_idEmpleado` = modelofinal.empleado.`idEmpleado` 
+AND   modelofinal.empleado.`CATEGORIA_EMPLEADO_idCategoriaEmpleado` =modelofinal.categoria_empleado.`idCategoriaEmpleado` 
+AND  modelofinal.liquidacion_empleado.`LIQUIDACION_idLIQUIDACION` =$P{idLiquidacion}]]>
+	</queryString>
+	<field name="total_bruto" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="total_bruto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
+	</field>
+	<field name="total_haberes_remunerativos" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="total_haberes_remunerativos"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
+	</field>
+	<field name="importe_neto" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="importe_neto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
+	</field>
+	<field name="idLiquidacionEmpleado" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="idLiquidacionEmpleado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
+	</field>
+	<field name="total_retenciones" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="total_retenciones"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
+	</field>
+	<field name="fin_periodo" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="fin_periodo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
+	</field>
+	<field name="total_haberes_no_remunerativos" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="total_haberes_no_remunerativos"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
+	</field>
+	<field name="fecha_liquidacion" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="fecha_liquidacion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
+	</field>
+	<field name="inicio_periodo" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="inicio_periodo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
+	</field>
+	<field name="monto" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="monto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="detalle_liquidacion_empleado"/>
+	</field>
+	<field name="descripcion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="descripcion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="concepto_sueldo"/>
+	</field>
+	<field name="tipo_concepto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="tipo_concepto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="concepto_sueldo"/>
+	</field>
+	<field name="nombreCompleto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nombreCompleto"/>
+	</field>
+	<field name="idEmpleado" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="idEmpleado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="empleado"/>
+	</field>
+	<field name="NombreCategoria" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NombreCategoria"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="categoria_empleado"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="155" splitType="Stretch">
+			<subreport>
+				<reportElement x="-20" y="0" width="397" height="154" uuid="51fe9eff-e8ec-4245-95e1-db4da6f28751"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["target/classes/application/reports/DatosOrganizacion.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="8" y="100" width="365" height="42" forecolor="#FFFFFF" uuid="91ed0f02-eda3-48b8-a2ba-e3ecaff67e02"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="25" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RECIBO SUELDO]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="51" splitType="Stretch">
+			<frame>
+				<reportElement x="2" y="0" width="377" height="51" uuid="ea8faf1a-0d85-459b-9c90-a04562d91803"/>
+				<line>
+					<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="1" width="376" height="1" uuid="d025d541-f52d-4305-a0f6-ee99413c83c5"/>
+				</line>
+				<textField>
+					<reportElement x="0" y="0" width="189" height="19" uuid="0d3d5267-43c3-42b7-9a56-e71e54512780"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nombreCompleto}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="323" y="0" width="40" height="19" uuid="907ea8ae-a2a0-4a9c-8ab7-8055430d0d54"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle"/>
+					<text><![CDATA[Legajo:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="363" y="1" width="14" height="19" uuid="975c7c71-3a41-4c5d-a79c-9687a4fdd9c5"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{idEmpleado}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="20" width="50" height="30" uuid="394b9ae6-22e0-4aa1-a869-baecc7a5b348"/>
+					<text><![CDATA[Categoria:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="50" y="20" width="100" height="30" uuid="ac42ac49-48de-49e5-a101-4a38228bb16d"/>
+					<textFieldExpression><![CDATA[$F{NombreCategoria}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="40" width="376" height="1" uuid="3cdad003-4a3a-45f4-ac4c-7eb950c00a69"/>
+				</line>
+				<textField>
+					<reportElement x="276" y="20" width="100" height="18" uuid="9083dc96-e753-459f-9bf0-30d9cfed4a05"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$F{fecha_liquidacion}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<frame>
+				<reportElement x="1" y="0" width="378" height="22" uuid="e857996e-0d58-4666-b2db-6c3f6276b47b"/>
+				<textField>
+					<reportElement x="30" y="2" width="143" height="18" uuid="5f95ba8d-8d93-4b0f-adc4-49a387689534"/>
+					<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="176" y="2" width="11" height="18" uuid="7c8deb38-81bd-41e5-9ac0-acac9eed8996"/>
+					<textElement textAlignment="Right"/>
+					<text><![CDATA[$]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="190" y="2" width="62" height="18" uuid="dbcda56e-fe8e-4d0c-91d7-12279223a8de"/>
+					<textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="252" y="2" width="118" height="18" uuid="99e14b82-4ea2-41dd-a071-a8b2fbb8a096"/>
+					<textFieldExpression><![CDATA[$F{tipo_concepto}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="52" splitType="Stretch">
+			<textField>
+				<reportElement x="321" y="19" width="58" height="18" uuid="a9e8d003-8631-4352-87da-4da0334c3c5d"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{importe_neto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="285" y="18" width="34" height="19" uuid="2d72aa0c-2144-435e-abd5-8a5280c28fcc"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[NETO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="110" y="0" width="58" height="18" uuid="834e419b-8d55-4ad0-8c33-1b2d011a4edc"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_haberes_remunerativos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="168" y="0" width="62" height="18" uuid="a5e6500b-a100-422a-8837-b9005cd3879a"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_haberes_no_remunerativos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="230" y="0" width="50" height="18" uuid="7250bbd4-cfec-4477-beaf-fe030cffe797"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_retenciones}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="279" y="0" width="40" height="18" uuid="8c5cad28-6bec-4263-bd59-c40ddcf03f18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[BRUTO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="321" y="0" width="58" height="18" uuid="c2a637d1-bdc7-4e80-8036-c29869171d91"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_bruto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="2" width="46" height="15" uuid="387d9967-42ce-46d2-8f59-b54d786e0ee8"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Periodo:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="31" y="20" width="63" height="14" uuid="dc385501-29ae-4077-8c3c-b3300b7e4ca4"/>
+				<textFieldExpression><![CDATA[$F{inicio_periodo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="30" y="34" width="64" height="15" uuid="fd9395ff-501e-45db-9593-9a7a363a3628"/>
+				<textFieldExpression><![CDATA[$F{fin_periodo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>

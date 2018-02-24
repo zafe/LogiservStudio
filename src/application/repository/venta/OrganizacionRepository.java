@@ -60,9 +60,6 @@ public class OrganizacionRepository {
 //            preparedStatement.setString(4, organizacion.getTelefono());
             preparedStatement.setInt(7, organizacion.getIdOrganizacion());
             preparedStatement.executeUpdate();
-            String headerMsj="Actualización: datos de la organizacion actualizados";
-            String cuerpoMsj = "Organizacion: " + organizacion.getNombreOrg() + " modificado correctamente.";
-            Alerta.alertaInfo("Organización", headerMsj, cuerpoMsj);
         } catch (SQLException e) {
             e.printStackTrace();
         }

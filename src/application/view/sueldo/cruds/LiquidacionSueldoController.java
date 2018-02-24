@@ -6,8 +6,8 @@ import application.model.sueldo.ConceptoCalculado;
 import application.model.sueldo.ConceptoSueldo;
 import application.model.sueldo.LiquidacionEmpleado;
 import application.repository.info.CategoriaEmpleadoRepository;
-import application.repository.sueldo.ConceptoSueldoRepository;
 import application.repository.info.EmpleadoRepository;
+import application.repository.sueldo.ConceptoSueldoRepository;
 import application.view.sueldo.EmpleadoALiquidar;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,12 +17,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-import javax.xml.soap.Text;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class LiquidacionSueldoController implements Initializable {
     @FXML

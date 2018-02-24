@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.Group?>
-
+<?import javafx.scene.layout.*?>
 <Group stylesheets="@../../css/theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.compra.cruds.ProveedorEditController">
    <children>
       <AnchorPane prefHeight="416.0" prefWidth="528.0">

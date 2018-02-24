@@ -1,7 +1,6 @@
 package application.view.venta;
 
 import application.Main;
-import application.comunes.Alerta;
 import application.model.venta.FacturaVenta;
 import application.model.venta.Viaje;
 import application.repository.venta.FacturaVentaRepository;
@@ -11,7 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
