@@ -1,13 +1,14 @@
 package application;
 
-import application.view.*;
-import java.io.IOException;
 import application.database.JDBCConnection;
+import application.view.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class Main extends Application {
 	private Stage primaryStage;

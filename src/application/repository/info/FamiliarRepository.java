@@ -3,7 +3,6 @@ package application.repository.info;
 import application.comunes.Alerta;
 import application.database.JDBCConnection;
 import application.model.info.Familiar;
-import com.sun.org.apache.bcel.internal.generic.FADD;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

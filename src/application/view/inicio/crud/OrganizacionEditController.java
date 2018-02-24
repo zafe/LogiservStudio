@@ -1,23 +1,15 @@
 package application.view.inicio.crud;
 
-import application.comunes.Alerta;
-import application.model.compra.Proveedor;
-import application.model.info.Domicilio;
 import application.model.info.Empleado;
 import application.model.info.Localidad;
-import application.model.info.Provincia;
 import application.model.venta.Organizacion;
-import application.repository.compra.ProveedorRepository;
-import application.repository.info.DomicilioRepository;
 import application.repository.info.EmpleadoRepository;
 import application.repository.info.LocalidadRepository;
-import application.repository.info.ProvinciaRepository;
 import application.repository.venta.OrganizacionRepository;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 

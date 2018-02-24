@@ -1,17 +1,13 @@
 package application.repository.sueldo;
 
-import java.sql.*;
-import java.text.SimpleDateFormat;
-
 import application.database.JDBCConnection;
-import application.model.info.CategoriaEmpleado;
 import application.model.info.Empleado;
-import application.model.sueldo.ConceptoSueldo;
 import application.model.sueldo.LiquidacionEmpleado;
 import application.model.sueldo.Liquidaciones;
-import application.model.venta.Viaje;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import java.sql.*;
 
 public class LiquidacionesRepository {
 

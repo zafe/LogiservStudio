@@ -1,29 +1,26 @@
 	package application.repository.venta;
 
-	import application.comunes.Alerta;
-	import application.comunes.Calculo;
-	import application.database.JDBCConnection;
-	import application.model.calculo.Camion;
-	import application.model.calculo.Finca;
-	import application.model.calculo.Ingenio;
-	import application.model.info.Empleado;
-	import application.model.venta.Viaje;
-	import application.repository.calculo.CamionRepository;
-	import application.repository.calculo.FincaRepository;
-	import application.repository.calculo.IngenioRepository;
-	import application.repository.info.EmpleadoRepository;
-	import javafx.collections.FXCollections;
-	import javafx.collections.ObservableList;
+    import application.comunes.Alerta;
+    import application.database.JDBCConnection;
+    import application.model.calculo.Camion;
+    import application.model.calculo.Finca;
+    import application.model.calculo.Ingenio;
+    import application.model.info.Empleado;
+    import application.model.venta.Viaje;
+    import application.repository.calculo.CamionRepository;
+    import application.repository.calculo.FincaRepository;
+    import application.repository.calculo.IngenioRepository;
+    import application.repository.info.EmpleadoRepository;
+    import javafx.collections.FXCollections;
+    import javafx.collections.ObservableList;
 
-	import java.math.BigDecimal;
-	import java.sql.Connection;
-	import java.sql.PreparedStatement;
-	import java.sql.ResultSet;
-	import java.sql.SQLException;
-	import java.text.DateFormat;
-	import java.text.ParseException;
-	import java.text.SimpleDateFormat;
-	import java.util.List;
+    import java.sql.Connection;
+    import java.sql.PreparedStatement;
+    import java.sql.ResultSet;
+    import java.sql.SQLException;
+    import java.text.DateFormat;
+    import java.text.ParseException;
+    import java.text.SimpleDateFormat;
 
 	public class ViajeRepository {
 	    Connection connection;

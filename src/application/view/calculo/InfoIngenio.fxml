@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.web.*?>
-<?import javafx.scene.*?>
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.AnchorPane?>
-
+<?import javafx.scene.web.WebView?>
 <AnchorPane prefHeight="417.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.calculo.InfoIngenioController">
    <children>
       <VBox alignment="CENTER_LEFT" layoutX="19.0" layoutY="12.0" prefHeight="405.0" prefWidth="581.0" spacing="20.0">

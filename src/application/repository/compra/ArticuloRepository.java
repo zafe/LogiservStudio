@@ -4,11 +4,13 @@ import application.comunes.Alerta;
 import application.database.JDBCConnection;
 import application.model.compra.Articulo;
 import application.model.compra.CategoriaArticulo;
-import com.sun.corba.se.impl.encoding.TypeCodeInputStream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class ArticuloRepository {
     Connection connection;

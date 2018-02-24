@@ -2,7 +2,6 @@ package application.model.sueldo;
 
 import application.model.info.Empleado;
 import javafx.beans.property.*;
-import javafx.collections.ObservableList;
 
 import java.util.List;
 

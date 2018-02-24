@@ -1,15 +1,15 @@
 	package application.repository.info;
 
-	import application.comunes.Alerta;
-	import application.database.JDBCConnection;
-import application.model.info.CategoriaEmpleado;
+    import application.comunes.Alerta;
+    import application.database.JDBCConnection;
+    import application.model.info.CategoriaEmpleado;
     import javafx.collections.FXCollections;
-	import javafx.collections.ObservableList;
+    import javafx.collections.ObservableList;
 
-	import java.sql.Connection;
-	import java.sql.PreparedStatement;
-	import java.sql.ResultSet;
-	import java.sql.SQLException;
+    import java.sql.Connection;
+    import java.sql.PreparedStatement;
+    import java.sql.ResultSet;
+    import java.sql.SQLException;
 
 	public class CategoriaEmpleadoRepository {
 	    Connection connection;

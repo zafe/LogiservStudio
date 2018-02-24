@@ -1,35 +1,16 @@
 package application.view.info.cruds;
 
-import application.view.info.GrupoFamiliarController;
+import application.model.info.*;
+import application.repository.info.*;
 import application.view.info.InfoCategoriaEmpleadoController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.time.format.DateTimeFormatter;
-
-import application.model.info.CategoriaEmpleado;
-import application.model.info.Domicilio;
-import application.model.info.Empleado;
-import application.model.info.Localidad;
-import application.model.info.Provincia;
-import application.repository.info.CategoriaEmpleadoRepository;
-import application.repository.info.DomicilioRepository;
-import application.repository.info.EmpleadoRepository;
-import application.repository.info.LocalidadRepository;
-import application.repository.info.ProvinciaRepository;
 
 public class EmpleadoEditDialogController {
 

@@ -97,7 +97,7 @@ public class FincaEditController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         WebEngine engine = webView.getEngine();
-        String url = "https://www.google.com";
+        String url = "https://www.google.com.ar/maps";
         engine.load(url);
     }
 
