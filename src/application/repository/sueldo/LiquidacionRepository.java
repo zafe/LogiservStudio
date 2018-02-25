@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.sql.*;
 
 import application.database.JDBCConnection;
+import application.model.info.CategoriaEmpleado;
 import application.model.info.Empleado;
 import application.model.sueldo.ConceptoCalculado;
 import application.model.sueldo.DetalleLiquidacionEmpleado;
@@ -17,6 +18,7 @@ public class LiquidacionRepository {
     Connection connection;
     PreparedStatement preparedStatement;
     ResultSet resultSet;
+    private int lastIdLiquidacionEmpleado;
 
     public static ObservableList<Liquidacion> buscarLiquidaciones(){
 
@@ -47,9 +49,10 @@ public class LiquidacionRepository {
 
     /**
      * Crea una liquidacion
+     *
      * @return Liquidacion creada
      */
-    public Liquidacion newLiquidacion(Liquidacion liquidacion){
+    public Liquidacion newLiquidacion(Liquidacion liquidacion) {
 
         try {
             Statement statement = JDBCConnection.getInstanceConnection().createStatement();
@@ -57,7 +60,7 @@ public class LiquidacionRepository {
             resultSet = statement.executeQuery("SELECT idLiquidacion, timestamp " +
                     "FROM LIQUIDACION " +
                     "WHERE idLiquidacion = LAST_INSERT_ID();");
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 liquidacion.setId(resultSet.getInt("idLiquidacion"));
                 liquidacion.setFechaLiquidacion(resultSet.getString("timestamp"));
             }
@@ -70,54 +73,50 @@ public class LiquidacionRepository {
         BigDecimal totalhnr;
         BigDecimal totalret;
 
+
+        //set ID liquidacion
+        liquidacion.setId(getLastID());
         //crear una liquidacion_empleado por cada empleado, es asociado a una liquidacion
-        for (LiquidacionEmpleado liquidacionEmpleado : liquidacion.getLiquidacionesEmpleados()){
+        for (LiquidacionEmpleado liquidacionEmpleado : liquidacion.getLiquidacionesEmpleados()) {
 
             try {
-                preparedStatement  = connection.prepareStatement("INSERT INTO LIQUIDACION_EMPLEADO " +
-                        "(importe_neto,total_haberes_remunerativos, total_haberes_no_remunerativos,total_retenciones, " +
-                        "total_bruto, EMPLEADO_idEmpleado, inicio_periodo, fin_periodo, LIQUIDACION_idLiquidacion)" +
-                        " VALUES (?,?,?,?,?,?,?,?,?);");
-                preparedStatement.setDouble(1,liquidacionEmpleado.getImporteNeto());
-                preparedStatement.setDouble(2,liquidacionEmpleado.getTotalHaberesRemunerativos());
-                preparedStatement.setDouble(3,liquidacionEmpleado.getTotalHaberesNoRemunerativos());
-                preparedStatement.setDouble(4,liquidacionEmpleado.getTotalRetenciones());
-                preparedStatement.setDouble(5,liquidacionEmpleado.getTotalBruto());
-                preparedStatement.setInt(6,liquidacionEmpleado.getEmpleado().getIdEmpleado());
-                preparedStatement.setString(7,liquidacionEmpleado.getInicioPeriodo());
-                preparedStatement.setString(8,liquidacionEmpleado.getFinPeriodo());
-                preparedStatement.setInt(9,liquidacion.getId());
-                resultSet = preparedStatement.executeQuery("SELECT LAST_INSERT_ID()");
-                if (resultSet.next()){
-                    liquidacionEmpleado.setId(resultSet.getInt(1));
-                }
+                preparedStatement = connection.prepareStatement("INSERT INTO LIQUIDACION_EMPLEADO " +
+                        " VALUES (?,?,?,?,?,?,?,?,?,?,?);");
+                preparedStatement.setString(1, null);
+                preparedStatement.setString(2, liquidacionEmpleado.getFechaLiquidacion());
+                preparedStatement.setDouble(3, liquidacionEmpleado.getImporteNeto());
+                preparedStatement.setDouble(4, liquidacionEmpleado.getTotalHaberesRemunerativos());
+                preparedStatement.setDouble(5, liquidacionEmpleado.getTotalHaberesNoRemunerativos());
+                preparedStatement.setDouble(6, liquidacionEmpleado.getTotalRetenciones());
+                preparedStatement.setDouble(7, liquidacionEmpleado.getTotalBruto());
+                preparedStatement.setInt(8, liquidacionEmpleado.getEmpleado().getIdEmpleado());
+                preparedStatement.setString(9, liquidacionEmpleado.getInicioPeriodo());
+                preparedStatement.setString(10, liquidacionEmpleado.getFinPeriodo());
+                preparedStatement.setInt(11, liquidacion.getId());
+                preparedStatement.executeUpdate();
             } catch (SQLException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
+            liquidacionEmpleado.setId(getLastIdLiquidacionEmpleado());
             //grabacion de detalle_liquidacion, es decir ConceptoCalculado
-            for (ConceptoCalculado conceptoCalculado : liquidacionEmpleado.getConceptosLiquidados()){
+            for (ConceptoCalculado conceptoCalculado : liquidacionEmpleado.getConceptosLiquidados()) {
                 try {
-                    preparedStatement  = connection.prepareStatement("INSERT INTO DETALLE_LIQUIDACION_EMPLEADO " +
-                            "(cantidad,monto,LiquidacionEmpleado_idLiquidacionEmpleado,CONCEPTO_SUELDO_idCodigoConcepto)" +
-                            " VALUES (?,?,?,?);");
-                    preparedStatement.setDouble(1,conceptoCalculado.getFactor());
-                    preparedStatement.setDouble(2,conceptoCalculado.getMontoCalculado());
-                    preparedStatement.setInt(3,liquidacionEmpleado.getId());
-                    preparedStatement.setDouble(4,conceptoCalculado.getIdConceptoSueldo());//todo funcionara???
-                    resultSet = preparedStatement.executeQuery("SELECT LAST_INSERT_ID()");
-                    if (resultSet.next()){
-                        liquidacionEmpleado.setId(resultSet.getInt(1));
-                    }
+                    preparedStatement = connection.prepareStatement("INSERT INTO DETALLE_LIQUIDACION_EMPLEADO " +
+                            " VALUES (?,?,?,?,?)");
+                    preparedStatement.setString(1, null);
+                    preparedStatement.setDouble(2, conceptoCalculado.getFactor());
+                    preparedStatement.setInt(3, liquidacionEmpleado.getId());
+                    preparedStatement.setDouble(4, conceptoCalculado.getMontoCalculado());
+                    preparedStatement.setInt(5, conceptoCalculado.getIdConceptoSueldo());
+                    preparedStatement.executeUpdate();
                 } catch (SQLException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
-
         }
-
         return liquidacion;
     }
 
@@ -126,7 +125,7 @@ public class LiquidacionRepository {
         try {
             connection = JDBCConnection.getInstanceConnection();
             preparedStatement=connection.prepareStatement("SELECT EMPLEADO.idEmpleado, EMPLEADO.Apellido, EMPLEADO.Nombre, " +
-                    " CATEGORIA_EMPLEADO.NombreCategoria, LIQUIDACION_EMPLEADO.total_haberes_remunerativos, " +
+                    "CATEGORIA_EMPLEADO.idCategoriaEmpleado, CATEGORIA_EMPLEADO.NombreCategoria, LIQUIDACION_EMPLEADO.total_haberes_remunerativos, " +
                     "LIQUIDACION_EMPLEADO.total_haberes_no_remunerativos, LIQUIDACION_EMPLEADO.total_retenciones " +
                     "                    FROM LIQUIDACION_EMPLEADO" +
                     "                    INNER JOIN" +
@@ -143,11 +142,11 @@ public class LiquidacionRepository {
                 empleado.setIdEmpleado(resultSet.getInt(1));
                 empleado.setApellido(resultSet.getString(2));
                 empleado.setNombre(resultSet.getString(3));
-//                empleado.setCategoria(resultSet.getString(4));
+                empleado.setCategoriaEmpleado(new CategoriaEmpleado(resultSet.getInt(4),resultSet.getString(5)));
                 empleadosLiquidados.setEmpleado(empleado);
-                empleadosLiquidados.setTotalHaberesRemunerativos(resultSet.getDouble(5));
-                empleadosLiquidados.setTotalHaberesNoRemunerativos(resultSet.getDouble(6));
-                empleadosLiquidados.setTotalRetenciones(resultSet.getDouble(7));
+                empleadosLiquidados.setTotalHaberesRemunerativos(resultSet.getDouble(6));
+                empleadosLiquidados.setTotalHaberesNoRemunerativos(resultSet.getDouble(7));
+                empleadosLiquidados.setTotalRetenciones(resultSet.getDouble(8));
                 list.add(empleadosLiquidados);
             }
         } catch (SQLException e) {
@@ -156,4 +155,31 @@ public class LiquidacionRepository {
         return list;
     }
 
+    public int getLastID() {
+        int lastId=0;
+        try {
+            connection = JDBCConnection.getInstanceConnection();
+            preparedStatement=connection.prepareStatement("SELECT MAX(idLIQUIDACION) FROM liquidacion");
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next())
+                lastId= resultSet.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lastId;
+    }
+
+    public int getLastIdLiquidacionEmpleado() {
+        int lastId=0;
+        try {
+            connection = JDBCConnection.getInstanceConnection();
+            preparedStatement=connection.prepareStatement("SELECT MAX(idLiquidacionEmpleado) FROM Liquidacion_Empleado");
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next())
+                lastId= resultSet.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lastId;
+    }
 }
