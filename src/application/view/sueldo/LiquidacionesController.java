@@ -3,10 +3,8 @@ package application.view.sueldo;
 import application.Main;
 import application.model.info.Empleado;
 import application.model.sueldo.LiquidacionEmpleado;
-import application.model.sueldo.Liquidaciones;
-import application.reports.AbstractJasperReports;
-import application.repository.sueldo.LiquidacionesRepository;
-import javafx.beans.binding.BooleanBinding;
+import application.model.sueldo.Liquidacion;
+import application.repository.sueldo.LiquidacionRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -28,17 +26,17 @@ public class LiquidacionesController implements Initializable{
 
 	//Declaracion de la tabla y columnas de la clase Liquidaciones
 	@FXML
-	private TableView<Liquidaciones> liquidacionTable;
+	private TableView<Liquidacion> liquidacionTable;
 	@FXML
-	private TableColumn<Liquidaciones, String> idLiquidacion;
+	private TableColumn<Liquidacion, String> idLiquidacion;
 	@FXML
-	private TableColumn<Liquidaciones, String> fechaColumn;
+	private TableColumn<Liquidacion, String> fechaColumn;
 	@FXML
-	private TableColumn<Liquidaciones, String> hrColumn;
+	private TableColumn<Liquidacion, String> hrColumn;
 	@FXML
-	private  TableColumn<Liquidaciones, String> hnrColumn;
+	private  TableColumn<Liquidacion, String> hnrColumn;
 	@FXML
-	private TableColumn<Liquidaciones, String> retencionesColumn;
+	private TableColumn<Liquidacion, String> retencionesColumn;
 
 	//Declaracion de la tabla y columnas de la clase LiquidacionEmpleado
 	@FXML
@@ -60,9 +58,7 @@ public class LiquidacionesController implements Initializable{
 	@FXML
 	private Button nuevaLiquidacionButton;
 	@FXML
-	private Button imprimirRecibos;
-	@FXML
-	private Button imprimirReciboDeEmpleado;
+	private Button reportesButton;
 
 
 
@@ -74,7 +70,7 @@ public class LiquidacionesController implements Initializable{
 
 	private ObservableList<Empleado> empleados = FXCollections.observableArrayList();
 
-	private LiquidacionesRepository liquidacionesRepository = new LiquidacionesRepository();
+	private LiquidacionRepository liquidacionesRepository = new LiquidacionRepository();
 
 	private ObservableList<LiquidacionEmpleado> empleadosLiquidados = FXCollections.observableArrayList();
 
@@ -82,18 +78,15 @@ public class LiquidacionesController implements Initializable{
 		this.owner = owner;
 
 	}
-	private ObservableList<Liquidaciones> liquidaciones = FXCollections.observableArrayList();
+	private ObservableList<Liquidacion> liquidaciones = FXCollections.observableArrayList();
 
 	public void buscarLiquidaciones(){
-		this.liquidaciones = LiquidacionesRepository.buscarLiquidaciones();
+		this.liquidaciones = LiquidacionRepository.buscarLiquidaciones();
 		liquidacionTable.setItems(liquidaciones);
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		BooleanBinding boolenBinding = liquidacionTable.getSelectionModel().selectedItemProperty().isNull();
-		imprimirRecibos.disableProperty().bind(boolenBinding);
-
 		buscarLiquidaciones();
 		idLiquidacion.setCellValueFactory(cellData -> cellData.getValue().idProperty().asString());
 		fechaColumn.setCellValueFactory(cellData -> cellData.getValue().fechaLiquidacionProperty());
@@ -104,7 +97,7 @@ public class LiquidacionesController implements Initializable{
 		legajoColumn.setCellValueFactory(cellData -> cellData.getValue().getEmpleado().idEmpleadoProperty().asString());
 		apellidoColumn.setCellValueFactory(cellData -> cellData.getValue().getEmpleado().apellidoProperty());
 		nombreColumn.setCellValueFactory(cellData -> cellData.getValue().getEmpleado().nombreProperty());
-		categoriaColumn.setCellValueFactory(cellData -> cellData.getValue().getEmpleado().getCategoriaEmpleado().nombreProperty());
+//		categoriaColumn.setCellValueFactory(cellData -> cellData.getValue().getEmpleado().categoriaProperty());
 		hrEmpleadoColumn.setCellValueFactory(cellData -> cellData.getValue().totalHaberesRemunerativosProperty().asString());
 		hnrEmpleadoColumn.setCellValueFactory(cellData -> cellData.getValue().totalHaberesNoRemunerativosProperty().asString());
 		retencionesEmpleadoColumn.setCellValueFactory(cellData -> cellData.getValue().totalRetencionesProperty().asString());
@@ -145,14 +138,7 @@ public class LiquidacionesController implements Initializable{
 			empleadosTable.setItems(empleadosLiquidados);
 		}
 	}
-@FXML
-	private void handleImprimirRecibos(){
-		System.out.println("se imprimieron recibos de sueldo");
-		int idLiquidacion = liquidacionTable.getSelectionModel().getSelectedItem().getId();
-		AbstractJasperReports.createReport("src\\application\\reports\\ReciboSueldo.jasper",
-				"idLiquidacion", idLiquidacion);
-		AbstractJasperReports.showViewer();
-}
+
 //    @FXML
 //    private void cargarLiquidaciones(){
 //        if (liquidacionTable.getSelectionModel().getSelectedItem() != null){
