@@ -3,8 +3,8 @@ package application.view.sueldo;
 import application.Main;
 import application.model.info.Empleado;
 import application.model.sueldo.LiquidacionEmpleado;
-import application.model.sueldo.Liquidaciones;
-import application.repository.sueldo.LiquidacionesRepository;
+import application.model.sueldo.Liquidacion;
+import application.repository.sueldo.LiquidacionRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -26,17 +26,17 @@ public class LiquidacionesController implements Initializable{
 
 	//Declaracion de la tabla y columnas de la clase Liquidaciones
 	@FXML
-	private TableView<Liquidaciones> liquidacionTable;
+	private TableView<Liquidacion> liquidacionTable;
 	@FXML
-	private TableColumn<Liquidaciones, String> idLiquidacion;
+	private TableColumn<Liquidacion, String> idLiquidacion;
 	@FXML
-	private TableColumn<Liquidaciones, String> fechaColumn;
+	private TableColumn<Liquidacion, String> fechaColumn;
 	@FXML
-	private TableColumn<Liquidaciones, String> hrColumn;
+	private TableColumn<Liquidacion, String> hrColumn;
 	@FXML
-	private  TableColumn<Liquidaciones, String> hnrColumn;
+	private  TableColumn<Liquidacion, String> hnrColumn;
 	@FXML
-	private TableColumn<Liquidaciones, String> retencionesColumn;
+	private TableColumn<Liquidacion, String> retencionesColumn;
 
 	//Declaracion de la tabla y columnas de la clase LiquidacionEmpleado
 	@FXML
@@ -70,7 +70,7 @@ public class LiquidacionesController implements Initializable{
 
 	private ObservableList<Empleado> empleados = FXCollections.observableArrayList();
 
-	private LiquidacionesRepository liquidacionesRepository = new LiquidacionesRepository();
+	private LiquidacionRepository liquidacionesRepository = new LiquidacionRepository();
 
 	private ObservableList<LiquidacionEmpleado> empleadosLiquidados = FXCollections.observableArrayList();
 
@@ -78,10 +78,10 @@ public class LiquidacionesController implements Initializable{
 		this.owner = owner;
 
 	}
-	private ObservableList<Liquidaciones> liquidaciones = FXCollections.observableArrayList();
+	private ObservableList<Liquidacion> liquidaciones = FXCollections.observableArrayList();
 
 	public void buscarLiquidaciones(){
-		this.liquidaciones = LiquidacionesRepository.buscarLiquidaciones();
+		this.liquidaciones = LiquidacionRepository.buscarLiquidaciones();
 		liquidacionTable.setItems(liquidaciones);
 	}
 

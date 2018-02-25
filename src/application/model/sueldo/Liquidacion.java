@@ -2,22 +2,24 @@ package application.model.sueldo;
 
 import javafx.beans.property.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Liquidaciones {
+public class Liquidacion {
     private IntegerProperty id;
     private StringProperty fechaLiquidacion;
     private DoubleProperty totalHaberesRemunerativos;
     private DoubleProperty totalHaberesNoRemunerativos;
     private DoubleProperty totalRetenciones;
+    private List<LiquidacionEmpleado> liquidacionesEmpleados = new ArrayList<>();
 
-    public Liquidaciones() {
+    public Liquidacion() {
         this(0,null,0.0,
                 0.0,0.0);
     }
 
-    public Liquidaciones(Integer id, String fechaLiquidacion, Double totalHaberesRemunerativos, Double totalHaberesNoRemunerativos,
-                         Double totalRetenciones) {
+    public Liquidacion(Integer id, String fechaLiquidacion, Double totalHaberesRemunerativos, Double totalHaberesNoRemunerativos,
+                       Double totalRetenciones) {
         this.id = new SimpleIntegerProperty(id);
         this.fechaLiquidacion = new SimpleStringProperty(fechaLiquidacion);
 
@@ -88,4 +90,11 @@ public class Liquidaciones {
         this.totalRetenciones.set(totalRetenciones);
     }
 
+    public List<LiquidacionEmpleado> getLiquidacionesEmpleados() {
+        return liquidacionesEmpleados;
+    }
+
+    public void setLiquidacionesEmpleados(List<LiquidacionEmpleado> liquidacionesEmpleados) {
+        this.liquidacionesEmpleados = liquidacionesEmpleados;
+    }
 }

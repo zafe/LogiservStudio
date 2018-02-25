@@ -143,7 +143,7 @@ public class ViajeEditController {
 
     public void setConductorComboBox(){
         ObservableList<String> conList = FXCollections.observableArrayList();
-        conductorData = conductorRepository.getEmpleadosByCategoriaEmpleado(2);
+        conductorData = conductorRepository.getEmpleadosByCategoriaEmpleado(2);//TODO no hardcodear esto
         for (Empleado conductor : conductoresList) conList.add(conductor.getNombre() + " " + conductor.getApellido());
         conductorCombo.setItems(conList);
     }

@@ -298,11 +298,14 @@
 
 			try {
 				connection= JDBCConnection.getInstanceConnection();
-				preparedStatement=connection.prepareStatement("SELECT v.idRemito, v.Fecha, v.HoraEntrada, v.Bruto," +
-						" v.Tara, v.Empleado_idEmpleado, v.CAMION_idCamion, od.DistanciaKM, od.FINCA_idFinca," +
-						" od.INGENIO_idIngenio FROM VIAJE v INNER JOIN ORIGEN_DESTINO od " +
-						"ON Origen_Destino_idOrigen_Destino= od.idOrigen_Destino " +
-						"WHERE FACTURA_VENTA_idFACTURA_VENTA=?;");//TODO cambiar esto cuando se actualice la base de datos
+				preparedStatement=connection.prepareStatement("SELECT lv.monto, lv.FACTURA_VENTA_idFACTURA_VENTA, lv.VIAJE_idRemito," +
+						" v.idRemito, v.Fecha, v.HoraEntrada, v.Bruto, v.Tara, v.Empleado_idEmpleado, v.CAMION_idCamion," +
+						" od.DistanciaKM, od.FINCA_idFinca, od.INGENIO_idIngenio" +
+						" FROM LINEA_VIAJE lv" +
+						" INNER JOIN VIAJE v ON v.idRemito = lv.VIAJE_idRemito" +
+						" INNER JOIN ORIGEN_DESTINO od ON od.idOrigen_Destino = v.Origen_Destino_idOrigen_Destino" +
+						" INNER JOIN FACTURA_VENTA fv ON fv.idFACTURA_VENTA = lv.FACTURA_VENTA_idFACTURA_VENTA" +
+						" WHERE fv.idFACTURA_VENTA = ?;");
 				preparedStatement.setInt(1 ,idFactura);
 				resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()){
@@ -313,6 +316,7 @@
 					viaje.setBruto(resultSet.getDouble("Bruto"));
 					viaje.setTara(resultSet.getDouble("Tara"));
 					viaje.setDistanciaRecorrida(resultSet.getString("DistanciaKM"));
+					viaje.setMonto(resultSet.getDouble("monto"));
 					Finca finca = fincaRepository.getFincaById(resultSet.getInt("FINCA_idFinca"));
 					viaje.setFinca(finca);
 					Ingenio ingenio = ingenioRepository.getIngenioById(resultSet.getInt("INGENIO_idIngenio"));

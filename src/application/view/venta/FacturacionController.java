@@ -83,6 +83,13 @@ public class FacturacionController {
 		clienteColumn.setCellValueFactory(cellData -> cellData.getValue().getCliente().nombreProperty());
 		//montoTotal.setCellValueFactory(cellData -> cellData.getValue().montoFacturaProperty().asString());//TODO: inicializar este dato
 
+		facturacionesTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+			if (newSelection != null) {
+				cargarViajes();
+			}
+		});
+
+
 		fincaColumn.setCellValueFactory(cellData -> cellData.getValue().getFinca().nombreProperty());
 		ingenioColumn.setCellValueFactory(cellData -> cellData.getValue().getIngenio().nombreProperty());
 		fechaViajeColumn.setCellValueFactory(cellData -> cellData.getValue().fechaProperty());

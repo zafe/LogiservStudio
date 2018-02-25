@@ -228,6 +228,7 @@ public class Viaje {
         this.ingenioDestino = new SimpleStringProperty(ingenioDestino);
         this.camionNombre = new SimpleStringProperty(camionNombre);
         this.facturaVenta = new SimpleStringProperty(facturaVenta);
+        this.monto = new SimpleDoubleProperty();
         this.conductor = conductor;
         this.ingenio = new Ingenio();
         this.conductor = new Empleado();
@@ -241,5 +242,6 @@ public class Viaje {
         this.setDistanciaRecorrida("0");
         this.setBruto(0);
         this.setTara(0);
+        this.setMonto(0);
     }
 }

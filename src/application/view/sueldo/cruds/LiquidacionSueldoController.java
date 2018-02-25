@@ -4,10 +4,12 @@ import application.model.info.CategoriaEmpleado;
 import application.model.info.Empleado;
 import application.model.sueldo.ConceptoCalculado;
 import application.model.sueldo.ConceptoSueldo;
+import application.model.sueldo.Liquidacion;
 import application.model.sueldo.LiquidacionEmpleado;
 import application.repository.info.CategoriaEmpleadoRepository;
 import application.repository.sueldo.ConceptoSueldoRepository;
 import application.repository.info.EmpleadoRepository;
+import application.repository.sueldo.LiquidacionRepository;
 import application.view.sueldo.EmpleadoALiquidar;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,12 +18,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import org.joda.time.DateTime;
 
 import javax.xml.soap.Text;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class LiquidacionSueldoController implements Initializable {
@@ -82,6 +87,7 @@ public class LiquidacionSueldoController implements Initializable {
     private Stage owner;
     private CategoriaEmpleadoRepository categoriaEmpleadoRepository = new CategoriaEmpleadoRepository();
     private EmpleadoRepository empleadoRepository = new EmpleadoRepository();
+    private LiquidacionRepository liquidacionRepository = new LiquidacionRepository();
     private ConceptoSueldoRepository conceptoSueldoRepository=new ConceptoSueldoRepository();
     private ObservableList<CategoriaEmpleado> categorias = FXCollections.observableArrayList();
     private ObservableList<Empleado> empleados = FXCollections.observableArrayList();
@@ -256,6 +262,9 @@ public class LiquidacionSueldoController implements Initializable {
     @FXML
     private void liquidarEmpleados(){
         separarConceptosByTipoConcepto();
+        //crea un nuevo row de Liquidacion
+        Liquidacion liquidacion = new Liquidacion();
+
         //Liquidacion de Empleados
         for (EmpleadoALiquidar empleadoALiquidar : liquidarEmpleados)
         {
@@ -337,6 +346,10 @@ public class LiquidacionSueldoController implements Initializable {
             liquidacionEmpleado.setTotalHaberesRemunerativos(totalRemunerativos);
             liquidacionEmpleado.setTotalHaberesNoRemunerativos(totalNoRemunerativos);
             liquidacionEmpleado.setTotalRetenciones(totalRetenciones);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+            liquidacionEmpleado.setInicioPeriodo(desdeDatePicker.getValue().format(formatter));
+            liquidacionEmpleado.setFinPeriodo(hastaDatePicker.getValue().format(formatter));
+            liquidacionEmpleado.setFechaLiquidacion(LocalDateTime.now().format(formatter));
 
             BigDecimal totalBruto = BigDecimal.valueOf(totalRemunerativos).add(BigDecimal.valueOf(totalNoRemunerativos));
 
@@ -360,8 +373,12 @@ public class LiquidacionSueldoController implements Initializable {
                                 liquidacionEmpleado.getTotalHaberesRemunerativos(), liquidacionEmpleado.getTotalHaberesNoRemunerativos(),
                                 liquidacionEmpleado.getTotalRetenciones(), liquidacionEmpleado.getTotalBruto(), liquidacionEmpleado.getImporteNeto());
 
+            //Agregar LiquidacionEmpleado a Liquidacion
+            liquidacion.getLiquidacionesEmpleados().add(liquidacionEmpleado);
         }
 
+        //Grabar los datos en la base de datos
+        liquidacionRepository.newLiquidacion(liquidacion);
     }
 
     private void separarConceptosByTipoConcepto(){
