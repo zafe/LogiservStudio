@@ -47,7 +47,6 @@ public class LiquidacionEmpleadoRepository {
             preparedStatement.setString(1,liquidacionEmpleado.getFechaLiquidacion());
             preparedStatement.setDouble(2,liquidacionEmpleado.getImporteNeto());
             preparedStatement.setDouble(3,liquidacionEmpleado.getTotalHaberesRemunerativos());
-            preparedStatement.setDouble(4,liquidacionEmpleado.getTotalHaberesNoRemunerativos());
             preparedStatement.setDouble(5,liquidacionEmpleado.getTotalRetenciones());
             preparedStatement.setDouble(6,liquidacionEmpleado.getTotalBruto());
 //            preparedStatement.setInt(7,liquidacionEmpleado.setIdPeriodoLiquidacion());
