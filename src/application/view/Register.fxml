@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
+
 <Group stylesheets="@css/theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.RegisterController">
   <children>
     <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="591.0" prefWidth="547.0">
@@ -33,7 +37,7 @@
                         <TextField fx:id="numeroField" prefHeight="25.0" prefWidth="64.0" GridPane.columnIndex="4" GridPane.rowIndex="6" />
                         <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="117.0" text="Localidad:" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                         <ComboBox fx:id="localidadComboBox" prefHeight="25.0" prefWidth="168.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-                        <DatePicker fx:id="fechaNacimiento" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                        <DatePicker fx:id="fechaNacimiento" promptText="dd/mm/aaaa" GridPane.columnIndex="2" GridPane.rowIndex="4" />
                         <TextField fx:id="cuitField" GridPane.columnIndex="4" GridPane.rowIndex="4" />
                         <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="49.0" text="CUIT:" GridPane.columnIndex="3" GridPane.rowIndex="4" />
                         <Label text="Datos de Usuario:" GridPane.columnIndex="1" GridPane.rowIndex="8" />

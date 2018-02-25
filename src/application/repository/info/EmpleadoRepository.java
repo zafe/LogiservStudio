@@ -120,7 +120,8 @@ public class EmpleadoRepository {
 			ObservableList<Empleado> list = FXCollections.observableArrayList();
 			try {
 				Connection connection= JDBCConnection.getInstanceConnection();
-				PreparedStatement preparedStatement=connection.prepareStatement("select idEmpleado, " +
+				PreparedStatement preparedStatement=connection.prepareStatement("" +
+						"select idEmpleado, " +
 						"Apellido, Nombre " +
 						"from Empleado " +
 						"where CATEGORIA_EMPLEADO_idCategoriaEmpleado = ?" +

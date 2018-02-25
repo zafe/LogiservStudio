@@ -98,6 +98,5 @@ public class FacturaCompraRepository {
         }
         return lastIdFactura;
     }
-//TODO: hacer un metodo para obtener facturas en un rango de fechas? o bien ¿utilizar un procedimiento?
 }
 

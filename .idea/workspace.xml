@@ -2,23 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ad24a087-34e9-4c0a-89a3-9d660d897332" name="Default" comment="Diseño mejorado y ajustes a todas las ventanas del proyecto">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/application/repository/sueldo/LiquidacionRepository.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/application/model/sueldo/Liquidaciones.java" afterPath="$PROJECT_DIR$/src/application/model/sueldo/Liquidacion.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/model/venta/Viaje.java" afterPath="$PROJECT_DIR$/src/application/model/venta/Viaje.java" />
       <change beforePath="$PROJECT_DIR$/src/application/repository/compra/FacturaCompraRepository.java" afterPath="$PROJECT_DIR$/src/application/repository/compra/FacturaCompraRepository.java" />
       <change beforePath="$PROJECT_DIR$/src/application/repository/info/EmpleadoRepository.java" afterPath="$PROJECT_DIR$/src/application/repository/info/EmpleadoRepository.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/repository/sueldo/LiquidacionEmpleadoRepository.java" afterPath="$PROJECT_DIR$/src/application/repository/sueldo/LiquidacionEmpleadoRepository.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/repository/sueldo/LiquidacionesRepository.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/application/repository/venta/ViajeRepository.java" afterPath="$PROJECT_DIR$/src/application/repository/venta/ViajeRepository.java" />
+      <change beforePath="$PROJECT_DIR$/src/application/repository/sueldo/LiquidacionRepository.java" afterPath="$PROJECT_DIR$/src/application/repository/sueldo/LiquidacionRepository.java" />
       <change beforePath="$PROJECT_DIR$/src/application/view/Register.fxml" afterPath="$PROJECT_DIR$/src/application/view/Register.fxml" />
       <change beforePath="$PROJECT_DIR$/src/application/view/RegisterController.java" afterPath="$PROJECT_DIR$/src/application/view/RegisterController.java" />
       <change beforePath="$PROJECT_DIR$/src/application/view/compra/cruds/ArticuloEdit.fxml" afterPath="$PROJECT_DIR$/src/application/view/compra/cruds/ArticuloEdit.fxml" />
       <change beforePath="$PROJECT_DIR$/src/application/view/compra/cruds/StockEdit.fxml" afterPath="$PROJECT_DIR$/src/application/view/compra/cruds/StockEdit.fxml" />
       <change beforePath="$PROJECT_DIR$/src/application/view/sueldo/LiquidacionesController.java" afterPath="$PROJECT_DIR$/src/application/view/sueldo/LiquidacionesController.java" />
       <change beforePath="$PROJECT_DIR$/src/application/view/sueldo/cruds/LiquidacionSueldoController.java" afterPath="$PROJECT_DIR$/src/application/view/sueldo/cruds/LiquidacionSueldoController.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/view/venta/FacturacionController.java" afterPath="$PROJECT_DIR$/src/application/view/venta/FacturacionController.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/view/venta/cruds/ViajeEditController.java" afterPath="$PROJECT_DIR$/src/application/view/venta/cruds/ViajeEditController.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -32,12 +25,12 @@
     <favorites_list name="LogiservStudio" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="LiquidacionSueldoController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/application/view/sueldo/cruds/LiquidacionSueldoController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="252" column="0" lean-forward="false" selection-start-line="252" selection-start-column="0" selection-end-line="252" selection-end-column="0" />
+            <state relative-caret-position="17">
+              <caret line="262" column="37" lean-forward="false" selection-start-line="262" selection-start-column="37" selection-end-line="263" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -46,7 +39,7 @@
       <file leaf-file-name="LiquidacionRepository.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/application/repository/sueldo/LiquidacionRepository.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="101">
+            <state relative-caret-position="1360">
               <caret line="91" column="0" lean-forward="false" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
               <folding />
             </state>
@@ -56,7 +49,7 @@
       <file leaf-file-name="FacturaCompraRepository.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/application/repository/compra/FacturaCompraRepository.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="337">
+            <state relative-caret-position="1530">
               <caret line="100" column="0" lean-forward="false" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
               <folding />
             </state>
@@ -192,8 +185,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -223,7 +215,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
+      <pane id="Scope" />
       <pane id="PackagesPane">
         <subPane>
           <expand>
@@ -235,6 +227,12 @@
               <item name="LogiservStudio" type="58d84e3e:PackageViewProjectNode" />
               <item name="LogiservStudio" type="616d4139:PackageViewModuleNode" />
               <item name="application" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="LogiservStudio" type="58d84e3e:PackageViewProjectNode" />
+              <item name="LogiservStudio" type="616d4139:PackageViewModuleNode" />
+              <item name="application" type="1f31426a:PackageElementNode" />
+              <item name="reports" type="1f31426a:PackageElementNode" />
             </path>
             <path>
               <item name="LogiservStudio" type="58d84e3e:PackageViewProjectNode" />
@@ -274,6 +272,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -591,7 +590,14 @@
       <option name="project" value="LOCAL" />
       <updated>1519496176174</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="avances en liquidacion">
+      <created>1519572233342</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1519572233342</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TodoView">
@@ -608,7 +614,6 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32730263" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -619,7 +624,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27887538" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28343466" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -630,6 +635,7 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32730263" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32978722" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" x="0" y="0" width="588" height="544" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -684,7 +690,8 @@
     <MESSAGE value="Reportes con viewer de JasperReports funcional" />
     <MESSAGE value="mejora en el viewer para javaFX en reportes" />
     <MESSAGE value="optimizacion de imports en todas las clases, funcionalidad de reportes para todos los reportes y reportes de stock funcionales" />
-    <option name="LAST_COMMIT_MESSAGE" value="optimizacion de imports en todas las clases, funcionalidad de reportes para todos los reportes y reportes de stock funcionales" />
+    <MESSAGE value="avances en liquidacion" />
+    <option name="LAST_COMMIT_MESSAGE" value="avances en liquidacion" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -991,7 +998,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="296">
           <caret line="132" column="53" lean-forward="true" selection-start-line="132" selection-start-column="53" selection-end-line="132" selection-end-column="53" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1009,14 +1015,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/repository/sueldo/LiquidacionesRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/repository/sueldo/LiquidacionesRepository.java" />
     <entry file="file://$PROJECT_DIR$/src/application/view/sueldo/Liquidaciones.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-765">
@@ -1056,7 +1055,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/repository/compra/FacturaCompraRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
+        <state relative-caret-position="1530">
           <caret line="100" column="0" lean-forward="false" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
           <folding />
         </state>
@@ -1064,7 +1063,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/repository/sueldo/LiquidacionRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="101">
+        <state relative-caret-position="1360">
           <caret line="91" column="0" lean-forward="false" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
           <folding />
         </state>
@@ -1072,8 +1071,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/view/sueldo/cruds/LiquidacionSueldoController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="252" column="0" lean-forward="false" selection-start-line="252" selection-start-column="0" selection-end-line="252" selection-end-column="0" />
+        <state relative-caret-position="17">
+          <caret line="262" column="37" lean-forward="false" selection-start-line="262" selection-start-column="37" selection-end-line="263" selection-end-column="41" />
           <folding />
         </state>
       </provider>
