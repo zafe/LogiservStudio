@@ -107,4 +107,16 @@ public class ConceptoSueldo {
     	this(0, null, 0f, null, null, 1.0);
     }
 
+    @Override
+    public String toString() {
+        return "ConceptoSueldo{" +
+                "idConceptoSueldo=" + idConceptoSueldo +
+                ", descripcion=" + descripcion +
+                ", cantidad=" + cantidad +
+                ", tipoConcepto=" + tipoConcepto +
+                ", tipoCantidad=" + tipoCantidad +
+                ", select=" + select +
+                ", factor=" + factor +
+                '}';
+    }
 }

@@ -46,4 +46,11 @@ public class ConceptoCalculado extends ConceptoSueldo{
                 break;
         }
     }
+
+    @Override
+    public String toString() {
+        return "ConceptoCalculado{" +
+                "montoCalculado=" + montoCalculado + "\n"+ super.toString()+
+                '}';
+    }
 }
