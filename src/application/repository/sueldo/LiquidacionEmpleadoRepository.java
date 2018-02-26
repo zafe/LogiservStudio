@@ -30,7 +30,6 @@ public class LiquidacionEmpleadoRepository {
 //            preparedStatement.setInt(9,liquidacionEmpleado.getIdEmpleado());
             preparedStatement.executeUpdate();
             preparedStatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -54,7 +53,6 @@ public class LiquidacionEmpleadoRepository {
             preparedStatement.setInt(9,liquidacionEmpleado.getId());
             preparedStatement.executeUpdate();
             preparedStatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -66,7 +64,6 @@ public class LiquidacionEmpleadoRepository {
             preparedStatement.setInt(1,liquidacionEmpleado.getId());
             preparedStatement.executeUpdate();
             preparedStatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -92,7 +89,6 @@ public class LiquidacionEmpleadoRepository {
             }
             preparedStatement.executeUpdate();
             preparedStatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

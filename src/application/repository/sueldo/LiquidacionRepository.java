@@ -52,9 +52,15 @@ public class LiquidacionRepository {
     public Liquidacion newLiquidacion(Liquidacion liquidacion){
 
         try {
-            Statement statement = JDBCConnection.getInstanceConnection().createStatement();
-            statement.executeUpdate("INSERT INTO LIQUIDACION (timestamp) VALUES (NOW());");
-            resultSet = statement.executeQuery("SELECT idLiquidacion, timestamp " +
+            Connection connection = JDBCConnection.getInstanceConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO LIQUIDACION (timestamp, total_haberes_remunerativos, " +
+                    "total_haberes_no_remunerativos, total_retenciones ) VALUES (NOW(), ? , ?, ?);");
+            preparedStatement.setDouble(1,liquidacion.getTotalHaberesRemunerativos());
+            preparedStatement.setDouble(2,liquidacion.getTotalHaberesNoRemunerativos());
+            preparedStatement.setDouble(3,liquidacion.getTotalRetenciones());
+            preparedStatement.executeUpdate();
+            System.out.println("SQL LIQUIDACION INSERT: " + preparedStatement);
+            resultSet = preparedStatement.executeQuery("SELECT idLiquidacion, timestamp " +
                     "FROM LIQUIDACION " +
                     "WHERE idLiquidacion = LAST_INSERT_ID();");
             if (resultSet.next()){
@@ -66,15 +72,12 @@ public class LiquidacionRepository {
             e.printStackTrace();
         }
 
-        BigDecimal totalhr;
-        BigDecimal totalhnr;
-        BigDecimal totalret;
-
         //crear una liquidacion_empleado por cada empleado, es asociado a una liquidacion
         for (LiquidacionEmpleado liquidacionEmpleado : liquidacion.getLiquidacionesEmpleados()){
 
             try {
-                preparedStatement  = connection.prepareStatement("INSERT INTO LIQUIDACION_EMPLEADO " +
+                Connection connection = JDBCConnection.getInstanceConnection();
+                PreparedStatement preparedStatement  = connection.prepareStatement("INSERT INTO LIQUIDACION_EMPLEADO " +
                         "(importe_neto,total_haberes_remunerativos, total_haberes_no_remunerativos,total_retenciones, " +
                         "total_bruto, EMPLEADO_idEmpleado, inicio_periodo, fin_periodo, LIQUIDACION_idLiquidacion)" +
                         " VALUES (?,?,?,?,?,?,?,?,?);");
@@ -87,6 +90,7 @@ public class LiquidacionRepository {
                 preparedStatement.setString(7,liquidacionEmpleado.getInicioPeriodo());
                 preparedStatement.setString(8,liquidacionEmpleado.getFinPeriodo());
                 preparedStatement.setInt(9,liquidacion.getId());
+                preparedStatement.executeUpdate();
                 resultSet = preparedStatement.executeQuery("SELECT LAST_INSERT_ID()");
                 if (resultSet.next()){
                     liquidacionEmpleado.setId(resultSet.getInt(1));
@@ -99,17 +103,21 @@ public class LiquidacionRepository {
             //grabacion de detalle_liquidacion, es decir ConceptoCalculado
             for (ConceptoCalculado conceptoCalculado : liquidacionEmpleado.getConceptosLiquidados()){
                 try {
+                    Connection connection = JDBCConnection.getInstanceConnection();
                     preparedStatement  = connection.prepareStatement("INSERT INTO DETALLE_LIQUIDACION_EMPLEADO " +
                             "(cantidad,monto,LiquidacionEmpleado_idLiquidacionEmpleado,CONCEPTO_SUELDO_idCodigoConcepto)" +
                             " VALUES (?,?,?,?);");
                     preparedStatement.setDouble(1,conceptoCalculado.getFactor());
                     preparedStatement.setDouble(2,conceptoCalculado.getMontoCalculado());
                     preparedStatement.setInt(3,liquidacionEmpleado.getId());
-                    preparedStatement.setDouble(4,conceptoCalculado.getIdConceptoSueldo());//todo funcionara???
-                    resultSet = preparedStatement.executeQuery("SELECT LAST_INSERT_ID()");
-                    if (resultSet.next()){
-                        liquidacionEmpleado.setId(resultSet.getInt(1));
-                    }
+                    preparedStatement.setInt(4,conceptoCalculado.getIdConceptoSueldo());//todo funcionara???
+                    System.out.println("SQL CONCEPTO CALCULADO: " + preparedStatement);
+                    preparedStatement.executeUpdate();
+                   // resultSet = preparedStatement.executeQuery("SELECT LAST_INSERT_ID()");
+                    //if (resultSet.next()){
+                    //    conceptoCalculado.setId(resultSet.getInt(1));
+                     //   conceptoCalculado.setIdConceptoSueldo();
+                    // }
                 } catch (SQLException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();

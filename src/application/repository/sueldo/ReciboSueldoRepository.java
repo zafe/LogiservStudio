@@ -24,7 +24,6 @@ public class ReciboSueldoRepository {
 //            preparedStatement.setInt(4,reciboSueldo.getIdLiquidacionEmpleado());
             preparedStatement.executeUpdate();
             preparedStatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -42,7 +41,6 @@ public class ReciboSueldoRepository {
             preparedStatement.setInt(4, reciboSueldo.getIdRecibo());
             preparedStatement.executeUpdate();
             preparedStatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -54,7 +52,6 @@ public class ReciboSueldoRepository {
             preparedStatement.setInt(1,reciboSueldo.getIdRecibo());
             preparedStatement.executeUpdate();
             preparedStatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -75,7 +72,6 @@ public class ReciboSueldoRepository {
             }
             preparedStatement.executeUpdate();
             preparedStatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -88,7 +84,6 @@ public class ReciboSueldoRepository {
             preparedStatement.setInt(1,reciboSueldo.getIdRecibo());
             preparedStatement.executeUpdate();
             preparedStatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

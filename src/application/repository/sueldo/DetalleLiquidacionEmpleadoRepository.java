@@ -27,7 +27,6 @@ public class DetalleLiquidacionEmpleadoRepository {
             preparedStatement.setDouble(5, detalleLiquidacionEmpleado.getMonto());
             preparedStatement.executeUpdate();
             preparedStatement.close();
-            connection.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -50,7 +49,6 @@ public class DetalleLiquidacionEmpleadoRepository {
             preparedStatement.setInt(5, detalleLiquidacionEmpleado.getIdDetalleLiquidacionEmpleado());
             preparedStatement.executeUpdate();
             preparedStatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -85,7 +83,6 @@ public class DetalleLiquidacionEmpleadoRepository {
             }
             preparedStatement.close();
             resultSet.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
