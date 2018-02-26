@@ -68,14 +68,9 @@ public class LiquidacionRepository {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
-        BigDecimal totalhr;
-        BigDecimal totalhnr;
-        BigDecimal totalret;
-
-
         //set ID liquidacion
         liquidacion.setId(getLastID());
+
         //crear una liquidacion_empleado por cada empleado, es asociado a una liquidacion
         for (LiquidacionEmpleado liquidacionEmpleado : liquidacion.getLiquidacionesEmpleados()) {
 
@@ -95,16 +90,18 @@ public class LiquidacionRepository {
                 preparedStatement.setInt(11, liquidacion.getId());
                 preparedStatement.executeUpdate();
             } catch (SQLException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
             liquidacionEmpleado.setId(getLastIdLiquidacionEmpleado());
+            System.out.println("Empleado a liquidar: " + liquidacionEmpleado.getId());
+
             //grabacion de detalle_liquidacion, es decir ConceptoCalculado
             for (ConceptoCalculado conceptoCalculado : liquidacionEmpleado.getConceptosLiquidados()) {
                 try {
+                    System.out.println(conceptoCalculado);
                     preparedStatement = connection.prepareStatement("INSERT INTO DETALLE_LIQUIDACION_EMPLEADO " +
-                            " VALUES (?,?,?,?,?)");
+                            " VALUES (?,?,?,?,?);");
                     preparedStatement.setString(1, null);
                     preparedStatement.setDouble(2, conceptoCalculado.getFactor());
                     preparedStatement.setInt(3, liquidacionEmpleado.getId());
@@ -159,7 +156,7 @@ public class LiquidacionRepository {
         int lastId=0;
         try {
             connection = JDBCConnection.getInstanceConnection();
-            preparedStatement=connection.prepareStatement("SELECT MAX(idLIQUIDACION) FROM liquidacion");
+            preparedStatement=connection.prepareStatement("SELECT MAX(idLIQUIDACION) FROM liquidacion;");
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next())
                 lastId= resultSet.getInt(1);
@@ -169,11 +166,11 @@ public class LiquidacionRepository {
         return lastId;
     }
 
-    public int getLastIdLiquidacionEmpleado() {
+    private int getLastIdLiquidacionEmpleado() {
         int lastId=0;
         try {
             connection = JDBCConnection.getInstanceConnection();
-            preparedStatement=connection.prepareStatement("SELECT MAX(idLiquidacionEmpleado) FROM Liquidacion_Empleado");
+            preparedStatement=connection.prepareStatement("SELECT MAX(idLiquidacionEmpleado) FROM Liquidacion_Empleado;");
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next())
                 lastId= resultSet.getInt(1);

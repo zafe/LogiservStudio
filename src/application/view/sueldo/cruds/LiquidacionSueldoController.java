@@ -159,21 +159,15 @@ public class LiquidacionSueldoController implements Initializable {
 
     @FXML
     private void agregarEmpleadoALiquidar(){
-
         if(totalEmpleadoTableView.getSelectionModel().getSelectedItem() != null) {
             liquidarEmpleadoTableView.getItems().add(totalEmpleadoTableView.getSelectionModel().getSelectedItem());
             liquidarEmpleados.add(new EmpleadoALiquidar(totalEmpleadoTableView.getSelectionModel().getSelectedItem()));
         }
         cargarTablaEmpleados();
-        System.out.println("Lista Empleados a Liquidar: [agregarEmpleadoALiquidar] ");
-        for (EmpleadoALiquidar empleadoALiquidar : liquidarEmpleados )
-            System.out.printf("Empleado a Liquidar : %s %s%n", empleadoALiquidar.getEmpleado().getNombre(),
-                    empleadoALiquidar.getEmpleado().getApellido() );
     }
 
     @FXML
     private void agregarTodos(){
-
         if(!totalEmpleadoTableView.getItems().isEmpty())
         for(Empleado empleado : totalEmpleadoTableView.getItems()) {
             liquidarEmpleadoTableView.getItems().add(empleado);
@@ -186,28 +180,21 @@ public class LiquidacionSueldoController implements Initializable {
     private void quitarEmpleadoALiquidar(){
 
         if(liquidarEmpleadoTableView.getSelectionModel().getSelectedItem() != null) {
-            System.out.println("ID EMPLEADO A LIQUIDAR: " + liquidarEmpleadoTableView.getSelectionModel().getSelectedItem().getIdEmpleado());
             removeEmpleadoALiquidarById(liquidarEmpleadoTableView.getSelectionModel().getSelectedItem().getIdEmpleado());
            liquidarEmpleadoTableView.getItems().remove(liquidarEmpleadoTableView.getSelectionModel().getSelectedItem());
         }
         cargarTablaEmpleados();
         novedadesTableView.getItems().clear();
-        System.out.println("Lista Empleados a Liquidar: [quitarEmpleadoALiquidar] ");
-        for (EmpleadoALiquidar empleadoALiquidar : liquidarEmpleados )
-            System.out.printf("Empleado a Liquidar : %s %s%n", empleadoALiquidar.getEmpleado().getNombre(),
-                    empleadoALiquidar.getEmpleado().getApellido() );
     }
 
     @FXML
     private void quitarTodos(){
-
         if(!liquidarEmpleadoTableView.getItems().isEmpty()) {
             liquidarEmpleadoTableView.getItems().removeAll(liquidarEmpleadoTableView.getItems());
             liquidarEmpleados.removeAll(liquidarEmpleados);
         }
         novedadesTableView.getItems().clear();
         cargarTablaEmpleados();
-
     }
 
 
@@ -216,7 +203,6 @@ public class LiquidacionSueldoController implements Initializable {
       if (liquidarEmpleadoTableView.getSelectionModel().getSelectedItem() != null)
             novedadesTableView.setItems(liquidarEmpleados.get(getEmpleadoALiquidarById(
                     liquidarEmpleadoTableView.getSelectionModel().getSelectedItem().getIdEmpleado())).getConceptos());
-
     }
 
     @FXML
@@ -228,9 +214,7 @@ public class LiquidacionSueldoController implements Initializable {
                     getSelectedItem().getIdEmpleado())).getConceptos().get(novedadesTableView.getItems().indexOf(
                             novedadesTableView.getSelectionModel().getSelectedItem())).setSelect(novedadesTableView.
                     getSelectionModel().getSelectedItem().getSelect().isSelected());
-
         }
-
     }
 
     @FXML
@@ -346,6 +330,7 @@ public class LiquidacionSueldoController implements Initializable {
             liquidacionEmpleado.setTotalHaberesRemunerativos(totalRemunerativos);
             liquidacionEmpleado.setTotalHaberesNoRemunerativos(totalNoRemunerativos);
             liquidacionEmpleado.setTotalRetenciones(totalRetenciones);
+            liquidacionEmpleado.setEmpleado(empleadoALiquidar.getEmpleado());
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
             liquidacionEmpleado.setInicioPeriodo(desdeDatePicker.getValue().format(formatter));
             liquidacionEmpleado.setFinPeriodo(hastaDatePicker.getValue().format(formatter));
