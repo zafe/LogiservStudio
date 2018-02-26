@@ -22,7 +22,6 @@ import application.model.info.CategoriaEmpleado;
 	            preparedStatement = connection.prepareStatement("INSERT INTO CATEGORIA_EMPLEADO (NombreCategoria) values(?)");
 	            preparedStatement.setString(1, categoriaEmpleado.getNombre());
 	            preparedStatement.executeUpdate();
-	            preparedStatement.close();
 	            String cuerpoMsj = "Categoria Empleado " + categoriaEmpleado.getNombre()+ " agregada correctamente.\n";
 	            Alerta.alertaInfo("Categoria Empleado",cuerpoMsj);
 	        } catch (SQLException e) {
@@ -90,12 +89,11 @@ import application.model.info.CategoriaEmpleado;
 	        	connection= JDBCConnection.getInstanceConnection();
 	            preparedStatement=connection.prepareStatement("SELECT * FROM CATEGORIA_EMPLEADO where idCategoriaEmpleado=?");
 	            preparedStatement.setInt(1, idCategoriaEmpleado);
+	            resultSet = preparedStatement.executeQuery();
 	            if(resultSet.next()){
 		            categoriaEmpleado.setIdCategoriaEmpleado(idCategoriaEmpleado);
 		            categoriaEmpleado.setNombre(resultSet.getString("NombreCategoria"));
 	            }
-	            preparedStatement.executeUpdate();
-	            preparedStatement.close();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }

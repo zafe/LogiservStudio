@@ -210,8 +210,6 @@
 							viaje.getBruto(),
 							viaje.getTara());
 	            }
-	            preparedStatement.close();
-	            resultSet.close();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
@@ -334,8 +332,6 @@
 							viaje.getBruto(),
 							viaje.getTara());
 				}
-				preparedStatement.close();
-				resultSet.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -381,8 +377,6 @@
 							viaje.getBruto(),
 							viaje.getTara());
 				}
-				preparedStatement.close();
-				resultSet.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -438,8 +432,6 @@
 							viaje.getBruto(),
 							viaje.getTara());
 				}
-				preparedStatement.close();
-				resultSet.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

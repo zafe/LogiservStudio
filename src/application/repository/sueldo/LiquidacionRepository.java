@@ -79,8 +79,9 @@ public class LiquidacionRepository {
                 Connection connection = JDBCConnection.getInstanceConnection();
                 PreparedStatement preparedStatement  = connection.prepareStatement("INSERT INTO LIQUIDACION_EMPLEADO " +
                         "(importe_neto,total_haberes_remunerativos, total_haberes_no_remunerativos,total_retenciones, " +
-                        "total_bruto, EMPLEADO_idEmpleado, inicio_periodo, fin_periodo, LIQUIDACION_idLiquidacion)" +
-                        " VALUES (?,?,?,?,?,?,?,?,?);");
+                        "total_bruto, EMPLEADO_idEmpleado, inicio_periodo, fin_periodo, LIQUIDACION_idLiquidacion, " +
+                        "fecha_liquidacion)" +
+                        " VALUES (?,?,?,?,?,?,?,?,?,NOW());");
                 preparedStatement.setDouble(1,liquidacionEmpleado.getImporteNeto());
                 preparedStatement.setDouble(2,liquidacionEmpleado.getTotalHaberesRemunerativos());
                 preparedStatement.setDouble(3,liquidacionEmpleado.getTotalHaberesNoRemunerativos());

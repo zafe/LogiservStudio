@@ -26,7 +26,6 @@ public class DetalleLiquidacionEmpleadoRepository {
 //            preparedStatement.setInt(4, detalleLiquidacionEmpleado.getIdCodigoConcepto());
             preparedStatement.setDouble(5, detalleLiquidacionEmpleado.getMonto());
             preparedStatement.executeUpdate();
-            preparedStatement.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -48,7 +47,6 @@ public class DetalleLiquidacionEmpleadoRepository {
             preparedStatement.setDouble(4,detalleLiquidacionEmpleado.getMonto());
             preparedStatement.setInt(5, detalleLiquidacionEmpleado.getIdDetalleLiquidacionEmpleado());
             preparedStatement.executeUpdate();
-            preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -60,7 +58,6 @@ public class DetalleLiquidacionEmpleadoRepository {
             preparedStatement= connection.prepareStatement("DELETE FROM detalle_liquidacion_empleado WHERE idDetalleLiquidacionEmpleado=?");
             preparedStatement.setInt(1,detalleLiquidacionEmpleado.getIdDetalleLiquidacionEmpleado());
             preparedStatement.executeUpdate();
-            preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -81,8 +78,6 @@ public class DetalleLiquidacionEmpleadoRepository {
                 detalleLiquidacionEmpleado.setMonto(resultSet.getDouble(5));
                 list.add(detalleLiquidacionEmpleado);
             }
-            preparedStatement.close();
-            resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

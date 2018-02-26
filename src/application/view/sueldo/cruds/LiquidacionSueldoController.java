@@ -437,7 +437,7 @@ public class LiquidacionSueldoController implements Initializable {
     @FXML
     public void handleOk(){
             liquidarEmpleados();
-//            this.owner.close();
+            owner.close();
         }
 
 

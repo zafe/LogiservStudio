@@ -203,10 +203,11 @@ public class EmpleadoRepository {
 	}
 		public Empleado getEmpleadoById(int idEmpleado){
 			Empleado empleado = new Empleado();
+			CategoriaEmpleadoRepository categoriaEmpleadoRepository = new CategoriaEmpleadoRepository();
 			try {
 				Connection connection= JDBCConnection.getInstanceConnection();
 				PreparedStatement preparedStatement =connection.prepareStatement("SELECT idEmpleado, CUIT, Nombre," +
-						" Apellido, FechaNacimiento FROM EMPLEADO WHERE idEmpleado=?;");
+						" Apellido, FechaNacimiento, CATEGORIA_EMPLEADO_idCategoriaEmpleado FROM EMPLEADO WHERE idEmpleado=?;");
 				preparedStatement.setInt(1,idEmpleado);
 				ResultSet resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()){
@@ -215,6 +216,9 @@ public class EmpleadoRepository {
 					empleado.setNombre(resultSet.getString(3));
 					empleado.setApellido(resultSet.getString(4));
 					empleado.setNacimiento(resultSet.getString(5));
+					CategoriaEmpleado categoriaEmpleado = new CategoriaEmpleado();
+					categoriaEmpleado = categoriaEmpleadoRepository.search(resultSet.getInt(6));
+					empleado.setCategoriaEmpleado(categoriaEmpleado);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

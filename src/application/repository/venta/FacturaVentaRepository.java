@@ -106,8 +106,6 @@
 					facturaVenta.setOrganizacion(organizacion);
 	                list.add(facturaVenta);
 	            }
-	            preparedStatement.close();
-	            resultSet.close();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }

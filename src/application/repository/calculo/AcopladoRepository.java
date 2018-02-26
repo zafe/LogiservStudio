@@ -23,7 +23,6 @@ public class AcopladoRepository {
             preparedStatement.setString(2, acoplado.getMarca());
             preparedStatement.setString(3, acoplado.getPatente());
             preparedStatement.executeUpdate();
-            preparedStatement.close();
             String cuerpoMsj = "Acoplado \n Marca: " + acoplado.getMarca() + "\nPatente: "+acoplado.getPatente() +"\nagregado correctamente.\n";
             Alerta.alertaInfo("Acoplados",cuerpoMsj);
         } catch (SQLException e) {
@@ -42,7 +41,6 @@ public class AcopladoRepository {
             preparedStatement.setString(2, acoplado.getPatente());
             preparedStatement.setInt(3, acoplado.getId());
             preparedStatement.executeUpdate();
-            preparedStatement.close();
             String headerMsj="Actualización: Acoplado actualizado";
             String cuerpoMsj = "Acoplado: \n\tMarca: " + acoplado.getMarca() + "\n\tPatente: " +
                    acoplado.getPatente()+  "modificado correctamente.";
@@ -59,7 +57,6 @@ public class AcopladoRepository {
                     "DELETE FROM ACOPLADO WHERE idAcoplado=?");
             preparedStatement.setInt(1, acoplado.getId());
             preparedStatement.execute();
-            preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -78,8 +75,6 @@ public class AcopladoRepository {
                 acoplado.setPatente(resultSet.getString(3));
                 list.add(acoplado);
             }
-            preparedStatement.close();
-            resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -92,7 +87,6 @@ public class AcopladoRepository {
             preparedStatement=connection.prepareStatement("SELECT * FROM ACOPLADO where idAcoplado=?");
             preparedStatement.setInt(1,acoplado.getId());
             preparedStatement.executeUpdate();
-            preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

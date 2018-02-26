@@ -50,7 +50,7 @@
             <Label text="Empleados Liquidados" GridPane.rowIndex="2" />
             <ScrollPane prefHeight="92.0" prefWidth="701.0" GridPane.columnSpan="3" GridPane.rowIndex="1">
                <content>
-                  <TableView fx:id="liquidacionTable" onMouseClicked="#cargarEmpleadosLiquidados" pickOnBounds="false" prefHeight="157.0" prefWidth="677.0">
+                  <TableView fx:id="liquidacionTable" pickOnBounds="false" prefHeight="157.0" prefWidth="677.0">
                      <columns>
                         <TableColumn fx:id="idLiquidacion" prefWidth="60.5" resizable="false" text="Nro" />
                         <TableColumn fx:id="fechaColumn" minWidth="0.0" prefWidth="138.5" text="Fecha" />
@@ -63,7 +63,7 @@
             </ScrollPane>
             <ScrollPane prefHeight="109.0" prefWidth="695.0" GridPane.columnSpan="3" GridPane.rowIndex="3" GridPane.rowSpan="2">
                <content>
-                  <TableView fx:id="empleadosTable" onMouseClicked="#cargarEmpleadosLiquidados" prefHeight="164.0" prefWidth="678.0">
+                  <TableView fx:id="liqEmpleadosTable" prefHeight="164.0" prefWidth="678.0">
                      <columns>
                         <TableColumn fx:id="legajoColumn" prefWidth="312.0" text="Legajo" />
                         <TableColumn fx:id="apellidoColumn" prefWidth="105.0" text="Apellido" />
