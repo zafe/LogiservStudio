@@ -18,10 +18,11 @@ public class AcopladoRepository {
     public void save(Acoplado acoplado){
         try {
             connection= JDBCConnection.getInstanceConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO ACOPLADO values(?,?,?)");
+            preparedStatement = connection.prepareStatement("INSERT INTO ACOPLADO values(?,?,?,?)");
             preparedStatement.setString(1,null);
             preparedStatement.setString(2, acoplado.getMarca());
             preparedStatement.setString(3, acoplado.getPatente());
+            preparedStatement.setString(4, null);
             preparedStatement.executeUpdate();
             String cuerpoMsj = "Acoplado \n Marca: " + acoplado.getMarca() + "\nPatente: "+acoplado.getPatente() +"\nagregado correctamente.\n";
             Alerta.alertaInfo("Acoplados",cuerpoMsj);

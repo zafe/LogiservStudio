@@ -4,7 +4,6 @@ import application.comunes.Alerta;
 import application.database.JDBCConnection;
 import application.model.compra.FacturaCompra;
 import application.model.compra.Proveedor;
-import com.sun.org.apache.regexp.internal.RE;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -35,13 +34,13 @@ public class FacturaCompraRepository {
     public void update(FacturaCompra facturaCompra){
         try {
             connection = JDBCConnection.getInstanceConnection();
-            preparedStatement = connection.prepareStatement("UPDATE COMPRA_ARTICULO" +
-                    "SET fecha=?, Total=?, PROVEEDOR_idPROVEEDOR=?" +
-                    "WHERE idFacturaCompraArticulo=?");
+            preparedStatement = connection.prepareStatement("UPDATE COMPRA_ARTICULO " +
+                    "SET fecha=?, PROVEEDOR_idPROVEEDOR=? " +
+                    " WHERE idFacturaCompraArticulo=?");
             preparedStatement.setString(1, facturaCompra.getFecha());
-            preparedStatement.setDouble(2,facturaCompra.getTotal());
-            preparedStatement.setInt(3, facturaCompra.getProveedor().getId());
-            preparedStatement.setInt(4, facturaCompra.getIdFacturaCompra());
+            preparedStatement.setInt(2, facturaCompra.getProveedor().getId());
+            preparedStatement.setInt(3, facturaCompra.getIdFacturaCompra());
+            preparedStatement.executeUpdate();
             Alerta.alertaInfo("Factura Compra", "Factura Actualizada correctamente");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -51,8 +50,7 @@ public class FacturaCompraRepository {
     public void delete(int idFactura){
         try {
             connection = JDBCConnection.getInstanceConnection();
-            preparedStatement=connection.prepareStatement("DELETE a1, a2 FROM COMPRA_ARTICULO AS a1 INNER JOIN DETALLE_COMPRA AS a2 " +
-                    "WHERE a1.idFacturaCompraArticulo=a2.FacturaCompraArticulo_idFacturaCompraArticulo AND a1.idFacturaCompraArticulo LIKE ?");
+            preparedStatement=connection.prepareStatement("DELETE FROM COMPRA_ARTICULO WHERE idFacturaCompraArticulo=? ");
             preparedStatement.setInt(1,idFactura);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -100,6 +98,5 @@ public class FacturaCompraRepository {
         }
         return lastIdFactura;
     }
-//TODO: hacer un metodo para obtener facturas en un rango de fechas? o bien ¿utilizar un procedimiento?
 }
 

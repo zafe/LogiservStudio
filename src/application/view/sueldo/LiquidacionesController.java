@@ -4,6 +4,9 @@ import application.Main;
 import application.model.info.Empleado;
 import application.model.sueldo.LiquidacionEmpleado;
 import application.model.sueldo.Liquidacion;
+import application.reports.AbstractJasperReports;
+import application.repository.sueldo.LiquidacionRepository;
+import javafx.beans.binding.BooleanBinding;
 import application.repository.sueldo.LiquidacionEmpleadoRepository;
 import application.repository.sueldo.LiquidacionRepository;
 import application.view.sueldo.cruds.LiquidacionSueldoController;
@@ -60,7 +63,9 @@ public class LiquidacionesController implements Initializable{
 	@FXML
 	private Button nuevaLiquidacionButton;
 	@FXML
-	private Button reportesButton;
+	private Button imprimirRecibos;
+	@FXML
+	private Button imprimirReciboDeEmpleado;
 
 
 
@@ -96,6 +101,9 @@ public class LiquidacionesController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		BooleanBinding boolenBinding = liquidacionTable.getSelectionModel().selectedItemProperty().isNull();
+		imprimirRecibos.disableProperty().bind(boolenBinding);
+
 		buscarLiquidaciones();
 		idLiquidacion.setCellValueFactory(cellData -> cellData.getValue().idProperty().asString());
 		fechaColumn.setCellValueFactory(cellData -> cellData.getValue().fechaLiquidacionProperty());
@@ -155,6 +163,15 @@ public class LiquidacionesController implements Initializable{
 			liqEmpleadosTable.setItems(empleadosLiquidados);
 		}
 	}
+	@FXML
+	private void handleImprimirRecibos(){
+		System.out.println("se imprimieron recibos de sueldo");
+		int idLiquidacion = liquidacionTable.getSelectionModel().getSelectedItem().getId();
+		AbstractJasperReports.createReport("src\\application\\reports\\ReciboSueldo.jasper",
+				"idLiquidacion", idLiquidacion);
+		AbstractJasperReports.showViewer();
+	}
+
 */
 //    @FXML
 //    private void cargarLiquidaciones(){

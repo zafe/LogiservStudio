@@ -1,7 +1,6 @@
 package application.model.venta;
 
 import application.model.info.Domicilio;
-import application.model.info.Localidad;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;

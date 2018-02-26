@@ -1,8 +1,6 @@
 package application.repository.sueldo;
 
-import application.comunes.Alerta;
 import application.database.JDBCConnection;
-import application.model.calculo.Finca;
 import application.model.info.CategoriaEmpleado;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

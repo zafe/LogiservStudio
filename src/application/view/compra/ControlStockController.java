@@ -4,9 +4,9 @@ import application.Main;
 import application.comunes.Alerta;
 import application.model.compra.Articulo;
 import application.model.compra.CategoriaArticulo;
+import application.reports.AbstractJasperReports;
 import application.repository.compra.ArticuloRepository;
 import application.repository.compra.CategoriaArticuloRepository;
-import application.view.compra.cruds.ArticuloEditController;
 import application.view.compra.cruds.StockEditController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,13 +15,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ControlStockController implements Initializable{
@@ -118,6 +120,7 @@ public class ControlStockController implements Initializable{
     }
     @FXML
     private void generarReporteStock(){
-        //todo: hacer reporte de stock
+        AbstractJasperReports.createReport("src\\application\\reports\\ControlStock.jasper");
+        AbstractJasperReports.showViewer();
     }
 }

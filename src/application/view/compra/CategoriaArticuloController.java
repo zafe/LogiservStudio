@@ -11,7 +11,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -48,7 +51,7 @@ public class CategoriaArticuloController {
         CategoriaArticulo tempCategoria = new CategoriaArticulo();
         boolean okClicked = this.showCategoriaEdit(tempCategoria,true);
         if(okClicked)
-            categoriaArticulosData.add(tempCategoria);
+            buscarCategorias();
     }
     @FXML
     public void handleEditCategoria(){

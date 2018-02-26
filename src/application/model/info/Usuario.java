@@ -1,12 +1,10 @@
 package application.model.info;
 
-import application.repository.info.EmpleadoRepository;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import org.apache.commons.codec.digest.DigestUtils;
 
 public class Usuario {
 	
@@ -14,17 +12,21 @@ public class Usuario {
 	private final StringProperty nombre_usuario;
 	private final StringProperty password;
 	private Empleado empleado;
-	
-	public Usuario(Integer id, String nombre, String password, Integer empleadoId, Empleado empleado){
+	private IntegerProperty root;
+
+
+
+	public Usuario(Integer id, String nombre, String password, Empleado empleado, Integer root){
 		this.idUsuario = new SimpleIntegerProperty(id);
 		this.nombre_usuario = new SimpleStringProperty(nombre);
 		this.password = new SimpleStringProperty(password);
 		this.empleado = empleado;
+		this.root = new SimpleIntegerProperty(root);
 		
 	}
 
 	public Usuario(){
-		this(0, null, null, null, null);
+		this(0, null, null,  null,0);
 	}
 
 	public int getIdUsuario() {
@@ -69,5 +71,21 @@ public class Usuario {
 
 	public void setEmpleado(Empleado empleado) {
 		this.empleado = empleado;
+	}
+	public int getRoot() {
+		return root.get();
+	}
+
+	public IntegerProperty rootProperty() {
+		return root;
+	}
+
+	public void setRoot(int root) {
+		this.root.set(root);
+	}
+
+	public String encryptMD5(String password){
+		String passMD5= DigestUtils.md5Hex(password);
+		return passMD5;
 	}
 }

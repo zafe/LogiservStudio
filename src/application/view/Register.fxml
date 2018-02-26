@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<Group stylesheets="@css/theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.RegisterController">
+  <children>
+    <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="591.0" prefWidth="547.0">
+      <children>
+            <VBox alignment="CENTER" prefHeight="448.0" prefWidth="547.0" spacing="20.0" AnchorPane.bottomAnchor="-9.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Registro de Usuario" />
+                  <GridPane alignment="CENTER" prefHeight="389.0" prefWidth="547.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="119.0" text="Nombre:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="121.0" text="Apellido:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="122.0" text="Contraseña:" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="123.0" text="Repetir Contraseña:" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                        <TextField fx:id="nombreEmpleadoField" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <TextField fx:id="apellidoEmpleadoField" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <PasswordField fx:id="passwordField" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+                        <PasswordField fx:id="repasswordField" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="123.0" text="Nombre de Usuario:" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="119.0" text="Categoria:" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <ComboBox fx:id="categoriaEmpleadoComboBox" prefHeight="25.0" prefWidth="197.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <Button mnemonicParsing="false" onAction="#handleNewCategoriaEmpleado" text="+" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                        <TextField fx:id="usuarioField" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+                        <Label text="Domicilio:" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="115.0" text="Calle:" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="123.0" text="Numero:" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                        <TextField fx:id="calleField" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                        <TextField fx:id="numeroField" prefHeight="25.0" prefWidth="64.0" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="117.0" text="Localidad:" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <ComboBox fx:id="localidadComboBox" prefHeight="25.0" prefWidth="168.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                        <DatePicker fx:id="fechaNacimiento" promptText="dd/mm/aaaa" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                        <TextField fx:id="cuitField" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="49.0" text="CUIT:" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                        <Label text="Datos de Usuario:" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="119.0" text="Fecha Nacimiento:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label text="Empleado:" GridPane.columnIndex="1" />
+                     </children>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="118.0" minWidth="10.0" prefWidth="37.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="185.0" minWidth="10.0" prefWidth="133.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="273.0" minWidth="10.0" prefWidth="165.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="142.0" minWidth="10.0" prefWidth="56.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="213.0" minWidth="10.0" prefWidth="119.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="177.0" minWidth="10.0" prefWidth="33.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="68.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="68.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="77.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="103.0" minHeight="10.0" prefHeight="22.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="101.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                  </GridPane>
+                  <HBox alignment="CENTER" prefHeight="53.0" prefWidth="547.0" spacing="20.0">
+                     <children>
+                        <Button fx:id="registrarButton" defaultButton="true" mnemonicParsing="false" onAction="#handleRegistro" text="Registrar" />
+                        <Button cancelButton="true" mnemonicParsing="false" onAction="#handleCancel" text="Cancelar" />
+                     </children>
+                  </HBox>
+                  <Hyperlink fx:id="hlLogin" onAction="#handleLogin" prefHeight="43.0" prefWidth="165.0" text="¿Ya tienes una cuenta? Login " />
+               </children>
+            </VBox>
+      </children>
+    </AnchorPane>
+  </children>
+</Group>

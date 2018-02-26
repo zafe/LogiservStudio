@@ -1,32 +1,34 @@
 package application.view;
 
-import java.io.IOException;
-
-import application.view.calculo.InfoFincaController;
-import application.view.calculo.InfoIngenioController;
-import application.view.calculo.InfoOrigenDestinoController;
+import application.Main;
+import application.view.calculo.*;
 import application.view.compra.*;
 import application.view.info.*;
-import application.view.calculo.CargarCamionController;
+import application.view.inicio.HomeController;
+import application.view.inicio.OrganizacionController;
 import application.view.sueldo.ConceptosSalarialesController;
 import application.view.sueldo.LiquidacionesController;
-import application.view.sueldo.cruds.LiquidacionSueldoController;
 import application.view.venta.AdministrarViajesController;
-import application.view.calculo.CargarAcopladoController;
 import application.view.venta.FacturacionController;
 import application.view.venta.VentaClienteController;
 import javafx.fxml.FXML;
-import application.Main;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Accordion;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class PrincipalController {
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
-
+	@FXML
+	private Accordion modulosAccordion;
+    @FXML
+    private TitledPane inicioTitledPane;
 	public void setRootLayout(BorderPane root){
 		this.rootLayout = root;
 	}
@@ -458,7 +460,53 @@ public class PrincipalController {
     }
 
 
+    @FXML
+    private void showInicio() {
+        try {
+            // Load person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/inicio/Home.fxml"));
+            AnchorPane anchorPane = (AnchorPane) loader.load();
 
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(anchorPane);
 
+            // Give the controller access to the main app.
+            HomeController controller = loader.getController();
+            controller.setOwner(primaryStage);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void showOrganizacionData() {
+        try {
+            // Load person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/inicio/Organizacion.fxml"));
+            AnchorPane anchorPane = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(anchorPane);
+
+            // Give the controller access to the main app.
+            OrganizacionController controller = loader.getController();
+            controller.setOwner(primaryStage);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void cerrarSesion() {
+            //Todo: hacer
+    }
+
+    public void setHome(){
+	    modulosAccordion.setExpandedPane(inicioTitledPane);
+	    showInicio();
+    }
 
 }

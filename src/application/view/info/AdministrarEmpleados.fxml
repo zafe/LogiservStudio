@@ -1,58 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
-
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <AnchorPane prefHeight="400.0" prefWidth="772.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.info.AdministrarEmpleadosController">
    <children>
-      <Pane prefHeight="400.0" prefWidth="772.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox layoutX="20.0" layoutY="14.0" prefHeight="386.0" prefWidth="735.0" spacing="20.0">
          <children>
-            <AnchorPane prefHeight="400.0" prefWidth="772.0">
+            <Label text="Empleados" />
+            <TableView fx:id="empleadoTable" pickOnBounds="false" prefHeight="283.0" prefWidth="772.0">
+              <columns>
+                <TableColumn fx:id="nombreColumn" prefWidth="75.0" text="Nombre" />
+                <TableColumn fx:id="apellidoColumn" prefWidth="75.0" text="Apellido" />
+                  <TableColumn prefWidth="75.0" text="Domicilio">
+                     <columns>
+                        <TableColumn fx:id="calleColumn" prefWidth="75.0" text="Calle" />
+                        <TableColumn fx:id="numeroColumn" prefWidth="75.0" text="Numero" />
+                        <TableColumn fx:id="localidadColumn" prefWidth="75.0" text="Localidad" />
+                        <TableColumn fx:id="provinciaColumn" prefWidth="75.0" text="Provincia" />
+                     </columns>
+                  </TableColumn>
+                  <TableColumn fx:id="nacimientoColumn" prefWidth="90.0" text="Nacimiento" />
+                  <TableColumn fx:id="cuitColumn" prefWidth="75.0" text="CUIT" />
+                  <TableColumn fx:id="categoriaColumn" prefWidth="75.0" text="Categoria" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <HBox alignment="CENTER" prefHeight="96.0" prefWidth="772.0" spacing="20.0">
                <children>
-                  <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <Label text="Empleados" />
-                        <TableView fx:id="empleadoTable" pickOnBounds="false" prefHeight="233.0" prefWidth="600.0">
-                          <columns>
-                            <TableColumn fx:id="nombreColumn" prefWidth="75.0" text="Nombre" />
-                            <TableColumn fx:id="apellidoColumn" prefWidth="75.0" text="Apellido" />
-                              <TableColumn prefWidth="75.0" text="Domicilio">
-                                 <columns>
-                                    <TableColumn fx:id="calleColumn" prefWidth="75.0" text="Calle" />
-                                    <TableColumn fx:id="numeroColumn" prefWidth="75.0" text="Numero" />
-                                    <TableColumn fx:id="localidadColumn" prefWidth="75.0" text="Localidad" />
-                                    <TableColumn fx:id="provinciaColumn" prefWidth="75.0" text="Provincia" />
-                                 </columns></TableColumn>
-                              <TableColumn fx:id="nacimientoColumn" prefWidth="90.0" text="Nacimiento" />
-                              <TableColumn fx:id="cuitColumn" prefWidth="75.0" text="CUIT" />
-                              <TableColumn fx:id="categoriaColumn" prefWidth="75.0" text="Categoria" />
-                          </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
-                        <HBox alignment="CENTER" prefHeight="152.0" prefWidth="600.0" spacing="10.0">
-                           <children>
-                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleNew" text="Nuevo Empleado" />
-                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleEditPerson" text="Editar Empleado" />
-                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleDeleteEmpleado" text="Dar de Baja Empleado" />
-                           </children>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                           <padding>
-                              <Insets top="30.0" />
-                           </padding>
-                        </HBox>
-                     </children>
-                  </VBox>
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleNew" text="Nuevo Empleado" />
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleEditPerson" text="Editar Empleado" />
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleDeleteEmpleado" text="Dar de Baja Empleado" />
                </children>
-            </AnchorPane>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
          </children>
-      </Pane>
+      </VBox>
    </children>
 </AnchorPane>

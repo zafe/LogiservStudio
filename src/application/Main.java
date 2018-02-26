@@ -1,20 +1,19 @@
 package application;
 
-import application.view.*;
-import java.io.IOException;
 import application.database.JDBCConnection;
+import application.view.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class Main extends Application {
-	
-	
 	private Stage primaryStage;
-    private BorderPane rootLayout;   
-    
+    private BorderPane rootLayout;
+
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -30,10 +29,11 @@ public class Main extends Application {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/Principal.fxml"));
+            //para usar el principal directamente, cambiar la direccion y descomentar el set
+            loader.setLocation(Main.class.getResource("view/Login.fxml"));
             rootLayout = (BorderPane) loader.load();
-            PrincipalController controller = loader.getController();
-            controller.setRootLayout(rootLayout);
+            LoginController controller = loader.getController();
+//            controller.setRootLayout(rootLayout);     //   <---------- de la ventana principal
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);

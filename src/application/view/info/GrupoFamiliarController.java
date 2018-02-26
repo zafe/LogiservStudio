@@ -6,7 +6,6 @@ import application.model.info.Empleado;
 import application.model.info.Familiar;
 import application.repository.info.EmpleadoRepository;
 import application.repository.info.FamiliarRepository;
-import application.view.compra.cruds.FacturaEditController;
 import application.view.info.cruds.FamiliarEditController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

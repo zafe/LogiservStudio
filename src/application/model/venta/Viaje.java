@@ -7,8 +7,6 @@ import application.model.info.Empleado;
 import javafx.beans.property.*;
 import javafx.scene.control.CheckBox;
 
-import java.math.BigDecimal;
-
 public class Viaje {
 
     private IntegerProperty idRemito;
