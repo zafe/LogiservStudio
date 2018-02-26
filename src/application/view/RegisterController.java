@@ -2,22 +2,10 @@ package application.view;
 
 import application.Main;
 import application.comunes.Alerta;
-import application.model.compra.Articulo;
-import application.model.compra.DetalleCompra;
-import application.model.compra.FacturaCompra;
-import application.model.compra.Proveedor;
 import application.model.info.*;
-import application.repository.compra.ArticuloRepository;
-import application.repository.compra.DetalleCompraRepository;
-import application.repository.compra.FacturaCompraRepository;
-import application.repository.compra.ProveedorRepository;
 import application.repository.info.*;
-import application.view.compra.ArticulosController;
-import application.view.compra.ProveedoresController;
 import application.view.info.InfoCategoriaEmpleadoController;
 import javafx.beans.binding.BooleanBinding;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,6 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.chrono.HijrahChronology;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -123,6 +112,7 @@ public class RegisterController implements Initializable {
         registrarButton.disableProperty().bind(boolenBinding);
         cargarCategorias();
         cargarLocalidades();
+
     }
     public void setOwner(Stage owner){
         this.owner = owner;

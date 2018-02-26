@@ -1,17 +1,12 @@
 package application.repository.info;
 
 import application.comunes.Alerta;
+import application.database.JDBCConnection;
 import application.model.info.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-import application.database.JDBCConnection;
+import java.sql.*;
 
 public class EmpleadoRepository {
 	Connection connection;
@@ -95,7 +90,7 @@ public class EmpleadoRepository {
 		}
 	}
 	
-	public static Empleado buscarEmpleadoById(Integer id){
+	public Empleado buscarEmpleadoById(Integer id){
 		
 		Empleado empleado = new Empleado();
 		Statement statement = null;
@@ -125,7 +120,8 @@ public class EmpleadoRepository {
 			ObservableList<Empleado> list = FXCollections.observableArrayList();
 			try {
 				Connection connection= JDBCConnection.getInstanceConnection();
-				PreparedStatement preparedStatement=connection.prepareStatement("select idEmpleado, " +
+				PreparedStatement preparedStatement=connection.prepareStatement("" +
+						"select idEmpleado, " +
 						"Apellido, Nombre " +
 						"from Empleado " +
 						"where CATEGORIA_EMPLEADO_idCategoriaEmpleado = ?" +

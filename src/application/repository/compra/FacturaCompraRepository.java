@@ -4,7 +4,6 @@ import application.comunes.Alerta;
 import application.database.JDBCConnection;
 import application.model.compra.FacturaCompra;
 import application.model.compra.Proveedor;
-import com.sun.org.apache.regexp.internal.RE;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -99,6 +98,5 @@ public class FacturaCompraRepository {
         }
         return lastIdFactura;
     }
-//TODO: hacer un metodo para obtener facturas en un rango de fechas? o bien ¿utilizar un procedimiento?
 }
 

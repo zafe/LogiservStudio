@@ -60,9 +60,6 @@ public class OrganizacionRepository {
 //            preparedStatement.setString(4, organizacion.getTelefono());
             preparedStatement.setInt(7, organizacion.getIdOrganizacion());
             preparedStatement.executeUpdate();
-            String headerMsj="Actualización: datos de la organizacion actualizados";
-            String cuerpoMsj = "Organizacion: " + organizacion.getNombreOrg() + " modificado correctamente.";
-            Alerta.alertaInfo("Organización", headerMsj, cuerpoMsj);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -92,7 +89,7 @@ public class OrganizacionRepository {
                 Organizacion organizacion = new Organizacion();
                 organizacion.setIdOrganizacion(resultSet.getInt("idORGANIZACION"));
                 organizacion.setNombreOrg(resultSet.getString("Nombre"));
-                Empleado apoderado = empleadoRepository.getEmpleadoById(resultSet.getInt("APODERADO_idEmpleado"));
+                Empleado apoderado = empleadoRepository.buscarEmpleadoById(resultSet.getInt("APODERADO_idEmpleado"));
                 organizacion.setApoderadoOrg(apoderado);
                 Domicilio domicilio = domicilioRepository.getDomicilioById(resultSet.getInt("DOMICILIO_idDomicilio"));
                 organizacion.setDomicilioOrg(domicilio);

@@ -1,29 +1,26 @@
 	package application.repository.venta;
 
-	import application.comunes.Alerta;
-	import application.comunes.Calculo;
-	import application.database.JDBCConnection;
-	import application.model.calculo.Camion;
-	import application.model.calculo.Finca;
-	import application.model.calculo.Ingenio;
-	import application.model.info.Empleado;
-	import application.model.venta.Viaje;
-	import application.repository.calculo.CamionRepository;
-	import application.repository.calculo.FincaRepository;
-	import application.repository.calculo.IngenioRepository;
-	import application.repository.info.EmpleadoRepository;
-	import javafx.collections.FXCollections;
-	import javafx.collections.ObservableList;
+    import application.comunes.Alerta;
+    import application.database.JDBCConnection;
+    import application.model.calculo.Camion;
+    import application.model.calculo.Finca;
+    import application.model.calculo.Ingenio;
+    import application.model.info.Empleado;
+    import application.model.venta.Viaje;
+    import application.repository.calculo.CamionRepository;
+    import application.repository.calculo.FincaRepository;
+    import application.repository.calculo.IngenioRepository;
+    import application.repository.info.EmpleadoRepository;
+    import javafx.collections.FXCollections;
+    import javafx.collections.ObservableList;
 
-	import java.math.BigDecimal;
-	import java.sql.Connection;
-	import java.sql.PreparedStatement;
-	import java.sql.ResultSet;
-	import java.sql.SQLException;
-	import java.text.DateFormat;
-	import java.text.ParseException;
-	import java.text.SimpleDateFormat;
-	import java.util.List;
+    import java.sql.Connection;
+    import java.sql.PreparedStatement;
+    import java.sql.ResultSet;
+    import java.sql.SQLException;
+    import java.text.DateFormat;
+    import java.text.ParseException;
+    import java.text.SimpleDateFormat;
 
 	public class ViajeRepository {
 	    Connection connection;
@@ -245,7 +242,7 @@
 					Ingenio ingenio = ingenioRepository.getIngenioById(resultSet.getInt("INGENIO_idIngenio"));
 					viaje.setIngenio(ingenio);
 					Camion camion = camionRepository.getCamionById(resultSet.getInt("CAMION_idCamion"));
-					Empleado conductor = empleadoRepository.getEmpleadoById(resultSet.getInt("EMPLEADO_idEmpleado"));
+					Empleado conductor = empleadoRepository.buscarEmpleadoById(resultSet.getInt("EMPLEADO_idEmpleado"));
 					viaje.setConductor(conductor);
 					viaje.setCamion(camion);
 					list.add(viaje);
@@ -298,11 +295,14 @@
 
 			try {
 				connection= JDBCConnection.getInstanceConnection();
-				preparedStatement=connection.prepareStatement("SELECT v.idRemito, v.Fecha, v.HoraEntrada, v.Bruto," +
-						" v.Tara, v.Empleado_idEmpleado, v.CAMION_idCamion, od.DistanciaKM, od.FINCA_idFinca," +
-						" od.INGENIO_idIngenio FROM VIAJE v INNER JOIN ORIGEN_DESTINO od " +
-						"ON Origen_Destino_idOrigen_Destino= od.idOrigen_Destino " +
-						"WHERE FACTURA_VENTA_idFACTURA_VENTA=?;");//TODO cambiar esto cuando se actualice la base de datos
+				preparedStatement=connection.prepareStatement("SELECT lv.monto, lv.FACTURA_VENTA_idFACTURA_VENTA, lv.VIAJE_idRemito," +
+						" v.idRemito, v.Fecha, v.HoraEntrada, v.Bruto, v.Tara, v.Empleado_idEmpleado, v.CAMION_idCamion," +
+						" od.DistanciaKM, od.FINCA_idFinca, od.INGENIO_idIngenio" +
+						" FROM LINEA_VIAJE lv" +
+						" INNER JOIN VIAJE v ON v.idRemito = lv.VIAJE_idRemito" +
+						" INNER JOIN ORIGEN_DESTINO od ON od.idOrigen_Destino = v.Origen_Destino_idOrigen_Destino" +
+						" INNER JOIN FACTURA_VENTA fv ON fv.idFACTURA_VENTA = lv.FACTURA_VENTA_idFACTURA_VENTA" +
+						" WHERE fv.idFACTURA_VENTA = ?;");
 				preparedStatement.setInt(1 ,idFactura);
 				resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()){
@@ -313,6 +313,7 @@
 					viaje.setBruto(resultSet.getDouble("Bruto"));
 					viaje.setTara(resultSet.getDouble("Tara"));
 					viaje.setDistanciaRecorrida(resultSet.getString("DistanciaKM"));
+					viaje.setMonto(resultSet.getDouble("monto"));
 					Finca finca = fincaRepository.getFincaById(resultSet.getInt("FINCA_idFinca"));
 					viaje.setFinca(finca);
 					Ingenio ingenio = ingenioRepository.getIngenioById(resultSet.getInt("INGENIO_idIngenio"));
@@ -365,7 +366,7 @@
 					Ingenio ingenio = ingenioRepository.getIngenioById(resultSet.getInt("INGENIO_idIngenio"));
 					viaje.setIngenio(ingenio);
 					Camion camion = camionRepository.getCamionById(resultSet.getInt("CAMION_idCamion"));
-					Empleado conductor = empleadoRepository.getEmpleadoById(resultSet.getInt("EMPLEADO_idEmpleado"));
+					Empleado conductor = empleadoRepository.buscarEmpleadoById(resultSet.getInt("EMPLEADO_idEmpleado"));
 					viaje.setConductor(conductor);
 					viaje.setCamion(camion);
 					list.add(viaje);
@@ -422,7 +423,7 @@
 					Ingenio ingenio = ingenioRepository.getIngenioById(resultSet.getInt("INGENIO_idIngenio"));
 					viaje.setIngenio(ingenio);
 					Camion camion = camionRepository.getCamionById(resultSet.getInt("CAMION_idCamion"));
-					Empleado conductor = empleadoRepository.getEmpleadoById(resultSet.getInt("EMPLEADO_idEmpleado"));
+					Empleado conductor = empleadoRepository.buscarEmpleadoById(resultSet.getInt("EMPLEADO_idEmpleado"));
 					viaje.setConductor(conductor);
 					viaje.setCamion(camion);
 					list.add(viaje);

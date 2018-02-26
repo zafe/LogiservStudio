@@ -1,5 +1,10 @@
 package application.view.info;
 
+import application.Main;
+import application.comunes.Alerta;
+import application.model.info.CategoriaEmpleado;
+import application.repository.info.CategoriaEmpleadoRepository;
+import application.view.info.cruds.CategoriaEmpleadoEditController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,12 +20,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Optional;
-
-import application.Main;
-import application.comunes.Alerta;
-import application.model.info.CategoriaEmpleado;
-import application.repository.info.CategoriaEmpleadoRepository;
-import application.view.info.cruds.CategoriaEmpleadoEditController;
 
 public class InfoCategoriaEmpleadoController {
 

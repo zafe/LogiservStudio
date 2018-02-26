@@ -1,22 +1,22 @@
 	package application.repository.venta;
 
-	import application.comunes.Alerta;
-	import application.comunes.Calculo;
-	import application.database.JDBCConnection;
-	import application.model.venta.Cliente;
-	import application.model.venta.FacturaVenta;
-	import application.model.venta.Organizacion;
-	import application.model.venta.Viaje;
-	import javafx.collections.FXCollections;
-	import javafx.collections.ObservableList;
+    import application.comunes.Alerta;
+    import application.comunes.Calculo;
+    import application.database.JDBCConnection;
+    import application.model.venta.Cliente;
+    import application.model.venta.FacturaVenta;
+    import application.model.venta.Organizacion;
+    import application.model.venta.Viaje;
+    import javafx.collections.FXCollections;
+    import javafx.collections.ObservableList;
 
-	import java.sql.Connection;
-	import java.sql.PreparedStatement;
-	import java.sql.ResultSet;
-	import java.sql.SQLException;
-	import java.text.ParseException;
-	import java.text.SimpleDateFormat;
-	import java.util.List;
+    import java.sql.Connection;
+    import java.sql.PreparedStatement;
+    import java.sql.ResultSet;
+    import java.sql.SQLException;
+    import java.text.ParseException;
+    import java.text.SimpleDateFormat;
+    import java.util.List;
 
 	public class FacturaVentaRepository {
 		ClienteRepository clienteRepository = new ClienteRepository();

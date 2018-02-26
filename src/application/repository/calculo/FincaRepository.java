@@ -6,7 +6,6 @@ import application.model.calculo.Finca;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

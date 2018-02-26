@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.AnchorPane?>
-
-<AnchorPane prefHeight="472.0" prefWidth="617.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.info.cruds.UsuarioEditDialogController">
+<AnchorPane prefHeight="472.0" prefWidth="617.0" stylesheets="@../../css/theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.info.cruds.UsuarioEditDialogController">
    <children>
       <GridPane prefHeight="90.0" prefWidth="400.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="100.0">
         <columnConstraints>
