@@ -85,6 +85,7 @@ public class LiquidacionSueldoController implements Initializable {
     private Button cancelButton;
 
     private Stage owner;
+    private boolean isNew;
     private CategoriaEmpleadoRepository categoriaEmpleadoRepository = new CategoriaEmpleadoRepository();
     private EmpleadoRepository empleadoRepository = new EmpleadoRepository();
     private LiquidacionRepository liquidacionRepository = new LiquidacionRepository();
@@ -97,7 +98,6 @@ public class LiquidacionSueldoController implements Initializable {
     public void setOwner(Stage owner){
         this.owner = owner;
     }
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -273,7 +273,7 @@ public class LiquidacionSueldoController implements Initializable {
             List<ConceptoCalculado> retCalculados = new ArrayList<>();
 
             //Muestra lista de conceptos a liquidar
-            /*System.out.println("%nCONCEPTOS A LIQUIDAR%n%n");
+            System.out.println("%nCONCEPTOS A LIQUIDAR%n%n");
             for (ConceptoSueldo conceptoSueldo : empleadoALiquidar.getRemunerativos())
                 System.out.printf("CONCEPTO REMUNERATIVO: %s%n" +
                                   "              CANTIDAD: %f%n" +
@@ -289,7 +289,7 @@ public class LiquidacionSueldoController implements Initializable {
                                 "              CANTIDAD: %f%n" +
                                 "              FACTOR  : %f%n",  conceptoSueldo.getDescripcion(),conceptoSueldo.getCantidad(),
                         conceptoSueldo.getFactor());
-*/
+
 
             //Liquidacion de Haberes Remunerativos
             for (ConceptoSueldo conceptoSueldo : empleadoALiquidar.getRemunerativos())
@@ -300,7 +300,7 @@ public class LiquidacionSueldoController implements Initializable {
                 noRemCalculados.add(new ConceptoCalculado(conceptoSueldo));
 
             //Muestra lista de conceptos liquidados [REMUNERATIVOS Y NO REMUNERATIVOS]
-            /*System.out.printf("%n%nCONCEPTOS LIQUIDADOS%n%n");
+            System.out.printf("%n%nCONCEPTOS LIQUIDADOS%n%n");
             for (ConceptoCalculado conceptoCalculado : remCalculados)
                 System.out.printf("CALCULADO REMUNERATIVO: %s%n" +
                                 "              CANTIDAD: %f%n" +
@@ -313,7 +313,7 @@ public class LiquidacionSueldoController implements Initializable {
                                 "              FACTOR  : %f%n" +
                                 "      MONTO CALCULADO : %f%n",  conceptoCalculado.getDescripcion(),conceptoCalculado.getCantidad(),
                         conceptoCalculado.getFactor(), conceptoCalculado.getMontoCalculado());
-*/
+
 
 
             //Calcular suma de Haberes Remunerativos
@@ -346,6 +346,7 @@ public class LiquidacionSueldoController implements Initializable {
             liquidacionEmpleado.setTotalHaberesRemunerativos(totalRemunerativos);
             liquidacionEmpleado.setTotalHaberesNoRemunerativos(totalNoRemunerativos);
             liquidacionEmpleado.setTotalRetenciones(totalRetenciones);
+            liquidacionEmpleado.setEmpleado(empleadoALiquidar.getEmpleado());
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
             liquidacionEmpleado.setInicioPeriodo(desdeDatePicker.getValue().format(formatter));
             liquidacionEmpleado.setFinPeriodo(hastaDatePicker.getValue().format(formatter));
@@ -360,37 +361,61 @@ public class LiquidacionSueldoController implements Initializable {
 
             liquidacionEmpleado.setImporteNeto(importeNeto.doubleValue());
 
-//            System.out.printf("%n%n------- Liquidación Empleado :%s %s ------- %n ", empleadoALiquidar.getEmpleado().getNombre(),
-//                    empleadoALiquidar.getEmpleado().getApellido());
-//            System.out.println("TOTAL HABERES REMUNERATIVOS: " + liquidacionEmpleado.getTotalHaberesRemunerativos());
-//            System.out.printf("Total haberes remunerativos   : $ %f%n" +
-//                              "Total haberes no remunerativos: $ %f%n" +
-//                              "Total retenciones             : $ %f%n" +
-//                              "------------------------------------%n" +
-//                              "Total Bruto                   : $ %f%n" +
-//                              "Importe Neto                  : $ %f%n" +
-//                              "------------------------------------%n",
-//                                liquidacionEmpleado.getTotalHaberesRemunerativos(), liquidacionEmpleado.getTotalHaberesNoRemunerativos(),
-//                                liquidacionEmpleado.getTotalRetenciones(), liquidacionEmpleado.getTotalBruto(), liquidacionEmpleado.getImporteNeto());
+           liquidacionEmpleado.setConceptosLiquidados(remCalculados);
+           liquidacionEmpleado.getConceptosLiquidados().addAll(noRemCalculados);
+           liquidacionEmpleado.getConceptosLiquidados().addAll(retCalculados);
+
+            System.out.printf("%n%n------- Liquidación Empleado :%s %s ------- %n ", empleadoALiquidar.getEmpleado().getNombre(),
+                    empleadoALiquidar.getEmpleado().getApellido());
+            System.out.println("TOTAL HABERES REMUNERATIVOS: " + liquidacionEmpleado.getTotalHaberesRemunerativos());
+            System.out.printf("Total haberes remunerativos   : $ %f%n" +
+                              "Total haberes no remunerativos: $ %f%n" +
+                              "Total retenciones             : $ %f%n" +
+                              "------------------------------------%n" +
+                              "Total Bruto                   : $ %f%n" +
+                              "Importe Neto                  : $ %f%n" +
+                              "------------------------------------%n",
+                                liquidacionEmpleado.getTotalHaberesRemunerativos(), liquidacionEmpleado.getTotalHaberesNoRemunerativos(),
+                                liquidacionEmpleado.getTotalRetenciones(), liquidacionEmpleado.getTotalBruto(), liquidacionEmpleado.getImporteNeto());
 
             //Agregar LiquidacionEmpleado a Liquidacion
             liquidacion.getLiquidacionesEmpleados().add(liquidacionEmpleado);
         }
+
+        //calcular total de liquidacion empleado
+        Double totalHaberesRemunerativos = 0.0;
+        Double totalHaberesNoRemunerativos = 0.0;
+        Double totalRetenciones = 0.0;
+
+        for (LiquidacionEmpleado liquidacionEmpleado : liquidacion.getLiquidacionesEmpleados()) {
+            totalHaberesRemunerativos += liquidacionEmpleado.getTotalHaberesRemunerativos();
+            totalHaberesNoRemunerativos += liquidacionEmpleado.getTotalHaberesNoRemunerativos();
+            totalRetenciones += liquidacionEmpleado.getTotalRetenciones();
+        }
+        liquidacion.setTotalHaberesRemunerativos(totalHaberesRemunerativos.doubleValue());
+        liquidacion.setTotalHaberesNoRemunerativos(totalHaberesNoRemunerativos.doubleValue());
+        liquidacion.setTotalRetenciones(totalRetenciones.doubleValue());
 
         //Grabar los datos en la base de datos
         liquidacionRepository.newLiquidacion(liquidacion);
     }
 
     private void separarConceptosByTipoConcepto(){
-//        System.out.println("------- separaConceptosByid -------");
+        System.out.println("------- separaConceptosByid -------");
         if (!liquidarEmpleados.isEmpty()){
+
             for (EmpleadoALiquidar empleadoALiquidar : liquidarEmpleados){
-//                System.out.printf("Empleado a Liquidar: %s %s %n", empleadoALiquidar.getEmpleado().getNombre(),
-//                        empleadoALiquidar.getEmpleado().getApellido());
+
+                System.out.printf("Empleado a Liquidar: %s %s %n", empleadoALiquidar.getEmpleado().getNombre(),
+                        empleadoALiquidar.getEmpleado().getApellido());
+
                 for(ConceptoSueldo conceptoSueldo : empleadoALiquidar.getConceptos()) {
-//                    System.out.printf("Concepto a Liquidar: %s %n Seleccionado: %s %n Tipo Concepto: %s %n ", conceptoSueldo.getDescripcion(),
-//                            conceptoSueldo.getSelect().isSelected(), conceptoSueldo.getTipoConcepto());
+
+                    System.out.printf("Concepto a Liquidar: %s %n Seleccionado: %s %n Tipo Concepto: %s %n ", conceptoSueldo.getDescripcion(),
+                            conceptoSueldo.getSelect().isSelected(), conceptoSueldo.getTipoConcepto());
+
                     if (conceptoSueldo.getSelect().isSelected()) {
+
                         switch (conceptoSueldo.getTipoConcepto()) {
                             case "REMUNERATIVO":
                                 empleadoALiquidar.getRemunerativos().add(conceptoSueldo);
@@ -406,7 +431,16 @@ public class LiquidacionSueldoController implements Initializable {
                 }
             }
         }
+
     }
+
+    @FXML
+    public void handleOk(){
+            liquidarEmpleados();
+            owner.close();
+        }
+
+
 
 
 }
