@@ -62,7 +62,6 @@
 	            preparedStatement.setInt(8, idFacturaVenta);
 	            preparedStatement.executeUpdate();
 	            preparedStatement.close();
-	            connection.close();
 	            String cuerpoMsj = "Provincia " + viaje.getIdRemito()+ " agregado correctamente.\n";
 	            Alerta.alertaInfo("Viajes",cuerpoMsj);
 	        } catch (SQLException e) {
@@ -152,7 +151,6 @@
 	            preparedStatement.setInt(8, idFacturaVenta);
 	            preparedStatement.setInt(9, viaje.getIdRemito());
 	            preparedStatement.close();
-	            connection.close();
 	            String headerMsj="Actualización: Provincia actualizado";
 	            String cuerpoMsj = "Provincia: " + viaje.getIdRemito() + " modificado correctamente.";
 	            Alerta.alertaInfo("Provincia", headerMsj, cuerpoMsj);
@@ -209,8 +207,6 @@
 							viaje.getBruto(),
 							viaje.getTara());
 	            }
-	            preparedStatement.close();
-	            resultSet.close();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
@@ -333,8 +329,6 @@
 							viaje.getBruto(),
 							viaje.getTara());
 				}
-				preparedStatement.close();
-				resultSet.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -380,8 +374,6 @@
 							viaje.getBruto(),
 							viaje.getTara());
 				}
-				preparedStatement.close();
-				resultSet.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -437,8 +429,6 @@
 							viaje.getBruto(),
 							viaje.getTara());
 				}
-				preparedStatement.close();
-				resultSet.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

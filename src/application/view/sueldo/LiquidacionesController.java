@@ -7,6 +7,9 @@ import application.model.sueldo.Liquidacion;
 import application.reports.AbstractJasperReports;
 import application.repository.sueldo.LiquidacionRepository;
 import javafx.beans.binding.BooleanBinding;
+import application.repository.sueldo.LiquidacionEmpleadoRepository;
+import application.repository.sueldo.LiquidacionRepository;
+import application.view.sueldo.cruds.LiquidacionSueldoController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -42,7 +45,7 @@ public class LiquidacionesController implements Initializable{
 
 	//Declaracion de la tabla y columnas de la clase LiquidacionEmpleado
 	@FXML
-	private  TableView<LiquidacionEmpleado> empleadosTable;
+	private  TableView<LiquidacionEmpleado> liqEmpleadosTable;
 	@FXML
 	private TableColumn<LiquidacionEmpleado, String> legajoColumn;
 	@FXML
@@ -70,11 +73,13 @@ public class LiquidacionesController implements Initializable{
 
 	private Stage owner;
 
-	private ObservableList<LiquidacionEmpleado> liquidacion = FXCollections.observableArrayList();
+	private ObservableList<LiquidacionEmpleado> liquidacionesEmpleado = FXCollections.observableArrayList();
 
 	private ObservableList<Empleado> empleados = FXCollections.observableArrayList();
 
 	private LiquidacionRepository liquidacionesRepository = new LiquidacionRepository();
+
+	private LiquidacionEmpleadoRepository liquidacionEmpleadoRepository = new LiquidacionEmpleadoRepository();
 
 	private ObservableList<LiquidacionEmpleado> empleadosLiquidados = FXCollections.observableArrayList();
 
@@ -89,6 +94,11 @@ public class LiquidacionesController implements Initializable{
 		liquidacionTable.setItems(liquidaciones);
 	}
 
+	private void buscarLiquidacionesEmpleado(int idLiquidacion){
+		this.liquidacionesEmpleado = liquidacionEmpleadoRepository.getLiqEmpleadoByIdLiq(idLiquidacion);
+		liqEmpleadosTable.setItems(liquidacionesEmpleado);
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		BooleanBinding boolenBinding = liquidacionTable.getSelectionModel().selectedItemProperty().isNull();
@@ -100,6 +110,12 @@ public class LiquidacionesController implements Initializable{
 		hrColumn.setCellValueFactory(cellData -> cellData.getValue().totalHaberesRemunerativosProperty().asString());
 		hnrColumn.setCellValueFactory(cellData -> cellData.getValue().totalHaberesNoRemunerativosProperty().asString());
 		retencionesColumn.setCellValueFactory(cellData -> cellData.getValue().totalRetencionesProperty().asString());
+
+		liquidacionTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+			if (newSelection != null) {
+				buscarLiquidacionesEmpleado(liquidacionTable.getSelectionModel().getSelectedItem().getId());
+			}
+		});
 
 		legajoColumn.setCellValueFactory(cellData -> cellData.getValue().getEmpleado().idEmpleadoProperty().asString());
 		apellidoColumn.setCellValueFactory(cellData -> cellData.getValue().getEmpleado().apellidoProperty());
@@ -128,7 +144,8 @@ public class LiquidacionesController implements Initializable{
 			Scene scene = new Scene(page);
 			dialogStage.setScene(scene);
 
-
+			LiquidacionSueldoController controller = loader.getController();
+			controller.setOwner(dialogStage);
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
@@ -138,11 +155,12 @@ public class LiquidacionesController implements Initializable{
 		}
 	}
 
+	/*
 	@FXML
 	public void cargarEmpleadosLiquidados(){
 		if (liquidacionTable.getSelectionModel().getSelectedItem() != null){
 			empleadosLiquidados = liquidacionesRepository.getEmpleadosLiquidadosByidLiquidacion(liquidacionTable.getSelectionModel().getSelectedItem().getId());
-			empleadosTable.setItems(empleadosLiquidados);
+			liqEmpleadosTable.setItems(empleadosLiquidados);
 		}
 	}
 	@FXML
@@ -153,6 +171,8 @@ public class LiquidacionesController implements Initializable{
 				"idLiquidacion", idLiquidacion);
 		AbstractJasperReports.showViewer();
 	}
+
+*/
 //    @FXML
 //    private void cargarLiquidaciones(){
 //        if (liquidacionTable.getSelectionModel().getSelectedItem() != null){
