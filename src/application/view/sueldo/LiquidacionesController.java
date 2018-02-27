@@ -5,11 +5,10 @@ import application.model.info.Empleado;
 import application.model.sueldo.LiquidacionEmpleado;
 import application.model.sueldo.Liquidacion;
 import application.reports.AbstractJasperReports;
-import application.repository.sueldo.LiquidacionRepository;
-import javafx.beans.binding.BooleanBinding;
 import application.repository.sueldo.LiquidacionEmpleadoRepository;
 import application.repository.sueldo.LiquidacionRepository;
 import application.view.sueldo.cruds.LiquidacionSueldoController;
+import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -28,6 +27,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LiquidacionesController implements Initializable{
+
+
 
 	//Declaracion de la tabla y columnas de la clase Liquidaciones
 	@FXML
@@ -67,21 +68,9 @@ public class LiquidacionesController implements Initializable{
 	@FXML
 	private Button imprimirReciboDeEmpleado;
 
-
-
-
-
 	private Stage owner;
-
 	private ObservableList<LiquidacionEmpleado> liquidacionesEmpleado = FXCollections.observableArrayList();
-
-	private ObservableList<Empleado> empleados = FXCollections.observableArrayList();
-
-	private LiquidacionRepository liquidacionesRepository = new LiquidacionRepository();
-
 	private LiquidacionEmpleadoRepository liquidacionEmpleadoRepository = new LiquidacionEmpleadoRepository();
-
-	private ObservableList<LiquidacionEmpleado> empleadosLiquidados = FXCollections.observableArrayList();
 
 	public void setOwner(Stage owner){
 		this.owner = owner;
@@ -96,14 +85,12 @@ public class LiquidacionesController implements Initializable{
 
 	private void buscarLiquidacionesEmpleado(int idLiquidacion){
 		this.liquidacionesEmpleado = liquidacionEmpleadoRepository.getLiqEmpleadoByIdLiq(idLiquidacion);
+		if (!liquidacionesEmpleado.isEmpty())
 		liqEmpleadosTable.setItems(liquidacionesEmpleado);
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		BooleanBinding boolenBinding = liquidacionTable.getSelectionModel().selectedItemProperty().isNull();
-		imprimirRecibos.disableProperty().bind(boolenBinding);
-
 		buscarLiquidaciones();
 		idLiquidacion.setCellValueFactory(cellData -> cellData.getValue().idProperty().asString());
 		fechaColumn.setCellValueFactory(cellData -> cellData.getValue().fechaLiquidacionProperty());
@@ -155,14 +142,6 @@ public class LiquidacionesController implements Initializable{
 		}
 	}
 
-	/*
-	@FXML
-	public void cargarEmpleadosLiquidados(){
-		if (liquidacionTable.getSelectionModel().getSelectedItem() != null){
-			empleadosLiquidados = liquidacionesRepository.getEmpleadosLiquidadosByidLiquidacion(liquidacionTable.getSelectionModel().getSelectedItem().getId());
-			liqEmpleadosTable.setItems(empleadosLiquidados);
-		}
-	}
 	@FXML
 	private void handleImprimirRecibos(){
 		System.out.println("se imprimieron recibos de sueldo");
@@ -171,12 +150,4 @@ public class LiquidacionesController implements Initializable{
 				"idLiquidacion", idLiquidacion);
 		AbstractJasperReports.showViewer();
 	}
-
-*/
-//    @FXML
-//    private void cargarLiquidaciones(){
-//        if (liquidacionTable.getSelectionModel().getSelectedItem() != null){
-//
-//        }
-//    }
 }

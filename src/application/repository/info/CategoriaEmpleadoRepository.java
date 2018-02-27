@@ -1,4 +1,4 @@
-	package application.repository.info;
+		package application.repository.info;
 
     import application.comunes.Alerta;
     import application.database.JDBCConnection;
@@ -22,6 +22,7 @@
 	            preparedStatement = connection.prepareStatement("INSERT INTO CATEGORIA_EMPLEADO (NombreCategoria) values(?)");
 	            preparedStatement.setString(1, categoriaEmpleado.getNombre());
 	            preparedStatement.executeUpdate();
+	            preparedStatement.close();
 	            String cuerpoMsj = "Categoria Empleado " + categoriaEmpleado.getNombre()+ " agregada correctamente.\n";
 	            Alerta.alertaInfo("Categoria Empleado",cuerpoMsj);
 	        } catch (SQLException e) {
@@ -81,24 +82,24 @@
 
 	        return list;
 	    }
-	    
-	    public CategoriaEmpleado search(int idCategoriaEmpleado){
-        	CategoriaEmpleado categoriaEmpleado = new CategoriaEmpleado();
 
-	    	try {
-	        	connection= JDBCConnection.getInstanceConnection();
-	            preparedStatement=connection.prepareStatement("SELECT * FROM CATEGORIA_EMPLEADO where idCategoriaEmpleado=?");
-	            preparedStatement.setInt(1, idCategoriaEmpleado);
-	            resultSet = preparedStatement.executeQuery();
-	            if(resultSet.next()){
-		            categoriaEmpleado.setIdCategoriaEmpleado(idCategoriaEmpleado);
-		            categoriaEmpleado.setNombre(resultSet.getString("NombreCategoria"));
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
+		public CategoriaEmpleado search(int idCategoriaEmpleado){
+			CategoriaEmpleado categoriaEmpleado = new CategoriaEmpleado();
 
-	        
-	        return categoriaEmpleado;
-	    }
+			try {
+				connection= JDBCConnection.getInstanceConnection();
+				preparedStatement=connection.prepareStatement("SELECT * FROM CATEGORIA_EMPLEADO where idCategoriaEmpleado=?");
+				preparedStatement.setInt(1, idCategoriaEmpleado);
+				resultSet = preparedStatement.executeQuery();
+				if(resultSet.next()){
+					categoriaEmpleado.setIdCategoriaEmpleado(idCategoriaEmpleado);
+					categoriaEmpleado.setNombre(resultSet.getString("NombreCategoria"));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+
+			return categoriaEmpleado;
+		}
 	}
