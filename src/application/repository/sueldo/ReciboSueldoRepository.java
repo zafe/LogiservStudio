@@ -23,8 +23,6 @@ public class ReciboSueldoRepository {
             preparedStatement.setDouble(3,reciboSueldo.getTotalNeto());
 //            preparedStatement.setInt(4,reciboSueldo.getIdLiquidacionEmpleado());
             preparedStatement.executeUpdate();
-            preparedStatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -41,8 +39,6 @@ public class ReciboSueldoRepository {
 //            preparedStatement.setInt(3,reciboSueldo.getIdLiquidacionEmpleado());
             preparedStatement.setInt(4, reciboSueldo.getIdRecibo());
             preparedStatement.executeUpdate();
-            preparedStatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -53,8 +49,6 @@ public class ReciboSueldoRepository {
             preparedStatement=connection.prepareStatement("DELETE FROM RECIBO_SUELDO WHERE idRECIBO_SUELDO=?");
             preparedStatement.setInt(1,reciboSueldo.getIdRecibo());
             preparedStatement.executeUpdate();
-            preparedStatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -74,8 +68,6 @@ public class ReciboSueldoRepository {
                 list.add(reciboSueldo);
             }
             preparedStatement.executeUpdate();
-            preparedStatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -87,8 +79,6 @@ public class ReciboSueldoRepository {
             preparedStatement=connection.prepareStatement("SELECT * FROM RECIBO_SUELDO WHERE idRECIBO_SUELDO=?");
             preparedStatement.setInt(1,reciboSueldo.getIdRecibo());
             preparedStatement.executeUpdate();
-            preparedStatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

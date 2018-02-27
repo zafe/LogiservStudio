@@ -43,7 +43,6 @@
 	            preparedStatement.setInt(2,idProvincia);
 	            preparedStatement.setInt(3,localidad.getIdLocalidad());
 	            preparedStatement.close();
-	            connection.close();
 	            String headerMsj="Actualización: localidad actualizada";
 	            String cuerpoMsj = "Localidad: " + localidad.getNombre() + " modificado correctamente.";
 	            Alerta.alertaInfo("Localidad", headerMsj, cuerpoMsj);
@@ -59,7 +58,6 @@
 	            preparedStatement.setInt(1, localidad.getIdLocalidad());
 	            preparedStatement.executeUpdate();
 	            preparedStatement.close();
-	            connection.close();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
