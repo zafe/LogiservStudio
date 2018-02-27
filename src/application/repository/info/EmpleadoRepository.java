@@ -236,5 +236,29 @@ public class EmpleadoRepository {
         }
         return lastId;
     }
+	public ObservableList<Empleado> getConductores(){
+		ObservableList<Empleado> list = FXCollections.observableArrayList();
+		try {
+			Connection connection= JDBCConnection.getInstanceConnection();
+			PreparedStatement preparedStatement=connection.prepareStatement("SELECT idEmpleado, Apellido, Nombre \n" +
+					"\t\tFROM Empleado INNER JOIN categoria_empleado \n" +
+					"\t\t\tON CATEGORIA_EMPLEADO_idCategoriaEmpleado = idCategoriaEmpleado\n" +
+					"\t\tWHERE nombreCategoria like 'conductor'\n" +
+					"\t\t\tAND FechaBaja is null;");
+
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()){
+				Empleado empleado = new Empleado();
+				empleado.setIdEmpleado(resultSet.getInt(1));
+				empleado.setApellido(resultSet.getString(2));
+				empleado.setNombre(resultSet.getString(3));
+				list.add(empleado);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return list;
+	}
 
 }
