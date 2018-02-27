@@ -70,6 +70,7 @@ public class LoginController implements Initializable {
                 adminPanelStage.setTitle("LogiServ app - usuario: " + nombreUsuario + " conectado.");
 //                adminPanelStage.setMaximized(true);
                 PrincipalController controller = loader.getController();
+                controller.setPrimaryStage(adminPanelStage);
                 controller.setRootLayout(root);
                 controller.setHome();
                 // Show the scene containing the root layout.
