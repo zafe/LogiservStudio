@@ -5,6 +5,7 @@ import application.view.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -18,6 +19,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Logiserv Studio");
+        // Set the application icon.
+        this.primaryStage.getIcons().add(new Image("resources/logiserv-icon.png"));
+
         JDBCConnection.getInstanceConnection();
         initRootLayout();
     }
