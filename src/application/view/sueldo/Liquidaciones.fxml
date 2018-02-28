@@ -11,7 +11,7 @@
       <VBox alignment="CENTER_LEFT" layoutX="17.0" layoutY="14.0" prefHeight="476.0" prefWidth="665.0" spacing="10.0">
          <children>
             <Label text="Liquidaciones" />
-            <TableView fx:id="liquidacionTable" onMouseClicked="#cargarEmpleadosLiquidados" pickOnBounds="false" prefHeight="157.0" prefWidth="677.0">
+            <TableView fx:id="liquidacionTable" pickOnBounds="false" prefHeight="157.0" prefWidth="677.0">
                <columns>
                   <TableColumn fx:id="idLiquidacion" prefWidth="60.5" resizable="false" text="Nro" />
                   <TableColumn fx:id="fechaColumn" minWidth="0.0" prefWidth="138.5" text="Fecha" />
@@ -26,7 +26,7 @@
                </children>
             </HBox>
             <Label text="Empleados Liquidados" />
-            <TableView fx:id="empleadosTable" onMouseClicked="#cargarEmpleadosLiquidados" prefHeight="164.0" prefWidth="678.0">
+            <TableView fx:id="liqEmpleadosTable" prefHeight="164.0" prefWidth="678.0">
                <columns>
                   <TableColumn fx:id="legajoColumn" prefWidth="312.0" text="Legajo" />
                   <TableColumn fx:id="apellidoColumn" prefWidth="105.0" text="Apellido" />

@@ -50,7 +50,7 @@ public class ViajeEditController {
     @FXML
     private TextField brutoTextField;
     @FXML
-    private ComboBox<String> conductorCombo;
+    private ComboBox<Empleado> conductorCombo;
     @FXML
     private ComboBox<String> camionCombo;
     @FXML
@@ -77,7 +77,7 @@ public class ViajeEditController {
     private ObservableList<Empleado> conductorData = FXCollections.observableArrayList();
     private ObservableList<Camion> camionData = FXCollections.observableArrayList();
 
-    List<Empleado> conductoresList = conductorRepository.getEmpleadosByCategoriaEmpleado(2);// todo Hardcodeado
+    List<Empleado> conductoresList = conductorRepository.getConductores();
     List<Finca> fincasList = fincaRepository.view();
     List<Ingenio> ingeniosList = ingenioRepository.view();
     List<Camion> camionList = camionRepository.view();
@@ -140,10 +140,8 @@ public class ViajeEditController {
 
 
     public void setConductorComboBox(){
-        ObservableList<String> conList = FXCollections.observableArrayList();
-        conductorData = conductorRepository.getEmpleadosByCategoriaEmpleado(2);//TODO no hardcodear esto
-        for (Empleado conductor : conductoresList) conList.add(conductor.getNombre() + " " + conductor.getApellido());
-        conductorCombo.setItems(conList);
+        conductorData = conductorRepository.getConductores();
+        conductorCombo.setItems(conductorData);
     }
 
     private void setCamionComboBox(){

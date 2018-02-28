@@ -1,6 +1,7 @@
 package application.repository.sueldo;
 
 import application.database.JDBCConnection;
+import application.model.info.CategoriaEmpleado;
 import application.model.info.Empleado;
 import application.model.sueldo.LiquidacionEmpleado;
 import application.repository.info.EmpleadoRepository;
@@ -104,14 +105,15 @@ public class LiquidacionEmpleadoRepository {
      */
     public ObservableList<LiquidacionEmpleado> getLiqEmpleadoByIdLiq(int idLiquidacion){
         ObservableList<LiquidacionEmpleado> list = FXCollections.observableArrayList();
-        EmpleadoRepository empleadoRepository = new EmpleadoRepository();
-
         try {
             connection= JDBCConnection.getInstanceConnection();
-            preparedStatement = connection.prepareStatement("SELECT idLiquidacionEmpleado, fecha_liquidacion," +
-                    " importe_neto, total_haberes_remunerativos, total_haberes_no_remunerativos, total_retenciones," +
-                    " total_bruto, EMPLEADO_idEmpleado, inicio_periodo, fin_periodo, " +
-                    "LIQUIDACION_idLIQUIDACION FROM LIQUIDACION_EMPLEADO WHERE LIQUIDACION_idLIQUIDACION = ?;");
+            preparedStatement = connection.prepareStatement("SELECT idLiquidacionEmpleado, fecha_liquidacion, importe_neto, total_haberes_remunerativos, \n" +
+                    "\ttotal_haberes_no_remunerativos, total_retenciones, total_bruto, EMPLEADO_idEmpleado, CUIT,\n" +
+                    "\tCATEGORIA_EMPLEADO_idCategoriaEmpleado, NombreCategoria, Nombre, Apellido, FechaNacimiento, inicio_periodo, fin_periodo \n" +
+                    "\t\t\t\t\tFROM LIQUIDACION_EMPLEADO INNER JOIN EMPLEADO INNER JOIN CATEGORIA_EMPLEADO\n" +
+                    "\t\t\t\t\tON CATEGORIA_EMPLEADO_idCategoriaEmpleado = idCategoriaEmpleado AND \n" +
+                    "\t\t\t\t\tEMPLEADO_idEmpleado = idEmpleado \n" +
+                    "\t\t\t\t\tWHERE LIQUIDACION_idLIQUIDACION = ?");
             preparedStatement.setInt(1, idLiquidacion);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
@@ -123,18 +125,34 @@ public class LiquidacionEmpleadoRepository {
                 liquidacionEmpleado.setTotalHaberesNoRemunerativos(resultSet.getDouble("total_haberes_no_remunerativos"));
                 liquidacionEmpleado.setTotalRetenciones(resultSet.getDouble("total_retenciones"));
                 liquidacionEmpleado.setTotalBruto(resultSet.getDouble("total_bruto"));
-
-                Empleado empleado = new Empleado();
-                empleado = empleadoRepository.getEmpleadoById(resultSet.getInt("EMPLEADO_idEmpleado"));
-                liquidacionEmpleado.setEmpleado(empleado);
+                liquidacionEmpleado.setEmpleado(new Empleado(
+                        resultSet.getInt("EMPLEADO_idEmpleado"),
+                        resultSet.getString("Nombre"),
+                        resultSet.getString("Apellido"),
+                        resultSet.getString("CUIT"),
+                        resultSet.getString("FechaNacimiento"),
+                        null,
+                        new CategoriaEmpleado(resultSet.getInt("CATEGORIA_EMPLEADO_idCategoriaEmpleado"),
+                                resultSet.getString("NombreCategoria")),
+                        null,
+                        null
+                ));
                 liquidacionEmpleado.setInicioPeriodo(resultSet.getString("inicio_periodo"));
                 liquidacionEmpleado.setFinPeriodo(resultSet.getString("fin_periodo"));
                 list.add(liquidacionEmpleado);
+               /* System.out.println("-----------------------------------------------------------\n" +
+                        "id: " + liquidacionEmpleado.getId() + "\n neto: " + liquidacionEmpleado.getImporteNeto()
+                        + "\n fecha: " +liquidacionEmpleado.getFechaLiquidacion() + "\n THR: " + liquidacionEmpleado.getTotalHaberesRemunerativos()
+                        + "\n THNR: " +liquidacionEmpleado.getTotalHaberesNoRemunerativos() + "\n TR: " + liquidacionEmpleado.getTotalRetenciones()
+                        + "\n bruto: " + liquidacionEmpleado.getTotalBruto()
+                        + "\nEmpleado: " + liquidacionEmpleado.getEmpleado()
+                        + "\n\t categoria: " + liquidacionEmpleado.getEmpleado().getCategoriaEmpleado().getNombre()
+                        + "\n inicio: " + liquidacionEmpleado.getInicioPeriodo() + " - fin: " + liquidacionEmpleado.getFinPeriodo()
+                );*/
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return list;
     }
 

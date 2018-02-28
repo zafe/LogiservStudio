@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -31,11 +32,14 @@ public class PrincipalController {
     private TitledPane inicioTitledPane;
 	public void setRootLayout(BorderPane root){
 		this.rootLayout = root;
+
 	}
 
 	public void setPrimaryStage(Stage primary){
 		this.primaryStage = primary;
-	}
+        this.primaryStage.getIcons().add(new Image("resources/logiserv-icon.png"));
+
+    }
 
     //---------------MODULO VENTAS------------------------//
 

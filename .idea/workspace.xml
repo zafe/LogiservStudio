@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ad24a087-34e9-4c0a-89a3-9d660d897332" name="Default" comment="Diseño mejorado y ajustes a todas las ventanas del proyecto">
+    <list default="true" id="ad24a087-34e9-4c0a-89a3-9d660d897332" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/resources/logiserv-icon.png" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/application/repository/compra/FacturaCompraRepository.java" afterPath="$PROJECT_DIR$/src/application/repository/compra/FacturaCompraRepository.java" />
+      <change beforePath="$PROJECT_DIR$/src/application/Main.java" afterPath="$PROJECT_DIR$/src/application/Main.java" />
+      <change beforePath="$PROJECT_DIR$/src/application/model/sueldo/ConceptoCalculado.java" afterPath="$PROJECT_DIR$/src/application/model/sueldo/ConceptoCalculado.java" />
+      <change beforePath="$PROJECT_DIR$/src/application/model/sueldo/ConceptoSueldo.java" afterPath="$PROJECT_DIR$/src/application/model/sueldo/ConceptoSueldo.java" />
+      <change beforePath="$PROJECT_DIR$/src/application/reports/ReciboSueldo.jasper" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/application/reports/ReciboSueldo.jrxml" afterPath="$PROJECT_DIR$/src/application/reports/ReciboSueldo.jrxml" />
+      <change beforePath="$PROJECT_DIR$/src/application/repository/calculo/AcopladoRepository.java" afterPath="$PROJECT_DIR$/src/application/repository/calculo/AcopladoRepository.java" />
+      <change beforePath="$PROJECT_DIR$/src/application/repository/info/CategoriaEmpleadoRepository.java" afterPath="$PROJECT_DIR$/src/application/repository/info/CategoriaEmpleadoRepository.java" />
       <change beforePath="$PROJECT_DIR$/src/application/repository/info/EmpleadoRepository.java" afterPath="$PROJECT_DIR$/src/application/repository/info/EmpleadoRepository.java" />
+      <change beforePath="$PROJECT_DIR$/src/application/repository/sueldo/DetalleLiquidacionEmpleadoRepository.java" afterPath="$PROJECT_DIR$/src/application/repository/sueldo/DetalleLiquidacionEmpleadoRepository.java" />
+      <change beforePath="$PROJECT_DIR$/src/application/repository/sueldo/LiquidacionEmpleadoRepository.java" afterPath="$PROJECT_DIR$/src/application/repository/sueldo/LiquidacionEmpleadoRepository.java" />
       <change beforePath="$PROJECT_DIR$/src/application/repository/sueldo/LiquidacionRepository.java" afterPath="$PROJECT_DIR$/src/application/repository/sueldo/LiquidacionRepository.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/view/Register.fxml" afterPath="$PROJECT_DIR$/src/application/view/Register.fxml" />
-      <change beforePath="$PROJECT_DIR$/src/application/view/RegisterController.java" afterPath="$PROJECT_DIR$/src/application/view/RegisterController.java" />
-      <change beforePath="$PROJECT_DIR$/src/application/view/compra/cruds/ArticuloEdit.fxml" afterPath="$PROJECT_DIR$/src/application/view/compra/cruds/ArticuloEdit.fxml" />
-      <change beforePath="$PROJECT_DIR$/src/application/view/compra/cruds/StockEdit.fxml" afterPath="$PROJECT_DIR$/src/application/view/compra/cruds/StockEdit.fxml" />
+      <change beforePath="$PROJECT_DIR$/src/application/repository/venta/FacturaVentaRepository.java" afterPath="$PROJECT_DIR$/src/application/repository/venta/FacturaVentaRepository.java" />
+      <change beforePath="$PROJECT_DIR$/src/application/repository/venta/ViajeRepository.java" afterPath="$PROJECT_DIR$/src/application/repository/venta/ViajeRepository.java" />
+      <change beforePath="$PROJECT_DIR$/src/application/view/LoginController.java" afterPath="$PROJECT_DIR$/src/application/view/LoginController.java" />
+      <change beforePath="$PROJECT_DIR$/src/application/view/PrincipalController.java" afterPath="$PROJECT_DIR$/src/application/view/PrincipalController.java" />
+      <change beforePath="$PROJECT_DIR$/src/application/view/sueldo/Liquidaciones.fxml" afterPath="$PROJECT_DIR$/src/application/view/sueldo/Liquidaciones.fxml" />
       <change beforePath="$PROJECT_DIR$/src/application/view/sueldo/LiquidacionesController.java" afterPath="$PROJECT_DIR$/src/application/view/sueldo/LiquidacionesController.java" />
       <change beforePath="$PROJECT_DIR$/src/application/view/sueldo/cruds/LiquidacionSueldoController.java" afterPath="$PROJECT_DIR$/src/application/view/sueldo/cruds/LiquidacionSueldoController.java" />
+      <change beforePath="$PROJECT_DIR$/src/application/view/venta/cruds/ViajeEdit.fxml" afterPath="$PROJECT_DIR$/src/application/view/venta/cruds/ViajeEdit.fxml" />
+      <change beforePath="$PROJECT_DIR$/src/application/view/venta/cruds/ViajeEditController.java" afterPath="$PROJECT_DIR$/src/application/view/venta/cruds/ViajeEditController.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,21 +38,51 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="LiquidacionSueldoController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/application/view/sueldo/cruds/LiquidacionSueldoController.java">
+      <file leaf-file-name="LiquidacionEmpleadoRepository.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/application/repository/sueldo/LiquidacionEmpleadoRepository.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="262" column="37" lean-forward="false" selection-start-line="262" selection-start-column="37" selection-end-line="263" selection-end-column="41" />
+            <state relative-caret-position="1037">
+              <caret line="62" column="5" lean-forward="false" selection-start-line="62" selection-start-column="5" selection-end-line="62" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LiquidacionRepository.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/application/repository/sueldo/LiquidacionRepository.java">
+      <file leaf-file-name="AbstractJasperReports.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/application/reports/AbstractJasperReports.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1360">
-              <caret line="91" column="0" lean-forward="false" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
+            <state relative-caret-position="527">
+              <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ControlStockController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/application/view/compra/ControlStockController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="62">
+              <caret line="81" column="42" lean-forward="true" selection-start-line="81" selection-start-column="42" selection-end-line="81" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RegisterController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/application/view/RegisterController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="646">
+              <caret line="59" column="29" lean-forward="false" selection-start-line="59" selection-start-column="29" selection-end-line="59" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EmpleadoRepository.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/application/repository/info/EmpleadoRepository.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3672">
+              <caret line="263" column="1" lean-forward="false" selection-start-line="263" selection-start-column="1" selection-end-line="263" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -49,8 +91,8 @@
       <file leaf-file-name="FacturaCompraRepository.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/application/repository/compra/FacturaCompraRepository.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1530">
-              <caret line="100" column="0" lean-forward="false" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
+            <state relative-caret-position="1513">
+              <caret line="99" column="5" lean-forward="false" selection-start-line="85" selection-start-column="4" selection-end-line="99" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -100,13 +142,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/application/view/venta/CargarCamionController.java" />
-        <option value="$PROJECT_DIR$/src/application/repository/info/CamionRepository.java" />
-        <option value="$PROJECT_DIR$/src/application/view/compra/cruds/StockEditController.java" />
-        <option value="$PROJECT_DIR$/src/application/view/sueldo/SueldoLiquidarSueldo.fxml" />
-        <option value="$PROJECT_DIR$/src/application/view/sueldo/SueldoLiquidarSueldoController.java" />
-        <option value="$PROJECT_DIR$/src/application/model/sueldo/Liquidaciones.java" />
-        <option value="$PROJECT_DIR$/src/application/model/sueldo/LiquidacionEmpleado.java" />
         <option value="$PROJECT_DIR$/src/application/repository/sueldo/LiquidacionesRepository.java" />
         <option value="$PROJECT_DIR$/src/application/view/info/cruds/UsuarioEditDialogController.java" />
         <option value="$PROJECT_DIR$/src/application/comunes/Alerta.java" />
@@ -126,7 +161,6 @@
         <option value="$PROJECT_DIR$/src/application/view/info/cruds/EmpleadoEditDialogController.java" />
         <option value="$PROJECT_DIR$/src/application/view/info/AdministrarEmpleadosController.java" />
         <option value="$PROJECT_DIR$/src/application/view/info/DesempleadosController.java" />
-        <option value="$PROJECT_DIR$/src/application/view/PrincipalController.java" />
         <option value="$PROJECT_DIR$/src/application/repository/venta/ViajeRepository.java" />
         <option value="$PROJECT_DIR$/src/application/view/inicio/HomeController.java" />
         <option value="$PROJECT_DIR$/src/application/view/css/theme.css" />
@@ -142,15 +176,23 @@
         <option value="$PROJECT_DIR$/src/application/reports/JasperFX.java" />
         <option value="$PROJECT_DIR$/src/application/view/calculo/cruds/IngenioEditController.java" />
         <option value="$PROJECT_DIR$/src/application/view/calculo/cruds/FincaEditController.java" />
-        <option value="$PROJECT_DIR$/src/application/view/LoginController.java" />
         <option value="$PROJECT_DIR$/src/application/reports/AbstractJasperReports.java" />
-        <option value="$PROJECT_DIR$/src/application/repository/info/EmpleadoRepository.java" />
         <option value="$PROJECT_DIR$/src/application/view/venta/cruds/ViajeEditController.java" />
         <option value="$PROJECT_DIR$/src/application/view/RegisterController.java" />
-        <option value="$PROJECT_DIR$/src/application/view/sueldo/LiquidacionesController.java" />
         <option value="$PROJECT_DIR$/src/application/repository/compra/FacturaCompraRepository.java" />
-        <option value="$PROJECT_DIR$/src/application/repository/sueldo/LiquidacionRepository.java" />
+        <option value="$PROJECT_DIR$/src/application/model/sueldo/ConceptoSueldo.java" />
+        <option value="$PROJECT_DIR$/src/application/model/sueldo/ConceptoCalculado.java" />
         <option value="$PROJECT_DIR$/src/application/view/sueldo/cruds/LiquidacionSueldoController.java" />
+        <option value="$PROJECT_DIR$/src/application/repository/info/CategoriaEmpleadoRepository.java" />
+        <option value="$PROJECT_DIR$/src/application/repository/sueldo/DetalleLiquidacionEmpleadoRepository.java" />
+        <option value="$PROJECT_DIR$/src/application/repository/sueldo/LiquidacionRepository.java" />
+        <option value="$PROJECT_DIR$/src/application/view/sueldo/LiquidacionesController.java" />
+        <option value="$PROJECT_DIR$/src/application/repository/sueldo/LiquidacionEmpleadoRepository.java" />
+        <option value="$PROJECT_DIR$/src/application/Main.java" />
+        <option value="$PROJECT_DIR$/src/application/view/PrincipalController.java" />
+        <option value="$PROJECT_DIR$/src/application/view/LoginController.java" />
+        <option value="$PROJECT_DIR$/src/application/repository/info/EmpleadoRepository.java" />
+        <option value="$PROJECT_DIR$/src/application/view/sueldo/Liquidaciones.fxml" />
       </list>
     </option>
   </component>
@@ -185,7 +227,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -215,7 +256,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane">
         <subPane>
           <expand>
@@ -227,25 +267,6 @@
               <item name="LogiservStudio" type="58d84e3e:PackageViewProjectNode" />
               <item name="LogiservStudio" type="616d4139:PackageViewModuleNode" />
               <item name="application" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="LogiservStudio" type="58d84e3e:PackageViewProjectNode" />
-              <item name="LogiservStudio" type="616d4139:PackageViewModuleNode" />
-              <item name="application" type="1f31426a:PackageElementNode" />
-              <item name="reports" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="LogiservStudio" type="58d84e3e:PackageViewProjectNode" />
-              <item name="LogiservStudio" type="616d4139:PackageViewModuleNode" />
-              <item name="application" type="1f31426a:PackageElementNode" />
-              <item name="repository" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="LogiservStudio" type="58d84e3e:PackageViewProjectNode" />
-              <item name="LogiservStudio" type="616d4139:PackageViewModuleNode" />
-              <item name="application" type="1f31426a:PackageElementNode" />
-              <item name="repository" type="1f31426a:PackageElementNode" />
-              <item name="compra" type="1f31426a:PackageElementNode" />
             </path>
             <path>
               <item name="LogiservStudio" type="58d84e3e:PackageViewProjectNode" />
@@ -272,7 +293,9 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -290,8 +313,10 @@
     </force-push-targets>
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Isa\Documents\GitHub\LogiservStudio\src\resources" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="application.repository.info" />
+      <recent name="application.model.info.Familiar" />
+      <recent name="application.comunes" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Isa\Documents\GitHub\LogiservStudio\src\resources" />
@@ -305,10 +330,8 @@
       <recent name="application.view.venta.cruds" />
       <recent name="application.view.info.cruds" />
     </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="application.repository.info" />
-      <recent name="application.model.info.Familiar" />
-      <recent name="application.comunes" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Isa\Documents\GitHub\LogiservStudio\src\resources" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -597,7 +620,35 @@
       <option name="project" value="LOCAL" />
       <updated>1519572233342</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Cambios en Liquidacion">
+      <created>1519572386910</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1519572386910</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Cambios en Liquidacion">
+      <created>1519678445707</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1519678445707</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Liquidacion actualizada">
+      <created>1519709522010</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1519709522010</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Icono del sistema agregado a ventanas de login y principal, resto de ventanas mas adelante">
+      <created>1519710312225</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1519710312225</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TodoView">
@@ -610,35 +661,52 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1376" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32730263" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4194079" sideWeight="0.50303954" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41935483" sideWeight="0.4969605" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.4969605" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.41887593" sideWeight="0.4969605" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32873806" sideWeight="0.4969605" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28343466" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28177083" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Learn" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39967105" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4194079" sideWeight="0.50303954" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39967105" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32730263" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32978722" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" x="0" y="0" width="588" height="544" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4161184" sideWeight="0.4969605" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.4969605" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19756839" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -691,7 +759,10 @@
     <MESSAGE value="mejora en el viewer para javaFX en reportes" />
     <MESSAGE value="optimizacion de imports en todas las clases, funcionalidad de reportes para todos los reportes y reportes de stock funcionales" />
     <MESSAGE value="avances en liquidacion" />
-    <option name="LAST_COMMIT_MESSAGE" value="avances en liquidacion" />
+    <MESSAGE value="Cambios en Liquidacion" />
+    <MESSAGE value="Liquidacion actualizada" />
+    <MESSAGE value="Icono del sistema agregado a ventanas de login y principal, resto de ventanas mas adelante" />
+    <option name="LAST_COMMIT_MESSAGE" value="Icono del sistema agregado a ventanas de login y principal, resto de ventanas mas adelante" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -704,58 +775,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/application/view/venta/cruds/ClienteEdit.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/view/venta/cruds/ClienteEditController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-459">
-          <caret line="35" column="9" lean-forward="false" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/view/venta/VentaClienteController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="60" column="25" lean-forward="false" selection-start-line="60" selection-start-column="25" selection-end-line="60" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/repository/venta/ClienteRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="407">
-          <caret line="81" column="74" lean-forward="false" selection-start-line="81" selection-start-column="74" selection-end-line="81" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/repository/compra/ProveedorRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="79" column="62" lean-forward="false" selection-start-line="74" selection-start-column="21" selection-end-line="79" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/model/info/Empleado.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="25" column="16" lean-forward="false" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/view/compra/cruds/FacturaEditController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="152" column="44" lean-forward="false" selection-start-line="152" selection-start-column="44" selection-end-line="152" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/application/view/info/cruds/EmpleadoEditDialogController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="155">
@@ -815,13 +834,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/view/PrincipalController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-34">
-          <caret line="170" column="41" lean-forward="true" selection-start-line="170" selection-start-column="41" selection-end-line="170" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/application/view/inicio/HomeController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="373">
@@ -860,27 +872,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_141/javafx-src.zip!/com/sun/javafx/tk/quantum/QuantumToolkit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="1145" column="0" lean-forward="false" selection-start-line="1145" selection-start-column="0" selection-end-line="1145" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_141/javafx-src.zip!/com/sun/javafx/application/PlatformImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="101">
-          <caret line="481" column="0" lean-forward="false" selection-start-line="481" selection-start-column="0" selection-end-line="481" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_141/javafx-src.zip!/javafx/application/Platform.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="167" column="0" lean-forward="false" selection-start-line="167" selection-start-column="0" selection-end-line="167" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_141/javafx-src.zip!/com/sun/javafx/tk/quantum/QuantumToolkit.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_141/javafx-src.zip!/com/sun/javafx/application/PlatformImpl.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_141/javafx-src.zip!/javafx/application/Platform.java" />
     <entry file="file://$PROJECT_DIR$/src/application/repository/venta/OrganizacionRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -965,14 +959,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/view/LoginController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="71" column="42" lean-forward="false" selection-start-line="71" selection-start-column="42" selection-end-line="71" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/application/reports/JasperFX.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1071">
@@ -982,22 +968,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/reports/AbstractJasperReports.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="15" column="3" lean-forward="false" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="3" />
+        <state relative-caret-position="527">
+          <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/view/compra/ControlStockController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="122" column="8" lean-forward="false" selection-start-line="122" selection-start-column="8" selection-end-line="123" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/repository/info/EmpleadoRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="132" column="53" lean-forward="true" selection-start-line="132" selection-start-column="53" selection-end-line="132" selection-end-column="53" />
+        <state relative-caret-position="62">
+          <caret line="81" column="42" lean-forward="true" selection-start-line="81" selection-start-column="42" selection-end-line="81" selection-end-column="42" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1016,21 +997,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/repository/sueldo/LiquidacionesRepository.java" />
-    <entry file="file://$PROJECT_DIR$/src/application/view/sueldo/Liquidaciones.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-765">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/application/view/RegisterController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="114" column="0" lean-forward="false" selection-start-line="114" selection-start-column="0" selection-end-line="114" selection-end-column="0" />
+        <state relative-caret-position="646">
+          <caret line="59" column="29" lean-forward="false" selection-start-line="59" selection-start-column="29" selection-end-line="59" selection-end-column="29" />
           <folding />
         </state>
       </provider>
@@ -1039,40 +1009,125 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/view/sueldo/LiquidacionesController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1">
-          <caret line="133" column="0" lean-forward="false" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/repository/compra/FacturaCompraRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1530">
-          <caret line="100" column="0" lean-forward="false" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
+        <state relative-caret-position="1513">
+          <caret line="99" column="5" lean-forward="false" selection-start-line="85" selection-start-column="4" selection-end-line="99" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/model/sueldo/ConceptoCalculado.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="458">
+          <caret line="56" column="0" lean-forward="false" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/model/sueldo/ConceptoSueldo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="305">
+          <caret line="113" column="39" lean-forward="false" selection-start-line="113" selection-start-column="38" selection-end-line="113" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/repository/sueldo/DetalleLiquidacionEmpleadoRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="358">
+          <caret line="69" column="76" lean-forward="false" selection-start-line="69" selection-start-column="76" selection-end-line="69" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/model/sueldo/LiquidacionEmpleado.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="46" column="16" lean-forward="false" selection-start-line="46" selection-start-column="16" selection-end-line="46" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/repository/info/CategoriaEmpleadoRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="100" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="104" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/repository/sueldo/LiquidacionEmpleadoRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1037">
+          <caret line="62" column="5" lean-forward="false" selection-start-line="62" selection-start-column="5" selection-end-line="62" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/repository/sueldo/LiquidacionRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1360">
-          <caret line="91" column="0" lean-forward="false" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
+        <state relative-caret-position="119">
+          <caret line="33" column="47" lean-forward="true" selection-start-line="33" selection-start-column="47" selection-end-line="33" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/view/sueldo/LiquidacionesController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="48" column="36" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="152" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/view/sueldo/cruds/LiquidacionSueldoController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="262" column="37" lean-forward="false" selection-start-line="262" selection-start-column="37" selection-end-line="263" selection-end-column="41" />
+        <state relative-caret-position="135">
+          <caret line="426" column="24" lean-forward="true" selection-start-line="426" selection-start-column="24" selection-end-line="426" selection-end-column="24" />
+          <folding>
+            <element signature="e#3674#3675#0" expanded="false" />
+            <element signature="e#3708#3709#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-16">
+          <caret line="38" column="30" lean-forward="false" selection-start-line="38" selection-start-column="30" selection-end-line="38" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/view/PrincipalController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/view/LoginController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="398">
+          <caret line="77" column="25" lean-forward="false" selection-start-line="77" selection-start-column="25" selection-end-line="77" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/view/sueldo/Liquidaciones.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="53" column="13" lean-forward="false" selection-start-line="53" selection-start-column="13" selection-end-line="53" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/repository/info/EmpleadoRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3672">
+          <caret line="263" column="1" lean-forward="false" selection-start-line="263" selection-start-column="1" selection-end-line="263" selection-end-column="1" />
           <folding />
         </state>
       </provider>

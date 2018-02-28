@@ -17,86 +17,81 @@
 		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
 	</parameter>
 	<queryString language="SQL">
-		<![CDATA[SELECT modelofinal.liquidacion_empleado.total_bruto,
-	modelofinal.liquidacion_empleado.total_haberes_remunerativos,
-	modelofinal.liquidacion_empleado.importe_neto,
-	modelofinal.liquidacion_empleado.`idLiquidacionEmpleado`,
-	modelofinal.liquidacion_empleado.total_retenciones,
-	modelofinal.liquidacion_empleado.fin_periodo,
-	modelofinal.liquidacion_empleado.total_haberes_no_remunerativos,
-	modelofinal.liquidacion_empleado.fecha_liquidacion,
-	modelofinal.liquidacion_empleado.inicio_periodo,
-	modelofinal.detalle_liquidacion_empleado.monto, 
-	modelofinal.concepto_sueldo.descripcion,
-	modelofinal.concepto_sueldo.tipo_concepto,
-	CONCAT(modelofinal.empleado.`Apellido`, ", ",	modelofinal.empleado.`Nombre`) AS nombreCompleto,
-	modelofinal.empleado.`idEmpleado`,
-	modelofinal.categoria_empleado.`NombreCategoria` 
-FROM modelofinal.liquidacion_empleado,  modelofinal.detalle_liquidacion_empleado,  modelofinal.concepto_sueldo , modelofinal.empleado,   modelofinal.categoria_empleado 
-WHERE  modelofinal.detalle_liquidacion_empleado.`LiquidacionEmpleado_idLiquidacionEmpleado` = modelofinal.liquidacion_empleado.`idLiquidacionEmpleado` 
-AND  modelofinal.detalle_liquidacion_empleado.`CONCEPTO_SUELDO_idCodigoConcepto`=  modelofinal.concepto_sueldo.`idCodigoConcepto` 
-AND  modelofinal.liquidacion_empleado.`EMPLEADO_idEmpleado` = modelofinal.empleado.`idEmpleado` 
-AND   modelofinal.empleado.`CATEGORIA_EMPLEADO_idCategoriaEmpleado` =modelofinal.categoria_empleado.`idCategoriaEmpleado` 
-AND  modelofinal.liquidacion_empleado.`LIQUIDACION_idLIQUIDACION` =$P{idLiquidacion}]]>
+		<![CDATA[SELECT idLiquidacionEmpleado, fecha_liquidacion, importe_neto, total_haberes_remunerativos, 
+	total_haberes_no_remunerativos, total_retenciones, total_bruto, EMPLEADO_idEmpleado, CUIT,
+	CATEGORIA_EMPLEADO_idCategoriaEmpleado, NombreCategoria,
+	 CONCAT(Apellido, ", ", Nombre) AS nombreCompleto, 
+	FechaNacimiento, inicio_periodo, fin_periodo 
+					FROM LIQUIDACION_EMPLEADO 
+					INNER JOIN EMPLEADO
+						ON EMPLEADO_idEmpleado = idEmpleado
+					INNER JOIN CATEGORIA_EMPLEADO
+						ON CATEGORIA_EMPLEADO_idCategoriaEmpleado = idCategoriaEmpleado			 
+					WHERE LIQUIDACION_idLIQUIDACION =$P{idLiquidacion}]]>
 	</queryString>
-	<field name="total_bruto" class="java.lang.Double">
-		<property name="com.jaspersoft.studio.field.label" value="total_bruto"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
-	</field>
-	<field name="total_haberes_remunerativos" class="java.lang.Double">
-		<property name="com.jaspersoft.studio.field.label" value="total_haberes_remunerativos"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
-	</field>
-	<field name="importe_neto" class="java.lang.Double">
-		<property name="com.jaspersoft.studio.field.label" value="importe_neto"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
-	</field>
 	<field name="idLiquidacionEmpleado" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="idLiquidacionEmpleado"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
-	</field>
-	<field name="total_retenciones" class="java.lang.Double">
-		<property name="com.jaspersoft.studio.field.label" value="total_retenciones"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
-	</field>
-	<field name="fin_periodo" class="java.sql.Date">
-		<property name="com.jaspersoft.studio.field.label" value="fin_periodo"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
-	</field>
-	<field name="total_haberes_no_remunerativos" class="java.lang.Double">
-		<property name="com.jaspersoft.studio.field.label" value="total_haberes_no_remunerativos"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
 	</field>
 	<field name="fecha_liquidacion" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.label" value="fecha_liquidacion"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
 	</field>
-	<field name="inicio_periodo" class="java.sql.Date">
-		<property name="com.jaspersoft.studio.field.label" value="inicio_periodo"/>
+	<field name="importe_neto" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="importe_neto"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
 	</field>
-	<field name="monto" class="java.lang.Double">
-		<property name="com.jaspersoft.studio.field.label" value="monto"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="detalle_liquidacion_empleado"/>
+	<field name="total_haberes_remunerativos" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="total_haberes_remunerativos"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
 	</field>
-	<field name="descripcion" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="descripcion"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="concepto_sueldo"/>
+	<field name="total_haberes_no_remunerativos" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="total_haberes_no_remunerativos"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
 	</field>
-	<field name="tipo_concepto" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="tipo_concepto"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="concepto_sueldo"/>
+	<field name="total_retenciones" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="total_retenciones"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
 	</field>
-	<field name="nombreCompleto" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="nombreCompleto"/>
+	<field name="total_bruto" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="total_bruto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
 	</field>
-	<field name="idEmpleado" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.label" value="idEmpleado"/>
+	<field name="EMPLEADO_idEmpleado" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="EMPLEADO_idEmpleado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
+	</field>
+	<field name="CUIT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CUIT"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="empleado"/>
+	</field>
+	<field name="CATEGORIA_EMPLEADO_idCategoriaEmpleado" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="CATEGORIA_EMPLEADO_idCategoriaEmpleado"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="empleado"/>
 	</field>
 	<field name="NombreCategoria" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="NombreCategoria"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="categoria_empleado"/>
+	</field>
+	<field name="Nombre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Nombre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="empleado"/>
+	</field>
+	<field name="Apellido" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="Apellido"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="empleado"/>
+	</field>
+	<field name="FechaNacimiento" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="FechaNacimiento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="empleado"/>
+	</field>
+	<field name="inicio_periodo" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="inicio_periodo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
+	</field>
+	<field name="fin_periodo" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="fin_periodo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
 	</field>
 	<background>
 		<band splitType="Stretch"/>

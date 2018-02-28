@@ -37,7 +37,6 @@ public class LiquidacionRepository {
                 liquidaciones.add(liquidacion);
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -114,10 +113,10 @@ public class LiquidacionRepository {
                     preparedStatement.setInt(4,conceptoCalculado.getIdConceptoSueldo());//todo funcionara???
                     System.out.println("SQL CONCEPTO CALCULADO: " + preparedStatement);
                     preparedStatement.executeUpdate();
-                   // resultSet = preparedStatement.executeQuery("SELECT LAST_INSERT_ID()");
+                    // resultSet = preparedStatement.executeQuery("SELECT LAST_INSERT_ID()");
                     //if (resultSet.next()){
                     //    conceptoCalculado.setId(resultSet.getInt(1));
-                     //   conceptoCalculado.setIdConceptoSueldo();
+                    //   conceptoCalculado.setIdConceptoSueldo();
                     // }
                 } catch (SQLException e) {
                     // TODO Auto-generated catch block
