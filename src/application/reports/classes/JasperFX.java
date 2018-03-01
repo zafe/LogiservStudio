@@ -1,4 +1,4 @@
-package application.reports;
+package application.reports.classes;
 
 import javafx.animation.AnimationTimer;
 import javafx.collections.FXCollections;

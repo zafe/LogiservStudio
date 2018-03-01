@@ -4,7 +4,7 @@ import application.Main;
 import application.comunes.Alerta;
 import application.model.compra.Articulo;
 import application.model.compra.CategoriaArticulo;
-import application.reports.AbstractJasperReports;
+import application.reports.classes.AbstractJasperReports;
 import application.repository.compra.ArticuloRepository;
 import application.repository.compra.CategoriaArticuloRepository;
 import application.view.compra.cruds.StockEditController;

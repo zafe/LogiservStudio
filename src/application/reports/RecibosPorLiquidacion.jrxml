@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RecibosPorLiquidacion" pageWidth="420" pageHeight="595" columnWidth="380" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f48afb85-e5c4-43ee-b03b-0e173a4df7c0">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="logiserv"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="idLiquidacion" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[select idLiquidacionEmpleado
+ from liquidacion_empleado
+ where LIQUIDACION_idLIQUIDACION=$P{idLiquidacion}]]>
+	</queryString>
+	<field name="idLiquidacionEmpleado" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="idLiquidacionEmpleado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="18" splitType="Stretch"/>
+	</title>
+	<detail>
+		<band height="241" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="380" height="241" uuid="b2be5f25-3f9a-4760-90c4-94908925964e"/>
+				<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+				<subreportParameter name="idLiquidacionEmpleado">
+					<subreportParameterExpression><![CDATA[$F{idLiquidacionEmpleado}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["src/application/reports/ReciboSueldo.jasper"]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement x="280" y="0" width="100" height="13" uuid="086ac574-22a5-47ea-abe2-2b7cbb659d33"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{idLiquidacionEmpleado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="140" y="1" width="100" height="22" uuid="8dde49ce-f815-4d03-9afe-33f6959fa055"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

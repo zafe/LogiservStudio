@@ -47,7 +47,7 @@
                         <Insets />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="imprimirReciboDeEmpleado" mnemonicParsing="false" text="Imprimir recibo sueldo" />
+                  <Button fx:id="imprimirReciboDeEmpleado" mnemonicParsing="false" onAction="#handleImprimirReciboSueldo" text="Imprimir recibo sueldo" />
                </children>
             </HBox>
          </children>
