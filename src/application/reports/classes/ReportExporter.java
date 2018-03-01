@@ -1,4 +1,4 @@
-package application.reports;
+package application.reports.classes;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;

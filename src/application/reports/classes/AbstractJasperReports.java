@@ -1,7 +1,6 @@
-package application.reports;
+package application.reports.classes;
 
 import application.database.JDBCConnection;
-import com.sun.javafx.collections.MappingChange;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
