@@ -54,7 +54,7 @@
 			<frame>
 				<reportElement stretchType="ElementGroupBottom" mode="Opaque" x="-20" y="-20" width="595" height="140" backcolor="#006699" uuid="2a464480-7866-4aa1-87e4-1d953cafb4a8"/>
 				<textField isStretchWithOverflow="true">
-					<reportElement x="192" y="25" width="210" height="90" forecolor="#FFFFFF" uuid="589cd6be-6cb4-4c58-b067-af24da0f1d3d">
+					<reportElement x="163" y="0" width="210" height="90" forecolor="#FFFFFF" uuid="589cd6be-6cb4-4c58-b067-af24da0f1d3d">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9ef7ebef-557c-4eb9-a6f6-fd203f3d15a3"/>
 					</reportElement>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
