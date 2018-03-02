@@ -142,9 +142,9 @@ public class LiquidacionesController implements Initializable{
 
 	@FXML
 	private void handleImprimirRecibos(){
-		System.out.println("se imprimieron recibos de sueldo");
 		int idLiquidacion = liquidacionTable.getSelectionModel().getSelectedItem().getId();
-		AbstractJasperReports.createReport("src\\application\\reports\\RecibosPorLiquidacion.jasper",
+		System.out.println("se imprimieron recibos de sueldo "+ idLiquidacion);
+		AbstractJasperReports.createReport("src\\application\\reports\\TodosLosRecibosDeUnaLiquidacion.jasper",
 				"idLiquidacion", idLiquidacion);
 		AbstractJasperReports.showViewer();
 	}

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RecibosPorLiquidacion" pageWidth="380" pageHeight="555" columnWidth="380" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="f48afb85-e5c4-43ee-b03b-0e173a4df7c0">
-	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="modelofinal"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TodosLosRecibosDeUnaLiquidacion" pageWidth="420" pageHeight="595" columnWidth="380" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="629d93d4-859a-4d60-add8-515ef1accfe1">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="logiserv"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
@@ -13,7 +13,7 @@
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="idLiquidacion" class="java.lang.Integer"/>
-	<queryString language="SQL">
+	<queryString>
 		<![CDATA[select idLiquidacionEmpleado
  from liquidacion_empleado
  where LIQUIDACION_idLIQUIDACION=$P{idLiquidacion}]]>
@@ -22,22 +22,22 @@
 		<property name="com.jaspersoft.studio.field.label" value="idLiquidacionEmpleado"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
 	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
 	<detail>
-		<band height="451" splitType="Stretch">
+		<band height="554" splitType="Stretch">
 			<subreport>
-				<reportElement x="0" y="0" width="380" height="420" uuid="d66b32f5-1db8-429b-bd43-a86a3e02239c"/>
-				<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
-				<subreportParameter name="el id de la liquidacion del empleado">
+				<reportElement x="0" y="0" width="380" height="554" uuid="78d80424-229a-4cbb-98f8-718ab906e1c6"/>
+				<subreportParameter name="idLiquidacion">
 					<subreportParameterExpression><![CDATA[$F{idLiquidacionEmpleado}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA["src/application/reports/RecibosPorLiquidacion.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["src/application/reports/ReciboSueldo.jasper"]]></subreportExpression>
 			</subreport>
-			<textField>
-				<reportElement x="139" y="421" width="100" height="30" uuid="99000d50-9734-44e2-877e-c3e643b8354c"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
 		</band>
 	</detail>
 </jasperReport>

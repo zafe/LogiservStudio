@@ -140,12 +140,12 @@ public class JasperFX {
         canvas.heightProperty().bind(sbVertical.heightProperty());
         canvas.widthProperty().bind(sbHorizontal.widthProperty());
 
-        Button btnNext = new Button("Next");
-        Button btnPrev = new Button("Prev");
-        Button btnLast = new Button("Last");
-        Button btnFirst = new Button("First");
-        Button btnSave = new Button("Save");
-        Button btnPrint = new Button("Print");
+        Button btnNext = new Button("Siguiente");
+        Button btnPrev = new Button("Anterior");
+        Button btnLast = new Button("Ultimo");
+        Button btnFirst = new Button("Primero");
+        Button btnSave = new Button("Guardar");
+        Button btnPrint = new Button("Imprimir");
 
         btnPrint.setOnAction(ae -> printReport());
         btnSave.setOnAction(ae -> saveReport());
