@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.chrono.HijrahChronology;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -51,7 +50,6 @@ public class RegisterController implements Initializable {
     @FXML
     private Button registrarButton;
 
-    private Stage owner;
     private Stage dialogStage;
 
     private CategoriaEmpleadoRepository categoriaEmpleadoRepository = new CategoriaEmpleadoRepository();
@@ -113,9 +111,6 @@ public class RegisterController implements Initializable {
         cargarCategorias();
         cargarLocalidades();
 
-    }
-    public void setOwner(Stage owner){
-        this.owner = owner;
     }
 
     public void setDialogStage(Stage dialogStage) {

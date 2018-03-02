@@ -65,7 +65,7 @@ public class CategoriaEmpleadoEditController {
 	        String errorMessage = "";
 
 	        if (nombreCategoriaField.getText() == null || nombreCategoriaField.getText().length() == 0) {
-	            errorMessage += "No valid Category name!\n";
+	            errorMessage += "No se ingresó una categoria válida\n";
 	        }
 	        if (errorMessage.length() == 0) {
 	            return true;
