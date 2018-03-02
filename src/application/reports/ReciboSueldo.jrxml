@@ -167,7 +167,7 @@
 					<subreportParameter name="idLiquidacion">
 						<subreportParameterExpression><![CDATA[$P{idLiquidacion}]]></subreportParameterExpression>
 					</subreportParameter>
-					<dataSourceExpression><![CDATA[$P{REPORT_DATA_SOURCE}]]></dataSourceExpression>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression><![CDATA["src/application/reports/DetalleLiquidacion.jasper"]]></subreportExpression>
 				</subreport>
 			</frame>
@@ -227,7 +227,7 @@
 			<textField>
 				<reportElement x="319" y="22" width="60" height="13" uuid="7b0222f2-2d88-44c3-9bcd-2dd38a484394"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{total_bruto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{neto}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnFooter>

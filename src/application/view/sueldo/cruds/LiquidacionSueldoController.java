@@ -1,5 +1,6 @@
 package application.view.sueldo.cruds;
 
+import application.comunes.Alerta;
 import application.model.info.CategoriaEmpleado;
 import application.model.info.Empleado;
 import application.model.sueldo.ConceptoCalculado;
@@ -60,7 +61,6 @@ public class LiquidacionSueldoController implements Initializable {
 
     @FXML
     private TableView<ConceptoSueldo> novedadesTableView;
-    //    @FXML
     @FXML
     private TableColumn<ConceptoSueldo, String> codigoColumn;
     @FXML
@@ -433,11 +433,40 @@ public class LiquidacionSueldoController implements Initializable {
         }
 
     }
+    private boolean validarFechas(){
+        boolean isOkDates = false;
+        if (desdeDatePicker.getValue() != null || hastaDatePicker.getValue() != null){
+            java.util.Date input = new Date();
+            LocalDate actual = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            if ( desdeDatePicker.getValue().compareTo(hastaDatePicker.getValue()) <= 0 &&
+                    hastaDatePicker.getValue().compareTo(actual) <= 0){
+                isOkDates =true;
+            }
+        }
+        return isOkDates;
+    }
 
+    private boolean isInputValid() {
+        String errorMessage = "";
+        if (novedadesTableView.getItems().isEmpty())
+            errorMessage += "No se selecciono ningun empleado a liquidar";
+        if (!validarFechas())
+            errorMessage += "\nFechas inválidas: \n Las fechas ingresadas no pueden superar a la fecha actual \n Fecha Desde debe ser menor a Fecha Hasta";
+        if (errorMessage.length() == 0) {
+            return true;
+        } else {
+            Alerta.alertaError("Datos inválidos", errorMessage);
+            return false;
+        }
+    }
     @FXML
     public void handleOk(){
-        liquidarEmpleados();
-        owner.close();
+        //Valida que las fechas se ingresen correctamente
+        if (isInputValid()) {
+            liquidarEmpleados();
+            owner.close();
+        }
+
     }
 
 
