@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+
 <AnchorPane prefHeight="445.0" prefWidth="627.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.compra.ArticulosController">
   <children>
 <VBox alignment="CENTER_LEFT" layoutX="20.0" prefHeight="445.0" prefWidth="643.0" spacing="10.0">
@@ -23,7 +27,6 @@
       <children>
         <Button fx:id="buttonNew" alignment="CENTER" mnemonicParsing="false" onAction="#handleNew" text="Nuevo Artículo" />
         <Button fx:id="buttonUpdate" alignment="CENTER" mnemonicParsing="false" onAction="#handleUpdate" text="Editar Artículo" />
-        <Button fx:id="buttonDelete" alignment="CENTER" mnemonicParsing="false" onAction="#handleDelete" text="Eliminar Artículo" />
       </children>
       <padding>
         <Insets top="30.0" />
