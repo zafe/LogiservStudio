@@ -1,6 +1,7 @@
 package application.view;
 
 import application.Main;
+import application.model.info.Usuario;
 import application.view.calculo.*;
 import application.view.compra.*;
 import application.view.info.*;
@@ -13,13 +14,18 @@ import application.view.venta.FacturacionController;
 import application.view.venta.VentaClienteController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.swing.text.Style;
 import java.io.IOException;
 
 public class PrincipalController {
@@ -30,7 +36,53 @@ public class PrincipalController {
 	private Accordion modulosAccordion;
     @FXML
     private TitledPane inicioTitledPane;
-	public void setRootLayout(BorderPane root){
+    @FXML
+    private Label usuarioLabel;
+    @FXML
+    private Hyperlink cerrarSesion;
+
+    private Usuario userOn;
+
+    @FXML
+    private void handleCerrarSesion(){
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/Login.fxml"));
+            BorderPane page = loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Acceso a LogiServ App");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+
+            LoginController controller = loader.getController();
+
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.show();
+
+            //Cierro la ventana de login
+            Stage stage = (Stage) primaryStage.getScene().getWindow();
+            stage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+
+    public void setUserOn(Usuario userOn) {
+        this.userOn = userOn;
+        usuarioLabel.setText(userOn.getNombre_usuario());
+    }
+
+    public void setRootLayout(BorderPane root){
 		this.rootLayout = root;
 
 	}
@@ -416,6 +468,7 @@ public class PrincipalController {
               AdministrarUsuariosController usercontroller = loaderusuario.getController();
               usercontroller.setOwner(primaryStage);
               usercontroller.buscarUsuarios();
+              usercontroller.setUserSesion(userOn);
 
           } catch (IOException e) {
               e.printStackTrace();

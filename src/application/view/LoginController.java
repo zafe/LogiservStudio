@@ -61,7 +61,8 @@ public class LoginController implements Initializable {
     private void btnLogin(ActionEvent event){
         nombreUsuario = usuarioField.getText();
         password = passwordField.getText();
-
+        usuario.setNombre_usuario(nombreUsuario);
+        usuario.setPassword(password);
         String passMD5 = usuario.encryptMD5(password);
         boolean okLogin = usuarioRepository.login(nombreUsuario,passMD5);
 
@@ -78,6 +79,7 @@ public class LoginController implements Initializable {
                 adminPanelStage.setTitle("LogiServ app - usuario: " + nombreUsuario + " conectado.");
 //                adminPanelStage.setMaximized(true);
                 PrincipalController controller = loader.getController();
+                controller.setUserOn(usuario);
                 controller.setPrimaryStage(adminPanelStage);
                 controller.setRootLayout(root);
                 controller.setHome();
