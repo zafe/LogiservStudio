@@ -27,16 +27,11 @@ public class OrganizacionController implements Initializable{
     @FXML
     private Label cuitOrganizacionLabel;
     @FXML
-    private Label razonSocialOrganizacionLabel;
-    @FXML
     private Label apoderadoOrganizacionLabel;
     @FXML
     private Label domicilioOrganizacionLabel;
     @FXML
-    private Label telefonoOrganizacionLabel;
-    @FXML
     private Button actualizarDatosOrganizacionLabel;
-
     @FXML
     private ImageView imagenCamion;
 

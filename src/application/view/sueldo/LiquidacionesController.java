@@ -1,14 +1,12 @@
 package application.view.sueldo;
 
 import application.Main;
-import application.model.info.Empleado;
 import application.model.sueldo.LiquidacionEmpleado;
 import application.model.sueldo.Liquidacion;
-import application.reports.AbstractJasperReports;
+import application.reports.classes.AbstractJasperReports;
 import application.repository.sueldo.LiquidacionEmpleadoRepository;
 import application.repository.sueldo.LiquidacionRepository;
 import application.view.sueldo.cruds.LiquidacionSueldoController;
-import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -86,7 +84,7 @@ public class LiquidacionesController implements Initializable{
 	private void buscarLiquidacionesEmpleado(int idLiquidacion){
 		this.liquidacionesEmpleado = liquidacionEmpleadoRepository.getLiqEmpleadoByIdLiq(idLiquidacion);
 		if (!liquidacionesEmpleado.isEmpty())
-		liqEmpleadosTable.setItems(liquidacionesEmpleado);
+			liqEmpleadosTable.setItems(liquidacionesEmpleado);
 	}
 
 	@Override
@@ -144,10 +142,21 @@ public class LiquidacionesController implements Initializable{
 
 	@FXML
 	private void handleImprimirRecibos(){
-		System.out.println("se imprimieron recibos de sueldo");
 		int idLiquidacion = liquidacionTable.getSelectionModel().getSelectedItem().getId();
-		AbstractJasperReports.createReport("src\\application\\reports\\ReciboSueldo.jasper",
+		System.out.println("se imprimieron recibos de sueldo "+ idLiquidacion);
+		AbstractJasperReports.createReport("src\\application\\reports\\TodosLosRecibosDeUnaLiquidacion.jasper",
 				"idLiquidacion", idLiquidacion);
 		AbstractJasperReports.showViewer();
+	}
+
+
+	@FXML
+	private void handleImprimirReciboSueldo(){
+		if (!liqEmpleadosTable.getSelectionModel().isEmpty()){
+			LiquidacionEmpleado empleadoLiquidado = liqEmpleadosTable.getSelectionModel().getSelectedItem();
+			AbstractJasperReports.createReport("src\\application\\reports\\ReciboSueldo.jasper",
+					"idLiquidacion", empleadoLiquidado.getId());
+			AbstractJasperReports.showViewer();
+		}
 	}
 }

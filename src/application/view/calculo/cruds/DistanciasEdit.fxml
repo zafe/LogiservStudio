@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.layout.*?>
+
 <Group stylesheets="@../../css/theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.calculo.cruds.DistanciasEditController">
     <children>
         <AnchorPane prefHeight="550.0" prefWidth="528.0">
@@ -27,7 +30,12 @@
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="206.0" text="Ingenios" />
                         <ListView fx:id="fincaListView" prefHeight="304.0" prefWidth="408.0" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="3" />
                         <ListView fx:id="ingenioListView" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" GridPane.rowSpan="3" />
-                        <TextField fx:id="distanciaTextField" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                     <children>
+                              <TextField fx:id="distanciaTextField" prefHeight="25.0" prefWidth="152.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                        <Label text="Km" />
+                     </children>
+                  </HBox>
                         <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="227.0" text="Distancia:" GridPane.rowIndex="5" />
                         <CheckBox fx:id="fincaCheckBox" mnemonicParsing="false" onAction="#enableListFinca" text="Edit" GridPane.columnIndex="2" GridPane.rowIndex="4" />
                         <CheckBox fx:id="ingenioCheckBox" mnemonicParsing="false" onAction="#enableListIngenio" text="Edit" GridPane.rowIndex="4" />

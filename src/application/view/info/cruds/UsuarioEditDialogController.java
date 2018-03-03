@@ -82,7 +82,7 @@ UsuarioRepository usuarioRepository = new UsuarioRepository();
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle("Verifique los datos");
 		alert.setHeaderText(null);
-		alert.setContentText("Alguno de los datos ingresados es incorrecto o no selecciono un empleado");
+		alert.setContentText("Alguno de los datos ingresados es incorrecto o no seleccionó un empleado");
 		alert.showAndWait();
 		}
 	}
@@ -99,10 +99,10 @@ UsuarioRepository usuarioRepository = new UsuarioRepository();
 		String errorMessage = "";
 
 		if (usuarioField.getText() == null || usuarioField.getText().length() == 0) {
-			errorMessage += "No valid user name!\n"; 
+			errorMessage += "No se ingresó un usuario válido\n";
 		}
 		if (passwordField.getText() == null || passwordField.getText().length() == 0) {
-			errorMessage += "No valid password!\n"; 
+			errorMessage += "No se ingresó una contraseña válida\n";
 		}
 
 		if (errorMessage.length() == 0) {
@@ -110,7 +110,7 @@ UsuarioRepository usuarioRepository = new UsuarioRepository();
 		} else {
 			// Show the error message.
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Datos Invalidos");
+			alert.setTitle("Datos Inválidos");
 			alert.setHeaderText(null);
 			alert.setContentText(errorMessage);
 			alert.showAndWait();

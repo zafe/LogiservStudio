@@ -36,8 +36,7 @@ public class EmpleadoEditDialogController {
 	private ComboBox<Localidad> localidadComboBox;
 	@FXML
 	private Button aceptarButton;
-	@FXML
-	private Button familiarButton;
+
 	private boolean isNew;
 	private EmpleadoRepository empleadoRepository = new EmpleadoRepository();
 	private CategoriaEmpleadoRepository categoriaEmpleadoRepository = new CategoriaEmpleadoRepository();
@@ -90,10 +89,8 @@ public class EmpleadoEditDialogController {
 	}
 
 	public void setPerson(Empleado empleado) {
-		familiarButton.setDisable(true);
 		this.empleado = empleado;
 		if (!isNew){
-			familiarButton.setDisable(false);
 			nombreField.setText(empleado.getNombre());
 			apellidoField.setText(empleado.getApellido());
 			cuitField.setText(empleado.getCuit());
@@ -158,10 +155,10 @@ public class EmpleadoEditDialogController {
 		String errorMessage = "";
 
 		if (nombreField.getText() == null || nombreField.getText().length() == 0) {
-			errorMessage += "No valid first name!\n"; 
+			errorMessage += "No se ingresó un nombre válido\n";
 		}
 		if (apellidoField.getText() == null || apellidoField.getText().length() == 0) {
-			errorMessage += "No valid last name!\n"; 
+			errorMessage += "No se ingresó un apellido válido\n";
 		}
 
 		if (errorMessage.length() == 0) {
@@ -169,7 +166,7 @@ public class EmpleadoEditDialogController {
 		} else {
 			// Show the error message.
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Datos Invalidos");
+			alert.setTitle("Datos Inválidos");
 			alert.setHeaderText(null);
 			alert.setContentText(errorMessage);
 			alert.showAndWait();
@@ -183,10 +180,7 @@ public class EmpleadoEditDialogController {
 		controller.showCategoriaEmpleadoEdit(new CategoriaEmpleado(), true);
 		setCategoriaComboBox();
 	}
-	@FXML
-	private void mostrarFamiliares(){
-		//todo: hacer metodo
-	}
+
 
 	private void ponerFechaAlta(){
 		java.util.Date input = new Date();

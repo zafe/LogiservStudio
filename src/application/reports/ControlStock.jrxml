@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ControlStock" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5b6cdc7a-91ef-49f0-8fae-91e6632039a3">
-	<property name="com.jaspersoft.studio.data.sql.tables">
-		<![CDATA[bW9kZWxvZmluYWwuYXJ0aWN1bG8gLDE1LDE1LDNmNmRmMzI4LWZkYjItNDJmYS1iYjExLWI3ZTkz
-OTI0M2Y0MTs=]]>
-	</property>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="logiserv"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT modelofinal.articulo.`idArticulo`,
-	modelofinal.articulo.`Marca`,
-	modelofinal.articulo.`Modelo`,
-	modelofinal.articulo.`Descripcion`,
-	modelofinal.articulo.stock
-FROM modelofinal.articulo]]>
+		<![CDATA[SELECT articulo.`idArticulo`,
+	articulo.`Marca`,
+	articulo.`Modelo`,
+	articulo.`Descripcion`,
+	articulo.stock
+FROM articulo]]>
 	</queryString>
 	<field name="idArticulo" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="idArticulo"/>
@@ -42,7 +39,7 @@ FROM modelofinal.articulo]]>
 				<subreportExpression><![CDATA["src/application/reports/DatosOrganizacion.jasper"]]></subreportExpression>
 			</subreport>
 			<staticText>
-				<reportElement x="98" y="98" width="365" height="42" forecolor="#FFFB00" uuid="23e99129-5bcc-404e-b033-c1495b78fc91"/>
+				<reportElement x="98" y="98" width="365" height="42" forecolor="#FFFFFF" uuid="23e99129-5bcc-404e-b033-c1495b78fc91"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="25" isBold="true"/>
 				</textElement>

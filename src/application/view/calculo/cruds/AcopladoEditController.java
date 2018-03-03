@@ -14,6 +14,8 @@ public class AcopladoEditController {
     private TextField marcaField;
     @FXML
     private TextField patenteField;
+    @FXML
+    private TextField chasisField;
 
     @FXML
     private Button btnOk;
@@ -37,6 +39,7 @@ public class AcopladoEditController {
         if (isInputValid()){
             acoplado.setMarca(marcaField.getText());
             acoplado.setPatente(patenteField.getText());
+            acoplado.setChasisNumero(chasisField.getText());
             if (isNew){
                 repository.save(acoplado);
             }else {
@@ -57,8 +60,11 @@ public class AcopladoEditController {
 
     public void setAcoplado(Acoplado acoplado){
         this.acoplado = acoplado;
-        marcaField.setText(acoplado.getMarca());
-        patenteField.setText(acoplado.getPatente());
+        if (!isNew){
+            marcaField.setText(acoplado.getMarca());
+            patenteField.setText(acoplado.getPatente());
+            chasisField.setText(acoplado.getChasisNumero());
+        }
     }
     public boolean isOkClicked(){
         return okClicked;
@@ -71,6 +77,9 @@ public class AcopladoEditController {
         }
         if (patenteField.getText() == null || patenteField.getText().length() == 0 || patenteField.getText().length() > 6 ) {
             errorMessage += "Patente no Ingresado correctamente (6 digitos).\n";
+        }
+        if (chasisField.getText() == null || chasisField.getText().length() == 0) {
+            errorMessage += "Chasis no ingresado correctamente (17 digitos).\n";
         }
         if (errorMessage.length() == 0) {
             return true;

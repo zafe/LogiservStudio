@@ -1,5 +1,6 @@
 package application.view.inicio.crud;
 
+import application.comunes.Alerta;
 import application.model.info.Empleado;
 import application.model.info.Localidad;
 import application.model.venta.Organizacion;
@@ -23,8 +24,6 @@ public class OrganizacionEditController implements Initializable{
     @FXML
     private TextField cuitTextField;
     @FXML
-    private TextField razonSocialField;
-    @FXML
     private ComboBox<Empleado> apoderadoComboBox;
     @FXML
     private TextField domicilioCalleField;
@@ -32,8 +31,6 @@ public class OrganizacionEditController implements Initializable{
     private TextField domicilioNumeroField;
     @FXML
     private ComboBox<Localidad> localidadComboBox;
-    @FXML
-    private TextField telefonoField;
     @FXML
     private Button btnOk;
     @FXML
@@ -74,28 +71,31 @@ public class OrganizacionEditController implements Initializable{
     }
 
     private boolean isInputValid() {
-        /*String errorMessage = "";
+        String errorMessage = "";
 
         if (nombreTextField.getText() == null || nombreTextField.getText().length() == 0) {
-            errorMessage += "No valid supplier name!\n";
+            errorMessage += "Nombre de la organización no ingresado.\n";
         }
         if(cuitTextField.getText()==null || cuitTextField.getText().length() == 0){
-            errorMessage += "No valid CUIT \n";
+            errorMessage += "CUIT de la organización no ingresado correctamente.\n";
         }
+        if (apoderadoComboBox.getSelectionModel().isEmpty())
+            errorMessage += "Apoderado no seleccionado.\n";
         if(domicilioCalleField.getText()==null || domicilioCalleField.getText().length() == 0){
-            errorMessage += "No valid street name\n";
+            errorMessage += "Calle no ingresada correctamente.\n";
         }
         if(domicilioNumeroField.getText()==null || domicilioNumeroField.getText().length() == 0){
-            errorMessage += "No valid street number \n";
+            errorMessage += "Número no ingresado correctamente. \n";
         }
+        if (localidadComboBox.getSelectionModel().isEmpty())
+            errorMessage += "Localidad no seleccionada.";
 
         if (errorMessage.length() == 0) {
             return true;
         } else {
             Alerta.alertaError("Datos inválidos", errorMessage);
             return false;
-        }*/
-        return true;
+        }
     }
 
     @FXML
