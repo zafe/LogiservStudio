@@ -9,6 +9,19 @@ public class Acoplado {
     private IntegerProperty id;
     private StringProperty marca;
     private StringProperty patente;
+    private StringProperty chasisNumero;
+
+    public String getChasisNumero() {
+        return chasisNumero.get();
+    }
+
+    public StringProperty chasisNumeroProperty() {
+        return chasisNumero;
+    }
+
+    public void setChasisNumero(String chasisNumero) {
+        this.chasisNumero.set(chasisNumero);
+    }
 
     public int getId() {
         return id.get();
@@ -46,13 +59,14 @@ public class Acoplado {
         this.patente.set(patente);
     }
 
-    public Acoplado(Integer id, String marca, String patente) {
+    public Acoplado(Integer id, String marca, String patente, String chasisNumero) {
         this.id = new SimpleIntegerProperty(id);
         this.marca = new SimpleStringProperty(marca);
         this.patente = new SimpleStringProperty(patente);
+        this.chasisNumero = new SimpleStringProperty(chasisNumero);
     }
 
     public Acoplado() {
-        this(0,null,null);
+        this(0,null,null,null);
     }
 }

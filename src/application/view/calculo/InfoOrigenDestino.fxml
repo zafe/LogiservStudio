@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.calculo.InfoOrigenDestinoController">
     <children>
             <VBox alignment="CENTER_LEFT" layoutX="19.0" layoutY="15.0" prefHeight="433.0" prefWidth="581.0" spacing="20.0">
@@ -11,8 +14,7 @@
             <HBox alignment="CENTER" prefHeight="51.0" prefWidth="581.0" spacing="20.0">
                <children>
                             <Label text="Buscar por Ingenio:" />
-                            <TextField fx:id="buscarPorIngenioField" />
-                            <Button fx:id="searchButton" mnemonicParsing="false" text="Buscar" />
+                  <ComboBox fx:id="buscarPorIngenioComboBox" onAction="#buscarDistancias" prefHeight="25.0" prefWidth="218.0" promptText="Lista de Ingenios" />
                </children>
             </HBox>
                     <TableView fx:id="tableView" pickOnBounds="false" prefHeight="269.0" prefWidth="600.0">

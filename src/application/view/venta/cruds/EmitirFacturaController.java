@@ -2,7 +2,9 @@ package application.view.venta.cruds;
 
 import application.comunes.Alerta;
 import application.model.calculo.Ingenio;
+import application.model.sueldo.ConceptoSueldo;
 import application.model.venta.Cliente;
+import application.model.venta.FacturaVenta;
 import application.model.venta.Organizacion;
 import application.model.venta.Viaje;
 import application.repository.calculo.IngenioRepository;
@@ -134,10 +136,10 @@ public class EmitirFacturaController {
         if (ingenioComboBox.getSelectionModel().getSelectedItem() == "Todos"){
             buscarViajes();
         }else{
-        viajeData = viajeRepository.getViajesSinLiqByIngenioId
-                (ingenioData.get(ingenioComboBox.getSelectionModel().getSelectedIndex()).getIdIngenio());
-        viajeTableView.setItems(viajeData);
-    }
+            viajeData = viajeRepository.getViajesSinLiqByIngenioId
+                    (ingenioData.get(ingenioComboBox.getSelectionModel().getSelectedIndex()).getIdIngenio());
+            viajeTableView.setItems(viajeData);
+        }
 
     }
 
@@ -149,7 +151,7 @@ public class EmitirFacturaController {
             dialogStage.close();
             okClicked = true;
         }
-        }
+    }
 
     @FXML
     private void handleCancel(){

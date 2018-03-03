@@ -16,6 +16,10 @@ public class CamionEditController {
     private TextField modeloField;
     @FXML
     private TextField patenteField;
+    @FXML
+    private TextField motorField;
+    @FXML
+    private TextField chasisField;
 
     @FXML
     private Button btnOk;
@@ -40,6 +44,8 @@ public class CamionEditController {
             camion.setMarca(marcaField.getText());
             camion.setModelo(modeloField.getText());
             camion.setPatente(patenteField.getText());
+            camion.setMotor(motorField.getText());
+            camion.setChasis(chasisField.getText());
             if (isNew){
                 repository.save(camion);
             }else {
@@ -60,9 +66,13 @@ public class CamionEditController {
 
     public void setCamion(Camion camion){
         this.camion = camion;
-        marcaField.setText(camion.getMarca());
-        modeloField.setText(camion.getModelo());
-        patenteField.setText(camion.getPatente());
+        if (!isNew){
+            marcaField.setText(camion.getMarca());
+            modeloField.setText(camion.getModelo());
+            patenteField.setText(camion.getPatente());
+            motorField.setText(camion.getMotor());
+            chasisField.setText(camion.getChasis());
+        }
     }
     public boolean isOkClicked(){
         return okClicked;
@@ -70,15 +80,16 @@ public class CamionEditController {
     private boolean isInputValid() {
         String errorMessage = "";
 
-        if (marcaField.getText() == null || marcaField.getText().length() == 0) {
+        if (marcaField.getText() == null || marcaField.getText().length() == 0)
             errorMessage += "Marca no Ingresada\n";
-        }
-        if (modeloField.getText() == null || modeloField.getText().length() == 0) {
+        if (modeloField.getText() == null || modeloField.getText().length() == 0)
             errorMessage += "Modelo no Ingresado\n";
-        }
-        if (patenteField.getText() == null || patenteField.getText().length() == 0 || patenteField.getText().length() > 6 ) {
+        if (patenteField.getText() == null || patenteField.getText().length() == 0 || patenteField.getText().length() > 6 )
             errorMessage += "Patente no Ingresado correctamente (6 digitos).\n";
-        }
+        if (motorField.getText() == null || motorField.getText().length() == 0 || motorField.getText().length() > 17 )
+            errorMessage += "numero de motor no Ingresado correctamente (17 digitos).\n";
+        if (chasisField.getText() == null || chasisField.getText().length() == 0 || chasisField.getText().length() > 17 )
+            errorMessage += "numero de chasis no Ingresado correctamente (17 digitos).\n";
         if (errorMessage.length() == 0) {
             return true;
         } else {

@@ -31,11 +31,11 @@ public class CargarAcopladoController {
     @FXML
     private TableView<Acoplado> acopladoTableView;
     @FXML
-    private TableColumn<Acoplado, String> idAcopladoTableColumn;
-    @FXML
     private TableColumn<Acoplado, String> marcaTableColumn;
     @FXML
     private TableColumn<Acoplado, String> patenteTableColumn;
+    @FXML
+    private TableColumn<Acoplado, String> chasisColumn;
 
     private Stage owner;
     private ObservableList<Acoplado> acopladoData = FXCollections.observableArrayList();
@@ -47,7 +47,7 @@ public class CargarAcopladoController {
      */
     @FXML
     private void initialize(){
-        idAcopladoTableColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty().asString());
+        chasisColumn.setCellValueFactory(cellData -> cellData.getValue().chasisNumeroProperty());
         marcaTableColumn.setCellValueFactory(cellData -> cellData.getValue().marcaProperty());
         patenteTableColumn.setCellValueFactory(cellData -> cellData.getValue().patenteProperty());
 
@@ -58,7 +58,7 @@ public class CargarAcopladoController {
         Acoplado tempAcoplado = new Acoplado();
         boolean okClicked = this.showAcopladoEdit(tempAcoplado,true);
         if(okClicked)
-            acopladoData.add(tempAcoplado);
+           buscarAcoplados();
     }
 
 

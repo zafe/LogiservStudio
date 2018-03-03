@@ -83,15 +83,14 @@
 	        return list;
 	    }
 
-	    public ObservableList<Localidad> view2(int idProvincia){
+	    public ObservableList<Localidad> localidadesDeTucuman(){
 
 	        ObservableList<Localidad> list = FXCollections.observableArrayList();
 	        try {
 	            connection= JDBCConnection.getInstanceConnection();
-	            preparedStatement=connection.prepareStatement("SELECT * FROM LOCALIDAD WHERE PROVINCIA_idProvincia = ?");
-	            preparedStatement.setInt(1,idProvincia);
+	            preparedStatement=connection.prepareStatement("SELECT idLocalidad, NombreLocalidad " +
+						"FROM LOCALIDAD, PROVINCIA where PROVINCIA_idProvincia = idProvincia AND NombreProvincia like 'tuc%';");
 	            resultSet = preparedStatement.executeQuery();
-
 	            while (resultSet.next()){
 	                Localidad localidad = new Localidad();
 	                localidad.setIdLocalidad(resultSet.getInt("idLocalidad"));

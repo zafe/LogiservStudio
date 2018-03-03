@@ -97,4 +97,8 @@ public class Ingenio {
         this(0,0.0,0.0,null,0.0,0.0);
     }
 
+    @Override
+    public String toString() {
+        return getNombre();
+    }
 }
