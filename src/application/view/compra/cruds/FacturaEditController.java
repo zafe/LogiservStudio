@@ -330,4 +330,9 @@ public class FacturaEditController implements Initializable {
                 isFieldsSetted=true;
         return isFieldsSetted;
     }
+
+    @FXML
+    private void handleAddArticuleOnEnter(){
+        handleNewLine();
+    }
 }

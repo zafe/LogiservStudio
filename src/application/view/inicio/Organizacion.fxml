@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+
 <AnchorPane prefHeight="551.0" prefWidth="820.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.inicio.OrganizacionController">
    <children>
       <VBox alignment="CENTER" layoutY="40.0" prefHeight="265.0" prefWidth="600.0" AnchorPane.bottomAnchor="95.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
@@ -28,15 +31,6 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="40.0" prefWidth="600.0" spacing="20.0">
                <children>
-                  <Label prefHeight="34.0" prefWidth="74.0" text="Razon Social:" />
-                  <Label fx:id="razonSocialOrganizacionLabel" prefHeight="17.0" prefWidth="182.0" text="LogiServ SRL">
-                     <font>
-                        <Font size="20.0" />
-                     </font></Label>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="40.0" prefWidth="600.0" spacing="20.0">
-               <children>
                   <Label prefHeight="37.0" prefWidth="69.0" text="Apoderado:" />
                   <Label fx:id="apoderadoOrganizacionLabel" prefHeight="17.0" prefWidth="189.0" text=" ">
                      <font>
@@ -48,15 +42,6 @@
                <children>
                   <Label prefHeight="33.0" prefWidth="57.0" text="Domicilio:" />
                   <Label fx:id="domicilioOrganizacionLabel" prefHeight="17.0" prefWidth="192.0" text=" ">
-                     <font>
-                        <Font size="20.0" />
-                     </font></Label>
-               </children>
-            </HBox>
-            <HBox alignment="TOP_CENTER" prefHeight="59.0" prefWidth="600.0" spacing="20.0">
-               <children>
-                  <Label prefHeight="28.0" prefWidth="53.0" text="Telefono:" />
-                  <Label fx:id="telefonoOrganizacionLabel" prefHeight="17.0" prefWidth="180.0" text="0381 - 4235689">
                      <font>
                         <Font size="20.0" />
                      </font></Label>

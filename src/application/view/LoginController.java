@@ -12,10 +12,13 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,6 +34,8 @@ public class LoginController implements Initializable {
     private Hyperlink hlCrateAccount;
     @FXML
     private Label errorLoginLabel;
+    @FXML
+    private ImageView logo;
 
     private String nombreUsuario;
     private String password;
@@ -39,6 +44,9 @@ public class LoginController implements Initializable {
     UsuarioRepository usuarioRepository = new UsuarioRepository();
 
     public void initialize(URL url, ResourceBundle rb) {
+        File file = new File("src/resources/logiserv-icon.png");
+        Image image = new Image(file.toURI().toString());
+        logo.setImage(image);
         BooleanBinding boolenBinding = usuarioField.textProperty().isEmpty()
                 .or(passwordField.textProperty().isEmpty());
         btnLogin.disableProperty().bind(boolenBinding);

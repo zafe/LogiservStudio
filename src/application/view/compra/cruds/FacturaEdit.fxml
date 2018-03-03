@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+
 <Group stylesheets="@../../css/theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.compra.cruds.FacturaEditController">
   <children>
     <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="523.0" prefWidth="647.0">
@@ -43,7 +48,7 @@
                   <Label fx:id="stockLabel" prefHeight="17.0" prefWidth="132.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                   <Label fx:id="idFacturaLabel" prefHeight="17.0" prefWidth="126.0" text=" " GridPane.columnIndex="1" />
                   <Button fx:id="newProveedorButton" mnemonicParsing="false" onAction="#handleNewProveedor" prefHeight="25.0" prefWidth="39.0" text="+" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                  <TextField fx:id="cantidadField" onAction="#handleNewLine" GridPane.columnIndex="3" GridPane.rowIndex="10" />
+                  <TextField fx:id="cantidadField" onAction="#handleAddArticuleOnEnter" GridPane.columnIndex="3" GridPane.rowIndex="10" />
                   <Button fx:id="agregarLineaButton" mnemonicParsing="false" onAction="#handleNewLine" text="+" GridPane.columnIndex="5" GridPane.rowIndex="12" />
                   <Button fx:id="quitarLineaButton" mnemonicParsing="false" onAction="#handleQuitLine" prefHeight="25.0" prefWidth="25.0" text="-" GridPane.columnIndex="5" GridPane.rowIndex="13" />
                   <Label fx:id="impedirUpdateLineasLabel" prefHeight="17.0" prefWidth="441.0" text="Por Razones de integridad en los datos no se permite modificar lineas de compra" textFill="#f20000" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="9">

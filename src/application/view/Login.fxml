@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -14,9 +15,9 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="400.0" prefWidth="358.0">
                      <children>
-                        <Label alignment="CENTER" text="LogiServ">
+                        <Label alignment="CENTER_RIGHT" prefHeight="98.0" prefWidth="202.0" text="LogiServ">
                            <font>
-                              <Font size="32.0" />
+                              <Font size="50.0" />
                            </font>
                         </Label>
                         <GridPane>
@@ -66,6 +67,7 @@
                         </GridPane>
                      </children>
                   </VBox>
+                  <ImageView fx:id="logo" fitHeight="331.0" fitWidth="274.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </HBox>
          </children>

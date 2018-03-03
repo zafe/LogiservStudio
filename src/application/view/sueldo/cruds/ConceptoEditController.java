@@ -168,9 +168,7 @@ public class ConceptoEditController implements Initializable{
     }
 
     private void cargarCategorias(){
-        //todo: hacer que cuando se seleccione esta fila se guarden todas las categorias.
         categorias = categoriaEmpleadoRepository.view();
-        categorias.add(new CategoriaEmpleado(0, "Todos"));
         categoriaEmpleadoTableView.setItems(categorias);
     }
     private void setComboBox(){
