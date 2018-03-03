@@ -1,30 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+
 <BorderPane prefHeight="600.0" prefWidth="900.0" stylesheets="@css/theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.PrincipalController">
-   <top>
-      <MenuBar BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-                  <MenuItem mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar sesión" />
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-   </top>
    <left>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="571.0" prefWidth="221.0" BorderPane.alignment="CENTER">
                <children>
@@ -128,4 +109,19 @@
    <center>
       <Pane prefHeight="541.0" prefWidth="623.0" BorderPane.alignment="CENTER" />
    </center>
+   <top>
+      <HBox alignment="CENTER_RIGHT" prefHeight="24.0" prefWidth="900.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Usuario:  " />
+            <Label fx:id="usuarioLabel" text=" ">
+               <font>
+                  <Font size="13.0" />
+               </font></Label>
+            <Hyperlink fx:id="cerrarSesion" onAction="#handleCerrarSesion" text="cerrar sesión">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font></Hyperlink>
+         </children>
+      </HBox>
+   </top>
       </BorderPane>

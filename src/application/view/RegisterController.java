@@ -23,6 +23,10 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 public class RegisterController implements Initializable {
+    public Hyperlink getHlLogin() {
+        return hlLogin;
+    }
+
     @FXML
     private Hyperlink hlLogin;
     @FXML

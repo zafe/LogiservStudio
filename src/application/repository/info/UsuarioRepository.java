@@ -1,11 +1,13 @@
 package application.repository.info;
 
+import application.comunes.Alerta;
 import application.database.JDBCConnection;
 import application.model.info.Empleado;
 import application.model.info.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import javax.swing.undo.UndoableEditSupport;
 import java.sql.*;
 
 public class UsuarioRepository {
@@ -21,24 +23,25 @@ public class UsuarioRepository {
 		
 		try {
 			statement = JDBCConnection.getInstanceConnection().createStatement();
-			resultSet = statement.executeQuery("select * from USUARIO");
-			
+			resultSet = statement.executeQuery("SELECT idUsuario, NombreUsuario, Password, idEmpleado, Nombre, Apellido " +
+					"FROM USUARIO INNER JOIN EMPLEADO " +
+					"ON Empleado_idEmpleado=idEmpleado");
+
 			while(resultSet.next()){
-			Usuario usuario = new Usuario();
-			usuario.setIdUsuario(resultSet.getInt("idUsuario"));
-			usuario.setNombre_usuario(resultSet.getString("NombreUsuario"));
-			usuario.setPassword(resultSet.getString("Password"));
-			usuario.setEmpleado(new Empleado());
-			usuario.getEmpleado().setIdEmpleado(resultSet.getInt("Empleado_idEmpleado"));
-			usuarios.add(usuario);
+				Usuario usuario = new Usuario();
+				usuario.setIdUsuario(resultSet.getInt(1));
+				usuario.setNombre_usuario(resultSet.getString(2));
+				usuario.setPassword(resultSet.getString(3));
+				usuario.setEmpleado(new Empleado());
+				usuario.getEmpleado().setIdEmpleado(resultSet.getInt(4));
+				usuario.getEmpleado().setNombre(resultSet.getString(5));
+				usuario.getEmpleado().setApellido(resultSet.getString(6));
+				usuarios.add(usuario);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		return usuarios;
-		
 	}
 	
 	public void create(Usuario usuario){
@@ -57,19 +60,20 @@ public class UsuarioRepository {
 		}
 	}
 
-	public static void edit(Usuario usuario, int idEmpleado){
+	public static void edit(Usuario usuario){
 		PreparedStatement preparedstatement;
-
 		try {
 			preparedstatement = JDBCConnection.getInstanceConnection().prepareStatement(
-					"UPDATE USUARIO SET NombreUsuario=?, Password=?, Empleado_idEmpleado=? WHERE idUsuario=?)");
+					"UPDATE USUARIO SET NombreUsuario=?, Password=MD5(?), Empleado_idEmpleado=? WHERE idUsuario=?");
 			preparedstatement.setString(1, usuario.getNombre_usuario());
 			preparedstatement.setString(2, usuario.getPassword());
-			preparedstatement.setInt(3, idEmpleado);
+			preparedstatement.setInt(3, usuario.getEmpleado().getIdEmpleado());
 			preparedstatement.setInt(4, usuario.getIdUsuario());
 			preparedstatement.executeUpdate();
+			String headerMsj="Actualización: usuario actualizado";
+			String cuerpoMsj = "Usuario: " + usuario.getNombre_usuario() + " modificado correctamente.";
+			Alerta.alertaInfo("Usuarios", headerMsj, cuerpoMsj);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -83,11 +87,7 @@ public class UsuarioRepository {
 					"DELETE FROM USUARIO WHERE idUsuario=?");
 			preparedstatement.setInt(1, usuario.getIdUsuario());
 			preparedstatement.executeUpdate();
-			preparedstatement.close();
-
-
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
