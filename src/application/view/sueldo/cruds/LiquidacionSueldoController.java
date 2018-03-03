@@ -468,6 +468,10 @@ public class LiquidacionSueldoController implements Initializable {
         }
 
     }
+    @FXML
+    public void handleCancel(){
+        owner.close();
+    }
 
 
 

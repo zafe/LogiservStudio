@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+
 <AnchorPane prefHeight="450.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.venta.FacturacionController">
    <children>
       <VBox alignment="CENTER_LEFT" layoutX="19.0" layoutY="13.0" prefHeight="437.0" prefWidth="721.0" spacing="10.0">
@@ -45,13 +48,14 @@
                   </TableView>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="72.0" prefWidth="740.0">
+            <HBox alignment="CENTER" prefHeight="72.0" prefWidth="740.0" spacing="20.0">
                <children>
-                  <Button fx:id="nuevaFacturaButton" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#handleNew" prefHeight="31.0" prefWidth="145.0" text="Emitir Factura" textAlignment="CENTER">
+                  <Button fx:id="nuevaFacturaButton" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#handleNew" prefHeight="20.0" prefWidth="145.0" text="Emitir Factura" textAlignment="CENTER">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                   </Button>
+                  <Button mnemonicParsing="false" text="Imprimir Factura" />
                </children>
             </HBox>
          </children>
