@@ -222,20 +222,20 @@ public class EmpleadoRepository {
 		return empleado;
 	}
 
-    public int getLastID() {
+	public int getLastID() {
 		int lastId=0;
-        try {
-            connection = JDBCConnection.getInstanceConnection();
-            preparedStatement=connection.prepareStatement("SELECT MAX(idEmpleado) FROM EMPLEADO");
-            resultSet = preparedStatement.executeQuery();
-            while (resultSet.next())
-                lastId= resultSet.getInt(1);
-            return lastId;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return lastId;
-    }
+		try {
+			connection = JDBCConnection.getInstanceConnection();
+			preparedStatement=connection.prepareStatement("SELECT MAX(idEmpleado) FROM EMPLEADO");
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next())
+				lastId= resultSet.getInt(1);
+			return lastId;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lastId;
+	}
 	public ObservableList<Empleado> getConductores(){
 		ObservableList<Empleado> list = FXCollections.observableArrayList();
 		try {
@@ -243,7 +243,7 @@ public class EmpleadoRepository {
 			PreparedStatement preparedStatement=connection.prepareStatement("SELECT idEmpleado, Apellido, Nombre \n" +
 					"\t\tFROM Empleado INNER JOIN categoria_empleado \n" +
 					"\t\t\tON CATEGORIA_EMPLEADO_idCategoriaEmpleado = idCategoriaEmpleado\n" +
-					"\t\tWHERE nombreCategoria like 'conductor'\n" +
+					"\t\tWHERE nombreCategoria like 'con%'\n" +
 					"\t\t\tAND FechaBaja is null;");
 
 			ResultSet resultSet = preparedStatement.executeQuery();

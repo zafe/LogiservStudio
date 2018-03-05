@@ -44,7 +44,7 @@
               </rowConstraints>
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha Nacimiento:" wrappingWidth="103.9375" GridPane.columnIndex="2" />
-                  <DatePicker fx:id="nacimientoPicker" editable="false" GridPane.columnIndex="4" />
+                  <DatePicker fx:id="nacimientoPicker" promptText="dd/mm/aaaa" GridPane.columnIndex="4" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CUIT:" GridPane.rowIndex="1" />
                   <TextField fx:id="cuitField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Categoría:" GridPane.columnIndex="3" GridPane.rowIndex="1" />

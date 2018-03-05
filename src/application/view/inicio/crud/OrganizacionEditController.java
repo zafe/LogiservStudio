@@ -79,7 +79,7 @@ public class OrganizacionEditController implements Initializable{
         if(cuitTextField.getText()==null || cuitTextField.getText().length() == 0){
             errorMessage += "CUIT de la organización no ingresado correctamente.\n";
         }
-        if (apoderadoComboBox.getSelectionModel().isEmpty())
+        if (!apoderadoComboBox.getSelectionModel().isEmpty())
             errorMessage += "Apoderado no seleccionado.\n";
         if(domicilioCalleField.getText()==null || domicilioCalleField.getText().length() == 0){
             errorMessage += "Calle no ingresada correctamente.\n";
@@ -87,7 +87,7 @@ public class OrganizacionEditController implements Initializable{
         if(domicilioNumeroField.getText()==null || domicilioNumeroField.getText().length() == 0){
             errorMessage += "Número no ingresado correctamente. \n";
         }
-        if (localidadComboBox.getSelectionModel().isEmpty())
+        if (!localidadComboBox.getSelectionModel().isEmpty())
             errorMessage += "Localidad no seleccionada.";
 
         if (errorMessage.length() == 0) {

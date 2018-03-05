@@ -104,6 +104,7 @@ public class FacturaVentaRepository {
 				facturaVenta.setCliente(cliente);
 				Organizacion organizacion = organizacionRepository.getOrganizacionById(resultSet.getInt("ORGANIZACION_idORGANIZACION"));
 				facturaVenta.setOrganizacion(organizacion);
+				setTotalMonto(facturaVenta);
 				list.add(facturaVenta);
 			}
 		} catch (SQLException e) {
@@ -112,6 +113,21 @@ public class FacturaVentaRepository {
 
 		return list;
 	}
+
+	public void setTotalMonto(FacturaVenta facturaVenta){
+
+		try {
+			Connection con = JDBCConnection.getInstanceConnection();
+			PreparedStatement pS = con.prepareStatement("SELECT SUM(monto) FROM linea_viaje WHERE FACTURA_VENTA_idFACTURA_VENTA=?;");
+			pS.setInt(1, facturaVenta.getIdFacturaVenta());
+			ResultSet result = pS.executeQuery();
+			if (result.next()) facturaVenta.setMontoFactura(result.getDouble(1));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	public void search(FacturaVenta facturaVenta){
 		try {
 			connection= JDBCConnection.getInstanceConnection();

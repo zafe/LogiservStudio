@@ -217,6 +217,7 @@ public class ViajeRepository {
 		return list;
 	}
 
+	//todo devolver monto viaje
 	public ObservableList<Viaje> getViajesSinLiquidar(){
 
 		ObservableList<Viaje> list = FXCollections.observableArrayList();
@@ -244,6 +245,7 @@ public class ViajeRepository {
 				Empleado conductor = empleadoRepository.getEmpleadoById(resultSet.getInt("EMPLEADO_idEmpleado"));
 				viaje.setConductor(conductor);
 				viaje.setCamion(camion);
+				setMontoViaje(viaje);
 				list.add(viaje);
 				System.out.printf("Viaje agregado%n" +
 								"idRemito: %s %n" +
@@ -262,6 +264,19 @@ public class ViajeRepository {
 		}
 
 		return list;
+	}
+
+	public void setMontoViaje(Viaje viaje){
+
+		BigDecimal distancia = BigDecimal.valueOf(Double.valueOf(viaje.getDistanciaRecorrida()));
+		BigDecimal bruto = BigDecimal.valueOf(Double.valueOf(viaje.getBruto()));
+		BigDecimal tara = BigDecimal.valueOf(Double.valueOf(viaje.getTara()));
+		BigDecimal pesoNeto = bruto.subtract(tara);
+		BigDecimal precioKm = BigDecimal.valueOf(viaje.getIngenio().getTarifa());//todo cambiar metodo p/ cambiar ingenio automat...
+		BigDecimal arranque = BigDecimal.valueOf(viaje.getIngenio().getArranque());
+		BigDecimal precioUnitario = distancia.multiply(precioKm).add(arranque);
+		BigDecimal montoViaje = precioUnitario.multiply(pesoNeto).multiply(BigDecimal.valueOf(0.001));
+		viaje.setMonto(montoViaje.doubleValue());
 	}
 
 	public Viaje search(int idViaje){
