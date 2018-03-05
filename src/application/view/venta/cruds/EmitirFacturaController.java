@@ -93,7 +93,7 @@ public class EmitirFacturaController {
         apellidoConductorColumn.setCellValueFactory(cellData -> cellData.getValue().getConductor().apellidoProperty());
         fincaColumn.setCellValueFactory(cellData -> cellData.getValue().getFinca().nombreProperty());
         ingenioColumn.setCellValueFactory(cellData -> cellData.getValue().getIngenio().nombreProperty());
-        //montoColumn.setCellValueFactory(cellData -> cellData.getValue().montoProperty().asString());
+        montoColumn.setCellValueFactory(cellData -> cellData.getValue().montoProperty().asString());
 
         checkColumn.setCellValueFactory(new PropertyValueFactory<Viaje, String>("select"));
         checkColumn.setStyle( "-fx-alignment: CENTER;");
