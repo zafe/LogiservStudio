@@ -55,7 +55,7 @@
                         <Insets />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" text="Imprimir Factura" />
+                  <Button mnemonicParsing="false" onAction="#handleImprimirFactura" text="Imprimir Factura" />
                </children>
             </HBox>
          </children>

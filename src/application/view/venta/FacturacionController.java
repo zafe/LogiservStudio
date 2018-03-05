@@ -3,6 +3,7 @@ package application.view.venta;
 import application.Main;
 import application.model.venta.FacturaVenta;
 import application.model.venta.Viaje;
+import application.reports.classes.AbstractJasperReports;
 import application.repository.venta.FacturaVentaRepository;
 import application.repository.venta.ViajeRepository;
 import application.view.venta.cruds.EmitirFacturaController;
@@ -146,6 +147,15 @@ public class FacturacionController {
 			viajes = viajesRepository.getViajesByIdFactura(facturacionesTable.getSelectionModel().getSelectedItem()
 					.getIdFacturaVenta());
 			viajeTableView.setItems(viajes);
+		}
+	}
+	@FXML
+	private void handleImprimirFactura(){
+		if (!facturacionesTable.getSelectionModel().isEmpty()){
+			FacturaVenta selectedItem = facturacionesTable.getSelectionModel().getSelectedItem();
+			AbstractJasperReports.createReport("src\\application\\reports\\FacturaA.jasper",
+					"idFactura", selectedItem.getIdFacturaVenta(), "importeTotal", selectedItem.getMontoFactura());
+			AbstractJasperReports.showViewer();
 		}
 	}
 

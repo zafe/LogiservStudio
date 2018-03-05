@@ -36,6 +36,19 @@ public abstract class AbstractJasperReports {
         }
 
     }
+    public static void createReport(String path,String nombreParametro, int id, String nombreParamete2, double value){
+        try {
+            Connection connection = JDBCConnection.getInstanceConnection();
+            report = (JasperReport) JRLoader.loadObjectFromFile(path);
+            Map<String, Object> parameter = new HashMap<>();
+            parameter.put(nombreParametro,id);
+            parameter.put(nombreParamete2, value);
+            reportFilled = JasperFillManager.fillReport(report, parameter, connection);
+        }catch (JRException e){
+            e.printStackTrace();
+        }
+
+    }
     public static void showViewer(){
         viewer = new JasperFX(reportFilled);
         viewer.show();
