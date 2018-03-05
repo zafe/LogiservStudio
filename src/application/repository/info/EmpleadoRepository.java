@@ -243,7 +243,7 @@ public class EmpleadoRepository {
 			PreparedStatement preparedStatement=connection.prepareStatement("SELECT idEmpleado, Apellido, Nombre \n" +
 					"\t\tFROM Empleado INNER JOIN categoria_empleado \n" +
 					"\t\t\tON CATEGORIA_EMPLEADO_idCategoriaEmpleado = idCategoriaEmpleado\n" +
-					"\t\tWHERE nombreCategoria like 'conductor'\n" +
+					"\t\tWHERE nombreCategoria like 'con%'\n" +
 					"\t\t\tAND FechaBaja is null;");
 
 			ResultSet resultSet = preparedStatement.executeQuery();
