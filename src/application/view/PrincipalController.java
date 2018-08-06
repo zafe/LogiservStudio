@@ -10,6 +10,7 @@ import application.view.inicio.OrganizacionController;
 import application.view.sueldo.ConceptosSalarialesController;
 import application.view.sueldo.LiquidacionesController;
 import application.view.venta.AdministrarViajesController;
+import application.view.venta.ChequesController;
 import application.view.venta.FacturacionController;
 import application.view.venta.VentaClienteController;
 import javafx.fxml.FXML;
@@ -154,6 +155,28 @@ public class PrincipalController {
             VentaClienteController controller = loader.getController();
             controller.setOwner(primaryStage);
             controller.buscarClientes();
+
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void showChequesOverview(){
+        try{
+            // Load category overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/venta/Cheques.fxml"));
+            AnchorPane chequesOverview = loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(chequesOverview);
+
+            // Give the controller access to the main app.
+            ChequesController controller = loader.getController();
+            controller.setOwner(primaryStage);
+            controller.buscarViajes();
 
 
         }catch (IOException e){

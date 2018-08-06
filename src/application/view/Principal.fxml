@@ -34,6 +34,8 @@
                                     <Button mnemonicParsing="false" onAction="#showFacturacionOverview" prefHeight="27.0" prefWidth="224.0" text="Facturación" />
                                     <Button mnemonicParsing="false" onAction="#showViajesOverview" prefHeight="27.0" prefWidth="224.0" text="Viajes" />
                                     <Button mnemonicParsing="false" onAction="#showClientesOverview" prefHeight="27.0" prefWidth="224.0" text="Clientes" />
+                                    <Button fx:id="chequesButton" mnemonicParsing="false" onAction="#showChequesOverview" prefHeight="27.0" prefWidth="224.0" text="Cheques" />
+                                    <Button fx:id="calendarioButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="224.0" text="Calendario" />
                                  </children></VBox>
                                  </children>
                               </AnchorPane>

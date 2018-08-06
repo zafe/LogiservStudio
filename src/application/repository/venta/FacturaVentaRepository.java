@@ -128,16 +128,24 @@ public class FacturaVentaRepository {
 
 	}
 
-	public void search(FacturaVenta facturaVenta){
+	public FacturaVenta search(int idFacturaVenta){
+		FacturaVenta facturaVenta = new FacturaVenta();
+
 		try {
 			connection= JDBCConnection.getInstanceConnection();
-			preparedStatement=connection.prepareStatement("SELECT * FROM FACTURA_VENTA where idFACTURA_VENTA=?");
-			preparedStatement.setInt(1,facturaVenta.getIdFacturaVenta());
-			preparedStatement.executeUpdate();
+			preparedStatement=connection.prepareStatement("SELECT FechaEmision FROM FACTURA_VENTA where idFACTURA_VENTA=?");
+			preparedStatement.setInt(1,idFacturaVenta);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()){
+				facturaVenta.setIdFacturaVenta(idFacturaVenta);
+				facturaVenta.setFechaEmision(resultSet.getString(1));
+			}
 			preparedStatement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
+		return facturaVenta;
 
 	}
 
