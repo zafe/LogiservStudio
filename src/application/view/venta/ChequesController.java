@@ -74,7 +74,7 @@ public class ChequesController {
 	@FXML
 	private void handleNewCheque() {
 		Cheque temp = new Cheque();
-		boolean okClicked = this.showChqueEditDialog(temp, true);
+		boolean okClicked = this.showChequeEditDialog(temp, true);
 		if(okClicked)
 			chequeData.add(temp);
 	}
@@ -86,11 +86,10 @@ public class ChequesController {
 	private void handleEditCheque() {
 		Cheque selectedCheque = chequeTable.getSelectionModel().getSelectedItem();
 		if (selectedCheque != null)
-			this.showChqueEditDialog(selectedCheque, false);
+			this.showChequeEditDialog(selectedCheque, false);
 		else
 			Alerta.alertaError("Seleccionar Viajes", "Por favor seleccione un Viaje en la tabla.");
 	}
-
 	/**
 	 * Called when the user clicks on the logicDelete button.
 	 */
@@ -109,7 +108,7 @@ public class ChequesController {
 
 	}
 
-	private boolean showChqueEditDialog(Cheque temp, boolean b) {
+	private boolean showChequeEditDialog(Cheque temp, boolean b) {
 		try {
 			// Load the fxml file and create a new stage for the popup dialog.
 			FXMLLoader loader = new FXMLLoader();

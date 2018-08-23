@@ -29,7 +29,7 @@ public class ChequeRepository {
         try {
             connection = JDBCConnection.getInstanceConnection();
             preparedStatement =  (cheque.getFacturaVenta() == null)  ?
-                    connection.prepareStatement("INSERT INTO CHEQUE VALUES(?,?,?,?,?,?,?)") :
+                    connection.prepareStatement("INSERT INTO CHEQUE (FechaEmision,FechaPago,CodigoBancario,Banco,Monto,TipoCheque,Estado) VALUES(?,?,?,?,?,?,?)") :
                     connection.prepareStatement("INSERT INTO CHEQUE VALUES(?,?,?,?,?,?,?,?)");
 
 
@@ -43,6 +43,7 @@ public class ChequeRepository {
 
             if (cheque.getFacturaVenta() != null) preparedStatement.setInt(8,cheque.getFacturaVenta().getIdFacturaVenta());
 
+            System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
 
             String cuerpoMsj = "Cheque  " + cheque.getCodigoBancario() + " agregado correctamente.\n";
@@ -55,13 +56,13 @@ public class ChequeRepository {
     public void update(Cheque cheque){
         try {
             connection = JDBCConnection.getInstanceConnection();
-            preparedStatement = (cheque.getFacturaVenta() == null ) ? connection.prepareStatement("UPDATE CHEQUES as p " +
-                            "    SET p.FechaEmision = ?, p.FechaPago=?, p.CodigoBancario =?, p.Banco=?, p.Monto=?, " +
-                    "p.TipoCheque=?, p.Estado=? WHERE p.idCHEQUE = ?")
-                    : connection.prepareStatement("UPDATE CHEQUES as p " +
-                    "    SET p.FechaEmision = ?, p.FechaPago=?, p.CodigoBancario =?, p.Banco=?, p.Monto=?, " +
-                    "p.TipoCheque=?, p.Estado=?, p.FACTURA_VENTA_idFACTURA_VENTA=?" +
-                    "    WHERE p.idCHEQUE = ?");
+            preparedStatement = (cheque.getFacturaVenta() == null ) ? connection.prepareStatement("UPDATE CHEQUE as c" +
+                            "    SET c.FechaEmision = ?, c.FechaPago=?, c.CodigoBancario =?, c.Banco=?, c.Monto=?, " +
+                    "c.TipoCheque=?, c.Estado=? WHERE c.idCHEQUE = ?")
+                    : connection.prepareStatement("UPDATE CHEQUE as c " +
+                    "    SET c.FechaEmision = ?, c.FechaPago=?, c.CodigoBancario =?, c.Banco=?, c.Monto=?, " +
+                    "c.TipoCheque=?, c.Estado=?, c.FACTURA_VENTA_idFACTURA_VENTA=?" +
+                    "    WHERE c.idCHEQUE = ?");
             preparedStatement.setString(1,cheque.getFechaEmision());
             preparedStatement.setString(2,cheque.getFechaPago());
             preparedStatement.setString(3,cheque.getCodigoBancario());
@@ -69,9 +70,16 @@ public class ChequeRepository {
             preparedStatement.setFloat(5, cheque.getMonto());
             preparedStatement.setString(6,cheque.getTipoCheque());
             preparedStatement.setString(7,cheque.getEstadoCheque());
-            if (cheque.getFacturaVenta() != null )
-                preparedStatement.setInt(8,cheque.getFacturaVenta().getIdFacturaVenta());
+            if (cheque.getFacturaVenta() == null )
+                preparedStatement.setInt(8,cheque.getIdCheque());
+            else {
+                preparedStatement.setInt(8, cheque.getFacturaVenta().getIdFacturaVenta());
+                preparedStatement.setInt(9,cheque.getIdCheque());
 
+            }
+
+
+            System.out.println("update(Cheque cheque): " + preparedStatement);
             preparedStatement.executeUpdate();
             String headerMsj="Actualización: cheque actualizado";
             String cuerpoMsj = "Cheque: " + cheque.getCodigoBancario() + "modificado correctamente.";
@@ -107,11 +115,11 @@ public class ChequeRepository {
                         resultSet.getString(4),
                         resultSet.getString(5),
                         resultSet.getFloat(6),
-                        resultSet.getString(7),
-                        resultSet.getString(8));
+                        resultSet.getString(8),
+                        resultSet.getString(9));
 
-                        if (resultSet.getInt(9 ) != 0)
-                            cheque.setFacturaVenta(facturaVentaRepository.search(resultSet.getInt(9)));
+                        if (resultSet.getInt(7 ) > 0)
+                            cheque.setFacturaVenta(facturaVentaRepository.search(resultSet.getInt(7)));
 
                 list.add(cheque);
 

@@ -2,6 +2,7 @@ package application;
 
 import application.database.JDBCConnection;
 import application.view.LoginController;
+import application.view.PrincipalController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -34,10 +35,11 @@ public class Main extends Application {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
             //para usar el principal directamente, cambiar la direccion y descomentar el set
-            loader.setLocation(Main.class.getResource("view/Login.fxml"));
+            loader.setLocation(Main.class.getResource("view/Principal.fxml"));
             rootLayout = (BorderPane) loader.load();
-            LoginController controller = loader.getController();
-//            controller.setRootLayout(rootLayout);     //   <---------- de la ventana principal
+//            LoginController controller = loader.getController();
+            PrincipalController controller = loader.getController();
+            controller.setRootLayout(rootLayout);     //   <---------- de la ventana principal
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);

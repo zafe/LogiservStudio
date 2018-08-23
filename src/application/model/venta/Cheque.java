@@ -2,6 +2,11 @@ package application.model.venta;
 
 import com.sun.org.apache.xml.internal.utils.StringBufferPool;
 import javafx.beans.property.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Cheque {
 
@@ -135,6 +140,80 @@ public class Cheque {
     public Cheque(){
 
         this(0,null,null,null,null,0f,null,null);
+    }
+
+    public ObservableList<String> getBancos(){
+
+        ObservableList<String> bancos = FXCollections.observableArrayList();
+        for(Banco b : Banco.values())  bancos.add(b.getNombre());
+
+        return bancos;
+    }
+
+    public ObservableList<String> getTiposCheque(){
+
+        ObservableList<String> tiposCheque = FXCollections.observableArrayList();
+        for(TipoCheque tc : TipoCheque.values()) tiposCheque.add(tc.getTipo());
+
+        return tiposCheque;
+    }
+
+    public ObservableList<String> getEstadosCheque(){
+
+        ObservableList<String> estadosCheque = FXCollections.observableArrayList();
+        for(EstadoCheque ec : EstadoCheque.values()) estadosCheque.add(ec.getEstado());
+
+        return estadosCheque;
+    }
+
+
+    private enum Banco{
+
+        MACRO ("Macro"),
+        SANTANDER ("Santander Rio"),
+        CREDICOP ("CREDICOP"),
+        FRANCES ("BBVA Frances"),
+        PATAGONIA ("Patagonia");
+
+
+        private final String nombre;
+
+        Banco(String nombre){
+            this.nombre = nombre;
+        }
+
+        public String getNombre(){ return nombre; }
+
+    }
+
+    public enum TipoCheque{
+
+        CRUZADO ("Cruzado"),
+        DIFERIDO ("Pago Diferido");
+
+        private final String tipo;
+
+        private String getTipo() {return tipo;}
+
+        TipoCheque(String tipo){
+            this.tipo = tipo;
+        }
+
+    }
+
+    public enum EstadoCheque{
+
+        COBRADO ("Cobrado"),
+        PENDIENTE ("En espera");
+
+        private final String estado;
+
+        private String getEstado(){ return estado;}
+
+        EstadoCheque(String estado){
+            this.estado = estado;
+        }
+
     }
 
 }

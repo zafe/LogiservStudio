@@ -12,12 +12,13 @@ import application.repository.info.ProvinciaRepository;
 import application.repository.venta.ChequeRepository;
 import application.repository.venta.ClienteRepository;
 import javafx.beans.property.FloatProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.time.Instant;
@@ -33,7 +34,7 @@ public class ChequeEditController {
     private boolean isNew;
     private Stage dialogStage;
     private boolean okClicked;
-    private Cheque cheque;
+    private Cheque cheque = new Cheque();
     private ChequeRepository chequeRepository = new ChequeRepository();
 
 
@@ -59,9 +60,17 @@ public class ChequeEditController {
     @FXML
     private DatePicker fechaCobroPicker;
     @FXML
+    private Label comisionLabel;
+    @FXML
+    private Label saldoEfectivoLabel;
+    @FXML
+    private Label fechaCobroLabel;
+    @FXML
     private Button btnOk;
     @FXML
     private Button btnCancel;
+
+
 
 
     public void setDialogStage(Stage dialogStage) {
@@ -117,11 +126,30 @@ public class ChequeEditController {
     @FXML
     public void initialize() {
 
-      //  bancoComboBox.setItems();
-      //  estadoChequeComboBox.setItems();
-      //  estadoChequeComboBox.setItems();
+
+        bancoComboBox.setItems(cheque.getBancos());
+        estadoChequeComboBox.setItems(cheque.getEstadosCheque());
+        tipoChequeComboBox.setItems(cheque.getTiposCheque());
+        estadoChequeComboBox.setOnAction((event) -> {
+            String estado = estadoChequeComboBox.getSelectionModel().getSelectedItem().toString();
+            handleEstadoHasChanged(estado);
+        });
+    }
+
+    @FXML
+    private void handleEstadoHasChanged(String estado){
+
+
+        boolean disable = (estado == "En espera")? true : false;
+        comisionField.setDisable(disable);
+        saldoEfectivoField.setDisable(disable);
+        fechaCobroPicker.setDisable(disable);
+        comisionLabel.setDisable(disable);
+        saldoEfectivoLabel.setDisable(disable);
+        fechaCobroLabel.setDisable(disable);
 
     }
+
 
     @FXML
     public void handleOk(){
@@ -130,6 +158,8 @@ public class ChequeEditController {
             cheque.setFechaEmision(fechaEmisionPicker.getValue().format(formatter));
             cheque.setFechaPago(fechaPagoPicker.getValue().format(formatter));
             cheque.setCodigoBancario(codigoBancarioField.getText());
+            cheque.setBanco(bancoComboBox.getValue());
+            cheque.setMonto(Float.parseFloat(montoField.getText()));
             cheque.setTipoCheque(tipoChequeComboBox.getValue());
             cheque.setEstadoCheque(estadoChequeComboBox.getValue());
 

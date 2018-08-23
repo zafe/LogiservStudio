@@ -154,7 +154,7 @@ public class LiquidacionesController implements Initializable{
 	private void handleImprimirReciboSueldo(){
 		if (!liqEmpleadosTable.getSelectionModel().isEmpty()){
 			LiquidacionEmpleado empleadoLiquidado = liqEmpleadosTable.getSelectionModel().getSelectedItem();
-			AbstractJasperReports.createReport("src\\application\\reports\\ReciboSueldo.jasper",
+			AbstractJasperReports.createReport("src/application/reports/ReciboSueldo.jasper",
 					"idLiquidacion", empleadoLiquidado.getId());
 			AbstractJasperReports.showViewer();
 		}
