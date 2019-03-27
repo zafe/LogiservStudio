@@ -6,6 +6,7 @@ import application.model.info.Localidad;
 import application.model.info.Provincia;
 import application.model.venta.Cheque;
 import application.model.venta.Cliente;
+import application.model.venta.PagoCheque;
 import application.repository.info.DomicilioRepository;
 import application.repository.info.LocalidadRepository;
 import application.repository.info.ProvinciaRepository;
@@ -97,6 +98,7 @@ public class ChequeEditController {
             tipoChequeComboBox.getSelectionModel().select(cheque.getTipoCheque());
             estadoChequeComboBox.getSelectionModel().select(cheque.getEstadoCheque());
             //TODO HACER EL INITIALIZE DEL PAGO
+
 
         }
     }
