@@ -93,7 +93,7 @@ public class EmitirFacturaController {
         apellidoConductorColumn.setCellValueFactory(cellData -> cellData.getValue().getConductor().apellidoProperty());
         fincaColumn.setCellValueFactory(cellData -> cellData.getValue().getFinca().nombreProperty());
         ingenioColumn.setCellValueFactory(cellData -> cellData.getValue().getIngenio().nombreProperty());
-        //montoColumn.setCellValueFactory(cellData -> cellData.getValue().montoProperty().asString());
+        montoColumn.setCellValueFactory(cellData -> cellData.getValue().montoProperty().asString());
 
         checkColumn.setCellValueFactory(new PropertyValueFactory<Viaje, String>("select"));
         checkColumn.setStyle( "-fx-alignment: CENTER;");
@@ -136,10 +136,10 @@ public class EmitirFacturaController {
         if (ingenioComboBox.getSelectionModel().getSelectedItem() == "Todos"){
             buscarViajes();
         }else{
-        viajeData = viajeRepository.getViajesSinLiqByIngenioId
-                (ingenioData.get(ingenioComboBox.getSelectionModel().getSelectedIndex()).getIdIngenio());
-        viajeTableView.setItems(viajeData);
-    }
+            viajeData = viajeRepository.getViajesSinLiqByIngenioId
+                    (ingenioData.get(ingenioComboBox.getSelectionModel().getSelectedIndex()).getIdIngenio());
+            viajeTableView.setItems(viajeData);
+        }
 
     }
 
@@ -151,7 +151,7 @@ public class EmitirFacturaController {
             dialogStage.close();
             okClicked = true;
         }
-        }
+    }
 
     @FXML
     private void handleCancel(){

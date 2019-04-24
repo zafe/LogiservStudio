@@ -1,10 +1,12 @@
 package application.view.sueldo;
 
 import application.Main;
-import application.model.info.Empleado;
 import application.model.sueldo.LiquidacionEmpleado;
-import application.model.sueldo.Liquidaciones;
-import application.repository.sueldo.LiquidacionesRepository;
+import application.model.sueldo.Liquidacion;
+import application.reports.classes.AbstractJasperReports;
+import application.repository.sueldo.LiquidacionEmpleadoRepository;
+import application.repository.sueldo.LiquidacionRepository;
+import application.view.sueldo.cruds.LiquidacionSueldoController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,23 +26,25 @@ import java.util.ResourceBundle;
 
 public class LiquidacionesController implements Initializable{
 
+
+
 	//Declaracion de la tabla y columnas de la clase Liquidaciones
 	@FXML
-	private TableView<Liquidaciones> liquidacionTable;
+	private TableView<Liquidacion> liquidacionTable;
 	@FXML
-	private TableColumn<Liquidaciones, String> idLiquidacion;
+	private TableColumn<Liquidacion, String> idLiquidacion;
 	@FXML
-	private TableColumn<Liquidaciones, String> fechaColumn;
+	private TableColumn<Liquidacion, String> fechaColumn;
 	@FXML
-	private TableColumn<Liquidaciones, String> hrColumn;
+	private TableColumn<Liquidacion, String> hrColumn;
 	@FXML
-	private  TableColumn<Liquidaciones, String> hnrColumn;
+	private  TableColumn<Liquidacion, String> hnrColumn;
 	@FXML
-	private TableColumn<Liquidaciones, String> retencionesColumn;
+	private TableColumn<Liquidacion, String> retencionesColumn;
 
 	//Declaracion de la tabla y columnas de la clase LiquidacionEmpleado
 	@FXML
-	private  TableView<LiquidacionEmpleado> empleadosTable;
+	private  TableView<LiquidacionEmpleado> liqEmpleadosTable;
 	@FXML
 	private TableColumn<LiquidacionEmpleado, String> legajoColumn;
 	@FXML
@@ -58,31 +62,29 @@ public class LiquidacionesController implements Initializable{
 	@FXML
 	private Button nuevaLiquidacionButton;
 	@FXML
-	private Button reportesButton;
-
-
-
-
+	private Button imprimirRecibos;
+	@FXML
+	private Button imprimirReciboDeEmpleado;
 
 	private Stage owner;
-
-	private ObservableList<LiquidacionEmpleado> liquidacion = FXCollections.observableArrayList();
-
-	private ObservableList<Empleado> empleados = FXCollections.observableArrayList();
-
-	private LiquidacionesRepository liquidacionesRepository = new LiquidacionesRepository();
-
-	private ObservableList<LiquidacionEmpleado> empleadosLiquidados = FXCollections.observableArrayList();
+	private ObservableList<LiquidacionEmpleado> liquidacionesEmpleado = FXCollections.observableArrayList();
+	private LiquidacionEmpleadoRepository liquidacionEmpleadoRepository = new LiquidacionEmpleadoRepository();
 
 	public void setOwner(Stage owner){
 		this.owner = owner;
 
 	}
-	private ObservableList<Liquidaciones> liquidaciones = FXCollections.observableArrayList();
+	private ObservableList<Liquidacion> liquidaciones = FXCollections.observableArrayList();
 
 	public void buscarLiquidaciones(){
-		this.liquidaciones = LiquidacionesRepository.buscarLiquidaciones();
+		this.liquidaciones = LiquidacionRepository.buscarLiquidaciones();
 		liquidacionTable.setItems(liquidaciones);
+	}
+
+	private void buscarLiquidacionesEmpleado(int idLiquidacion){
+		this.liquidacionesEmpleado = liquidacionEmpleadoRepository.getLiqEmpleadoByIdLiq(idLiquidacion);
+		if (!liquidacionesEmpleado.isEmpty())
+			liqEmpleadosTable.setItems(liquidacionesEmpleado);
 	}
 
 	@Override
@@ -94,10 +96,16 @@ public class LiquidacionesController implements Initializable{
 		hnrColumn.setCellValueFactory(cellData -> cellData.getValue().totalHaberesNoRemunerativosProperty().asString());
 		retencionesColumn.setCellValueFactory(cellData -> cellData.getValue().totalRetencionesProperty().asString());
 
+		liquidacionTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+			if (newSelection != null) {
+				buscarLiquidacionesEmpleado(liquidacionTable.getSelectionModel().getSelectedItem().getId());
+			}
+		});
+
 		legajoColumn.setCellValueFactory(cellData -> cellData.getValue().getEmpleado().idEmpleadoProperty().asString());
 		apellidoColumn.setCellValueFactory(cellData -> cellData.getValue().getEmpleado().apellidoProperty());
 		nombreColumn.setCellValueFactory(cellData -> cellData.getValue().getEmpleado().nombreProperty());
-//		categoriaColumn.setCellValueFactory(cellData -> cellData.getValue().getEmpleado().categoriaProperty());
+		categoriaColumn.setCellValueFactory(cellData -> cellData.getValue().getEmpleado().getCategoriaEmpleado().nombreProperty());
 		hrEmpleadoColumn.setCellValueFactory(cellData -> cellData.getValue().totalHaberesRemunerativosProperty().asString());
 		hnrEmpleadoColumn.setCellValueFactory(cellData -> cellData.getValue().totalHaberesNoRemunerativosProperty().asString());
 		retencionesEmpleadoColumn.setCellValueFactory(cellData -> cellData.getValue().totalRetencionesProperty().asString());
@@ -121,7 +129,8 @@ public class LiquidacionesController implements Initializable{
 			Scene scene = new Scene(page);
 			dialogStage.setScene(scene);
 
-
+			LiquidacionSueldoController controller = loader.getController();
+			controller.setOwner(dialogStage);
 
 			// Show the dialog and wait until the user closes it
 			dialogStage.showAndWait();
@@ -132,17 +141,22 @@ public class LiquidacionesController implements Initializable{
 	}
 
 	@FXML
-	public void cargarEmpleadosLiquidados(){
-		if (liquidacionTable.getSelectionModel().getSelectedItem() != null){
-			empleadosLiquidados = liquidacionesRepository.getEmpleadosLiquidadosByidLiquidacion(liquidacionTable.getSelectionModel().getSelectedItem().getId());
-			empleadosTable.setItems(empleadosLiquidados);
-		}
+	private void handleImprimirRecibos(){
+		int idLiquidacion = liquidacionTable.getSelectionModel().getSelectedItem().getId();
+		System.out.println("se imprimieron recibos de sueldo "+ idLiquidacion);
+		AbstractJasperReports.createReport("src\\application\\reports\\TodosLosRecibosDeUnaLiquidacion.jasper",
+				"idLiquidacion", idLiquidacion);
+		AbstractJasperReports.showViewer();
 	}
 
-//    @FXML
-//    private void cargarLiquidaciones(){
-//        if (liquidacionTable.getSelectionModel().getSelectedItem() != null){
-//
-//        }
-//    }
+
+	@FXML
+	private void handleImprimirReciboSueldo(){
+		if (!liqEmpleadosTable.getSelectionModel().isEmpty()){
+			LiquidacionEmpleado empleadoLiquidado = liqEmpleadosTable.getSelectionModel().getSelectedItem();
+			AbstractJasperReports.createReport("src\\application\\reports\\ReciboSueldo.jasper",
+					"idLiquidacion", empleadoLiquidado.getId());
+			AbstractJasperReports.showViewer();
+		}
+	}
 }

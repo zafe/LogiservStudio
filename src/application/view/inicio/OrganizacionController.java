@@ -11,9 +11,12 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,15 +27,13 @@ public class OrganizacionController implements Initializable{
     @FXML
     private Label cuitOrganizacionLabel;
     @FXML
-    private Label razonSocialOrganizacionLabel;
-    @FXML
     private Label apoderadoOrganizacionLabel;
     @FXML
     private Label domicilioOrganizacionLabel;
     @FXML
-    private Label telefonoOrganizacionLabel;
-    @FXML
     private Button actualizarDatosOrganizacionLabel;
+    @FXML
+    private ImageView imagenCamion;
 
     Organizacion organizacion = new Organizacion();
     OrganizacionRepository repository = new OrganizacionRepository();
@@ -44,6 +45,9 @@ public class OrganizacionController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        File file = new File("src/resources/volks.png");
+        Image image = new Image(file.toURI().toString());
+        imagenCamion.setImage(image);
         cargarDatosOrganizacion();
     }
 
@@ -60,6 +64,7 @@ public class OrganizacionController implements Initializable{
     @FXML
     public void handleNew(){
         handleEdit(organizacion);
+        cargarDatosOrganizacion();
     }
 
     private void handleEdit(Organizacion organizacion){

@@ -27,8 +27,6 @@ public class ArticulosController {
     @FXML
     private Button buttonUpdate;
     @FXML
-    private Button buttonDelete;
-    @FXML
     private TableView<Articulo> articuloTableView;
     @FXML
     private TableColumn<Articulo, String> marcaTableColumn;
@@ -71,19 +69,6 @@ public class ArticulosController {
 
     }
 
-    @FXML
-    public void handleDelete(){
-        Articulo articulo = articuloTableView.getSelectionModel().getSelectedItem();
-        Optional<ButtonType> resultado = Alerta.alertaConfirmacion("Eliminar Artículo",
-                null, "¿Desea eliminar el artículo seleccionado?");
-        if (resultado.isPresent() && resultado.get()==ButtonType.OK){
-            articuloTableView.getItems().remove(
-                    articuloTableView.getSelectionModel().getSelectedIndex());
-            articuloRepository.delete(articulo.getIdArticulo());
-        }else
-            Alerta.alertaError("Seleccionar Artículo", "Por favor seleccione un artículo en la tabla.");
-
-    }
     public boolean showEdit(Articulo articulo, boolean tipo) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.

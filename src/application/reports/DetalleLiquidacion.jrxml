@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DetalleLiquidacion" pageWidth="420" pageHeight="595" columnWidth="380" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="08046d24-05bc-4814-a3c6-f8d749bba0cf">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="logiserv"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="idLiquidacion" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT detail.cantidad AS factor, detail.monto, concept.descripcion, concept.tipo_concepto
+	FROM LIQUIDACION_EMPLEADO 
+		INNER JOIN DETALLE_LIQUIDACION_EMPLEADO AS detail 
+			ON idLiquidacionEmpleado=LiquidacionEmpleado_idLiquidacionEmpleado
+		INNER JOIN CONCEPTO_SUELDO AS concept
+			ON idCodigoConcepto=CONCEPTO_SUELDO_idCodigoConcepto
+		WHERE idLiquidacionEmpleado=$P{idLiquidacion}]]>
+	</queryString>
+	<field name="factor" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="factor"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="detalle_liquidacion_empleado"/>
+	</field>
+	<field name="monto" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="monto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="detalle_liquidacion_empleado"/>
+	</field>
+	<field name="descripcion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="descripcion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="concepto_sueldo"/>
+	</field>
+	<field name="tipo_concepto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="tipo_concepto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="concepto_sueldo"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="380" height="20" uuid="75020ffa-85f6-4406-8eec-03c6310d5b03"/>
+				<textField>
+					<reportElement x="0" y="3" width="140" height="17" uuid="8c0174d6-e6ed-4a7f-a10b-39e55a2ec548"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="166" y="3" width="100" height="17" uuid="452f061a-57c2-4c1c-866f-9bbe0f7831dd"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="270" y="3" width="100" height="17" uuid="e5fdffcf-d122-42a7-adf4-289c63740113"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{tipo_concepto}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="145" y="2" width="21" height="19" uuid="6885f6e0-9a4e-4910-87fc-a434773363f2"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle"/>
+					<text><![CDATA[$]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</detail>
+</jasperReport>

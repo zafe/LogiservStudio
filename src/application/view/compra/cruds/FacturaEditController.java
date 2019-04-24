@@ -22,7 +22,6 @@ import org.apache.commons.lang3.math.NumberUtils;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ConcurrentModificationException;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -330,5 +329,10 @@ public class FacturaEditController implements Initializable {
         if (NumberUtils.isCreatable(cantidadField.getText()) && NumberUtils.isCreatable(precioField.getText()))
                 isFieldsSetted=true;
         return isFieldsSetted;
+    }
+
+    @FXML
+    private void handleAddArticuleOnEnter(){
+        handleNewLine();
     }
 }

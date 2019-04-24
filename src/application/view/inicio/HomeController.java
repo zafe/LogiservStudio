@@ -32,7 +32,7 @@ public class HomeController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        File file = new File("src/img/cañasprincipal.jpg");
+        File file = new File("src/resources/cañasprincipal.jpg");
         Image image = new Image(file.toURI().toString());
         imageView.setImage(image);
     }

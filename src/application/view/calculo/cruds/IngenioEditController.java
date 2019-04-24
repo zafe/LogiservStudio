@@ -10,11 +10,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.math.NumberUtils;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import org.apache.commons.lang3.math.NumberUtils;
 
 public class IngenioEditController implements Initializable {
     @FXML
@@ -113,7 +112,7 @@ public class IngenioEditController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         WebEngine engine = webView.getEngine();
-        String url = "https://www.google.com";
+        String url = "https://www.google.com.ar/maps";
         engine.load(url);
     }
 

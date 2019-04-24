@@ -23,8 +23,8 @@ public class CamionRepository {
             preparedStatement.setString(2,camion.getMarca());
             preparedStatement.setString(3,camion.getModelo());
             preparedStatement.setString(4,camion.getPatente());
-            preparedStatement.setString(5, null);
-            preparedStatement.setString(6, null);
+            preparedStatement.setString(5, camion.getMotor());
+            preparedStatement.setString(6, camion.getChasis());
             preparedStatement.execute();
             String cuerpoMsj = "Camión: " + camion.getMarca() + " agregado correctamente.\n";
             Alerta.alertaInfo("Camiones",cuerpoMsj);
@@ -37,12 +37,14 @@ public class CamionRepository {
             connection = JDBCConnection.getInstanceConnection();
             preparedStatement= connection.prepareStatement("" +
                     "UPDATE CAMION " +
-                    "SET Marca=?, Modelo=?, Patente=? " +
+                    "SET Marca=?, Modelo=?, Patente=?, MotorNumero=?, ChasisNumero=? " +
                     "WHERE idCamion=?");
             preparedStatement.setString(1,camion.getMarca());
             preparedStatement.setString(2,camion.getModelo());
             preparedStatement.setString(3,camion.getPatente());
-            preparedStatement.setInt(4,camion.getId());
+            preparedStatement.setString(4, camion.getMotor());
+            preparedStatement.setString(5, camion.getChasis());
+            preparedStatement.setInt(6,camion.getId());
             preparedStatement.execute();
             String headerMsj="Actualización: Camión actualizado";
             String cuerpoMsj = "Camión: " + camion.getMarca() + " modificado correctamente.";
@@ -76,6 +78,8 @@ public class CamionRepository {
                 camion.setMarca(resultSet.getString(2));
                 camion.setModelo(resultSet.getString(3));
                 camion.setPatente(resultSet.getString(4));
+                camion.setMotor(resultSet.getString(5));
+                camion.setChasis(resultSet.getString(6));
                 list.add(camion);
             }
 
@@ -83,17 +87,6 @@ public class CamionRepository {
             e.printStackTrace();
         }
         return list;
-    }
-    public void search(Camion camion){
-        try {
-            connection= JDBCConnection.getInstanceConnection();
-            preparedStatement=connection.prepareStatement("SELECT * FROM CAMION where idCamion=?");
-            preparedStatement.setInt(1,camion.getId());
-            preparedStatement.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
     }
 
     public Camion getCamionById(int idCamion){
@@ -108,12 +101,12 @@ public class CamionRepository {
                 camion.setMarca(resultSet.getString("Marca"));
                 camion.setModelo(resultSet.getString("Modelo"));
                 camion.setPatente(resultSet.getString("PATENTE"));
+                camion.setMotor(resultSet.getString("MotorNumero"));
+                camion.setChasis(resultSet.getString("ChasisNumero"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return camion;
-
     }
 }

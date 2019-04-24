@@ -2,22 +2,10 @@ package application.view;
 
 import application.Main;
 import application.comunes.Alerta;
-import application.model.compra.Articulo;
-import application.model.compra.DetalleCompra;
-import application.model.compra.FacturaCompra;
-import application.model.compra.Proveedor;
 import application.model.info.*;
-import application.repository.compra.ArticuloRepository;
-import application.repository.compra.DetalleCompraRepository;
-import application.repository.compra.FacturaCompraRepository;
-import application.repository.compra.ProveedorRepository;
 import application.repository.info.*;
-import application.view.compra.ArticulosController;
-import application.view.compra.ProveedoresController;
 import application.view.info.InfoCategoriaEmpleadoController;
 import javafx.beans.binding.BooleanBinding;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -35,6 +23,10 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 public class RegisterController implements Initializable {
+    public Hyperlink getHlLogin() {
+        return hlLogin;
+    }
+
     @FXML
     private Hyperlink hlLogin;
     @FXML
@@ -62,7 +54,6 @@ public class RegisterController implements Initializable {
     @FXML
     private Button registrarButton;
 
-    private Stage owner;
     private Stage dialogStage;
 
     private CategoriaEmpleadoRepository categoriaEmpleadoRepository = new CategoriaEmpleadoRepository();
@@ -123,9 +114,7 @@ public class RegisterController implements Initializable {
         registrarButton.disableProperty().bind(boolenBinding);
         cargarCategorias();
         cargarLocalidades();
-    }
-    public void setOwner(Stage owner){
-        this.owner = owner;
+
     }
 
     public void setDialogStage(Stage dialogStage) {
@@ -175,8 +164,7 @@ public class RegisterController implements Initializable {
         categoriaEmpleadoComboBox.setItems(categoriaEmpleadoRepository.view());
     }
     private void cargarLocalidades() {
-        int idTucuman = 23; //hardcode id tucuman
-        localidadComboBox.setItems(localidadRepository.view(idTucuman));
+        localidadComboBox.setItems(localidadRepository.localidadesDeTucuman());
     }
 
     @FXML

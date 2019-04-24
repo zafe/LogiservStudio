@@ -22,9 +22,8 @@ public class AcopladoRepository {
             preparedStatement.setString(1,null);
             preparedStatement.setString(2, acoplado.getMarca());
             preparedStatement.setString(3, acoplado.getPatente());
-            preparedStatement.setString(4, null);
+            preparedStatement.setString(4, acoplado.getChasisNumero());
             preparedStatement.executeUpdate();
-            preparedStatement.close();
             String cuerpoMsj = "Acoplado \n Marca: " + acoplado.getMarca() + "\nPatente: "+acoplado.getPatente() +"\nagregado correctamente.\n";
             Alerta.alertaInfo("Acoplados",cuerpoMsj);
         } catch (SQLException e) {
@@ -37,16 +36,16 @@ public class AcopladoRepository {
         try {
             connection = JDBCConnection.getInstanceConnection();
             preparedStatement= connection.prepareStatement("UPDATE ACOPLADO " +
-                    "SET Marca=?, Patente=?" +
+                    "SET Marca=?, Patente=?, ChasisNumero=?" +
                     "WHERE idAcoplado=?");
             preparedStatement.setString(1, acoplado.getMarca());
             preparedStatement.setString(2, acoplado.getPatente());
-            preparedStatement.setInt(3, acoplado.getId());
+            preparedStatement.setString(3, acoplado.getChasisNumero());
+            preparedStatement.setInt(4, acoplado.getId());
             preparedStatement.executeUpdate();
-            preparedStatement.close();
             String headerMsj="Actualización: Acoplado actualizado";
             String cuerpoMsj = "Acoplado: \n\tMarca: " + acoplado.getMarca() + "\n\tPatente: " +
-                   acoplado.getPatente()+  "modificado correctamente.";
+                    acoplado.getPatente()+  "modificado correctamente.";
             Alerta.alertaInfo("Acoplados", headerMsj, cuerpoMsj);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -60,7 +59,6 @@ public class AcopladoRepository {
                     "DELETE FROM ACOPLADO WHERE idAcoplado=?");
             preparedStatement.setInt(1, acoplado.getId());
             preparedStatement.execute();
-            preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -77,28 +75,16 @@ public class AcopladoRepository {
                 acoplado.setId(resultSet.getInt(1));
                 acoplado.setMarca(resultSet.getString(2));
                 acoplado.setPatente(resultSet.getString(3));
+                acoplado.setChasisNumero(resultSet.getString(4));
                 list.add(acoplado);
             }
-            preparedStatement.close();
-            resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return list;
     }
-    public void search(Acoplado acoplado){
-        try {
-            connection= JDBCConnection.getInstanceConnection();
-            preparedStatement=connection.prepareStatement("SELECT * FROM ACOPLADO where idAcoplado=?");
-            preparedStatement.setInt(1,acoplado.getId());
-            preparedStatement.executeUpdate();
-            preparedStatement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
-    }
 
     public Acoplado getAcopladoById(int idAcoplado){
         Acoplado acoplado = new Acoplado();
@@ -111,13 +97,12 @@ public class AcopladoRepository {
                 acoplado.setId(resultSet.getInt("idAcoplado"));
                 acoplado.setMarca(resultSet.getString("Marca"));
                 acoplado.setPatente(resultSet.getString("Patente"));
+                acoplado.setChasisNumero(resultSet.getString("ChasisNumero"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return acoplado;
-
     }
 
 
