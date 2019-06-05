@@ -59,5 +59,10 @@
     <orderEntry type="library" name="Maven: org.olap4j:olap4j:0.9.7.309-JS-3" level="project" />
     <orderEntry type="library" name="Maven: com.google.zxing:core:3.2.1" level="project" />
     <orderEntry type="library" name="Maven: com.ibm.icu:icu4j:57.1" level="project" />
+    <orderEntry type="library" name="Maven: com.calendarfx:view:8.5.0" level="project" />
+    <orderEntry type="library" name="Maven: com.calendarfx:recurrence:8.5.0" level="project" />
+    <orderEntry type="library" name="Maven: de.jensd:fontawesomefx-commons:8.13" level="project" />
+    <orderEntry type="library" name="Maven: de.jensd:fontawesomefx-fontawesome:4.7.0-1" level="project" />
+    <orderEntry type="library" name="Maven: org.jfxtras:jmetro:5.3" level="project" />
   </component>
 </module>

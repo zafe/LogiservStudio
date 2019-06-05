@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import jfxtras.styles.jmetro8.JMetro;
 
 import java.io.IOException;
 
@@ -22,7 +23,6 @@ public class Main extends Application {
         this.primaryStage.setTitle("Logiserv Studio");
         // Set the application icon.
         this.primaryStage.getIcons().add(new Image("resources/logiserv-icon.png"));
-
         JDBCConnection.getInstanceConnection();
         initRootLayout();
     }
@@ -32,15 +32,18 @@ public class Main extends Application {
      */
     public void initRootLayout() {
         try {
+
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
             //para usar el principal directamente, cambiar la direccion y descomentar el set
-            loader.setLocation(Main.class.getResource("view/Principal.fxml"));
+//            loader.setLocation(Main.class.getResource("view/Principal.fxml"));
+            loader.setLocation(Main.class.getResource("view/Login.fxml"));
             rootLayout = (BorderPane) loader.load();
-//            LoginController controller = loader.getController();
-            PrincipalController controller = loader.getController();
-            controller.setRootLayout(rootLayout);     //   <---------- de la ventana principal
+            LoginController controller = loader.getController();
+//            PrincipalController controller = loader.getController();
+//            controller.setRootLayout(rootLayout);     //   <---------- de la ventana principal
             // Show the scene containing the root layout.
+            new JMetro(JMetro.Style.LIGHT).applyTheme(rootLayout);
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();

@@ -9,10 +9,11 @@ import application.view.inicio.HomeController;
 import application.view.inicio.OrganizacionController;
 import application.view.sueldo.ConceptosSalarialesController;
 import application.view.sueldo.LiquidacionesController;
-import application.view.venta.AdministrarViajesController;
-import application.view.venta.ChequesController;
-import application.view.venta.FacturacionController;
-import application.view.venta.VentaClienteController;
+import application.view.venta.*;
+import com.calendarfx.model.Calendar;
+import com.calendarfx.model.CalendarSource;
+import com.calendarfx.model.Entry;
+import com.calendarfx.view.CalendarView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -25,9 +26,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import jfxtras.styles.jmetro8.JMetro;
 
 import javax.swing.text.Style;
 import java.io.IOException;
+import java.time.LocalTime;
 
 public class PrincipalController {
 
@@ -85,8 +88,9 @@ public class PrincipalController {
 
     public void setRootLayout(BorderPane root){
 		this.rootLayout = root;
+        new JMetro(JMetro.Style.LIGHT).applyTheme(rootLayout);
 
-	}
+    }
 
 	public void setPrimaryStage(Stage primary){
 		this.primaryStage = primary;
@@ -184,6 +188,54 @@ public class PrincipalController {
         }
     }
 
+    @FXML
+    private void showCalendarioOverview(){
+
+        CalendarView calendarView = new CalendarView();
+
+        Calendar cheques = new Calendar("Cheques");
+        Calendar pagos = new Calendar("Pagos");
+
+        Entry<String> dentistAppointment = new Entry<>("Pago Cheque uno");
+        cheques.addEntry(dentistAppointment);
+
+        Entry<String> dentisAppointment = new Entry<>("Pago Cheque dos 222");
+        pagos.addEntry(dentisAppointment);
+
+        cheques.setStyle(Calendar.Style.STYLE1);
+        pagos.setStyle(Calendar.Style.STYLE2);
+
+        CalendarSource myCalendarSource = new CalendarSource("My Calendars");
+        myCalendarSource.getCalendars().addAll(cheques, pagos);
+
+
+        calendarView.getCalendarSources().addAll(myCalendarSource);
+        calendarView.setRequestedTime(LocalTime.now());
+
+        AnchorPane calendarioOverview = new AnchorPane();
+        rootLayout.setCenter(calendarView);
+
+        /*
+        try{
+            // Load category overview.
+            //FXMLLoader loader = new FXMLLoader();
+            //loader.setLocation(Main.class.getResource("view/venta/Calendario2.fxml"));
+            AnchorPane calendarioOverview = new AnchorPane();//loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(calendarioOverview);
+
+
+            // Give the controller access to the main app.
+            CalendarioController controller = new CalendarioController();//loader.getController();
+            //controller.setOwner(primaryStage);
+            controller.initialize(primaryStage);
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }*/
+    }
     //---------------MODULO INFORMACION------------------------//
 
 	@FXML
@@ -207,6 +259,7 @@ public class PrincipalController {
             e.printStackTrace();
         }
         }
+
     @FXML
     private void showFamiliares(){
         try{
@@ -228,6 +281,7 @@ public class PrincipalController {
             e.printStackTrace();
         }
     }
+
     @FXML
     private void showDesempleados(){
         try{
