@@ -88,7 +88,6 @@ public class PrincipalController {
 
     public void setRootLayout(BorderPane root){
 		this.rootLayout = root;
-        new JMetro(JMetro.Style.LIGHT).applyTheme(rootLayout);
 
     }
 
@@ -191,16 +190,19 @@ public class PrincipalController {
     @FXML
     private void showCalendarioOverview(){
 
-        CalendarView calendarView = new CalendarView();
+        /*CalendarView calendarView = new CalendarView();
 
         Calendar cheques = new Calendar("Cheques");
         Calendar pagos = new Calendar("Pagos");
 
         Entry<String> dentistAppointment = new Entry<>("Pago Cheque uno");
         cheques.addEntry(dentistAppointment);
+        dentistAppointment.setFullDay(true);
+        dentistAppointment.setLocation("Banco Santander Rio");
 
         Entry<String> dentisAppointment = new Entry<>("Pago Cheque dos 222");
         pagos.addEntry(dentisAppointment);
+        dentisAppointment.setLocation("Banco Macro");
 
         cheques.setStyle(Calendar.Style.STYLE1);
         pagos.setStyle(Calendar.Style.STYLE2);
@@ -208,33 +210,15 @@ public class PrincipalController {
         CalendarSource myCalendarSource = new CalendarSource("My Calendars");
         myCalendarSource.getCalendars().addAll(cheques, pagos);
 
-
         calendarView.getCalendarSources().addAll(myCalendarSource);
         calendarView.setRequestedTime(LocalTime.now());
 
-        AnchorPane calendarioOverview = new AnchorPane();
         rootLayout.setCenter(calendarView);
+        */
 
-        /*
-        try{
-            // Load category overview.
-            //FXMLLoader loader = new FXMLLoader();
-            //loader.setLocation(Main.class.getResource("view/venta/Calendario2.fxml"));
-            AnchorPane calendarioOverview = new AnchorPane();//loader.load();
+        CalendarioController calendarioController = new CalendarioController();
+        rootLayout.setCenter(calendarioController.initialize(primaryStage));
 
-            // Set person overview into the center of root layout.
-            rootLayout.setCenter(calendarioOverview);
-
-
-            // Give the controller access to the main app.
-            CalendarioController controller = new CalendarioController();//loader.getController();
-            //controller.setOwner(primaryStage);
-            controller.initialize(primaryStage);
-
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }*/
     }
     //---------------MODULO INFORMACION------------------------//
 

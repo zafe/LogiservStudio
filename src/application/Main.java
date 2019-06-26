@@ -43,7 +43,6 @@ public class Main extends Application {
 //            PrincipalController controller = loader.getController();
 //            controller.setRootLayout(rootLayout);     //   <---------- de la ventana principal
             // Show the scene containing the root layout.
-            new JMetro(JMetro.Style.LIGHT).applyTheme(rootLayout);
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();

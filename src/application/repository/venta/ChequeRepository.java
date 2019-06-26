@@ -100,6 +100,7 @@ public class ChequeRepository {
         }
 
     }
+
     public ObservableList<Cheque> view(){
         ObservableList<Cheque> list = FXCollections.observableArrayList();
         try {
