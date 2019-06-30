@@ -1,7 +1,6 @@
 package application.view;
 
 import application.Main;
-import application.model.compra.Proveedor;
 import application.model.info.Usuario;
 import application.repository.info.UsuarioRepository;
 import javafx.beans.binding.BooleanBinding;
@@ -13,20 +12,16 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class LoginController implements Initializable {
     @FXML
@@ -39,6 +34,8 @@ public class LoginController implements Initializable {
     private Hyperlink hlCrateAccount;
     @FXML
     private Label errorLoginLabel;
+    @FXML
+    private ImageView logo;
 
     private String nombreUsuario;
     private String password;
@@ -47,6 +44,9 @@ public class LoginController implements Initializable {
     UsuarioRepository usuarioRepository = new UsuarioRepository();
 
     public void initialize(URL url, ResourceBundle rb) {
+        File file = new File("src/resources/logiserv-icon.png");
+        Image image = new Image(file.toURI().toString());
+        logo.setImage(image);
         BooleanBinding boolenBinding = usuarioField.textProperty().isEmpty()
                 .or(passwordField.textProperty().isEmpty());
         btnLogin.disableProperty().bind(boolenBinding);
@@ -61,7 +61,8 @@ public class LoginController implements Initializable {
     private void btnLogin(ActionEvent event){
         nombreUsuario = usuarioField.getText();
         password = passwordField.getText();
-
+        usuario.setNombre_usuario(nombreUsuario);
+        usuario.setPassword(password);
         String passMD5 = usuario.encryptMD5(password);
         boolean okLogin = usuarioRepository.login(nombreUsuario,passMD5);
 
@@ -76,7 +77,10 @@ public class LoginController implements Initializable {
                 Parent parent = loader.getRoot();
                 Stage adminPanelStage = new Stage();
                 adminPanelStage.setTitle("LogiServ app - usuario: " + nombreUsuario + " conectado.");
+//                adminPanelStage.setMaximized(true);
                 PrincipalController controller = loader.getController();
+                controller.setUserOn(usuario);
+                controller.setPrimaryStage(adminPanelStage);
                 controller.setRootLayout(root);
                 controller.setHome();
                 // Show the scene containing the root layout.

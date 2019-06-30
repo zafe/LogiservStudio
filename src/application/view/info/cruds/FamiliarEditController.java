@@ -1,27 +1,15 @@
 package application.view.info.cruds;
 
-import application.Main;
 import application.comunes.Alerta;
-import application.model.compra.Articulo;
-import application.model.compra.CategoriaArticulo;
-import application.model.compra.FacturaCompra;
 import application.model.info.Familiar;
-import application.repository.compra.ArticuloRepository;
-import application.repository.compra.CategoriaArticuloRepository;
 import application.repository.info.FamiliarRepository;
-import application.view.compra.cruds.CategoriaArticuloEditController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;

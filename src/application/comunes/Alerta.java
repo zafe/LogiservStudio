@@ -11,7 +11,7 @@ public abstract class Alerta {
 
     }
     public static void alertaInfo(String titulo, String contenido){
-        Alert alert = new Alert(Alert.AlertType.WARNING);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titulo);
         alert.setContentText(contenido);
         alert.initStyle(StageStyle.UNDECORATED);
@@ -19,7 +19,7 @@ public abstract class Alerta {
 
     }
     public static void alertaInfo(String titulo, String header, String contenido){
-        Alert alert = new Alert(Alert.AlertType.WARNING);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titulo);
         alert.setHeaderText(header);
         alert.setContentText(contenido);

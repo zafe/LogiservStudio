@@ -10,6 +10,32 @@ public class Camion {
     private StringProperty marca;
     private StringProperty modelo;
     private StringProperty patente;
+    private StringProperty motor;
+    private StringProperty chasis;
+
+    public String getMotor() {
+        return motor.get();
+    }
+
+    public StringProperty motorProperty() {
+        return motor;
+    }
+
+    public void setMotor(String motor) {
+        this.motor.set(motor);
+    }
+
+    public String getChasis() {
+        return chasis.get();
+    }
+
+    public StringProperty chasisProperty() {
+        return chasis;
+    }
+
+    public void setChasis(String chasis) {
+        this.chasis.set(chasis);
+    }
 
     public int getId() {
         return id.get();
@@ -59,14 +85,16 @@ public class Camion {
         this.patente.set(patente);
     }
 
-    public Camion(Integer id, String marca, String modelo, String patente) {
+    public Camion(Integer id, String marca, String modelo, String patente, String motor, String chasis) {
         this.id = new SimpleIntegerProperty(id);
         this.marca = new SimpleStringProperty(marca);
         this.modelo = new SimpleStringProperty(modelo);
         this.patente = new SimpleStringProperty(patente);
+        this.motor = new SimpleStringProperty(motor);
+        this.chasis = new SimpleStringProperty(chasis);
     }
 
     public Camion() {
-        this(0,null,null,null);
+        this(0,null,null,null, null,null);
     }
 }

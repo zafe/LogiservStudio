@@ -1,30 +1,36 @@
 package application.view;
 
-import java.io.IOException;
-
-import application.model.venta.Organizacion;
-import application.view.inicio.HomeController;
-import application.view.calculo.InfoFincaController;
-import application.view.calculo.InfoIngenioController;
-import application.view.calculo.InfoOrigenDestinoController;
+import application.Main;
+import application.model.info.Usuario;
+import application.view.calculo.*;
 import application.view.compra.*;
 import application.view.info.*;
-import application.view.calculo.CargarCamionController;
+import application.view.inicio.HomeController;
 import application.view.inicio.OrganizacionController;
 import application.view.sueldo.ConceptosSalarialesController;
 import application.view.sueldo.LiquidacionesController;
-import application.view.venta.AdministrarViajesController;
-import application.view.calculo.CargarAcopladoController;
-import application.view.venta.FacturacionController;
-import application.view.venta.VentaClienteController;
+import application.view.venta.*;
+import com.calendarfx.model.Calendar;
+import com.calendarfx.model.CalendarSource;
+import com.calendarfx.model.Entry;
+import com.calendarfx.view.CalendarView;
 import javafx.fxml.FXML;
-import application.Main;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import jfxtras.styles.jmetro8.JMetro;
+
+import javax.swing.text.Style;
+import java.io.IOException;
+import java.time.LocalTime;
 
 public class PrincipalController {
 
@@ -34,13 +40,62 @@ public class PrincipalController {
 	private Accordion modulosAccordion;
     @FXML
     private TitledPane inicioTitledPane;
-	public void setRootLayout(BorderPane root){
+    @FXML
+    private Label usuarioLabel;
+    @FXML
+    private Hyperlink cerrarSesion;
+
+    private Usuario userOn;
+
+    @FXML
+    private void handleCerrarSesion(){
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/Login.fxml"));
+            BorderPane page = loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Acceso a LogiServ App");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+
+            LoginController controller = loader.getController();
+
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.show();
+
+            //Cierro la ventana de login
+            Stage stage = (Stage) primaryStage.getScene().getWindow();
+            stage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+
+    public void setUserOn(Usuario userOn) {
+        this.userOn = userOn;
+        usuarioLabel.setText(userOn.getNombre_usuario());
+    }
+
+    public void setRootLayout(BorderPane root){
 		this.rootLayout = root;
-	}
+
+    }
 
 	public void setPrimaryStage(Stage primary){
 		this.primaryStage = primary;
-	}
+        this.primaryStage.getIcons().add(new Image("resources/logiserv-icon.png"));
+
+    }
 
     //---------------MODULO VENTAS------------------------//
 
@@ -110,6 +165,61 @@ public class PrincipalController {
         }
     }
 
+    @FXML
+    private void showChequesOverview(){
+        try{
+            // Load category overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/venta/Cheques.fxml"));
+            AnchorPane chequesOverview = loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(chequesOverview);
+
+            // Give the controller access to the main app.
+            ChequesController controller = loader.getController();
+            controller.setOwner(primaryStage);
+            controller.buscarViajes();
+
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void showCalendarioOverview(){
+
+        /*CalendarView calendarView = new CalendarView();
+
+        Calendar cheques = new Calendar("Cheques");
+        Calendar pagos = new Calendar("Pagos");
+
+        Entry<String> dentistAppointment = new Entry<>("Pago Cheque uno");
+        cheques.addEntry(dentistAppointment);
+        dentistAppointment.setFullDay(true);
+        dentistAppointment.setLocation("Banco Santander Rio");
+
+        Entry<String> dentisAppointment = new Entry<>("Pago Cheque dos 222");
+        pagos.addEntry(dentisAppointment);
+        dentisAppointment.setLocation("Banco Macro");
+
+        cheques.setStyle(Calendar.Style.STYLE1);
+        pagos.setStyle(Calendar.Style.STYLE2);
+
+        CalendarSource myCalendarSource = new CalendarSource("My Calendars");
+        myCalendarSource.getCalendars().addAll(cheques, pagos);
+
+        calendarView.getCalendarSources().addAll(myCalendarSource);
+        calendarView.setRequestedTime(LocalTime.now());
+
+        rootLayout.setCenter(calendarView);
+        */
+
+        CalendarioController calendarioController = new CalendarioController();
+        rootLayout.setCenter(calendarioController.initialize(primaryStage));
+
+    }
     //---------------MODULO INFORMACION------------------------//
 
 	@FXML
@@ -133,6 +243,7 @@ public class PrincipalController {
             e.printStackTrace();
         }
         }
+
     @FXML
     private void showFamiliares(){
         try{
@@ -154,6 +265,7 @@ public class PrincipalController {
             e.printStackTrace();
         }
     }
+
     @FXML
     private void showDesempleados(){
         try{
@@ -417,6 +529,7 @@ public class PrincipalController {
               AdministrarUsuariosController usercontroller = loaderusuario.getController();
               usercontroller.setOwner(primaryStage);
               usercontroller.buscarUsuarios();
+              usercontroller.setUserSesion(userOn);
 
           } catch (IOException e) {
               e.printStackTrace();

@@ -1,65 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <AnchorPane prefHeight="400.0" prefWidth="726.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.venta.AdministrarViajesController">
    <children>
-      <Pane prefHeight="400.0" prefWidth="726.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER_LEFT" layoutX="16.0" layoutY="15.0" prefHeight="385.0" prefWidth="710.0" spacing="10.0">
          <children>
-            <AnchorPane prefHeight="400.0" prefWidth="726.0">
+            <Label text="Viajes" />
+            <TableView fx:id="viajeTable" pickOnBounds="false" prefHeight="233.0" prefWidth="600.0">
+              <columns>
+                  <TableColumn prefWidth="75.0" text="Fecha">
+                     <columns>
+                      <TableColumn fx:id="diaColumn" prefWidth="75.0" text="Dia" />
+                      <TableColumn fx:id="horaEntradaColumn" prefWidth="75.0" text="Hora Entrada" />
+                     </columns>
+                  </TableColumn>
+                  <TableColumn prefWidth="75.0" text="Viaje">
+                     <columns>
+                        <TableColumn fx:id="brutoColumn" prefWidth="75.0" text="Peso Bruto" />
+                        <TableColumn fx:id="taraColumn" prefWidth="75.0" text="Tara" />
+                        <TableColumn fx:id="distanciaColumn" prefWidth="75.0" text="Distancia" />
+                        <TableColumn fx:id="ingenioColumn" prefWidth="75.0" text="Ingenio" />
+                     </columns>
+                  </TableColumn>
+                  <TableColumn prefWidth="75.0" text="Conductor">
+                     <columns>
+                        <TableColumn fx:id="nombreConductorColumn" prefWidth="75.0" text="Nombre" />
+                        <TableColumn fx:id="apellidoConductorColumn" prefWidth="75.0" text="Apellido" />
+                     </columns>
+                  </TableColumn>
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <HBox alignment="CENTER" prefHeight="152.0" prefWidth="600.0" spacing="10.0">
                <children>
-                  <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <Label text="Viajes" />
-                        <TableView fx:id="viajeTable" pickOnBounds="false" prefHeight="233.0" prefWidth="600.0">
-                          <columns>
-                              <TableColumn prefWidth="75.0" text="Fecha">
-                                 <columns>
-                                  <TableColumn fx:id="diaColumn" prefWidth="75.0" text="Dia" />
-                                  <TableColumn fx:id="horaEntradaColumn" prefWidth="75.0" text="Hora Entrada" />
-                                 </columns>
-                              </TableColumn>
-                              <TableColumn prefWidth="75.0" text="Viaje">
-                                 <columns>
-                                    <TableColumn fx:id="brutoColumn" prefWidth="75.0" text="Peso Bruto" />
-                                    <TableColumn fx:id="taraColumn" prefWidth="75.0" text="Tara" />
-                                    <TableColumn fx:id="distanciaColumn" prefWidth="75.0" text="Distancia" />
-                                    <TableColumn fx:id="ingenioColumn" prefWidth="75.0" text="Ingenio" />
-                                 </columns>
-                              </TableColumn>
-                              <TableColumn prefWidth="75.0" text="Conductor">
-                                 <columns>
-                                    <TableColumn fx:id="nombreConductorColumn" prefWidth="75.0" text="Nombre" />
-                                    <TableColumn fx:id="apellidoConductorColumn" prefWidth="75.0" text="Apellido" />
-                                 </columns>
-                              </TableColumn>
-                          </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                        </TableView>
-                        <HBox alignment="CENTER" prefHeight="152.0" prefWidth="600.0" spacing="10.0">
-                           <children>
-                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleNewViaje" text="Nuevo Viaje" />
-                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleEditViaje" text="Editar Viaje" />
-                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleDeleteViaje" text="Eliminar Viaje" />
-                           </children>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                           <padding>
-                              <Insets top="30.0" />
-                           </padding>
-                        </HBox>
-                     </children>
-                  </VBox>
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleNewViaje" text="Nuevo Viaje" />
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleEditViaje" text="Editar Viaje" />
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleDeleteViaje" text="Eliminar Viaje" />
                </children>
-            </AnchorPane>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets top="30.0" />
+               </padding>
+            </HBox>
          </children>
-      </Pane>
+      </VBox>
    </children>
 </AnchorPane>

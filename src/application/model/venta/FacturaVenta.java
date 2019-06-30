@@ -116,16 +116,17 @@ public class FacturaVenta {
 
 
     public FacturaVenta(Integer idFacturaVenta, String cuit, String nombreEmpresa,
-                        String fechaEmision, String nombreCliente, String cuitCliente) {
+                        String fechaEmision, String nombreCliente, String cuitCliente, Double montoTotal) {
         this.idFacturaVenta = new SimpleIntegerProperty(idFacturaVenta);
         this.cuit = new SimpleStringProperty(cuit);
         this.nombreEmpresa = new SimpleStringProperty(nombreEmpresa);
         this.fechaEmision = new SimpleStringProperty(fechaEmision);
         this.nombreCliente = new SimpleStringProperty(nombreCliente);
         this.cuitCliente = new SimpleStringProperty(cuitCliente);
+        this.montoFactura = new SimpleDoubleProperty(montoTotal);
     }
 
     public FacturaVenta() {
-        this(0,null,null,null,null,null);
+        this(0,null,null,null,null,null,0.0);
     }
 }

@@ -1,7 +1,6 @@
 package application.view.venta;
 
 import application.Main;
-import application.comunes.Alerta;
 import application.model.venta.FacturaVenta;
 import application.model.venta.Viaje;
 import application.repository.venta.FacturaVentaRepository;
@@ -11,7 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -81,7 +79,14 @@ public class FacturacionController {
 		idFacturacion.setCellValueFactory(cellData -> cellData.getValue().idFacturaVentaProperty().asString());
 		fechaColumn.setCellValueFactory(cellData -> cellData.getValue().fechaEmisionProperty());
 		clienteColumn.setCellValueFactory(cellData -> cellData.getValue().getCliente().nombreProperty());
-		//montoTotal.setCellValueFactory(cellData -> cellData.getValue().montoFacturaProperty().asString());//TODO: inicializar este dato
+		montoTotal.setCellValueFactory(cellData -> cellData.getValue().montoFacturaProperty().asString());
+
+		facturacionesTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+			if (newSelection != null) {
+				cargarViajes();
+			}
+		});
+
 
 		fincaColumn.setCellValueFactory(cellData -> cellData.getValue().getFinca().nombreProperty());
 		ingenioColumn.setCellValueFactory(cellData -> cellData.getValue().getIngenio().nombreProperty());

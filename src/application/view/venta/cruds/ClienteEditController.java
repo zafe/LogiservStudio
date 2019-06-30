@@ -1,7 +1,6 @@
 package application.view.venta.cruds;
 
 import application.comunes.Alerta;
-import application.model.compra.Proveedor;
 import application.model.info.Domicilio;
 import application.model.info.Localidad;
 import application.model.info.Provincia;

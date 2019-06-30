@@ -31,13 +31,15 @@ public class CargarCamionController {
     @FXML
     private TableView<Camion> camionTableView;
     @FXML
-    private TableColumn<Camion, String> idCamionTableColumn;
-    @FXML
     private TableColumn<Camion, String> marcaTableColumn;
     @FXML
     private TableColumn<Camion, String> modeloTableColumn;
     @FXML
     private TableColumn<Camion, String> patenteTableColumn;
+    @FXML
+    private TableColumn<Camion, String> motorColumn;
+    @FXML
+    private TableColumn<Camion, String> chasisColumn;
 
     private Stage owner;
     private ObservableList<Camion> camionData = FXCollections.observableArrayList();
@@ -49,11 +51,11 @@ public class CargarCamionController {
      */
     @FXML
     private void initialize(){
-        idCamionTableColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty().asString());
         marcaTableColumn.setCellValueFactory(cellData -> cellData.getValue().marcaProperty());
         modeloTableColumn.setCellValueFactory(cellData -> cellData.getValue().modeloProperty());
         patenteTableColumn.setCellValueFactory(cellData -> cellData.getValue().patenteProperty());
-
+        motorColumn.setCellValueFactory(cellData -> cellData.getValue().motorProperty());
+        chasisColumn.setCellValueFactory(cellData -> cellData.getValue().chasisProperty());
     }
 
     @FXML
@@ -61,7 +63,7 @@ public class CargarCamionController {
         Camion tempCamion = new Camion();
         boolean okClicked = this.showCamionEdit(tempCamion,true);
         if(okClicked)
-            camionData.add(tempCamion);
+           buscarCamiones();
     }
 
 

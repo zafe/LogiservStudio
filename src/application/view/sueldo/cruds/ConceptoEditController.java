@@ -5,8 +5,8 @@ import application.model.enums.TipoCantidad;
 import application.model.info.CategoriaEmpleado;
 import application.model.sueldo.ConceptoSueldo;
 import application.repository.info.CategoriaEmpleadoRepository;
-import application.repository.sueldo.TipoLiquidacionRepository;
 import application.repository.sueldo.ConceptoSueldoRepository;
+import application.repository.sueldo.TipoLiquidacionRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -168,9 +168,7 @@ public class ConceptoEditController implements Initializable{
     }
 
     private void cargarCategorias(){
-        //todo: hacer que cuando se seleccione esta fila se guarden todas las categorias.
         categorias = categoriaEmpleadoRepository.view();
-        categorias.add(new CategoriaEmpleado(0, "Todos"));
         categoriaEmpleadoTableView.setItems(categorias);
     }
     private void setComboBox(){

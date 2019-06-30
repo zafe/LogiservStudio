@@ -2,6 +2,7 @@ package application.view.calculo;
 
 import application.Main;
 import application.comunes.Alerta;
+import application.model.calculo.Ingenio;
 import application.model.calculo.OrigenDestino;
 import application.repository.calculo.FincaRepository;
 import application.repository.calculo.IngenioRepository;
@@ -35,15 +36,13 @@ public class InfoOrigenDestinoController implements Initializable {
     @FXML
     private TableColumn<OrigenDestino, String> distanciaColumn;
     @FXML
-    private TextField buscarPorIngenioField;
+    private ComboBox<Ingenio> buscarPorIngenioComboBox;
     @FXML
     private Button newButton;
     @FXML
     private Button editButton;
     @FXML
     private Button eliminarButton;
-    @FXML
-    private Button searchButton;
 
 
     private Stage owner;
@@ -132,6 +131,7 @@ public class InfoOrigenDestinoController implements Initializable {
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        cargarIngenioComboBox();
         idColumn.setCellValueFactory(cellData -> cellData.getValue().idOrigenDestinoProperty().asString());
         ingenioColumn.setCellValueFactory(cellData -> cellData.getValue().nombreIngenioProperty());
         fincaColumn.setCellValueFactory(cellData -> cellData.getValue().nombreFincaProperty());
@@ -139,8 +139,16 @@ public class InfoOrigenDestinoController implements Initializable {
 
     }
 
+    private void cargarIngenioComboBox() {
+        buscarPorIngenioComboBox.setItems(ingenioRepository.view());
+    }
+
     public void buscarDistancias(){
         this.distancias = distanciasRepository.view();
         tableView.setItems(distancias);
+        if (!buscarPorIngenioComboBox.getSelectionModel().isEmpty()){
+            distancias = distanciasRepository.viewByIngenio(buscarPorIngenioComboBox.getSelectionModel().getSelectedItem().getIdIngenio());
+            tableView.setItems(distancias);
+        }
     }
 }

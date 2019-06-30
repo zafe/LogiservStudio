@@ -16,15 +16,13 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.stage.Stage;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
-import javax.xml.crypto.dom.DOMCryptoContext;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.function.BiFunction;
 
 
 public class ViajeEditController {
@@ -52,7 +50,7 @@ public class ViajeEditController {
     @FXML
     private TextField brutoTextField;
     @FXML
-    private ComboBox<String> conductorCombo;
+    private ComboBox<Empleado> conductorCombo;
     @FXML
     private ComboBox<String> camionCombo;
     @FXML
@@ -79,7 +77,7 @@ public class ViajeEditController {
     private ObservableList<Empleado> conductorData = FXCollections.observableArrayList();
     private ObservableList<Camion> camionData = FXCollections.observableArrayList();
 
-    List<Empleado> conductoresList = conductorRepository.getEmpleadosByCategoriaEmpleado(2);// todo Hardcodeado
+    List<Empleado> conductoresList = conductorRepository.getConductores();
     List<Finca> fincasList = fincaRepository.view();
     List<Ingenio> ingeniosList = ingenioRepository.view();
     List<Camion> camionList = camionRepository.view();
@@ -142,10 +140,8 @@ public class ViajeEditController {
 
 
     public void setConductorComboBox(){
-        ObservableList<String> conList = FXCollections.observableArrayList();
-        conductorData = conductorRepository.getEmpleadosByCategoriaEmpleado(2);
-        for (Empleado conductor : conductoresList) conList.add(conductor.getNombre() + " " + conductor.getApellido());
-        conductorCombo.setItems(conList);
+        conductorData = conductorRepository.getConductores();
+        conductorCombo.setItems(conductorData);
     }
 
     private void setCamionComboBox(){

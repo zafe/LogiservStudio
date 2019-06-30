@@ -1,15 +1,15 @@
-	package application.repository.info;
+		package application.repository.info;
 
-	import application.comunes.Alerta;
-	import application.database.JDBCConnection;
-import application.model.info.CategoriaEmpleado;
+    import application.comunes.Alerta;
+    import application.database.JDBCConnection;
+    import application.model.info.CategoriaEmpleado;
     import javafx.collections.FXCollections;
-	import javafx.collections.ObservableList;
+    import javafx.collections.ObservableList;
 
-	import java.sql.Connection;
-	import java.sql.PreparedStatement;
-	import java.sql.ResultSet;
-	import java.sql.SQLException;
+    import java.sql.Connection;
+    import java.sql.PreparedStatement;
+    import java.sql.ResultSet;
+    import java.sql.SQLException;
 
 	public class CategoriaEmpleadoRepository {
 	    Connection connection;
@@ -82,25 +82,24 @@ import application.model.info.CategoriaEmpleado;
 
 	        return list;
 	    }
-	    
-	    public CategoriaEmpleado search(int idCategoriaEmpleado){
-        	CategoriaEmpleado categoriaEmpleado = new CategoriaEmpleado();
 
-	    	try {
-	        	connection= JDBCConnection.getInstanceConnection();
-	            preparedStatement=connection.prepareStatement("SELECT * FROM CATEGORIA_EMPLEADO where idCategoriaEmpleado=?");
-	            preparedStatement.setInt(1, idCategoriaEmpleado);
-	            if(resultSet.next()){
-		            categoriaEmpleado.setIdCategoriaEmpleado(idCategoriaEmpleado);
-		            categoriaEmpleado.setNombre(resultSet.getString("NombreCategoria"));
-	            }
-	            preparedStatement.executeUpdate();
-	            preparedStatement.close();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
+		public CategoriaEmpleado search(int idCategoriaEmpleado){
+			CategoriaEmpleado categoriaEmpleado = new CategoriaEmpleado();
 
-	        
-	        return categoriaEmpleado;
-	    }
+			try {
+				connection= JDBCConnection.getInstanceConnection();
+				preparedStatement=connection.prepareStatement("SELECT * FROM CATEGORIA_EMPLEADO where idCategoriaEmpleado=?");
+				preparedStatement.setInt(1, idCategoriaEmpleado);
+				resultSet = preparedStatement.executeQuery();
+				if(resultSet.next()){
+					categoriaEmpleado.setIdCategoriaEmpleado(idCategoriaEmpleado);
+					categoriaEmpleado.setNombre(resultSet.getString("NombreCategoria"));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+
+			return categoriaEmpleado;
+		}
 	}

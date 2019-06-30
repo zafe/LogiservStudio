@@ -1,7 +1,6 @@
 package application.view.info.cruds;
 
 import application.comunes.Alerta;
-import application.model.compra.CategoriaArticulo;
 import application.model.info.CategoriaEmpleado;
 import application.repository.info.CategoriaEmpleadoRepository;
 import javafx.fxml.FXML;
@@ -66,7 +65,7 @@ public class CategoriaEmpleadoEditController {
 	        String errorMessage = "";
 
 	        if (nombreCategoriaField.getText() == null || nombreCategoriaField.getText().length() == 0) {
-	            errorMessage += "No valid Category name!\n";
+	            errorMessage += "No se ingresó una categoria válida\n";
 	        }
 	        if (errorMessage.length() == 0) {
 	            return true;

@@ -134,4 +134,50 @@ public class OrigenDestinoRepository {
 
         return idOrigenDestino;
   }
+
+    public ObservableList<OrigenDestino> viewByIngenio(int idIngenio) {
+        ObservableList<OrigenDestino> list = FXCollections.observableArrayList();
+        try {
+            connection= JDBCConnection.getInstanceConnection();
+            preparedStatement=connection.prepareStatement("" +
+                    " SELECT o.idOrigen_Destino, f.nombre, i.nombre, o.distanciakm " +
+                    "FROM origen_destino AS o, finca AS f, ingenio AS i " +
+                    "WHERE o.FINCA_idFinca = f.idfinca AND o.INGENIO_idIngenio = i.idIngenio AND i.idIngenio=?");
+            preparedStatement.setInt(1, idIngenio);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                OrigenDestino origenDestino = new OrigenDestino();
+                origenDestino.setIdOrigenDestino(resultSet.getInt(1));
+                origenDestino.setNombreFinca(resultSet.getString(2));
+                origenDestino.setNombreIngenio(resultSet.getString(3));
+                origenDestino.setDistanciaKM(resultSet.getFloat(4));
+                list.add(origenDestino);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+
+    }
+    public boolean isDuplicated(int idIngenio, int idFinca) {
+        boolean isDuplicated = false;
+        try {
+            connection= JDBCConnection.getInstanceConnection();
+            preparedStatement=connection.prepareStatement("" +
+                    " SELECT FINCA_idFinca, INGENIO_idIngenio FROM origen_destino " +
+                    "WHERE FINCA_idFinca=? AND INGENIO_idIngenio =?");
+            preparedStatement.setInt(1, idFinca);
+            preparedStatement.setInt(2, idIngenio);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.absolute(1)){
+               isDuplicated=true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return isDuplicated;
+
+    }
 }

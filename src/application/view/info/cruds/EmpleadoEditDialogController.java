@@ -1,35 +1,16 @@
 package application.view.info.cruds;
 
-import application.view.info.GrupoFamiliarController;
+import application.model.info.*;
+import application.repository.info.*;
 import application.view.info.InfoCategoriaEmpleadoController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.time.format.DateTimeFormatter;
-
-import application.model.info.CategoriaEmpleado;
-import application.model.info.Domicilio;
-import application.model.info.Empleado;
-import application.model.info.Localidad;
-import application.model.info.Provincia;
-import application.repository.info.CategoriaEmpleadoRepository;
-import application.repository.info.DomicilioRepository;
-import application.repository.info.EmpleadoRepository;
-import application.repository.info.LocalidadRepository;
-import application.repository.info.ProvinciaRepository;
 
 public class EmpleadoEditDialogController {
 
@@ -55,8 +36,7 @@ public class EmpleadoEditDialogController {
 	private ComboBox<Localidad> localidadComboBox;
 	@FXML
 	private Button aceptarButton;
-	@FXML
-	private Button familiarButton;
+
 	private boolean isNew;
 	private EmpleadoRepository empleadoRepository = new EmpleadoRepository();
 	private CategoriaEmpleadoRepository categoriaEmpleadoRepository = new CategoriaEmpleadoRepository();
@@ -109,10 +89,8 @@ public class EmpleadoEditDialogController {
 	}
 
 	public void setPerson(Empleado empleado) {
-		familiarButton.setDisable(true);
 		this.empleado = empleado;
 		if (!isNew){
-			familiarButton.setDisable(false);
 			nombreField.setText(empleado.getNombre());
 			apellidoField.setText(empleado.getApellido());
 			cuitField.setText(empleado.getCuit());
@@ -177,10 +155,10 @@ public class EmpleadoEditDialogController {
 		String errorMessage = "";
 
 		if (nombreField.getText() == null || nombreField.getText().length() == 0) {
-			errorMessage += "No valid first name!\n"; 
+			errorMessage += "No se ingresó un nombre válido\n";
 		}
 		if (apellidoField.getText() == null || apellidoField.getText().length() == 0) {
-			errorMessage += "No valid last name!\n"; 
+			errorMessage += "No se ingresó un apellido válido\n";
 		}
 
 		if (errorMessage.length() == 0) {
@@ -188,7 +166,7 @@ public class EmpleadoEditDialogController {
 		} else {
 			// Show the error message.
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Datos Invalidos");
+			alert.setTitle("Datos Inválidos");
 			alert.setHeaderText(null);
 			alert.setContentText(errorMessage);
 			alert.showAndWait();
@@ -202,10 +180,7 @@ public class EmpleadoEditDialogController {
 		controller.showCategoriaEmpleadoEdit(new CategoriaEmpleado(), true);
 		setCategoriaComboBox();
 	}
-	@FXML
-	private void mostrarFamiliares(){
-		//todo: hacer metodo
-	}
+
 
 	private void ponerFechaAlta(){
 		java.util.Date input = new Date();

@@ -1,16 +1,16 @@
 	package application.repository.info;
 
-	import application.comunes.Alerta;
-	import application.database.JDBCConnection;
-	import application.model.info.Localidad;
-	import application.model.info.Provincia;
-	import javafx.collections.FXCollections;
-	import javafx.collections.ObservableList;
+    import application.comunes.Alerta;
+    import application.database.JDBCConnection;
+    import application.model.info.Localidad;
+    import application.model.info.Provincia;
+    import javafx.collections.FXCollections;
+    import javafx.collections.ObservableList;
 
-	import java.sql.Connection;
-	import java.sql.PreparedStatement;
-	import java.sql.ResultSet;
-	import java.sql.SQLException;
+    import java.sql.Connection;
+    import java.sql.PreparedStatement;
+    import java.sql.ResultSet;
+    import java.sql.SQLException;
 
 	public class LocalidadRepository {
 	    Connection connection;
@@ -43,7 +43,6 @@
 	            preparedStatement.setInt(2,idProvincia);
 	            preparedStatement.setInt(3,localidad.getIdLocalidad());
 	            preparedStatement.close();
-	            connection.close();
 	            String headerMsj="Actualización: localidad actualizada";
 	            String cuerpoMsj = "Localidad: " + localidad.getNombre() + " modificado correctamente.";
 	            Alerta.alertaInfo("Localidad", headerMsj, cuerpoMsj);
@@ -59,7 +58,6 @@
 	            preparedStatement.setInt(1, localidad.getIdLocalidad());
 	            preparedStatement.executeUpdate();
 	            preparedStatement.close();
-	            connection.close();
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
@@ -85,15 +83,14 @@
 	        return list;
 	    }
 
-	    public ObservableList<Localidad> view2(int idProvincia){
+	    public ObservableList<Localidad> localidadesDeTucuman(){
 
 	        ObservableList<Localidad> list = FXCollections.observableArrayList();
 	        try {
 	            connection= JDBCConnection.getInstanceConnection();
-	            preparedStatement=connection.prepareStatement("SELECT * FROM LOCALIDAD WHERE PROVINCIA_idProvincia = ?");
-	            preparedStatement.setInt(1,idProvincia);
+	            preparedStatement=connection.prepareStatement("SELECT idLocalidad, NombreLocalidad " +
+						"FROM LOCALIDAD, PROVINCIA where PROVINCIA_idProvincia = idProvincia AND NombreProvincia like 'tuc%';");
 	            resultSet = preparedStatement.executeQuery();
-
 	            while (resultSet.next()){
 	                Localidad localidad = new Localidad();
 	                localidad.setIdLocalidad(resultSet.getInt("idLocalidad"));

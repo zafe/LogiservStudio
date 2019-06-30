@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="565.0" prefWidth="659.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.venta.cruds.ChequeEditController">
+   <children>
+      <VBox prefHeight="565.0" prefWidth="659.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="44.0" prefWidth="674.0" text="Agregar Cheque" />
+            <GridPane prefHeight="256.0" prefWidth="659.0">
+               <children>
+                  <Label text="Fecha Emisión:" />
+                  <Label text="Código Bancario:" GridPane.rowIndex="2" />
+                  <Label text="Monto:" GridPane.rowIndex="4" />
+                  <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="109.0" text="Estado Cheque:" GridPane.rowIndex="6" />
+                  <TextField fx:id="montoField" prefHeight="25.0" prefWidth="124.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <GridPane.margin>
+                        <Insets left="5.0" />
+                     </GridPane.margin>
+                  </TextField>
+                  <DatePicker fx:id="fechaEmisionPicker" prefHeight="27.0" prefWidth="265.0" GridPane.columnIndex="1">
+                     <GridPane.margin>
+                        <Insets left="5.0" />
+                     </GridPane.margin>
+                  </DatePicker>
+                  <DatePicker fx:id="fechaPagoPicker" prefHeight="27.0" prefWidth="266.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets left="5.0" />
+                     </GridPane.margin>
+                  </DatePicker>
+                  <ComboBox fx:id="bancoComboBox" prefHeight="27.0" prefWidth="269.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </GridPane.margin>
+                  </ComboBox>
+                  <TextField fx:id="codigoBancarioField" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets left="5.0" />
+                     </GridPane.margin>
+                  </TextField>
+                  <ComboBox fx:id="tipoChequeComboBox" prefHeight="27.0" prefWidth="263.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                     <GridPane.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </GridPane.margin>
+                  </ComboBox>
+                  <ComboBox fx:id="estadoChequeComboBox" prefHeight="27.0" prefWidth="229.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                     <GridPane.margin>
+                        <Insets left="5.0" />
+                     </GridPane.margin>
+                  </ComboBox>
+                  <TextField fx:id="saldoEfectivoField" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                     <GridPane.margin>
+                        <Insets left="5.0" />
+                     </GridPane.margin>
+                  </TextField>
+                  <DatePicker fx:id="fechaCobroPicker" disable="true" prefHeight="27.0" prefWidth="264.0" GridPane.columnIndex="3" GridPane.rowIndex="7">
+                     <GridPane.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </GridPane.margin>
+                  </DatePicker>
+                  <Separator prefHeight="11.0" prefWidth="199.0" GridPane.rowIndex="5">
+                     <GridPane.margin>
+                        <Insets left="5.0" />
+                     </GridPane.margin>
+                  </Separator>
+                  <Separator prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Separator prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <Separator prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                     <GridPane.margin>
+                        <Insets right="5.0" />
+                     </GridPane.margin>
+                  </Separator>
+                  <TextField fx:id="comisionField" disable="true" GridPane.columnIndex="3" GridPane.rowIndex="6">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <GridPane.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </GridPane.margin></TextField>
+                  <Label text="Banco:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Label text="Fecha Pago:" GridPane.rowIndex="1" />
+                  <Label fx:id="comisionLabel" disable="true" text="Comisión:" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                  <Label fx:id="saldoEfectivoLabel" disable="true" text="Saldo Efectivo:" GridPane.rowIndex="7" />
+                  <Label fx:id="fechaCobroLabel" disable="true" text="Fecha Cobro:" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                  <Label text="Tipo Cheque:" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+               </children>
+               <columnConstraints>
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="226.0" minWidth="10.0" prefWidth="99.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="261.0" minWidth="10.0" prefWidth="191.0" />
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="368.0" minWidth="10.0" prefWidth="85.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="368.0" minWidth="10.0" prefWidth="242.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+            </GridPane>
+            <Separator prefWidth="200.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" top="10.0" />
+               </VBox.margin>
+            </Separator>
+            <ImageView fitHeight="230.0" fitWidth="495.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../resources/cheque.jpg" />
+               </image>
+               <VBox.margin>
+                  <Insets left="85.0" />
+               </VBox.margin>
+            </ImageView>
+            <HBox alignment="TOP_CENTER" prefHeight="55.0" prefWidth="659.0" spacing="15.0">
+               <children>
+                  <Button fx:id="btnOk" defaultButton="true" layoutX="172.0" layoutY="273.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="27.0" prefWidth="73.0" text="Aceptar" />
+                  <Button fx:id="btnCancel" cancelButton="true" layoutX="305.0" layoutY="273.0" mnemonicParsing="false" onAction="#handleCancel" text="Cancelar" />
+               </children>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
