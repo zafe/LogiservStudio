@@ -9,8 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import jfxtras.styles.jmetro8.JMetro;
-
 import java.io.IOException;
 
 public class Main extends Application {
