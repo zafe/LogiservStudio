@@ -22,7 +22,6 @@ public class JDBCConnection {
 		{
 		try {
 			properties.load(new FileInputStream("db.properties"));
-			
 			String url = properties.getProperty("url");
 			String user = properties.getProperty("user");
 			String password = properties.getProperty("password");

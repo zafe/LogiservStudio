@@ -2,8 +2,12 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>zafe</groupId>
   <artifactId>LogiservStudio</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <build>
+  <packaging>jar</packaging>
+  <version>0.0.1-alfa</version>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <build>
     <sourceDirectory>src</sourceDirectory>
     <resources>
       <resource>
@@ -22,6 +26,72 @@
           <target>1.8</target>
         </configuration>
       </plugin>
+        <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <version>3.1.1</version>
+            <configuration>
+                <descriptorRefs>
+                    <descriptorRef>jar-with-dependencies</descriptorRef>
+                </descriptorRefs>
+                <archive>
+                    <manifest>
+                        <mainClass>application.Main</mainClass>
+                    </manifest>
+                </archive>
+            </configuration>
+            <executions>
+                <execution>
+                    <id>make-assembly</id>
+                    <!-- this is used for inheritance merges -->
+                    <phase>package</phase>
+                    <!-- bind to the packaging phase -->
+                    <goals>
+                        <goal>single</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+        <plugin>
+            <groupId>com.akathist.maven.plugins.launch4j</groupId>
+            <artifactId>launch4j-maven-plugin</artifactId>
+            <version>1.7.25</version>
+            <executions>
+                <execution>
+                    <id>l4j-clui</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>launch4j</goal>
+                    </goals>
+                    <configuration>
+                        <headerType>console</headerType>
+                        <jar>target/LogiservStudio-0.0.1-alfa-jar-with-dependencies.jar</jar>
+                        <outfile>target/Logiserv.exe</outfile>
+                        <downloadUrl>http://java.com/download</downloadUrl>
+                        <classPath>
+                            <mainClass>application.Main</mainClass>
+                        </classPath>
+                        <jre>
+                            <bundledJre64Bit>false</bundledJre64Bit>
+                            <bundledJreAsFallback>false</bundledJreAsFallback>
+                            <minVersion>1.8.0</minVersion>
+                            <jdkPreference>preferJre</jdkPreference>
+                            <runtimeBits>32</runtimeBits>
+                        </jre>
+                        <versionInfo>
+                            <fileVersion>1.0.0.0</fileVersion>
+                            <txtFileVersion>${project.version}</txtFileVersion>
+                            <fileDescription>${project.name}</fileDescription>
+                            <copyright>C</copyright>
+                            <productVersion>1.0.0.0</productVersion>
+                            <txtProductVersion>1.0.0.0</txtProductVersion>
+                            <productName>${project.name}</productName>
+                            <internalName>AppName</internalName>
+                            <originalFilename>Logiserv.exe</originalFilename>
+                        </versionInfo>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
     </plugins>
   </build>
   <dependencies>
@@ -30,21 +100,6 @@
   		<artifactId>mysql-connector-java</artifactId>
   		<version>5.1.13</version>
   	</dependency>
-  	<dependency>
-  		<groupId>org.controlsfx</groupId>
-  		<artifactId>controlsfx</artifactId>
-  		<version>8.0.6_20</version>
-  	</dependency>
-      <dependency>
-          <groupId>com.google.maps</groupId>
-          <artifactId>google-maps-services</artifactId>
-          <version>0.2.5</version>
-      </dependency>
-      <dependency>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-nop</artifactId>
-          <version>1.7.25</version>
-      </dependency>
       <dependency>
       	<groupId>org.apache.commons</groupId>
       	<artifactId>commons-lang3</artifactId>
@@ -65,11 +120,6 @@
           <groupId>com.calendarfx</groupId>
           <artifactId>view</artifactId>
           <version>8.5.0</version>
-      </dependency>
-      <dependency>
-          <groupId>org.jfxtras</groupId>
-          <artifactId>jmetro</artifactId>
-          <version>5.3</version>
       </dependency>
   </dependencies>
 </project>
