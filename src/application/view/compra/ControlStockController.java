@@ -120,7 +120,7 @@ public class ControlStockController implements Initializable{
     }
     @FXML
     private void generarReporteStock(){
-        AbstractJasperReports.createReport("src\\application\\reports\\ControlStock.jasper");
+        AbstractJasperReports.createReport("src/application/reports/ControlStock.jasper");
         AbstractJasperReports.showViewer();
     }
 }

@@ -14,37 +14,37 @@
 	</queryString>
 	<field name="idOrganizacion" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="idOrganizacion"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="organizacion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ORGANIZACION"/>
 	</field>
 	<field name="Nombre" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="Nombre"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="organizacion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ORGANIZACION"/>
 	</field>
 	<field name="CUIT" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="CUIT"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="organizacion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ORGANIZACION"/>
 	</field>
 	<field name="nombreApoderado" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="nombreApoderado"/>
 	</field>
 	<field name="idLocalidad" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="idLocalidad"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="localidad"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="LOCALIDAD"/>
 	</field>
 	<field name="NombreLocalidad" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="NombreLocalidad"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="localidad"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="LOCALIDAD"/>
 	</field>
 	<field name="direccion" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="direccion"/>
 	</field>
 	<field name="idProvincia" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="idProvincia"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="provincia"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="PROVINCIA"/>
 	</field>
 	<field name="NombreProvincia" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="NombreProvincia"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="provincia"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="PROVINCIA"/>
 	</field>
 	<background>
 		<band/>

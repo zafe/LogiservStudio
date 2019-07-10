@@ -1,6 +1,7 @@
 package application.view.sueldo;
 
 import application.Main;
+import application.comunes.Alerta;
 import application.model.sueldo.LiquidacionEmpleado;
 import application.model.sueldo.Liquidacion;
 import application.reports.classes.AbstractJasperReports;
@@ -142,11 +143,17 @@ public class LiquidacionesController implements Initializable{
 
 	@FXML
 	private void handleImprimirRecibos(){
-		int idLiquidacion = liquidacionTable.getSelectionModel().getSelectedItem().getId();
-		System.out.println("se imprimieron recibos de sueldo "+ idLiquidacion);
-		AbstractJasperReports.createReport("src\\application\\reports\\TodosLosRecibosDeUnaLiquidacion.jasper",
-				"idLiquidacion", idLiquidacion);
-		AbstractJasperReports.showViewer();
+
+		try {
+			int idLiquidacion = liquidacionTable.getSelectionModel().getSelectedItem().getId();
+			System.out.println("se imprimieron recibos de sueldo "+ idLiquidacion);
+			AbstractJasperReports.createReport("src/application/reports/TodosLosRecibosDeUnaLiquidacion.jasper",
+					"idLiquidacion", idLiquidacion);
+			AbstractJasperReports.showViewer();
+		}catch (NullPointerException e){
+			Alerta.alertaInfo("Seleccione lote de liguidación", "Debe seleccionar un lote de liquidación en la tabla de Liquidaciones");
+		}
+
 	}
 
 

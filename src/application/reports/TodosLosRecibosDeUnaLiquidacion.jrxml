@@ -15,12 +15,12 @@
 	<parameter name="idLiquidacion" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[select idLiquidacionEmpleado
- from liquidacion_empleado
+ from LIQUIDACION_EMPLEADO
  where LIQUIDACION_idLIQUIDACION=$P{idLiquidacion}]]>
 	</queryString>
 	<field name="idLiquidacionEmpleado" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="idLiquidacionEmpleado"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="LIQUIDACION_EMPLEADO"/>
 	</field>
 	<background>
 		<band splitType="Stretch"/>

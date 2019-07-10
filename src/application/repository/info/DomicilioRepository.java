@@ -35,7 +35,7 @@
 			try {
 				connection = JDBCConnection.getInstanceConnection();
 				preparedStatement= connection.prepareStatement("" +
-						"Select max(idDomicilio) as id from domicilio");
+						"Select max(idDomicilio) as id from DOMICILIO");
 				resultSet = preparedStatement.executeQuery();
 				while (resultSet.next())
 				last = resultSet.getInt(1);

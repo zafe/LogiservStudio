@@ -18,7 +18,7 @@ public class IngenioRepository {
     public void save(Ingenio ingenio){
         try {
             connection= JDBCConnection.getInstanceConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO Ingenio values(?,point(?,?),?,?,?)");
+            preparedStatement = connection.prepareStatement("INSERT INTO INGENIO values(?,point(?,?),?,?,?)");
             preparedStatement.setString(1,null);
             preparedStatement.setDouble(2,ingenio.getLatitud());
             preparedStatement.setDouble(3,ingenio.getLongitud());
@@ -37,7 +37,7 @@ public class IngenioRepository {
         try {
             connection = JDBCConnection.getInstanceConnection();
             preparedStatement= connection.prepareStatement("" +
-                    "UPDATE ingenio " +
+                    "UPDATE INGENIO " +
                     "SET coordenada=point(?,?),Nombre=?, arranque=?, tarifa=?" +
                     "WHERE idIngenio=?");
             preparedStatement.setDouble(1, ingenio.getLatitud());
@@ -70,7 +70,7 @@ public class IngenioRepository {
         ObservableList<Ingenio> list = FXCollections.observableArrayList();
         try {
             connection= JDBCConnection.getInstanceConnection();
-            preparedStatement=connection.prepareStatement("select idIngenio, x(coordenada), y(coordenada), nombre, arranque, tarifa from ingenio");
+            preparedStatement=connection.prepareStatement("select idIngenio, ST_X(coordenada), ST_Y(coordenada), nombre, arranque, tarifa from INGENIO");
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 Ingenio ingenio = new Ingenio();
@@ -91,7 +91,7 @@ public class IngenioRepository {
         ObservableList<String> list = FXCollections.observableArrayList();
         try {
             connection= JDBCConnection.getInstanceConnection();
-            preparedStatement=connection.prepareStatement("SELECT nombre FROM ingenio");
+            preparedStatement=connection.prepareStatement("SELECT nombre FROM INGENIO");
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 list.add(resultSet.getString(1));
@@ -106,7 +106,7 @@ public class IngenioRepository {
         Ingenio ingenio = new Ingenio();
         try {
             connection= JDBCConnection.getInstanceConnection();
-            preparedStatement=connection.prepareStatement("SELECT idIngenio, x(coordenada), y(coordenada)," +
+            preparedStatement=connection.prepareStatement("SELECT idIngenio, ST_X(coordenada), ST_Y(coordenada)," +
                     " Nombre, Arranque, Tarifa FROM INGENIO WHERE idIngenio=?;");
 
             preparedStatement.setInt(1,idIngenio);

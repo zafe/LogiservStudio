@@ -18,7 +18,7 @@ public class TipoLiquidacionRepository {
     public void save(int idCategoria, int idConceptoSueldo){
         try {
             connection= JDBCConnection.getInstanceConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO tipo_liquidacion values(?,?)");
+            preparedStatement = connection.prepareStatement("INSERT INTO TIPO_LIQUIDACION values(?,?)");
             preparedStatement.setInt(1,idCategoria);
             preparedStatement.setInt(2,idConceptoSueldo);
             preparedStatement.execute();
@@ -31,7 +31,7 @@ public class TipoLiquidacionRepository {
         try {
             connection= JDBCConnection.getInstanceConnection();
             preparedStatement=connection.prepareStatement("SELECT t.CATEGORIA_EMPLEADO_idCategoriaEmpleado, " +
-                    "c.NombreCategoria from tipo_liquidacion AS t, categoria_empleado AS c " +
+                    "c.NombreCategoria from TIPO_LIQUIDACION AS t, categoria_empleado AS c " +
                     "where CONCEPTO_SUELDO_idCodigoConcepto = ? AND c.idCategoriaEmpleado=t.CATEGORIA_EMPLEADO_idCategoriaEmpleado;");
             preparedStatement.setInt(1, idConceptoSueldo);
             resultSet = preparedStatement.executeQuery();
@@ -48,7 +48,7 @@ public class TipoLiquidacionRepository {
     public void delete(int idConceptoSueldo){
         try {
             connection = JDBCConnection.getInstanceConnection();
-            preparedStatement= connection.prepareStatement("DELETE FROM tipo_liquidacion WHERE CONCEPTO_SUELDO_idCodigoConcepto=?");
+            preparedStatement= connection.prepareStatement("DELETE FROM TIPO_LIQUIDACION WHERE CONCEPTO_SUELDO_idCodigoConcepto=?");
             preparedStatement.setInt(1,idConceptoSueldo);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

@@ -65,7 +65,7 @@ public class DetalleCompraRepository {
             connection= JDBCConnection.getInstanceConnection();
             preparedStatement=connection.prepareStatement("SELECT l.idCompraArticulo, " +
                     "l.Cantidad, l.PrecioUnitario, l.Articulo_idArticulo, a.Descripcion " +
-                    " from detalle_compra as l, articulo as a " +
+                    " from DETALLE_COMPRA as l, ARTICULO as a " +
                     " where FacturaCompraArticulo_idFacturaCompraArticulo=? AND l.Articulo_idArticulo=a.idArticulo;");
             preparedStatement.setInt(1,idFactura);
             resultSet = preparedStatement.executeQuery();

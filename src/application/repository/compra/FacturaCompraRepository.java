@@ -64,7 +64,7 @@ public class FacturaCompraRepository {
             connection = JDBCConnection.getInstanceConnection();
             preparedStatement=connection.prepareStatement(
                     "SELECT f.idFacturaCompraArticulo, f.Fecha, f.total, p.idPROVEEDOR, p.Nombre, p.cuit " +
-                    " from compra_articulo as f, proveedor as p " +
+                    " from COMPRA_ARTICULO as f, PROVEEDOR as p " +
                     " where f.proveedor_idproveedor=p.idPROVEEDOR");
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
@@ -87,7 +87,7 @@ public class FacturaCompraRepository {
         int lastIdFactura=0;
         try {
             connection = JDBCConnection.getInstanceConnection();
-            preparedStatement=connection.prepareStatement("SELECT MAX(idFacturaCompraArticulo) FROM compra_articulo;");
+            preparedStatement=connection.prepareStatement("SELECT MAX(idFacturaCompraArticulo) FROM COMPRA_ARTICULO;");
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next())
             lastIdFactura= resultSet.getInt(1);

@@ -21,7 +21,7 @@ public class OrigenDestinoRepository {
             connection= JDBCConnection.getInstanceConnection();
             preparedStatement=connection.prepareStatement("" +
                     " SELECT o.idOrigen_Destino, f.nombre, i.nombre, o.distanciakm " +
-                    "FROM origen_destino AS o, finca AS f, ingenio AS i " +
+                    "FROM ORIGEN_DESTINO AS o, FINCA AS f, INGENIO AS i " +
                     "WHERE o.FINCA_idFinca = f.idfinca AND o.INGENIO_idIngenio = i.idIngenio");
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
@@ -41,7 +41,7 @@ public class OrigenDestinoRepository {
     public void delete(int idOrigenDestino) {
         try{
            connection= JDBCConnection.getInstanceConnection();
-           preparedStatement= connection.prepareStatement("DELETE FROM origen_destino WHERE idOrigen_Destino=?");
+           preparedStatement= connection.prepareStatement("DELETE FROM ORIGEN_DESTINO WHERE idOrigen_Destino=?");
            preparedStatement.setInt(1,idOrigenDestino);
            preparedStatement.execute();
            }catch (SQLException ex){
@@ -51,11 +51,11 @@ public class OrigenDestinoRepository {
     public void save(OrigenDestino origenDestino) {
         connection= JDBCConnection.getInstanceConnection();
         try {
-            preparedStatement =connection.prepareStatement("INSERT INTO origen_destino " +
+            preparedStatement =connection.prepareStatement("INSERT INTO ORIGEN_DESTINO " +
             "(idOrigen_Destino, DistanciaKM, FINCA_idFinca, INGENIO_idIngenio) VALUES " +
             "(?,?," +
-            "(SELECT idFinca FROM finca WHERE nombre=?)," +
-            "(SELECT idIngenio FROM ingenio WHERE nombre=?));");
+            "(SELECT idFinca FROM FINCA WHERE nombre=?)," +
+            "(SELECT idIngenio FROM INGENIO WHERE nombre=?));");
             preparedStatement.setString(1, null);
             preparedStatement.setFloat(2, origenDestino.getDistanciaKM());
             preparedStatement.setString(3, origenDestino.getNombreFinca());
@@ -71,10 +71,10 @@ public class OrigenDestinoRepository {
     try {
         connection = JDBCConnection.getInstanceConnection();
         preparedStatement= connection.prepareStatement("" +
-        "UPDATE origen_destino " +
+        "UPDATE ORIGEN_DESTINO " +
         "set DistanciaKM=?, " +
-        "FINCA_idFinca=(SELECT idFinca from finca where nombre=?), " +
-        "INGENIO_idIngenio=(SELECT idIngenio from ingenio where nombre=?)" +
+        "FINCA_idFinca=(SELECT idFinca from FINCA where nombre=?), " +
+        "INGENIO_idIngenio=(SELECT idIngenio from INGENIO where nombre=?)" +
         "WHERE idOrigen_Destino=?");
         preparedStatement.setFloat(1,origenDestino.getDistanciaKM());
         preparedStatement.setString(2,origenDestino.getNombreFinca());
@@ -141,7 +141,7 @@ public class OrigenDestinoRepository {
             connection= JDBCConnection.getInstanceConnection();
             preparedStatement=connection.prepareStatement("" +
                     " SELECT o.idOrigen_Destino, f.nombre, i.nombre, o.distanciakm " +
-                    "FROM origen_destino AS o, finca AS f, ingenio AS i " +
+                    "FROM ORIGEN_DESTINO AS o, FINCA AS f, INGENIO AS i " +
                     "WHERE o.FINCA_idFinca = f.idfinca AND o.INGENIO_idIngenio = i.idIngenio AND i.idIngenio=?");
             preparedStatement.setInt(1, idIngenio);
             resultSet = preparedStatement.executeQuery();
@@ -165,7 +165,7 @@ public class OrigenDestinoRepository {
         try {
             connection= JDBCConnection.getInstanceConnection();
             preparedStatement=connection.prepareStatement("" +
-                    " SELECT FINCA_idFinca, INGENIO_idIngenio FROM origen_destino " +
+                    " SELECT FINCA_idFinca, INGENIO_idIngenio FROM ORIGEN_DESTINO " +
                     "WHERE FINCA_idFinca=? AND INGENIO_idIngenio =?");
             preparedStatement.setInt(1, idFinca);
             preparedStatement.setInt(2, idIngenio);

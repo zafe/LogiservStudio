@@ -66,7 +66,7 @@ public class FincaRepository {
         ObservableList<Finca> list = FXCollections.observableArrayList();
         try {
             connection= JDBCConnection.getInstanceConnection();
-            preparedStatement=connection.prepareStatement("SELECT idFinca,x(coordenada), y(coordenada),nombre FROM FINCA");
+            preparedStatement=connection.prepareStatement("SELECT idFinca,ST_X(coordenada), ST_Y(coordenada),nombre FROM FINCA");
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 Finca finca = new Finca();
@@ -85,7 +85,7 @@ public class FincaRepository {
                 ObservableList<String> list = FXCollections.observableArrayList();
                 try {
                         connection= JDBCConnection.getInstanceConnection();
-                        preparedStatement=connection.prepareStatement("SELECT nombre FROM finca");
+                        preparedStatement=connection.prepareStatement("SELECT nombre FROM FINCA");
                         resultSet = preparedStatement.executeQuery();
                         while (resultSet.next()){
                                 list.add(resultSet.getString(1));
@@ -100,7 +100,7 @@ public class FincaRepository {
         Finca finca = new Finca();
         try {
             connection= JDBCConnection.getInstanceConnection();
-            preparedStatement=connection.prepareStatement("SELECT idFinca,x(coordenada), y(coordenada),nombre FROM FINCA WHERE idFinca=?");
+            preparedStatement=connection.prepareStatement("SELECT idFinca,ST_X(coordenada), ST_Y(coordenada),nombre FROM FINCA WHERE idFinca=?");
             preparedStatement.setInt(1,idFinca);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){

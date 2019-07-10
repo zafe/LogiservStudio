@@ -30,7 +30,7 @@ public class OrganizacionRepository {
     public void save(Cliente cliente){
         try {
             connection = JDBCConnection.getInstanceConnection();
-            preparedStatement= connection.prepareStatement("INSERT INTO Cliente VALUES(?,?,?,LAST_INSERT_ID() )");
+            preparedStatement= connection.prepareStatement("INSERT INTO CLIENTE VALUES(?,?,?,LAST_INSERT_ID() )");
             preparedStatement.setString(1,null);
             preparedStatement.setString(2,cliente.getNombre());
             preparedStatement.setString(3,cliente.getCuit());
@@ -46,7 +46,7 @@ public class OrganizacionRepository {
     public void update(Organizacion organizacion){
         try {
             connection = JDBCConnection.getInstanceConnection();
-            preparedStatement=connection.prepareStatement("UPDATE Organizacion as p " +
+            preparedStatement=connection.prepareStatement("UPDATE ORGANIZACION as p " +
                     "    INNER JOIN DOMICILIO as d ON p.DOMICILIO_idDomicilio = idDomicilio " +
                     "    SET p.NOMBRE = ?, p.CUIT=?, p.APODERADO_idEmpleado=?, d.calle =?, d.numero=?, d.LOCALIDAD_idLocalidad=?" +
                     "    WHERE p.idORGANIZACION = ?");
@@ -68,7 +68,7 @@ public class OrganizacionRepository {
     public void delete(int idCliente){
         try {
             connection= JDBCConnection.getInstanceConnection();
-            preparedStatement=connection.prepareStatement("DELETE a1, a2 FROM CLIENTE AS a1 INNER JOIN domicilio AS a2\n" +
+            preparedStatement=connection.prepareStatement("DELETE a1, a2 FROM CLIENTE AS a1 INNER JOIN DOMICILIO AS a2\n" +
                     "WHERE a1.DOMICILIO_idDomicilio=a2.idDomicilio AND a1.idCliente=?");
             preparedStatement.setInt(1, idCliente);
             preparedStatement.executeUpdate();

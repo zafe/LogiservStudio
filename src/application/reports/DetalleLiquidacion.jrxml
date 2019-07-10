@@ -24,19 +24,19 @@
 	</queryString>
 	<field name="factor" class="java.lang.Double">
 		<property name="com.jaspersoft.studio.field.label" value="factor"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="detalle_liquidacion_empleado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="DETALLE_LIQUIDACION_EMPLEADO"/>
 	</field>
 	<field name="monto" class="java.lang.Double">
 		<property name="com.jaspersoft.studio.field.label" value="monto"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="detalle_liquidacion_empleado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="DETALLE_LIQUIDACION_EMPLEADO"/>
 	</field>
 	<field name="descripcion" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="descripcion"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="concepto_sueldo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="CONCEPTO_SUELDO"/>
 	</field>
 	<field name="tipo_concepto" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="tipo_concepto"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="concepto_sueldo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="CONCEPTO_SUELDO"/>
 	</field>
 	<background>
 		<band splitType="Stretch"/>

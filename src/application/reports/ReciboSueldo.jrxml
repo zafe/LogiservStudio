@@ -45,39 +45,39 @@
 	</field>
 	<field name="fecha_liquidacion" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.label" value="fecha_liquidacion"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="LIQUIDACION_EMPLEADO"/>
 	</field>
 	<field name="total_bruto" class="java.lang.Double">
 		<property name="com.jaspersoft.studio.field.label" value="total_bruto"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="LIQUIDACION_EMPLEADO"/>
 	</field>
 	<field name="neto" class="java.lang.Double">
 		<property name="com.jaspersoft.studio.field.label" value="neto"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="LIQUIDACION_EMPLEADO"/>
 	</field>
 	<field name="total_haberes_remunerativos" class="java.lang.Double">
 		<property name="com.jaspersoft.studio.field.label" value="total_haberes_remunerativos"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="LIQUIDACION_EMPLEADO"/>
 	</field>
 	<field name="total_haberes_no_remunerativos" class="java.lang.Double">
 		<property name="com.jaspersoft.studio.field.label" value="total_haberes_no_remunerativos"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="LIQUIDACION_EMPLEADO"/>
 	</field>
 	<field name="total_retenciones" class="java.lang.Double">
 		<property name="com.jaspersoft.studio.field.label" value="total_retenciones"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="LIQUIDACION_EMPLEADO"/>
 	</field>
 	<field name="inicio_periodo" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.label" value="inicio_periodo"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="LIQUIDACION_EMPLEADO"/>
 	</field>
 	<field name="fin_periodo" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.label" value="fin_periodo"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="LIQUIDACION_EMPLEADO"/>
 	</field>
 	<field name="idLiquidacionEmpleado" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="idLiquidacionEmpleado"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="liquidacion_empleado"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="LIQUIDACION_EMPLEADO"/>
 	</field>
 	<background>
 		<band splitType="Stretch"/>

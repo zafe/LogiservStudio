@@ -68,7 +68,7 @@
 	        ObservableList<Localidad> list = FXCollections.observableArrayList();
 	        try {
 	            connection= JDBCConnection.getInstanceConnection();
-	            preparedStatement=connection.prepareStatement("SELECT * FROM localidad inner join provincia WHERE PROVINCIA_idProvincia =? AND provincia_idprovincia=idprovincia;");
+	            preparedStatement=connection.prepareStatement("SELECT * FROM LOCALIDAD inner join PROVINCIA WHERE PROVINCIA_idProvincia =? AND provincia_idprovincia=idprovincia;");
 	            preparedStatement.setInt(1,idProvincia);
 	            resultSet = preparedStatement.executeQuery();
 	            while (resultSet.next()){

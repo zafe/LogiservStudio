@@ -21,7 +21,7 @@ public class ProveedorRepository {
     public void save(Proveedor proveedor){
         try {
             connection = JDBCConnection.getInstanceConnection();
-            preparedStatement= connection.prepareStatement("INSERT INTO proveedor VALUES(?,?,?,LAST_INSERT_ID() )");
+            preparedStatement= connection.prepareStatement("INSERT INTO PROVEEDOR VALUES(?,?,?,LAST_INSERT_ID() )");
             preparedStatement.setString(1,null);
             preparedStatement.setString(2,proveedor.getNombre());
             preparedStatement.setString(3,proveedor.getCuit());
@@ -58,7 +58,7 @@ public class ProveedorRepository {
     public void delete(Proveedor proveedor){
         try {
             connection= JDBCConnection.getInstanceConnection();
-            preparedStatement=connection.prepareStatement("DELETE a1, a2 FROM Proveedor AS a1 INNER JOIN domicilio AS a2\n" +
+            preparedStatement=connection.prepareStatement("DELETE a1, a2 FROM PROVEEDOR AS a1 INNER JOIN DOMICILIO AS a2\n" +
                     "WHERE a1.DOMICILIO_idDomicilio=a2.idDomicilio AND a1.idProveedor=?");
             preparedStatement.setInt(1,proveedor.getId());
             preparedStatement.executeUpdate();

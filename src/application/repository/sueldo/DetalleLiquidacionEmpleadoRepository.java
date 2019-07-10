@@ -18,7 +18,7 @@ public class DetalleLiquidacionEmpleadoRepository {
     public void save(DetalleLiquidacionEmpleado detalleLiquidacionEmpleado){
         try {
             connection = JDBCConnection.getInstanceConnection();
-            preparedStatement = connection.prepareStatement("INSERT INTO detalle_liquidacion_empleado" +
+            preparedStatement = connection.prepareStatement("INSERT INTO DETALLE_LIQUIDACION_EMPLEADO" +
                     "values(?,?,?,?,?)");
             preparedStatement.setString(1,null);
             preparedStatement.setDouble(2,detalleLiquidacionEmpleado.getCantidad());
@@ -37,7 +37,7 @@ public class DetalleLiquidacionEmpleadoRepository {
         try {
             connection= JDBCConnection.getInstanceConnection();
             preparedStatement = connection.prepareStatement("" +
-                    "UPDATE detalle_liquidacion_empleado" +
+                    "UPDATE DETALLE_LIQUIDACION_EMPLEADO" +
                     "   SET cantidad=?,  LiquidacionEmpleado_idLiquidacionEmpleado=?, " +
                     "CONCEPTO_SUELDO_idCodigoConcepto=?, monto=?" +
                     "   WHERE idDetalleLiquidacionEmpleado=?");
@@ -55,7 +55,7 @@ public class DetalleLiquidacionEmpleadoRepository {
     public void delete(DetalleLiquidacionEmpleado detalleLiquidacionEmpleado){
         try {
             connection = JDBCConnection.getInstanceConnection();
-            preparedStatement= connection.prepareStatement("DELETE FROM detalle_liquidacion_empleado WHERE idDetalleLiquidacionEmpleado=?");
+            preparedStatement= connection.prepareStatement("DELETE FROM DETALLE_LIQUIDACION_EMPLEADO WHERE idDetalleLiquidacionEmpleado=?");
             preparedStatement.setInt(1,detalleLiquidacionEmpleado.getIdDetalleLiquidacionEmpleado());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

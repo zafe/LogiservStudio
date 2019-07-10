@@ -68,7 +68,7 @@ public class ConceptoSueldoRepository {
         ObservableList<ConceptoSueldo> list = FXCollections.observableArrayList();
         try {
             connection= JDBCConnection.getInstanceConnection();
-            preparedStatement=connection.prepareStatement("SELECT * FROM concepto_Sueldo");
+            preparedStatement=connection.prepareStatement("SELECT * FROM CONCEPTO_SUELDO");
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 ConceptoSueldo conceptoSueldo = new ConceptoSueldo();
@@ -124,7 +124,7 @@ public class ConceptoSueldoRepository {
         int id=0;
         try {
             connection = JDBCConnection.getInstanceConnection();
-            preparedStatement= connection.prepareStatement("select max(idCodigoConcepto) from concepto_sueldo;");
+            preparedStatement= connection.prepareStatement("select max(idCodigoConcepto) from CONCEPTO_SUELDO;");
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next())
             id = resultSet.getInt(1);

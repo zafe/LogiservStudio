@@ -25,7 +25,7 @@ public class ClienteRepository {
     public void save(Cliente cliente){
         try {
             connection = JDBCConnection.getInstanceConnection();
-            preparedStatement= connection.prepareStatement("INSERT INTO Cliente VALUES(?,?,?,LAST_INSERT_ID() )");
+            preparedStatement= connection.prepareStatement("INSERT INTO CLIENTE VALUES(?,?,?,LAST_INSERT_ID() )");
             preparedStatement.setString(1,null);
             preparedStatement.setString(2,cliente.getNombre());
             preparedStatement.setString(3,cliente.getCuit());

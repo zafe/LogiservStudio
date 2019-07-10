@@ -122,7 +122,7 @@ public class EmpleadoRepository {
 			Connection connection= JDBCConnection.getInstanceConnection();
 			PreparedStatement preparedStatement=connection.prepareStatement("select idEmpleado, " +
 					"Apellido, Nombre " +
-					"from Empleado " +
+					"from EMPLEADO " +
 					"where CATEGORIA_EMPLEADO_idCategoriaEmpleado = ?" +
 					" AND FechaBaja IS null");
 			preparedStatement.setInt(1,idCategoria);
@@ -241,7 +241,7 @@ public class EmpleadoRepository {
 		try {
 			Connection connection= JDBCConnection.getInstanceConnection();
 			PreparedStatement preparedStatement=connection.prepareStatement("SELECT idEmpleado, Apellido, Nombre \n" +
-					"\t\tFROM Empleado INNER JOIN categoria_empleado \n" +
+					"\t\tFROM EMPLEADO INNER JOIN categoria_empleado \n" +
 					"\t\t\tON CATEGORIA_EMPLEADO_idCategoriaEmpleado = idCategoriaEmpleado\n" +
 					"\t\tWHERE nombreCategoria like 'con%'\n" +
 					"\t\t\tAND FechaBaja is null;");

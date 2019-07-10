@@ -118,7 +118,7 @@ public class FacturaVentaRepository {
 
 		try {
 			Connection con = JDBCConnection.getInstanceConnection();
-			PreparedStatement pS = con.prepareStatement("SELECT SUM(monto) FROM linea_viaje WHERE FACTURA_VENTA_idFACTURA_VENTA=?;");
+			PreparedStatement pS = con.prepareStatement("SELECT SUM(monto) FROM LINEA_VIAJE WHERE FACTURA_VENTA_idFACTURA_VENTA=?;");
 			pS.setInt(1, facturaVenta.getIdFacturaVenta());
 			ResultSet result = pS.executeQuery();
 			if (result.next()) facturaVenta.setMontoFactura(result.getDouble(1));

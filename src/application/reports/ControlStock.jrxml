@@ -4,32 +4,32 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="logiserv"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT articulo.`idArticulo`,
-	articulo.`Marca`,
-	articulo.`Modelo`,
-	articulo.`Descripcion`,
-	articulo.stock
-FROM articulo]]>
+		<![CDATA[SELECT ARTICULO.`idArticulo`,
+	ARTICULO.`Marca`,
+	ARTICULO.`Modelo`,
+	ARTICULO.`Descripcion`,
+	ARTICULO.stock
+FROM ARTICULO]]>
 	</queryString>
 	<field name="idArticulo" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="idArticulo"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="articulo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ARTICULO"/>
 	</field>
 	<field name="Marca" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="Marca"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="articulo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ARTICULO"/>
 	</field>
 	<field name="Modelo" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="Modelo"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="articulo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ARTICULO"/>
 	</field>
 	<field name="Descripcion" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="Descripcion"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="articulo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ARTICULO"/>
 	</field>
 	<field name="stock" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="stock"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="articulo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ARTICULO"/>
 	</field>
 	<title>
 		<band height="149">
