@@ -11,7 +11,7 @@ public class Proveedor {
 	private final IntegerProperty id;
 	private final StringProperty nombre;
 	private final StringProperty cuit;
-	private final Domicilio domicilio;
+	private Domicilio domicilio;
 
 	public Proveedor(){
 		this(0,  null, null, null);
@@ -62,6 +62,10 @@ public class Proveedor {
 
 	public Domicilio getDomicilio() {
 		return domicilio;
+	}
+
+	public void setDomicilio(Domicilio domicilio){
+		this.domicilio = domicilio;
 	}
 
 	@Override

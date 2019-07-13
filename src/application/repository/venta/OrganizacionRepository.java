@@ -89,7 +89,7 @@ public class OrganizacionRepository {
                 Organizacion organizacion = new Organizacion();
                 organizacion.setIdOrganizacion(resultSet.getInt("idORGANIZACION"));
                 organizacion.setNombreOrg(resultSet.getString("Nombre"));
-                Empleado apoderado = empleadoRepository.buscarEmpleadoById(resultSet.getInt("APODERADO_idEmpleado"));
+                Empleado apoderado = empleadoRepository.getEmpleadoById(resultSet.getInt("APODERADO_idEmpleado"));
                 organizacion.setApoderadoOrg(apoderado);
                 Domicilio domicilio = domicilioRepository.getDomicilioById(resultSet.getInt("DOMICILIO_idDomicilio"));
                 organizacion.setDomicilioOrg(domicilio);

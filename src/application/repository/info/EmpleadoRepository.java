@@ -13,6 +13,7 @@ public class EmpleadoRepository {
 	Connection connection;
 	PreparedStatement preparedStatement;
 	ResultSet resultSet;
+	DomicilioRepository domicilioRepository = new DomicilioRepository();
 
 	public ObservableList<Empleado> buscarEmpleados(){
 		ObservableList<Empleado> empleados = FXCollections.observableArrayList();
@@ -88,32 +89,6 @@ public class EmpleadoRepository {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public static Empleado buscarEmpleadoById(Integer id){
-
-		Empleado empleado = new Empleado();
-		Statement statement = null;
-		ResultSet resultSet = null;
-
-		try {
-			statement = JDBCConnection.getInstanceConnection().createStatement();
-			resultSet = statement.executeQuery("SELECT * FROM EMPLEADO e, CATEGORIA_EMPLEADO c, DOMICILIO d "
-					+ "WHERE e.CATEGORIA_EMPLEADO_idCategoriaEmpleado = c.idCategoriaEmpleado "
-					+ "AND e.DOMICILIO_idDomicilio = d.idDomicilio "
-					+ "AND e.idEmpleado="+id);
-			if(resultSet.next())
-			{
-				empleado.setNombre(resultSet.getString("Nombre"));
-				empleado.setApellido(resultSet.getString("Apellido"));
-			}
-
-		}catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return empleado;
 	}
 
 	public ObservableList<Empleado> getEmpleadosByCategoriaEmpleado(int idCategoria){
@@ -202,7 +177,7 @@ public class EmpleadoRepository {
 		try {
 			Connection connection= JDBCConnection.getInstanceConnection();
 			PreparedStatement preparedStatement =connection.prepareStatement("\tSELECT idEmpleado, CUIT, Nombre, Apellido, FechaNacimiento,\n" +
-					"\t\tCATEGORIA_EMPLEADO_idCategoriaEmpleado, NombreCategoria\n" +
+					"\t\tCATEGORIA_EMPLEADO_idCategoriaEmpleado, NombreCategoria, DOMICILIO_idDomicilio\n" +
 					"\t\t\t\t\t FROM EMPLEADO, CATEGORIA_EMPLEADO \n" +
 					"\t\t\t\t\t WHERE idEmpleado=? \n" +
 					"\t\t\t\t\t AND CATEGORIA_EMPLEADO_idCategoriaEmpleado = idCategoriaEmpleado");
@@ -215,6 +190,7 @@ public class EmpleadoRepository {
 				empleado.setApellido(resultSet.getString(4));
 				empleado.setNacimiento(resultSet.getString(5));
 				empleado.setCategoriaEmpleado(new CategoriaEmpleado(resultSet.getInt(6), resultSet.getString(7)));
+				empleado.setDomicilio(domicilioRepository.getDomicilioById(8));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -241,7 +217,7 @@ public class EmpleadoRepository {
 		try {
 			Connection connection= JDBCConnection.getInstanceConnection();
 			PreparedStatement preparedStatement=connection.prepareStatement("SELECT idEmpleado, Apellido, Nombre \n" +
-					"\t\tFROM EMPLEADO INNER JOIN categoria_empleado \n" +
+					"\t\tFROM EMPLEADO INNER JOIN CATEGORIA_EMPLEADO \n" +
 					"\t\t\tON CATEGORIA_EMPLEADO_idCategoriaEmpleado = idCategoriaEmpleado\n" +
 					"\t\tWHERE nombreCategoria like 'con%'\n" +
 					"\t\t\tAND FechaBaja is null;");

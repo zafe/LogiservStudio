@@ -383,6 +383,24 @@ public class PrincipalController {
 	        e.printStackTrace();
 	    }
 	}
+
+    @FXML
+    private void showCargaCombustibleOverview(){
+        try{
+            // Load category overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/calculo/CargarCombustible.fxml"));
+            AnchorPane anchorPane = loader.load();
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(anchorPane);
+            // Give the controller access to the main app.
+            CargarCombustibleController controller = loader.getController();
+            controller.setOwner(primaryStage);
+            controller.buscarCargaDeCombustible();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
 //---------------MODULO COMPRA------------------------//
 
 	@FXML

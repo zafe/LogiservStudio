@@ -5,6 +5,7 @@ import application.comunes.Alerta;
 import application.model.calculo.Acoplado;
 import application.repository.calculo.AcopladoRepository;
 import application.view.calculo.cruds.AcopladoEditController;
+import application.view.calculo.cruds.CargaCombustibleEditController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

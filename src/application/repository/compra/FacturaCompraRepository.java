@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import application.repository.compra.ProveedorRepository;
 
 public class FacturaCompraRepository {
     Connection connection;
@@ -97,6 +98,26 @@ public class FacturaCompraRepository {
             e.printStackTrace();
         }
         return lastIdFactura;
+    }
+
+    public FacturaCompra getFacturaCompraById(int idFacturaCompra){
+        FacturaCompra facturaCompra = new FacturaCompra();
+        ProveedorRepository proveedorRepository = new ProveedorRepository();
+        try {
+            connection = JDBCConnection.getInstanceConnection();
+            preparedStatement=connection.prepareStatement("SELECT Fecha, Total, PROVEEDOR_idPROVEEDOR FROM COMPRA_ARTICULO;");
+            resultSet = preparedStatement.executeQuery();
+            facturaCompra.setFecha(resultSet.getString("Fecha"));
+            facturaCompra.setTotal(resultSet.getDouble("Total"));
+            Proveedor proveedor = proveedorRepository.getProveedorById(resultSet.getInt("PROVEEDOR_idPROVEEDOR"));
+            facturaCompra.setProveedor(proveedor);
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return facturaCompra;
     }
 }
 

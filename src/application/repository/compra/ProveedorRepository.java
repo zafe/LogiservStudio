@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import application.repository.info.DomicilioRepository;
 
 public class ProveedorRepository {
     Connection connection;
@@ -95,5 +96,28 @@ public class ProveedorRepository {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public Proveedor getProveedorById(int idProveedor){
+
+        Proveedor proveedor = new Proveedor();
+        DomicilioRepository domicilioRepository = new DomicilioRepository();
+
+        try {
+            connection= JDBCConnection.getInstanceConnection();
+            preparedStatement=connection.prepareStatement("SELECT idPROVEEDOR, Nombre, CUIT, DOMICILIO_idDomicilio FROM PROVEEDOR WHERE idPROVEEDOR = ?;");
+            preparedStatement.setInt(1,idProveedor);
+            resultSet = preparedStatement.executeQuery();
+            proveedor.setId(resultSet.getInt("IdPROVEEDOR"));
+            proveedor.setNombre(resultSet.getString("Nombre"));
+            proveedor.setCuit(resultSet.getString("CUIT"));
+            Domicilio domicilio = domicilioRepository.getDomicilioById(resultSet.getInt("DOMICILIO_idDomicilio"));
+            proveedor.setDomicilio(domicilio);
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+        return proveedor;
     }
 }

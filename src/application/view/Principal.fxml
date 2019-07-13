@@ -105,6 +105,7 @@
                                     <Button mnemonicParsing="false" onAction="#showFincasOverview" prefHeight="25.0" prefWidth="202.0" text="Finca" />
                                     <Button mnemonicParsing="false" onAction="#showIngeniosOverview" prefHeight="25.0" prefWidth="202.0" text="Ingenio" />
                                     <Button mnemonicParsing="false" onAction="#showDistanciasOverview" prefHeight="25.0" prefWidth="202.0" text="Distancias" />
+                                    <Button mnemonicParsing="false" onAction="#showCargaCombustibleOverview" prefHeight="27.0" prefWidth="200.0" text="Cargar Combustible" />
                                  </children>
                               </VBox>
                            </children></AnchorPane>
