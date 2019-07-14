@@ -29,33 +29,18 @@ public class CargaCombustibleRepository {
 	CamionRepository camionRepository = new CamionRepository();
 	FacturaCompraRepository facturaCompraRepository = new FacturaCompraRepository();
 
-	public void save(CargaCombustible cargaCombustible, int idConductor, int idCamion, int idFacturaCompra) {
+	public void save(CargaCombustible cargaCombustible) {
 		try {
 			connection = JDBCConnection.getInstanceConnection();
 			preparedStatement = connection.prepareStatement("INSERT INTO CARGA_COMBUSTIBLE (FechaCarga, HoraCarga, CantidadLitros, EMPLEADO_idEmpleado,CAMION_idCamion"
 					+ ", COMPRA_ARTICULO_idFacturaCompraArticulo)"
 					+ " values(?,?,?,?,?,?)");
-			try {
-				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-				preparedStatement.setDate(1, (java.sql.Date) dateFormat.parse(cargaCombustible.getFechaCarga()));
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			try {
-				DateFormat formatter = new SimpleDateFormat("HH:mm");
-				java.sql.Time horaEntrada;
-				horaEntrada = new java.sql.Time(formatter.parse(cargaCombustible.getHoraCarga()).getTime());
-				preparedStatement.setTime(2, horaEntrada);
-
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			preparedStatement.setDouble(3, cargaCombustible.getCantidadLitros());
-			preparedStatement.setDouble(4, idConductor);
-			preparedStatement.setInt(5, idCamion);
-			preparedStatement.setInt(6, idFacturaCompra);
+			preparedStatement.setString(1,cargaCombustible.getFechaCarga());
+			preparedStatement.setString(2,cargaCombustible.getHoraCarga());
+			preparedStatement.setDouble(3,cargaCombustible.getCantidadLitros());
+			preparedStatement.setInt(4,cargaCombustible.getConductor().getIdEmpleado());
+			preparedStatement.setInt(5,cargaCombustible.getCamion().getId());
+			preparedStatement.setInt(6,1);//TODO AHORA MODIFICAR HARDCODEO
 			preparedStatement.executeUpdate();
 			preparedStatement.close();
 			String cuerpoMsj = "Carga de Combustible " + cargaCombustible.getIdCargaCombustible() + " agregada correctamente.\n";
@@ -68,33 +53,18 @@ public class CargaCombustibleRepository {
 	}
 
 
-	public void update(CargaCombustible cargaCombustible, int idEmpleado, int idCamion, int idFacturaCompra) {
+	public void update(CargaCombustible cargaCombustible) {
 		try {
 			connection = JDBCConnection.getInstanceConnection();
 			preparedStatement = connection.prepareStatement("UPDATE CARGA_COMBUSTIBLE SET FechaCarga=?, HoraCarga=?, CantidadLitros=?, EMPLEADO_idEmpleado=?,CAMION_idCamion"
 					+ "=?, COMPRA_ARTICULO_idFacturaCompraArticulo=?"
 					+ "WHERE idCARGA_COMBUSTIBLE=?");
-			try {
-				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-				preparedStatement.setDate(1, (java.sql.Date) dateFormat.parse(cargaCombustible.getFechaCarga()));
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			try {
-				DateFormat formatter = new SimpleDateFormat("HH:mm");
-				java.sql.Time horaEntrada;
-				horaEntrada = new java.sql.Time(formatter.parse(cargaCombustible.getHoraCarga()).getTime());
-				preparedStatement.setTime(2, horaEntrada);
-
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			preparedStatement.setString(1, cargaCombustible.getFechaCarga());
+			preparedStatement.setString(2, cargaCombustible.getHoraCarga());
 			preparedStatement.setDouble(3, cargaCombustible.getCantidadLitros());
-			preparedStatement.setDouble(4, idEmpleado);
-			preparedStatement.setInt(5, idCamion);
-			preparedStatement.setInt(6, idFacturaCompra);
+			preparedStatement.setDouble(4, cargaCombustible.getConductor().getIdEmpleado());
+			preparedStatement.setInt(5, cargaCombustible.getCamion().getId());
+			preparedStatement.setInt(6, 1);//TODO AHORA cambiar este hardcode
 			preparedStatement.close();
 			String headerMsj = "Actualización: Carga de combustible actualizada";
 			String cuerpoMsj = "Carga de combustible: " + cargaCombustible.getIdCargaCombustible() + " modificada correctamente.";

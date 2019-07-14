@@ -41,6 +41,8 @@ public class ViajeRepository {
 					+ "Origen_Destino_idOrigen_Destino, Empleado_idEmpleado, CAMION_idCamion, FACTURA_VENTA_idFACTURA_VENTA)"
 					+ " values(?,?,?,?,?,?,?,?)");
 			try {
+				System.out.println("\nFECHA VIAJE: " + viaje.getFecha());
+
 				SimpleDateFormat dateFormat  = new SimpleDateFormat("dd/MM/yyyy");
 				preparedStatement.setDate(1, (java.sql.Date) dateFormat.parse(viaje.getFecha()));
 			} catch (ParseException e) {

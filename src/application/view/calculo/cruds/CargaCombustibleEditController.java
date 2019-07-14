@@ -8,14 +8,11 @@ import application.model.calculo.Camion;
 import application.repository.calculo.CamionRepository;
 import application.repository.calculo.CargaCombustibleRepository;
 import application.repository.info.EmpleadoRepository;
-import application.view.info.cruds.EmpleadoEditDialogController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import application.repository.calculo.CargaCombustibleRepository;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -24,8 +21,6 @@ public class CargaCombustibleEditController {
 
     @FXML
     private DatePicker fechaDatePicker;
-    @FXML
-    private TextField horaTextField;
     @FXML
     private TextField litrosTextField;
     @FXML
@@ -50,7 +45,7 @@ public class CargaCombustibleEditController {
     private boolean isNew;
     private CargaCombustible cargaCombustible;
     private boolean okClicked = false;
-    private CargaCombustibleRepository repository = new CargaCombustibleRepository();
+    private CargaCombustibleRepository cargaCombustibleRepository = new CargaCombustibleRepository();
     private CamionRepository camionRepository = new CamionRepository();
 
     private ObservableList<Empleado> conductorData = FXCollections.observableArrayList();
@@ -65,6 +60,7 @@ public class CargaCombustibleEditController {
     }
     @FXML
     private	void initialize(){
+        setHoraCombo(); setMinutosCombo();
         setConductorComboBox();
         setCamionComboBox();
     }
@@ -72,13 +68,26 @@ public class CargaCombustibleEditController {
     @FXML
     public void handleOk(){
         if (isInputValid()){
-            cargaCombustible.setFechaCarga(fechaDatePicker.toString());
-            cargaCombustible.setHoraCarga(horaTextField.getText());
+            //Set Fecha de carga de combustible
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+            cargaCombustible.setFechaCarga(fechaDatePicker.getValue().format(formatter));
+
+            //Set hora de carga
+            cargaCombustible.setHoraCarga(horaCombo.getSelectionModel().getSelectedItem().concat(":").
+                    concat(minutosCombo.getSelectionModel().getSelectedItem()));
+
             cargaCombustible.setCantidadLitros(Double.parseDouble(litrosTextField.getText()));
+
+            //Set Conductor
+            cargaCombustible.setConductor(conductoresList.get(conductorComboBox.getSelectionModel().getSelectedIndex()));
+
+            //Set Camion
+            cargaCombustible.setCamion(camionList.get(camionComboBox.getSelectionModel().getSelectedIndex()));
+
             if (isNew){
-                //todo repository.save(cargaCombustible);
+                cargaCombustibleRepository.save(cargaCombustible);
             }else {
-                //todo repository.update(cargaCombustible);
+                cargaCombustibleRepository.update(cargaCombustible);
             }
             okClicked=true;
             dialogStage.close();
@@ -96,12 +105,11 @@ public class CargaCombustibleEditController {
 
     public void setCargaCombustible(CargaCombustible cargaCombustible){
         this.cargaCombustible = cargaCombustible;
-        if (!isNew){
-            //todo fechaDatePicker.setd;
-            horaTextField.setText(cargaCombustible.getHoraCarga());
-            litrosTextField.setText(String.valueOf(cargaCombustible.getCantidadLitros()));
-            //todo camionComboBox.setText
-        }
+        String s = (cargaCombustible.getHoraCarga() != null ? cargaCombustible.getHoraCarga() : "00:00");
+        String[] tokens = s.split(":");
+        horaCombo.getSelectionModel().select(tokens[0]);//todo hardcodeado
+        minutosCombo.getSelectionModel().select(tokens[1]);//todo harcodeado
+        litrosTextField.setText(String.valueOf(cargaCombustible.getCantidadLitros()));
 
         if (cargaCombustible.getFechaCarga() != null){
 
@@ -139,11 +147,20 @@ public class CargaCombustibleEditController {
     private boolean isInputValid() {
         String errorMessage = "";
 
-        if (horaTextField.getText() == null || horaTextField.getText().length() == 0) {
-            errorMessage += "Marca no Ingresada\n";
+        if (horaCombo.getSelectionModel().isEmpty()) {
+            errorMessage += "Hora no seleccionada\n";
+        }
+        if (minutosCombo.getSelectionModel().isEmpty()){
+            errorMessage += "Minutos no seleccionados\n";
+        }
+        if (conductorComboBox.getSelectionModel().isEmpty()){
+            errorMessage += "Conductor no seleccionado\n";
+        }
+        if (camionComboBox.getSelectionModel().isEmpty()){
+            errorMessage += "Camion no seleccionado\n";
         }
         if (litrosTextField.getText() == null || litrosTextField.getText().length() == 0) {
-            errorMessage += "Patente no Ingresado correctamente (6 digitos).\n";
+            errorMessage += "Cantidad de litros cargados no ingresado correctamente.\n";
         }
         if (errorMessage.length() == 0) {
             return true;
@@ -166,5 +183,18 @@ public class CargaCombustibleEditController {
         camionComboBox.setItems(camionList);
     }
 
+    public void setHoraCombo(){
+        ObservableList<String> horaList = FXCollections.observableArrayList();
+        for(int i = 0; i < 24 ; i++)
+            horaList.add( i < 10 ? "0"+i : ""+i);
+        horaCombo.setItems(horaList);
+    }
+
+    public void setMinutosCombo(){
+        ObservableList<String> minutosList = FXCollections.observableArrayList();
+        for(int i = 0; i < 60 ; i++)
+            minutosList.add( i < 10 ? "0"+i : ""+i);
+        minutosCombo.setItems(minutosList);
+    }
 
 }
